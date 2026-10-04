@@ -29,17 +29,18 @@ class CompassScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ToolFrame(
-      title: 'Compass',
-      onBack: onBack,
-      trailing: const HelpButton(help: _help),
-      body: ListenableBuilder(
-        listenable: viewModel,
-        builder: (context, _) {
-          final state = viewModel.state;
-          final heading = state == null ? 0 : state.heading.round() % 360;
-          return SensorGate(
-            reading: viewModel.reading,
+    return ListenableBuilder(
+      listenable: viewModel,
+      builder: (context, _) {
+        final state = viewModel.state;
+        final heading = state == null ? 0 : state.heading.round() % 360;
+        final reading = viewModel.reading;
+        return ToolFrame(
+          title: 'Compass',
+          onBack: onBack,
+          trailing: const HelpButton(help: _help),
+          body: SensorGate(
+            reading: reading,
             needsMagnetometer: true,
             child: state == null
                 ? const SizedBox.shrink()
@@ -53,9 +54,17 @@ class CompassScreen extends StatelessWidget {
                     ballAngle: state.heading,
                     reserved: 200,
                   ),
-          );
-        },
-      ),
+          ),
+          // Only when needed: a field far from the Earth's means metal or
+          // a magnet nearby, and the heading can't be trusted.
+          footer: state == null || reading.magneticReliable
+              ? null
+              : const StatusBanner(
+                  icon: Icons.warning_amber_rounded,
+                  text: 'Magnetic interference · move away from metal',
+                ),
+        );
+      },
     );
   }
 }
