@@ -5,6 +5,7 @@ import 'data/repositories/orientation_repository.dart';
 import 'data/repositories/settings_repository.dart';
 import 'data/services/motion_sensor_service.dart';
 import 'data/services/sensor_availability_service.dart';
+import 'data/services/sound_service.dart';
 import 'ui/core/theme.dart';
 import 'ui/home/home_shell.dart';
 
@@ -20,6 +21,7 @@ Future<void> main() async {
       settings: settings,
       orientation: OrientationRepository(),
       missingSensors: missingSensors,
+      sound: AudioSoundService(),
     ),
   );
 }
@@ -31,6 +33,7 @@ class BubbleLevelApp extends StatefulWidget {
     required this.orientation,
     this.sensors = const MotionSensorService(),
     this.missingSensors = const {},
+    this.sound = const SilentSoundService(),
   });
 
   final SettingsRepository settings;
@@ -38,6 +41,9 @@ class BubbleLevelApp extends StatefulWidget {
 
   /// Sensors this device lacks; their tools are shown as unavailable.
   final Set<SensorKind> missingSensors;
+
+  /// The level chime and metal detector beep (silent in tests).
+  final SoundService sound;
 
   /// Sensors for the vibration meter and altimeter (fakes in tests).
   final MotionSensorService sensors;
@@ -70,6 +76,7 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         settings: widget.settings,
         sensors: widget.sensors,
         missingSensors: widget.missingSensors,
+        sound: widget.sound,
       ),
     );
   }

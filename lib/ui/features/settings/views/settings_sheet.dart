@@ -107,21 +107,18 @@ class _SettingsBody extends StatelessWidget {
                   const SizedBox(height: 16),
                   Divider(height: 1, color: p.ink.withValues(alpha: 0.08)),
                   const SizedBox(height: 16),
-                  // The whole row toggles, as with platform switches.
-                  MergeSemantics(
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => settings.setHaptics(!settings.haptics),
-                      child: Row(
-                        children: [
-                          const Expanded(child: _Label('Vibrate when level')),
-                          _BallSwitch(
-                            value: settings.haptics,
-                            onChanged: settings.setHaptics,
-                          ),
-                        ],
-                      ),
-                    ),
+                  _ToggleRow(
+                    label: 'Vibrate when level',
+                    value: settings.haptics,
+                    onChanged: settings.setHaptics,
+                  ),
+                  const SizedBox(height: 16),
+                  Divider(height: 1, color: p.ink.withValues(alpha: 0.08)),
+                  const SizedBox(height: 16),
+                  _ToggleRow(
+                    label: 'Sounds',
+                    value: settings.sounds,
+                    onChanged: settings.setSounds,
                   ),
                 ],
               ),
@@ -403,4 +400,32 @@ class _ResetCard extends StatelessWidget {
       ),
     );
   }
+}
+
+/// A label and a ball switch; the whole row toggles, as with platform
+/// switches.
+class _ToggleRow extends StatelessWidget {
+  const _ToggleRow({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String label;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) => MergeSemantics(
+    child: GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => onChanged(!value),
+      child: Row(
+        children: [
+          Expanded(child: _Label(label)),
+          _BallSwitch(value: value, onChanged: onChanged),
+        ],
+      ),
+    ),
+  );
 }

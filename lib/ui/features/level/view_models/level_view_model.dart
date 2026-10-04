@@ -59,6 +59,7 @@ class LevelViewModel extends SensorViewModel {
     required OrientationRepository orientation,
     required this._settings,
     required this._onLevelReached,
+    this._onChime = _silent,
   }) : super(orientation) {
     _settings.addListener(_onSettingsChanged);
   }
@@ -81,6 +82,11 @@ class LevelViewModel extends SensorViewModel {
 
   final SettingsRepository _settings;
   final void Function() _onLevelReached;
+
+  /// Plays the "level" chime.
+  final void Function() _onChime;
+
+  static void _silent() {}
 
   LevelMode _mode = LevelMode.flat;
   int _quadrant = 0;
@@ -113,7 +119,11 @@ class LevelViewModel extends SensorViewModel {
   void update() {
     if (!_held) _state = _compute();
     final level = _state?.isLevel ?? false;
-    if (level && !_wasLevel && !_held && _settings.haptics) _onLevelReached();
+    // Once per arrival at level (with hysteresis), never while held.
+    if (level && !_wasLevel && !_held) {
+      if (_settings.haptics) _onLevelReached();
+      if (_settings.sounds) _onChime();
+    }
     _wasLevel = level;
     notifyListeners();
   }

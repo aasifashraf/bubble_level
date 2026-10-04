@@ -19,6 +19,7 @@ class SettingsRepository extends ChangeNotifier {
     : _flatRef = _readVec(_prefs) ?? Vec3.up,
       _edgeOffset = _prefs.getDouble(_kEdgeOffset) ?? 0,
       _haptics = _prefs.getBool(_kHaptics) ?? true,
+      _sounds = _prefs.getBool(_kSounds) ?? true,
       _unit =
           AngleUnit.values.asNameMap()[_prefs.getString(_kUnit)] ??
           AngleUnit.degrees,
@@ -38,6 +39,7 @@ class SettingsRepository extends ChangeNotifier {
   static const _kFlatRef = 'flatRef';
   static const _kEdgeOffset = 'edgeOffset';
   static const _kHaptics = 'haptics';
+  static const _kSounds = 'sounds';
   static const _kUnit = 'unit';
   static const _kThemeMode = 'themeMode';
   static const _kHomeLayout = 'homeLayout';
@@ -47,6 +49,7 @@ class SettingsRepository extends ChangeNotifier {
   Vec3 _flatRef;
   double _edgeOffset;
   bool _haptics;
+  bool _sounds;
   AngleUnit _unit;
   ThemeMode _themeMode;
   HomeLayout _homeLayout;
@@ -58,6 +61,9 @@ class SettingsRepository extends ChangeNotifier {
   /// Edge-mode deviation measured on a known-level surface.
   double get edgeOffset => _edgeOffset;
   bool get haptics => _haptics;
+
+  /// The level chime and the metal detector's beep.
+  bool get sounds => _sounds;
   AngleUnit get unit => _unit;
 
   /// Follow the system, or force light / dark.
@@ -104,6 +110,12 @@ class SettingsRepository extends ChangeNotifier {
     _haptics = v;
     notifyListeners();
     await _prefs.setBool(_kHaptics, v);
+  }
+
+  Future<void> setSounds(bool v) async {
+    _sounds = v;
+    notifyListeners();
+    await _prefs.setBool(_kSounds, v);
   }
 
   Future<void> setUnit(AngleUnit v) async {

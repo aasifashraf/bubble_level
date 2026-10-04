@@ -27,9 +27,11 @@ class LevelScreen extends StatelessWidget {
     tool: 'Level',
     steps: [
       'Lay the phone flat on the surface, or stand it on one of its edges.',
-      'Flat: centre the bubble. X is left/right tilt, Y is forward/back tilt. On an edge, the line shows the angle and slope.',
-      'Follow the hint under the dial (for example “Right side high”) until it reads level. The centre turns orange, and the phone buzzes if vibration is on.',
+      'Flat: centre the bubble. X is left/right tilt, Y is forward/back tilt. On an edge, you see the angle and slope.',
+      'Follow the hint on screen (for example “Right side high”) until it reads level: it turns orange and the phone chimes and buzzes (turn these off in Settings).',
       'Tap Hold to freeze the reading, and Release to go live again.',
+      'Prefer a classic spirit level? Tap the tube icon in the switch; '
+          'the round icon brings the dial back.',
     ],
     tip: 'If a surface you know is level doesn’t read 0°, put the phone on it and tap Calibrate. You can undo this in Settings.',
   );

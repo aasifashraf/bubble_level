@@ -20,7 +20,7 @@ class MetalScreen extends StatelessWidget {
     tool: 'Metal detector',
     steps: [
       'Open the tool away from metal. That first reading counts as “no metal”.',
-      'Move the phone slowly over the area. The sensor is usually near the top of the phone.',
+      'Move the phone slowly over the area. The sensor is usually near the top of the phone. It beeps faster the closer you get to metal; tap the speaker to mute.',
       '“Metal nearby” means a small change. “Metal detected” means a strong one: the centre turns orange and the phone buzzes if vibration is on.',
       'If it shows metal with nothing there, move away from metal and tap Set baseline.',
     ],
@@ -103,12 +103,47 @@ class MetalScreen extends StatelessWidget {
           style: TextStyle(fontSize: 12, color: Palette.of(context).label),
         ),
         const SizedBox(height: 14),
-        SoftButton(
-          label: 'Set baseline',
-          icon: Icons.my_location_rounded,
-          onPressed: viewModel.setBaseline,
+        Row(
+          spacing: 14,
+          children: [
+            Expanded(
+              child: SoftButton(
+                label: 'Set baseline',
+                icon: Icons.my_location_rounded,
+                onPressed: viewModel.setBaseline,
+              ),
+            ),
+            _SoundButton(on: viewModel.soundOn, onTap: viewModel.toggleSound),
+          ],
         ),
       ],
+    );
+  }
+}
+
+/// Round soft button that mutes or unmutes the beep (the app-wide Sounds
+/// setting, also in Settings).
+class _SoundButton extends StatelessWidget {
+  const _SoundButton({required this.on, required this.onTap});
+
+  final bool on;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: softSurface(p, radius: BorderRadius.circular(25)),
+      child: IconButton(
+        tooltip: on ? 'Mute sound' : 'Turn sound on',
+        onPressed: onTap,
+        icon: Icon(
+          on ? Icons.volume_up_rounded : Icons.volume_off_rounded,
+          color: on ? p.ink : p.label,
+        ),
+      ),
     );
   }
 }

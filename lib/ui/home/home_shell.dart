@@ -9,6 +9,7 @@ import '../../data/repositories/settings_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
 import '../../data/services/motion_sensor_service.dart';
 import '../../data/services/sensor_availability_service.dart';
+import '../../data/services/sound_service.dart';
 import '../core/dial.dart';
 import '../core/help.dart';
 import '../core/soft_switch.dart';
@@ -50,6 +51,7 @@ class HomeShell extends StatefulWidget {
     required this.settings,
     this.sensors = const MotionSensorService(),
     this.missingSensors = const {},
+    this.sound = const SilentSoundService(),
   });
 
   final OrientationRepository orientation;
@@ -58,6 +60,9 @@ class HomeShell extends StatefulWidget {
   /// Sensors this device lacks; tools that need them are shown as
   /// unavailable and explain why instead of opening.
   final Set<SensorKind> missingSensors;
+
+  /// The level chime and metal detector beep.
+  final SoundService sound;
 
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
@@ -71,6 +76,7 @@ class _HomeShellState extends State<HomeShell> {
     orientation: widget.orientation,
     settings: widget.settings,
     onLevelReached: HapticFeedback.selectionClick,
+    onChime: widget.sound.chime,
   );
   late final _angle = AngleViewModel(
     orientation: widget.orientation,
@@ -82,6 +88,7 @@ class _HomeShellState extends State<HomeShell> {
     orientation: widget.orientation,
     settings: widget.settings,
     onDetected: HapticFeedback.heavyImpact,
+    onTick: widget.sound.tick,
   );
   late final _vibrationRepo = VibrationRepository(sensors: widget.sensors);
   late final _vibration = VibrationViewModel(repository: _vibrationRepo);
