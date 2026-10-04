@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
+import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/main.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ void main() {
     WidgetTester tester, {
     Size size = const Size(411, 860),
     Map<String, Object> prefs = const {},
+    Set<SensorKind> missing = const {},
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -43,6 +45,7 @@ void main() {
           display: FakeDisplayRotationService(),
         ),
         sensors: sensors,
+        missingSensors: missing,
       ),
     );
   }
@@ -314,6 +317,7 @@ void main() {
   for (final (name, size) in [
     ('small phone', const Size(320, 568)),
     ('tablet landscape', const Size(1200, 800)),
+    ('phone landscape', const Size(860, 411)),
   ]) {
     testWidgets('no overflow on a $name with large text', (tester) async {
       tester.platformDispatcher.textScaleFactorTestValue = 1.6;
@@ -418,5 +422,101 @@ void main() {
     await tester.pump();
     await tester.pump();
     expect(find.textContaining('no barometer'), findsOneWidget);
+  });
+
+  testWidgets('home marks tools this phone can’t run and explains why', (
+    tester,
+  ) async {
+    await pumpApp(tester, missing: {SensorKind.barometer});
+    await tester.ensureVisible(find.text('Altimeter'));
+    await tester.pumpAndSettle();
+    expect(find.text('Not available on this phone'), findsOneWidget);
+
+    await tester.tap(find.text('Altimeter'));
+    await tester.pumpAndSettle();
+    expect(find.text('Altimeter isn’t available'), findsOneWidget);
+    expect(find.textContaining('needs a barometer'), findsOneWidget);
+    // The tool itself didn't open.
+    expect(find.text('Set zero here'), findsNothing);
+    await tester.ensureVisible(find.text('OK'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
+
+    // Tools that don't need it still open.
+    await openTool(tester, 'Level');
+    expect(find.byTooltip('Back'), findsOneWidget);
+  });
+
+  testWidgets('grid view also marks unavailable tools', (tester) async {
+    await pumpApp(
+      tester,
+      prefs: {'homeLayout': 'grid'},
+      missing: {SensorKind.magnetometer},
+    );
+    // Compass and metal detector both need the magnetometer.
+    expect(find.text('Not on this phone'), findsNWidgets(2));
+  });
+
+  testWidgets('a sensor that never reports gets a clear message', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Compass');
+    await send(tester, Vec3.up); // accelerometer works, compass sensor silent
+    expect(find.text('Waiting for sensors…'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 5));
+    expect(find.textContaining('No readings from the sensor'), findsOneWidget);
+  });
+
+  testWidgets('compass warns about magnetic interference', (tester) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Compass');
+    final pose = devicePose(heading: 90, pitch: 0);
+    sensors
+      ..sendUp(pose.up)
+      ..sendMagnet(pose.field);
+    await tester.pump();
+    await send(tester, pose.up);
+    expect(find.textContaining('Magnetic interference'), findsNothing);
+
+    // A magnet next to the phone: far stronger than the Earth's field.
+    for (var i = 0; i < 30; i++) {
+      sensors.sendMagnet(pose.field * 4);
+      await send(tester, pose.up);
+    }
+    expect(find.textContaining('Magnetic interference'), findsOneWidget);
+  });
+
+  testWidgets('phone landscape: readings sit beside the dial', (tester) async {
+    await pumpApp(tester, size: const Size(860, 411));
+    await openTool(tester, 'Level');
+    await send(tester, const Vec3(0, 1, 0.02));
+    final dial = tester.getRect(find.bySemanticsLabel(RegExp('level')));
+    final hold = tester.getRect(find.text('Hold'));
+    expect(hold.left, greaterThan(430), reason: 'footer on the right');
+    expect(dial.right, lessThanOrEqualTo(hold.left));
+    // The header title is the topmost "Level" (the status line also says it).
+    final title = tester
+        .widgetList<Text>(find.text('Level'))
+        .map((t) => tester.getRect(find.byWidget(t)))
+        .reduce((a, b) => a.top < b.top ? a : b);
+    expect(dial.top, greaterThanOrEqualTo(title.bottom));
+  });
+
+  testWidgets('sheets fit phone landscape with large text', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 1.6;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await pumpApp(tester, size: const Size(860, 411));
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull, reason: 'settings');
+    tester.state<NavigatorState>(find.byType(Navigator).first).pop();
+    await tester.pumpAndSettle();
+
+    await openTool(tester, 'Vibration');
+    await tester.tap(find.byTooltip('How to use'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull, reason: 'help');
   });
 }
