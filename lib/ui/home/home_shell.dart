@@ -3,21 +3,32 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../data/repositories/barometer_repository.dart';
 import '../../data/repositories/orientation_repository.dart';
 import '../../data/repositories/settings_repository.dart';
+import '../../data/repositories/vibration_repository.dart';
+import '../../data/services/motion_sensor_service.dart';
 import '../core/dial.dart';
 import '../core/sensor_view_model.dart';
 import '../core/theme.dart';
 import '../core/tool_frame.dart';
+import '../features/altimeter/view_models/altimeter_view_model.dart';
+import '../features/altimeter/views/altimeter_screen.dart';
 import '../features/angle/view_models/angle_view_model.dart';
 import '../features/angle/views/angle_screen.dart';
 import '../features/compass/view_models/compass_view_model.dart';
 import '../features/compass/views/compass_screen.dart';
 import '../features/level/view_models/level_view_model.dart';
 import '../features/level/views/level_screen.dart';
+import '../features/metal/view_models/metal_view_model.dart';
+import '../features/metal/views/metal_screen.dart';
+import '../features/protractor/view_models/protractor_view_model.dart';
+import '../features/protractor/views/protractor_screen.dart';
+import '../features/vibration/view_models/vibration_view_model.dart';
+import '../features/vibration/views/vibration_screen.dart';
 import '../features/settings/views/settings_sheet.dart';
 
-enum _Tool { level, angle, compass }
+enum _Tool { level, angle, compass, protractor, metal, vibration, altimeter }
 
 /// Home: the tools as a list (default) or a grid of soft round buttons in
 /// the dial's material. Each opens full screen with the back tab; only the
@@ -27,10 +38,14 @@ class HomeShell extends StatefulWidget {
     super.key,
     required this.orientation,
     required this.settings,
+    this.sensors = const MotionSensorService(),
   });
 
   final OrientationRepository orientation;
   final SettingsRepository settings;
+
+  /// Feeds the vibration and pressure sensors (orientation has its own).
+  final MotionSensorService sensors;
 
   @override
   State<HomeShell> createState() => _HomeShellState();
@@ -47,19 +62,36 @@ class _HomeShellState extends State<HomeShell> {
     settings: widget.settings,
   );
   late final _compass = CompassViewModel(orientation: widget.orientation);
+  late final _protractor = ProtractorViewModel();
+  late final _metal = MetalViewModel(
+    orientation: widget.orientation,
+    settings: widget.settings,
+    onDetected: HapticFeedback.heavyImpact,
+  );
+  late final _vibrationRepo = VibrationRepository(sensors: widget.sensors);
+  late final _vibration = VibrationViewModel(repository: _vibrationRepo);
+  late final _barometerRepo = BarometerRepository(sensors: widget.sensors);
+  late final _altimeter = AltimeterViewModel(repository: _barometerRepo);
 
   @override
   void dispose() {
-    _level.dispose();
-    _angle.dispose();
-    _compass.dispose();
+    for (final vm in [_level, _angle, _compass, _metal]) {
+      vm.dispose();
+    }
+    _protractor.dispose();
+    _vibration.dispose();
+    _altimeter.dispose();
+    _vibrationRepo.dispose();
+    _barometerRepo.dispose();
     super.dispose();
   }
 
-  Future<void> _open(SensorViewModel vm, WidgetBuilder page) async {
-    vm.active = true;
+  /// Opens a tool full screen; its view model (if it uses sensors) follows
+  /// them only while the tool is showing.
+  Future<void> _open(ActiveViewModel? vm, WidgetBuilder page) async {
+    vm?.active = true;
     await Navigator.of(context).push(MaterialPageRoute<void>(builder: page));
-    vm.active = false;
+    vm?.active = false;
   }
 
   void _openTool(_Tool tool) {
@@ -87,6 +119,39 @@ class _HomeShellState extends State<HomeShell> {
             onBack: back,
           ),
         );
+      case _Tool.protractor:
+        _open(
+          null,
+          (_) => ProtractorScreen(
+            viewModel: _protractor,
+            settings: settings,
+            onBack: back,
+          ),
+        );
+      case _Tool.metal:
+        _open(
+          _metal,
+          (_) =>
+              MetalScreen(viewModel: _metal, settings: settings, onBack: back),
+        );
+      case _Tool.vibration:
+        _open(
+          _vibration,
+          (_) => VibrationScreen(
+            viewModel: _vibration,
+            settings: settings,
+            onBack: back,
+          ),
+        );
+      case _Tool.altimeter:
+        _open(
+          _altimeter,
+          (_) => AltimeterScreen(
+            viewModel: _altimeter,
+            settings: settings,
+            onBack: back,
+          ),
+        );
     }
   }
 
@@ -98,6 +163,26 @@ class _HomeShellState extends State<HomeShell> {
       subtitle: 'Angle from level or from a zero',
     ),
     (tool: _Tool.compass, title: 'Compass', subtitle: 'Heading and direction'),
+    (
+      tool: _Tool.protractor,
+      title: 'Protractor',
+      subtitle: 'Measure angles on the screen',
+    ),
+    (
+      tool: _Tool.metal,
+      title: 'Metal detector',
+      subtitle: 'Find iron, steel and magnets',
+    ),
+    (
+      tool: _Tool.vibration,
+      title: 'Vibration',
+      subtitle: 'Vibration meter with live graph',
+    ),
+    (
+      tool: _Tool.altimeter,
+      title: 'Altimeter',
+      subtitle: 'Air pressure and height',
+    ),
   ];
 
   @override
@@ -183,19 +268,23 @@ class _HomeShellState extends State<HomeShell> {
     ],
   );
 
-  Widget _grid() => Row(
+  /// Rows of three round buttons, each cell a third of the width.
+  Widget _grid() => LayoutBuilder(
     key: const ValueKey('grid'),
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      for (final t in _tools)
-        Expanded(
-          child: _ToolButton(
-            tool: t.tool,
-            title: t.title,
-            onTap: () => _openTool(t.tool),
+    builder: (context, constraints) => Wrap(
+      runSpacing: 26,
+      children: [
+        for (final t in _tools)
+          SizedBox(
+            width: constraints.maxWidth / 3,
+            child: _ToolButton(
+              tool: t.tool,
+              title: t.title,
+              onTap: () => _openTool(t.tool),
+            ),
           ),
-        ),
-    ],
+      ],
+    ),
   );
 }
 
@@ -484,6 +573,78 @@ class _GlyphPainter extends CustomPainter {
         canvas
           ..drawPath(north, Paint()..color = accent)
           ..drawPath(south, line);
+      case _Tool.protractor:
+        // Half-circle protractor with ticks and a reading arm.
+        const o = Offset(12, 18);
+        canvas
+          ..drawArc(
+            Rect.fromCircle(center: o, radius: 10),
+            math.pi,
+            math.pi,
+            false,
+            line,
+          )
+          ..drawLine(const Offset(1.5, 18), const Offset(22.5, 18), line);
+        for (var d = 30; d < 180; d += 30) {
+          final a = math.pi + d * math.pi / 180;
+          final dir = Offset(math.cos(a), math.sin(a));
+          canvas.drawLine(o + dir * 7.5, o + dir * 10, line);
+        }
+        canvas
+          ..drawLine(
+            o,
+            o + Offset(math.cos(math.pi * 1.33), math.sin(math.pi * 1.33)) * 8,
+            line..color = accent,
+          )
+          ..drawCircle(o, 1.6, Paint()..color = accent);
+      case _Tool.metal:
+        // Horseshoe magnet with orange poles.
+        canvas
+          ..drawArc(
+            Rect.fromCircle(center: const Offset(12, 12), radius: 7),
+            0,
+            math.pi,
+            false,
+            line,
+          )
+          ..drawLine(const Offset(5, 12), const Offset(5, 7.5), line)
+          ..drawLine(const Offset(19, 12), const Offset(19, 7.5), line);
+        final pole = Paint()
+          ..strokeWidth = 3.4
+          ..strokeCap = StrokeCap.round
+          ..color = accent;
+        canvas
+          ..drawLine(const Offset(5, 3.5), const Offset(5, 6), pole)
+          ..drawLine(const Offset(19, 3.5), const Offset(19, 6), pole);
+      case _Tool.vibration:
+        // A phone with vibration marks either side.
+        canvas.drawRRect(
+          RRect.fromLTRBR(8, 3.5, 16, 20.5, const Radius.circular(2.2)),
+          line,
+        );
+        for (final (x, h) in const [
+          (4.5, 4.0),
+          (1.5, 2.2),
+          (19.5, 4.0),
+          (22.5, 2.2),
+        ]) {
+          canvas.drawLine(Offset(x, 12 - h), Offset(x, 12 + h), line);
+        }
+        canvas.drawCircle(const Offset(12, 17.4), 1.2, Paint()..color = accent);
+      case _Tool.altimeter:
+        // Mountain peaks with an orange sun.
+        canvas
+          ..drawPath(
+            Path()
+              ..moveTo(1.5, 20)
+              ..lineTo(9, 8)
+              ..lineTo(13.5, 15)
+              ..lineTo(16.5, 11)
+              ..lineTo(22.5, 20)
+              ..close(),
+            line,
+          )
+          ..drawCircle(const Offset(18.5, 5), 2, Paint()..color = accent);
     }
     canvas.restore();
   }

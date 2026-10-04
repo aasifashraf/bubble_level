@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'data/repositories/orientation_repository.dart';
 import 'data/repositories/settings_repository.dart';
+import 'data/services/motion_sensor_service.dart';
 import 'ui/core/theme.dart';
 import 'ui/home/home_shell.dart';
 
@@ -22,10 +23,14 @@ class BubbleLevelApp extends StatefulWidget {
     super.key,
     required this.settings,
     required this.orientation,
+    this.sensors = const MotionSensorService(),
   });
 
   final SettingsRepository settings;
   final OrientationRepository orientation;
+
+  /// Sensors for the vibration meter and altimeter (fakes in tests).
+  final MotionSensorService sensors;
 
   @override
   State<BubbleLevelApp> createState() => _BubbleLevelAppState();
@@ -53,6 +58,7 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
       child: HomeShell(
         orientation: widget.orientation,
         settings: widget.settings,
+        sensors: widget.sensors,
       ),
     );
   }
