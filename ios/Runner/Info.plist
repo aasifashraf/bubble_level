@@ -65,6 +65,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	
 	<key>NSMotionUsageDescription</key>
-	<string>Motion sensors are used to measure tilt, angles and compass heading.</string>
+	<string>Motion sensors and the barometer are used to measure tilt, angles, compass heading, vibration and altitude.</string>
 </dict>
 </plist>

@@ -55,9 +55,15 @@ class AltimeterScreen extends StatelessWidget {
           body: SensorStateGate(
             state: r.state,
             ready: pressure != null,
-            missingText:
-                'This device has no barometer, so pressure and altitude '
-                'aren’t available.',
+            // Home already hides this tool on phones known to lack a
+            // barometer; on iPhone the usual cause is Motion & Fitness
+            // access being off.
+            missingText: Theme.of(context).platform == TargetPlatform.iOS
+                ? 'Can’t read the barometer. Turn on Motion & Fitness for '
+                      'this app in Settings › Privacy & Security, then open '
+                      'the Altimeter again.'
+                : 'This phone has no barometer (air pressure sensor), so '
+                      'the altimeter can’t work here. Other tools still work.',
             child: pressure == null
                 ? const SizedBox.shrink()
                 : InstrumentDial(
