@@ -208,6 +208,27 @@ void main() {
     expect(reloaded.themeMode, ThemeMode.dark);
   });
 
+  testWidgets('settings sheet: theme and vibration are saved', (tester) async {
+    await pumpApp(tester);
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    expect(find.text('Settings'), findsOneWidget);
+
+    await tester.tap(find.text('Dark'));
+    await tester.pumpAndSettle();
+    expect(
+      Theme.of(tester.element(find.text('Settings'))).brightness,
+      Brightness.dark,
+    );
+
+    // The vibration switch: the knob toggles on tap.
+    await tester.tap(find.text('Vibrate when level'));
+    await tester.pumpAndSettle();
+    final reloaded = await SettingsRepository.load();
+    expect(reloaded.themeMode, ThemeMode.dark);
+    expect(reloaded.haptics, isFalse);
+  });
+
   testWidgets('settings sheet switches units', (tester) async {
     await pumpApp(tester);
     await tester.tap(find.byTooltip('Settings'));
