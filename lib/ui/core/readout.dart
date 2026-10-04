@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../domain/orientation_reading.dart';
@@ -65,7 +67,8 @@ class SensorGate extends StatelessWidget {
         state: SensorState.missing,
         ready: false,
         missingText:
-            'This device has no accelerometer, so tilt can’t be measured.',
+            'This phone has no accelerometer, so this tool can’t measure '
+            'anything here. Tools that don’t need it still work.',
         child: SizedBox.shrink(),
       );
     }
@@ -75,7 +78,8 @@ class SensorGate extends StatelessWidget {
           reading.gravity != null &&
           (!needsMagnetometer || reading.magnetic != null),
       missingText:
-          'This device has no magnetometer, so this tool isn’t available.',
+          'This phone has no magnetometer (compass sensor), so this tool '
+          'can’t work here. Tools that don’t need it still work.',
       child: child,
     );
   }
@@ -101,14 +105,53 @@ class SensorStateGate extends StatelessWidget {
     if (state == SensorState.missing) {
       return _Message(icon: Icons.sensors_off_outlined, text: missingText);
     }
-    if (!ready) {
-      return const _Message(
-        icon: Icons.sensors_outlined,
-        text: 'Waiting for sensors…',
-      );
-    }
+    if (!ready) return const _Waiting();
     return child;
   }
+}
+
+/// "Waiting for sensors…", and if nothing arrives within [patience] (a
+/// sensor that exists but never reports, e.g. on some iPhones and
+/// emulators) a message that says so and what to try, instead of waiting
+/// forever.
+class _Waiting extends StatefulWidget {
+  const _Waiting();
+
+  static const patience = Duration(seconds: 4);
+
+  @override
+  State<_Waiting> createState() => _WaitingState();
+}
+
+class _WaitingState extends State<_Waiting> {
+  late final Timer _timer;
+  var _late = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer(_Waiting.patience, () => setState(() => _late = true));
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => _late
+      ? const _Message(
+          icon: Icons.sensors_off_outlined,
+          text:
+              'No readings from the sensor yet. Go back and open the tool '
+              'again; if it keeps happening, restart your phone. Some phones '
+              'don’t support this tool.',
+        )
+      : const _Message(
+          icon: Icons.sensors_outlined,
+          text: 'Waiting for sensors…',
+        );
 }
 
 class _Message extends StatelessWidget {
