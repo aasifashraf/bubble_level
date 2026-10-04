@@ -248,7 +248,7 @@ class _LayoutSwitch extends StatelessWidget {
     }
 
     return DecoratedBox(
-      decoration: _raised(p, BorderRadius.circular(26)),
+      decoration: softSurface(p, radius: BorderRadius.circular(26)),
       child: Padding(
         padding: const EdgeInsets.all(2),
         child: Row(
@@ -262,28 +262,6 @@ class _LayoutSwitch extends StatelessWidget {
     );
   }
 }
-
-/// Soft raised surface in the dial's material, lit from the top-left.
-BoxDecoration _raised(Palette p, BorderRadius radius) => BoxDecoration(
-  borderRadius: radius,
-  gradient: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [p.dialLight, p.dialDark],
-  ),
-  boxShadow: [
-    BoxShadow(
-      color: p.dialShadow.withValues(alpha: p.isDark ? 0.85 : 0.6),
-      offset: const Offset(5, 10),
-      blurRadius: 20,
-    ),
-    BoxShadow(
-      color: p.dialGlow.withValues(alpha: p.isDark ? 0.45 : 1),
-      offset: const Offset(-5, -5),
-      blurRadius: 14,
-    ),
-  ],
-);
 
 /// List row: round icon button, name and description, chevron.
 class _ToolTile extends StatelessWidget {
@@ -304,7 +282,7 @@ class _ToolTile extends StatelessWidget {
     final p = Palette.of(context);
     final radius = BorderRadius.circular(28);
     return DecoratedBox(
-      decoration: _raised(p, radius),
+      decoration: softSurface(p, radius: radius),
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
