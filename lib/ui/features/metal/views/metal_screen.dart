@@ -4,6 +4,7 @@ import '../../../core/controls.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
+import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
@@ -17,15 +18,10 @@ class MetalScreen extends StatelessWidget {
   final MetalViewModel viewModel;
   final VoidCallback onBack;
 
-  static const _help = ToolHelp(
-    tool: 'Metal detector',
-    steps: [
-      'Open the tool away from metal. That first reading counts as “no metal”.',
-      'Move the phone slowly over the area. The sensor is usually near the top of the phone. It beeps faster the closer you get to metal; tap the speaker to mute.',
-      '“Metal nearby” means a small change. “Metal detected” means a strong one: the centre turns orange and the phone buzzes if vibration is on.',
-      'If it shows metal with nothing there, move away from metal and tap Set baseline.',
-    ],
-    tip: 'It only senses iron, steel and magnets, not aluminium, copper, gold or silver. Magnetic phone cases affect it.',
+  static ToolHelp _help(AppLocalizations l) => ToolHelp(
+    tool: l.toolMetal,
+    steps: [l.metalHelp1, l.metalHelp2, l.metalHelp3, l.metalHelp4],
+    tip: l.metalTip,
   );
 
   static const _scaleMax = 240.0;
@@ -41,14 +37,16 @@ class MetalScreen extends StatelessWidget {
       builder: (context, _) {
         final state = viewModel.state;
         return ToolFrame(
-          title: 'Metal detector',
+          title: context.l10n.toolMetal,
           onBack: onBack,
-          trailing: const HelpButton(help: _help),
+          trailing: HelpButton(help: _help(context.l10n)),
           bodyBottomInset: 120,
           body: SensorGate(
             reading: viewModel.reading,
             needsMagnetometer: true,
-            child: state == null ? const SizedBox.shrink() : _dial(state),
+            child: state == null
+                ? const SizedBox.shrink()
+                : _dial(context, state),
           ),
           footer: state == null ? null : _footer(context, state),
         );
@@ -56,12 +54,12 @@ class MetalScreen extends StatelessWidget {
     );
   }
 
-  Widget _dial(MetalState state) {
+  Widget _dial(BuildContext context, MetalState state) {
     final sweep = (state.field / _scaleMax).clamp(0.0, 0.999) * 360;
     return InstrumentDial(
       value: '${state.field.round()}',
       label: 'µT',
-      semanticsLabel: 'Magnetic field ${state.field.round()} microtesla',
+      semanticsLabel: context.l10n.metalSemantics(state.field.round()),
       scaleLabels: _scale,
       arcSweep: sweep,
       ballAngle: sweep,
@@ -73,9 +71,12 @@ class MetalScreen extends StatelessWidget {
   Widget _footer(BuildContext context, MetalState state) {
     final (icon, text) = switch (state.level) {
       // Finding metal is the goal: "detected" reads as a reached target.
-      MetalLevel.clear => (Icons.search_rounded, 'No metal nearby'),
-      MetalLevel.nearby => (Icons.sensors_rounded, 'Metal nearby'),
-      MetalLevel.detected => (Icons.check_circle_rounded, 'Metal detected'),
+      MetalLevel.clear => (Icons.search_rounded, context.l10n.noMetal),
+      MetalLevel.nearby => (Icons.sensors_rounded, context.l10n.metalNearby),
+      MetalLevel.detected => (
+        Icons.check_circle_rounded,
+        context.l10n.metalDetected,
+      ),
     };
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -86,13 +87,13 @@ class MetalScreen extends StatelessWidget {
             Expanded(
               child: ValueTile(
                 value: formatMicroTesla(state.field),
-                caption: 'Field',
+                caption: context.l10n.field,
               ),
             ),
             Expanded(
               child: ValueTile(
                 value: formatMicroTesla(state.change, signed: true),
-                caption: 'Change',
+                caption: context.l10n.change,
               ),
             ),
           ],
@@ -107,7 +108,7 @@ class MetalScreen extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          'Finds iron, steel and magnets',
+          context.l10n.findsIronSteel,
           style: TextStyle(fontSize: 12, color: Palette.of(context).label),
         ),
         const SizedBox(height: 14),
@@ -116,42 +117,25 @@ class MetalScreen extends StatelessWidget {
           children: [
             Expanded(
               child: SoftButton(
-                label: 'Set baseline',
+                label: context.l10n.setBaseline,
                 icon: Icons.my_location_rounded,
                 onPressed: viewModel.setBaseline,
               ),
             ),
-            _SoundButton(on: viewModel.soundOn, onTap: viewModel.toggleSound),
+            // The app-wide Sounds setting, also in Settings.
+            SoftIconButton(
+              icon: viewModel.soundOn
+                  ? Icons.volume_up_rounded
+                  : Icons.volume_off_rounded,
+              tooltip: viewModel.soundOn
+                  ? context.l10n.muteSound
+                  : context.l10n.turnSoundOn,
+              muted: !viewModel.soundOn,
+              onPressed: viewModel.toggleSound,
+            ),
           ],
         ),
       ],
-    );
-  }
-}
-
-/// Round soft button that mutes or unmutes the beep (the app-wide Sounds
-/// setting, also in Settings).
-class _SoundButton extends StatelessWidget {
-  const _SoundButton({required this.on, required this.onTap});
-
-  final bool on;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final p = Palette.of(context);
-    return Container(
-      width: 50,
-      height: 50,
-      decoration: softSurface(p, radius: BorderRadius.circular(25)),
-      child: IconButton(
-        tooltip: on ? 'Mute sound' : 'Turn sound on',
-        onPressed: onTap,
-        icon: Icon(
-          on ? Icons.volume_up_rounded : Icons.volume_off_rounded,
-          color: on ? p.ink : p.label,
-        ),
-      ),
     );
   }
 }

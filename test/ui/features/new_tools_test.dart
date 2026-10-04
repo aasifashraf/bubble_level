@@ -53,6 +53,23 @@ void main() {
     });
   });
 
+  test('protractor lock: no moves or reset until unlocked', () {
+    final vm = ProtractorViewModel()..toggleLock();
+    vm
+      ..beginDrag(55)
+      ..dragTo(90)
+      ..reset();
+    expect(vm.arm(1), 60);
+    vm
+      ..toggleLock()
+      ..beginDrag(55);
+    expect(vm.arm(1), 55);
+    vm
+      ..toggleLock()
+      ..unlock();
+    expect(vm.locked, isFalse);
+  });
+
   group('sensor tools', () {
     late FakeMotionSensorService sensors;
     late OrientationRepository orientation;
@@ -108,6 +125,38 @@ void main() {
 
       vm.setBaseline();
       expect(vm.state!.level, MetalLevel.clear);
+    });
+
+    test('metal: an offset left after the metal is gone re-zeroes itself, '
+        'and the beeping stops', () async {
+      var now = Duration.zero;
+      var beeps = 0;
+      final vm = MetalViewModel(
+        orientation: orientation,
+        settings: settings,
+        onDetected: () {},
+        onTick: () => beeps++,
+        clock: () => now,
+      )..active = true;
+      addTearDown(vm.dispose);
+
+      await field(50);
+      orientation
+        ..stop()
+        ..start();
+      // Metal removed, but this phone's sensor now reads 30 µT higher.
+      await field(80);
+      expect(vm.state!.level, MetalLevel.nearby);
+      for (var i = 0; i < 10 * 20; i++) {
+        now += const Duration(milliseconds: 50);
+        await field(80);
+      }
+      expect(vm.state!.level, MetalLevel.clear);
+      expect(vm.state!.change.abs(), lessThan(5));
+      // Silent from here on.
+      beeps = 0;
+      await Future<void>.delayed(const Duration(milliseconds: 1200));
+      expect(beeps, 0);
     });
 
     test('vibration: runs only while active, reports level', () async {

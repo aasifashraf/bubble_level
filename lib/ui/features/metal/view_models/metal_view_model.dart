@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../../data/repositories/orientation_repository.dart';
 import '../../../../data/repositories/settings_repository.dart';
+import '../../../../domain/metal.dart';
 import '../../../core/sensor_view_model.dart';
 
 enum MetalLevel { clear, nearby, detected }
@@ -28,7 +29,8 @@ class MetalState {
 
 /// Metal detector from the magnetometer: magnetic (ferrous) metal and
 /// magnets change the field around the phone. The baseline is the ambient
-/// field, taken automatically when the tool opens and re-set on demand.
+/// field, taken automatically when the tool opens, re-set on demand, and
+/// re-zeroed by itself when the field holds steady (see [MetalBaseline]).
 ///
 /// Like a real detector it beeps, faster the bigger the change, so you can
 /// sweep without watching the screen; silent while no metal is nearby.
@@ -39,7 +41,18 @@ class MetalViewModel extends SensorViewModel {
     required this._onDetected,
     this._onTick = _silent,
     this._onSuccess = _silent,
-  }) : super(orientation);
+    Duration Function()? clock,
+  }) : _clock = clock ?? _running(),
+       super(orientation);
+
+  /// Time since some fixed start: paces the baseline's self re-zeroing.
+  final Duration Function() _clock;
+  double get _seconds => _clock().inMicroseconds / 1e6;
+
+  static Duration Function() _running() {
+    final watch = Stopwatch()..start();
+    return () => watch.elapsed;
+  }
 
   /// Change from the baseline that counts as metal nearby / detected, µT.
   static const nearbyAt = 15.0, detectedAt = 40.0;
@@ -111,7 +124,7 @@ class MetalViewModel extends SensorViewModel {
     }
   }
 
-  double? _baseline;
+  final _baseline = MetalBaseline();
   MetalLevel _previous = MetalLevel.clear;
   MetalState? _state;
 
@@ -119,13 +132,14 @@ class MetalViewModel extends SensorViewModel {
 
   /// Treats the current field as "no metal".
   void setBaseline() {
-    _baseline = reading.magnetic?.length;
+    final field = reading.magnetic?.length;
+    if (field != null) _baseline.reset(field, _seconds);
     update();
   }
 
   @override
   void onActivate() {
-    _baseline = null;
+    _baseline.clear();
     _syncBeeper();
   }
 
@@ -144,8 +158,7 @@ class MetalViewModel extends SensorViewModel {
     if (field == null) {
       _state = null;
     } else {
-      final baseline = _baseline ??= field;
-      final change = field - baseline;
+      final change = _baseline.add(field, _seconds);
       final level = change.abs() >= detectedAt
           ? MetalLevel.detected
           : change.abs() >= nearbyAt
