@@ -73,3 +73,28 @@ class VectorLowPass {
 
   void resetTiming() => _last = null;
 }
+
+/// First-order low-pass filter for a single value.
+class ScalarLowPass {
+  ScalarLowPass(this.tau);
+
+  final double tau;
+  double? _v;
+  double? _last;
+
+  double? get value => _v;
+
+  void add(double v, double seconds) {
+    final last = _last, prev = _v;
+    _last = seconds;
+    if (prev == null || last == null) {
+      _v = v;
+      return;
+    }
+    final dt = (seconds - last).clamp(0.0, 2.0);
+    final k = dt / (tau + dt);
+    _v = prev * (1 - k) + v * k;
+  }
+
+  void resetTiming() => _last = null;
+}
