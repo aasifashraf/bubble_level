@@ -510,8 +510,18 @@ class DialPainter extends CustomPainter {
         ),
       ),
       textDirection: TextDirection.ltr,
-    )..layout(maxWidth: maxW);
-    sub.paint(canvas, c + Offset(-sub.width / 2, 37 * s - sub.height / 2));
+      maxLines: 1,
+    )..layout();
+    // One line, shrunk to fit the round button where the label sits, so a
+    // longer label ("m from zero") never wraps over the edge.
+    final fit = DialGeometry.buttonFaceR * s * 1.3;
+    final ks = math.min(1.0, fit / sub.width);
+    canvas
+      ..save()
+      ..translate(c.dx, c.dy + 37 * s)
+      ..scale(ks);
+    sub.paint(canvas, Offset(-sub.width / 2, -sub.height / 2));
+    canvas.restore();
   }
 
   /// Clear glass ring around the button that drifts toward the high side.
