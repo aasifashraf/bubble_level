@@ -1,0 +1,27 @@
+Convierte tu teléfono en un nivel de burbuja preciso, con nueve herramientas de medición más para bricolaje, carpintería, obras y colgar cuadros.
+
+Nivel de burbuja: apoya el teléfono plano para nivelar estantes, mesas y electrodomésticos. X e Y muestran la inclinación en cada dirección y una indicación te dice qué lado está alto. Al nivelar, la lectura se pone naranja, con vibración y sonido opcionales.
+
+Nivel de agua e inclinómetro: apoya el teléfono sobre un borde para ver el ángulo y la pendiente, en grados o en porcentaje. ¿Prefieres el aspecto clásico? Cambia a la vista de tubo. También muestra la pendiente de techos como x/12.
+
+Medidor de ángulos: mira cuánto se inclina el teléfono o fija un cero en cualquier posición y mide cuánto se mueve desde ahí.
+
+Brújula: rumbo magnético estable aunque el teléfono esté inclinado, con aviso cuando el metal cercano la altera.
+
+Transportador: coloca un objeto en la pantalla y arrastra dos tiradores por sus bordes.
+
+Regla: mide objetos pequeños en la pantalla en mm, cm o pulgadas. Calibra una vez con una tarjeta, una regla o el tamaño de pantalla para ±0,5 mm.
+
+Detector de metales: encuentra hierro, acero e imanes, con un pitido que se acelera al acercarte.
+
+Medidor de vibración: mide la vibración de máquinas y superficies, con pico, media y gráfica en vivo.
+
+Sonómetro: mide el ruido en decibelios, con promedio, máximo y un aviso cuando es tan fuerte que puede dañar el oído. El sonido se mide en tu teléfono y nunca se graba.
+
+Luxómetro: mide el brillo en lux y pies-candela, y mira si esa luz sirve para leer o trabajar en el escritorio.
+
+Altímetro: lee la presión del aire y la altitud aproximada, o mide la altura subida desde un cero.
+
+Cada herramienta tiene una guía breve. Funciona en vertical y horizontal, en modo claro y oscuro, en 12 idiomas. Sin anuncios, sin cuenta y sin internet.
+
+Algunas herramientas necesitan sensores que no todos los teléfonos tienen. La app te lo indica desde el principio y las demás siguen funcionando.

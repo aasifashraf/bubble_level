@@ -1,0 +1,1 @@
+Erste Version: Wasserwaage mit Skalen- und Libellenansicht, Winkelmesser, Kompass, Lineal, Metalldetektor, Vibrationsmesser, Schallpegelmesser, Belichtungsmesser und Höhenmesser.

@@ -1,0 +1,464 @@
+{
+  "@@locale": "en",
+  "appTitle": "Bubble Level & Angle Finder",
+  "@appTitle": {
+    "description": "Full app name, used by the system task switcher."
+  },
+  "homeTitle": "Bubble Level",
+  "@homeTitle": {
+    "description": "Short app name in the home screen header."
+  },
+  "settings": "Settings",
+  "tools": "Tools",
+  "@tools": {
+    "description": "Heading above the list of tools on the home screen."
+  },
+  "listView": "List view",
+  "gridView": "Grid view",
+  "back": "Back",
+  "lightMode": "Light mode",
+  "darkMode": "Dark mode",
+  "toolLevel": "Level",
+  "@toolLevel": {
+    "description": "Tool name: bubble / spirit level."
+  },
+  "toolLevelSubtitle": "Bubble and spirit level",
+  "toolAngle": "Angle",
+  "@toolAngle": {
+    "description": "Tool name: inclinometer / angle finder."
+  },
+  "toolAngleSubtitle": "Angle from level or from a zero",
+  "toolCompass": "Compass",
+  "toolCompassSubtitle": "Heading and direction",
+  "toolProtractor": "Protractor",
+  "toolProtractorSubtitle": "Measure angles on the screen",
+  "toolRuler": "Ruler",
+  "toolRulerSubtitle": "Measure length on the screen",
+  "toolMetal": "Metal detector",
+  "toolMetalSubtitle": "Find iron, steel and magnets",
+  "toolVibration": "Vibration",
+  "@toolVibration": {
+    "description": "Tool name: vibration meter."
+  },
+  "toolVibrationSubtitle": "Vibration meter with live graph",
+  "toolSound": "Sound meter",
+  "toolSoundSubtitle": "Noise level in decibels",
+  "toolAltimeter": "Altimeter",
+  "toolAltimeterSubtitle": "Air pressure and height",
+  "toolLight": "Light meter",
+  "toolLightSubtitle": "Brightness in lux",
+  "notAvailableOnPhone": "Not available on this phone",
+  "notOnPhone": "Not on this phone",
+  "@notOnPhone": {
+    "description": "Very short version of notAvailableOnPhone, under a grid icon."
+  },
+  "toolNotAvailableSemantics": "{tool}, not available on this phone",
+  "@toolNotAvailableSemantics": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
+  "howToUse": "How to use",
+  "rotateLandscape": "Turn to landscape",
+  "rotatePortrait": "Turn to portrait",
+  "@howToUse": {
+    "description": "Tooltip of the help button on every tool."
+  },
+  "howToUseTool": "How to use {tool}",
+  "@howToUseTool": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
+  "gotIt": "Got it",
+  "goodToKnow": "Good to know: ",
+  "@goodToKnow": {
+    "description": "Bold lead-in before a tip; keep the trailing space."
+  },
+  "ok": "OK",
+  "toolUnavailableTitle": "{tool} isn’t available",
+  "@toolUnavailableTitle": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
+  "toolUnavailableBody": "{tool} needs {count, plural, =1{a sensor} other{sensors}} this phone doesn’t have: {sensors}.",
+  "@toolUnavailableBody": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      },
+      "sensors": {
+        "type": "String",
+        "description": "One or two sensor names joined with listSeparator."
+      }
+    }
+  },
+  "listSeparator": ", ",
+  "hardwareLimitTip": "This is a limit of the phone’s hardware, not a fault in the app. All the other tools work normally.",
+  "sensorAccelerometer": "accelerometer",
+  "sensorMagnetometer": "magnetometer (compass sensor)",
+  "sensorBarometer": "barometer (air pressure sensor)",
+  "sensorLight": "light sensor",
+  "sensorMicrophone": "microphone",
+  "noAccelerometer": "This phone has no accelerometer, so this tool can’t measure anything here. Tools that don’t need it still work.",
+  "noMagnetometer": "This phone has no magnetometer (compass sensor), so this tool can’t work here. Tools that don’t need it still work.",
+  "noReadings": "No readings from the sensor yet. Go back and open the tool again; if it keeps happening, restart your phone. Some phones don’t support this tool.",
+  "waitingForSensors": "Waiting for sensors…",
+  "levelHelp1": "Lay the phone flat on the surface, or stand it on one of its edges.",
+  "levelHelp2": "Flat: centre the bubble. X is left/right tilt, Y is forward/back tilt. On an edge, you see the angle and slope.",
+  "levelHelp3": "Follow the hint on screen (for example “Right side high”) until it reads level: it turns orange and the phone chimes and buzzes (turn these off in Settings).",
+  "levelHelp4": "Tap Lock to freeze the reading, and Unlock to go live again.",
+  "levelHelp5": "Prefer a classic spirit level? Tap the tube icon in the switch; the round icon brings the dial back.",
+  "levelTip": "If a surface you know is level doesn’t read 0°, put the phone on it and tap Calibrate. To undo it, tap Calibrate again and choose Reset calibration.",
+  "statusLevel": "Level",
+  "@statusLevel": {
+    "description": "Status when the surface is exactly level (adjective)."
+  },
+  "leftEndLow": "Left end low",
+  "rightEndLow": "Right end low",
+  "rightSideHigh": "Right side high",
+  "leftSideHigh": "Left side high",
+  "topEdgeHigh": "Top edge high",
+  "bottomEdgeHigh": "Bottom edge high",
+  "calibrated": "Calibrated. This position now reads 0°.",
+  "tooFarToCalibrate": "Too far from level to calibrate. Place the phone on a level surface first.",
+  "dialView": "Dial view",
+  "tubeView": "Tube view",
+  "@tubeView": {
+    "description": "Classic spirit-level vial view."
+  },
+  "levelTube": "Level tube",
+  "leftRightTube": "Left and right tube",
+  "forwardBackTube": "Forward and back tube",
+  "tiltFromLevel": "Tilt from level {value}",
+  "@tiltFromLevel": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "fromLevel": "From level {value}",
+  "@fromLevel": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "xLeftRight": "X · left / right",
+  "yForwardBack": "Y · forward / back",
+  "angle": "Angle",
+  "slope": "Slope",
+  "lock": "Lock",
+  "unlock": "Unlock",
+  "locked": "Locked · {status}",
+  "@locked": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "lockReading": "Lock reading",
+  "lockHandles": "Lock handles",
+  "handlesLocked": "Handles locked · tap the lock to adjust",
+  "calibrate": "Calibrate",
+  "angleHelp1": "The dial shows how far the phone is tilted from lying flat: 0° flat, 90° upright.",
+  "angleHelp2": "To measure a change, hold the phone in the starting position and tap Set zero here.",
+  "angleHelp3": "Tilt or move the phone. The dial shows how many degrees it moved from your zero.",
+  "angleHelp4": "Tap Clear zero to go back to the angle from flat.",
+  "angleHelp5": "To read an angle you can’t see, hold the phone against the object, tap the lock, then lift it and read.",
+  "angleTip": "Press the phone flat against an object, like a board, door or ramp, to measure its angle.",
+  "movedFromZero": "Moved from zero {value}",
+  "@movedFromZero": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "measuringFromZero": "Measuring from your zero",
+  "angleFromEarth": "Angle from the Earth",
+  "clearZero": "Clear zero",
+  "setZeroHere": "Set zero here",
+  "compassHelp1": "Hold the phone level in front of you, away from metal, magnets and electronics.",
+  "compassHelp2": "Point the top of the phone in the direction you want to know.",
+  "compassHelp3": "The number is your heading in degrees and the letters are the direction. The orange ball marks it on the ring.",
+  "compassTip": "It points to magnetic north, which can differ a few degrees from map north. If it seems wrong, move the phone in a figure 8 a few times.",
+  "compassSemantics": "Magnetic heading {heading} degrees, {direction}",
+  "@compassSemantics": {
+    "placeholders": {
+      "heading": {
+        "type": "int"
+      },
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "magneticInterference": "Magnetic interference · move away from metal",
+  "dirN": "N",
+  "@dirN": {
+    "description": "Compass abbreviation: north. Also the N on the dial."
+  },
+  "dirNE": "NE",
+  "dirE": "E",
+  "dirSE": "SE",
+  "dirS": "S",
+  "dirSW": "SW",
+  "dirW": "W",
+  "dirNW": "NW",
+  "protractorHelp1": "Lay the phone flat and place the object on the screen, with its corner at the centre.",
+  "protractorHelp2": "Drag each orange handle so its line runs along one edge of the angle.",
+  "protractorHelp3": "Read the angle in the centre. Reflex is the other side (360° minus it).",
+  "protractorHelp4": "Tap Reset to start again.",
+  "protractorHelp5": "Tap the lock to keep the handles in place while you move the object.",
+  "armsSemantics": "Angle between the arms {value}",
+  "@armsSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "reflex": "Reflex",
+  "@reflex": {
+    "description": "Reflex angle: 360° minus the angle."
+  },
+  "dragHandles": "Drag the orange handles along the edges",
+  "reset": "Reset",
+  "rulerHelp1": "Lay the object on the screen, or hold the phone against it.",
+  "rulerHelp2": "Drag the orange lines to its two ends. Tap mm, cm or in to pick the unit; the other system shows below.",
+  "rulerHelp3": "For the best accuracy, tap Calibrate once and use a bank card, a ruler or the screen size.",
+  "rulerHelp4": "Tap the lock to keep the lines in place while you move the object.",
+  "rulerTip": "It measures up to the length of the screen. Cases and curved edges hide the first millimetres, so measure between the lines, not from the edge of the phone.",
+  "rulerSemantics": "Length {mm} millimetres, {inches} inches",
+  "@rulerSemantics": {
+    "placeholders": {
+      "mm": {
+        "type": "String"
+      },
+      "inches": {
+        "type": "String"
+      }
+    }
+  },
+  "rulerCalibrated": "Calibrated with a card · ±0.5 mm",
+  "rulerReported": "Screen size from the phone · calibrate for ±0.5 mm",
+  "unitMillimetres": "Millimetres",
+  "unitCentimetres": "Centimetres",
+  "unitInches": "Inches",
+  "rulerEstimated": "Not calibrated · lengths may be 10% off",
+  "calibrateCard": "Calibrate",
+  "cardLongEdge": "Lay any bank or ID card on the screen, long edge along the ruler, one end on the dark line. Drag the orange line to the card’s other end.",
+  "cardShortEdge": "Lay any bank or ID card on the screen, short edge along the ruler, one end on the dark line. Drag the orange line to the card’s other end.",
+  "save": "Save",
+  "cancel": "Cancel",
+  "usePhoneDefault": "Use the phone’s screen size",
+  "usePhoneDefaultInfo": "Forget this calibration",
+  "cardMismatch": "That doesn’t match a card. Line it up with the dark line and try again.",
+  "rotateToCalibrate": "Turn the phone upright to calibrate",
+  "calibrateHow": "Calibrate with",
+  "methodCard": "A bank card",
+  "methodCardInfo": "Any bank or ID card · ±0.5 mm",
+  "methodRuler": "A ruler",
+  "methodRulerInfo": "Most accurate · a ruler or tape measure",
+  "methodScreen": "The screen size",
+  "methodScreenInfo": "Nothing needed · about 1%",
+  "rulerInstructions": "Lay a ruler on the screen with its 0 on the dark line. Drag the orange line to the {mark} mark.",
+  "@rulerInstructions": {
+    "placeholders": {
+      "mark": {
+        "type": "String",
+        "example": "10 cm"
+      }
+    }
+  },
+  "rulerMismatch": "That doesn’t match {mark}. Put the ruler’s 0 on the dark line and try again.",
+  "@rulerMismatch": {
+    "placeholders": {
+      "mark": {
+        "type": "String",
+        "example": "10 cm"
+      }
+    }
+  },
+  "screenSizeInstructions": "Type the screen size in inches from the phone’s specs. Not sure? Search your phone’s model and “screen size”.",
+  "screenSizeMismatch": "That size doesn’t fit this screen. Check the phone’s specs and try again.",
+  "rulerCalibratedRuler": "Calibrated with a ruler · ±0.5 mm",
+  "rulerCalibratedScreen": "Set for a {size}-inch screen · about 1%",
+  "@rulerCalibratedScreen": {
+    "placeholders": {
+      "size": {
+        "type": "String",
+        "example": "6.1"
+      }
+    }
+  },
+  "metalHelp1": "Open the tool away from metal. That first reading counts as “no metal”.",
+  "metalHelp2": "Move the phone slowly over the area. The sensor is usually near the top of the phone. It beeps faster the closer you get to metal; tap the speaker to mute.",
+  "metalHelp3": "“Metal nearby” means a small change. “Metal detected” means a strong one: the centre turns orange and the phone buzzes if vibration is on.",
+  "metalHelp4": "Held still for a few seconds, it re-zeroes itself, so a false reading fades away. To check a spot again, move the phone away and back. Set baseline re-zeroes at once.",
+  "metalTip": "It only senses iron, steel and magnets, not aluminium, copper, gold or silver. Magnetic phone cases affect it.",
+  "metalSemantics": "Magnetic field {value} microtesla",
+  "@metalSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "noMetal": "No metal nearby",
+  "metalNearby": "Metal nearby",
+  "metalDetected": "Metal detected",
+  "field": "Field",
+  "@field": {
+    "description": "Magnetic field strength."
+  },
+  "change": "Change",
+  "@change": {
+    "description": "Change of the magnetic field from the baseline."
+  },
+  "findsIronSteel": "Finds iron, steel and magnets",
+  "setBaseline": "Set baseline",
+  "muteSound": "Mute sound",
+  "turnSoundOn": "Turn sound on",
+  "vibrationHelp1": "Place the phone flat on the surface or machine you want to check, and keep your hands off it.",
+  "vibrationHelp2": "The dial shows vibration right now in m/s². The graph shows the last few seconds.",
+  "vibrationHelp3": "Peak is the strongest moment. Average is the level over the last second.",
+  "vibrationHelp4": "Tap Reset peak before each new test.",
+  "vibrationTip": "“Still” is under 0.3 m/s² and “Strong” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.",
+  "still": "Still",
+  "lightVibration": "Light vibration",
+  "strongVibration": "Strong vibration",
+  "noAccelerometerVibration": "This phone has no accelerometer, so vibration can’t be measured here. Tools that don’t need it still work.",
+  "vibrationSemantics": "Vibration {value} metres per second squared",
+  "@vibrationSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "peak": "Peak",
+  "average": "Average",
+  "resetPeak": "Reset peak",
+  "vibrationGraph": "Vibration graph",
+  "altimeterHelp1": "The dial shows air pressure in hPa, and altitude is estimated from it.",
+  "altimeterHelp2": "To measure a height change, like stairs or floors, tap Set zero here where you start.",
+  "altimeterHelp3": "Go up or down. The centre shows the metres from your zero.",
+  "altimeterHelp4": "Tap Clear zero to go back.",
+  "altimeterTip": "Weather changes air pressure, so altitude can be off by tens of metres. Height from your zero is accurate over short periods. This tool needs a phone with a barometer.",
+  "barometerIos": "Can’t read the barometer. Turn on Motion & Fitness for this app in Settings › Privacy & Security, then open the Altimeter again.",
+  "noBarometer": "This phone has no barometer (air pressure sensor), so the altimeter can’t work here. Other tools still work.",
+  "noLightSensor": "This phone has no light sensor, so the light meter can’t work here. Other tools still work.",
+  "lightSemantics": "Brightness {value} lux",
+  "@lightSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "320"
+      }
+    }
+  },
+  "illuminance": "Brightness",
+  "footCandles": "Foot-candles",
+  "lightDark": "Dark",
+  "lightDim": "Dim light",
+  "lightLivingRoom": "Living-room light",
+  "lightReading": "Good for reading and desk work",
+  "lightBright": "Bright indoor light",
+  "lightOvercast": "Overcast daylight",
+  "lightDaylight": "Daylight",
+  "lightSun": "Direct sunlight",
+  "lightHelp1": "The light sensor sits at the top of the screen, near the front camera.",
+  "lightHelp2": "Hold the phone where you want to measure, with the screen facing the light.",
+  "lightHelp3": "Read the lux and what the light is good for: 300–500 lx suits reading and desk work.",
+  "lightHelp4": "Tap Lock to keep a reading while you move the phone away.",
+  "lightTip": "Light sensors differ between phones, so readings can be 10–20% off: good for comparing places, not a calibrated lux meter. Don’t cover the top of the screen.",
+  "noMicrophone": "Can’t use the microphone. Another app may be using it: close that app, then open the sound meter again.",
+  "soundSemantics": "Sound level about {value} decibels",
+  "@soundSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "54"
+      }
+    }
+  },
+  "decibelsApprox": "dB (approx.)",
+  "soundAverage": "Average",
+  "soundMax": "Max",
+  "soundVeryQuiet": "Very quiet",
+  "soundQuiet": "Quiet, like a library",
+  "soundModerate": "Moderate, like a conversation",
+  "soundLoud": "Loud, like busy traffic",
+  "soundVeryLoud": "Very loud: long exposure can damage hearing",
+  "soundDangerous": "Dangerous: protect your ears",
+  "micTitle": "Allow the microphone",
+  "micBody": "The sound meter listens through the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.",
+  "micAllow": "Allow microphone",
+  "micDeniedTitle": "Microphone access is off",
+  "micDeniedBody": "Turn on the microphone for this app in Settings to use the sound meter. Sound is never recorded, saved or sent.",
+  "openSettings": "Open settings",
+  "tryAgain": "Try again",
+  "soundHelp1": "Keep the microphone (on the bottom edge) uncovered and point the phone toward the sound.",
+  "soundHelp2": "The big number is the level now, averaged over about a second.",
+  "soundHelp3": "Average and Max count from when you opened the tool. Tap Reset to start them again.",
+  "soundHelp4": "From 85 dB, long exposure can damage hearing: the status line turns yellow.",
+  "soundTip": "Phone microphones differ, so readings can be about 5 dB off: good for comparing, not a certified sound level meter. Very loud sounds (above about 110 dB) may read low.",
+  "metresFromZero": "m from zero",
+  "@metresFromZero": {
+    "description": "Short label under the height on the dial; keep it short."
+  },
+  "pressureSemantics": "Air pressure {value} hectopascals",
+  "@pressureSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "heightSemantics": "Height {value} from zero",
+  "@heightSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "pressure": "Pressure",
+  "altitudeApprox": "Altitude (approx.)",
+  "measuringHeight": "Measuring height from your zero",
+  "airPressureAltitude": "Air pressure and altitude",
+  "appearance": "Appearance",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "levelUnits": "Level units",
+  "vibrateWhenLevel": "Vibrate when level",
+  "sounds": "Sounds",
+  "resetCalibration": "Reset calibration",
+  "resetCalibrationHint": "Use the factory sensor zero again",
+  "calibrateHere": "Calibrate here",
+  "calibrateHereInfo": "On a surface you know is level",
+  "calibrationRemoved": "Calibration removed. The Level uses the factory sensor zero again.",
+  "resetAllCalibrations": "Reset all calibrations",
+  "resetAllCalibrationsHint": "Level and Ruler back to factory settings",
+  "resetAllTitle": "Reset all calibrations?",
+  "resetAllBody": "This removes the zero you set in the Level and the screen size you set in the Ruler. Both go back to their factory settings. Your other settings stay as they are, and you can calibrate again at any time.",
+  "notCalibrated": "Not calibrated",
+  "language": "Language",
+  "languageSystem": "Phone language"
+}

@@ -1,0 +1,1 @@
+Primera versión: nivel de burbuja con vista de esfera y de tubo, medidor de ángulos, brújula, transportador, regla, detector de metales, medidor de vibración, sonómetro, luxómetro y altímetro.

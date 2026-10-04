@@ -1,0 +1,27 @@
+Telefonunuzu hassas bir su terazisine dönüştürün; ev işleri, marangozluk, inşaat ve tablo asmak için dokuz ölçüm aracı daha cabası.
+
+Kabarcıklı terazi: rafları, masaları ve cihazları düzlemek için telefonu düz yatırın. X ve Y her yöndeki eğimi gösterir, ipucu hangi tarafın yüksek olduğunu söyler. Düz olunca değer turuncu olur; isterseniz titreşim ve sesle.
+
+Su terazisi ve eğim ölçer: açıyı ve eğimi derece veya yüzde olarak görmek için telefonu bir kenarı üzerine koyun. Klasik görünümü mü seviyorsunuz? Tüp görünümüne geçin. Çatı eğimini x/12 olarak da gösterir.
+
+Açı ölçer: telefonun ne kadar eğildiğini görün ya da herhangi bir konumda sıfır belirleyip oradan ne kadar hareket ettiğini ölçün.
+
+Pusula: telefon eğikken bile sabit manyetik yön; yakındaki metal bozduğunda uyarı.
+
+İletki: bir nesneyi ekrana koyun ve iki tutamacı kenarları boyunca sürükleyin.
+
+Cetvel: küçük nesneleri ekranda mm, cm veya inç olarak ölçün. ±0,5 mm için bir kez banka kartı, cetvel veya ekran boyutuyla kalibre edin.
+
+Metal dedektörü: demir, çelik ve mıknatısları bulun; yaklaştıkça bip sesi hızlanır.
+
+Titreşim ölçer: makinelerin ve yüzeylerin titreşimini tepe, ortalama ve canlı grafikle ölçün.
+
+Ses ölçer: gürültüyü desibel olarak ölçün; ortalama, maksimum ve işitmeye zarar verecek kadar yükseldiğinde uyarı ile. Ses telefonda ölçülür, asla kaydedilmez.
+
+Işık ölçer: parlaklığı lüks ve foot-candle olarak ölçün, ışığın okumaya ve masa başı çalışmaya uygun olup olmadığını görün.
+
+Altimetre: hava basıncını ve yaklaşık yüksekliği görün ya da bir sıfırdan tırmanılan yüksekliği ölçün.
+
+Her aracın kısa bir kullanım kılavuzu var. Dikey ve yatay, açık ve koyu modda, 12 dilde çalışır. Reklam yok, hesap yok, internet gerekmez.
+
+Bazı araçlar her telefonda olmayan sensörlere ihtiyaç duyar. Uygulama bunu baştan söyler, diğer araçlar çalışmaya devam eder.
