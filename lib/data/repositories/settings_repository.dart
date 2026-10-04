@@ -9,6 +9,10 @@ enum AngleUnit { degrees, percent }
 /// How the home screen shows the tools.
 enum HomeLayout { list, grid }
 
+/// How the Level tool draws its instrument: the round dial or a classic
+/// spirit-level tube.
+enum LevelStyle { dial, tube }
+
 /// User preferences and level calibration, persisted across launches.
 class SettingsRepository extends ChangeNotifier {
   SettingsRepository._(this._prefs)
@@ -23,7 +27,10 @@ class SettingsRepository extends ChangeNotifier {
           ThemeMode.system,
       _homeLayout =
           HomeLayout.values.asNameMap()[_prefs.getString(_kHomeLayout)] ??
-          HomeLayout.list;
+          HomeLayout.list,
+      _levelStyle =
+          LevelStyle.values.asNameMap()[_prefs.getString(_kLevelStyle)] ??
+          LevelStyle.dial;
 
   static Future<SettingsRepository> load() async =>
       SettingsRepository._(await SharedPreferences.getInstance());
@@ -34,6 +41,7 @@ class SettingsRepository extends ChangeNotifier {
   static const _kUnit = 'unit';
   static const _kThemeMode = 'themeMode';
   static const _kHomeLayout = 'homeLayout';
+  static const _kLevelStyle = 'levelStyle';
 
   final SharedPreferences _prefs;
   Vec3 _flatRef;
@@ -42,6 +50,7 @@ class SettingsRepository extends ChangeNotifier {
   AngleUnit _unit;
   ThemeMode _themeMode;
   HomeLayout _homeLayout;
+  LevelStyle _levelStyle;
 
   /// Gravity direction (device frame) measured on a known-flat surface.
   Vec3 get flatRef => _flatRef;
@@ -56,6 +65,9 @@ class SettingsRepository extends ChangeNotifier {
 
   /// List (the default) or grid on the home screen.
   HomeLayout get homeLayout => _homeLayout;
+
+  /// Dial (the default) or tube in the Level tool.
+  LevelStyle get levelStyle => _levelStyle;
   bool get isCalibrated => !identical(_flatRef, Vec3.up) || _edgeOffset != 0;
 
   static Vec3? _readVec(SharedPreferences p) {
@@ -110,5 +122,11 @@ class SettingsRepository extends ChangeNotifier {
     _homeLayout = v;
     notifyListeners();
     await _prefs.setString(_kHomeLayout, v.name);
+  }
+
+  Future<void> setLevelStyle(LevelStyle v) async {
+    _levelStyle = v;
+    notifyListeners();
+    await _prefs.setString(_kLevelStyle, v.name);
   }
 }

@@ -92,6 +92,14 @@ class LevelViewModel extends SensorViewModel {
   bool get held => _held;
   AngleUnit get unit => _settings.unit;
 
+  /// Dial or tube, remembered across launches.
+  LevelStyle get style => _settings.levelStyle;
+
+  void setStyle(LevelStyle style) {
+    _settings.setLevelStyle(style);
+    notifyListeners();
+  }
+
   void toggleHold() {
     _held = !_held;
     update();

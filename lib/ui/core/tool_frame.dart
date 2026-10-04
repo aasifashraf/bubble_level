@@ -53,7 +53,7 @@ class ToolFrame extends StatelessWidget {
               systemNavigationBarColor: Colors.transparent,
             );
     final size = MediaQuery.sizeOf(context);
-    final landscape = onBack != null && size.width > size.height;
+    final landscape = onBack != null && sideBySide(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlay,
       child: Scaffold(
@@ -127,15 +127,22 @@ class ToolFrame extends StatelessWidget {
     );
   }
 
+  /// Whether a tool page lays out side by side (landscape): the body on
+  /// the left below the header, the footer in a column on the right.
+  static bool sideBySide(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    return size.width > size.height;
+  }
+
   /// Height of the header below the status bar.
-  static const _headerHeight = 18.0 + 70;
+  static const headerHeight = 18.0 + 70;
 
   /// Landscape tool page: the body fills the free box left of the footer
   /// and below the header, so the dial only needs a small margin; the
   /// footer is centred in its column and scrolls if it's still too tall.
   List<Widget> _landscape(BuildContext context, Size size) {
     final pad = MediaQuery.paddingOf(context);
-    final top = pad.top + _headerHeight;
+    final top = pad.top + headerHeight;
     final panel = (size.width * 0.42).clamp(280.0, 440.0);
     return [
       Positioned(

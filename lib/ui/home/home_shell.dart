@@ -11,6 +11,7 @@ import '../../data/services/motion_sensor_service.dart';
 import '../../data/services/sensor_availability_service.dart';
 import '../core/dial.dart';
 import '../core/help.dart';
+import '../core/soft_switch.dart';
 import '../core/sensor_view_model.dart';
 import '../core/theme.dart';
 import '../core/tool_frame.dart';
@@ -245,7 +246,22 @@ class _HomeShellState extends State<HomeShell> {
                                   ),
                                 ),
                                 const Spacer(),
-                                _LayoutSwitch(settings: settings),
+                                SoftSwitch<HomeLayout>(
+                                  value: settings.homeLayout,
+                                  onChanged: settings.setHomeLayout,
+                                  options: const [
+                                    (
+                                      value: HomeLayout.list,
+                                      icon: Icons.view_agenda_outlined,
+                                      tooltip: 'List view',
+                                    ),
+                                    (
+                                      value: HomeLayout.grid,
+                                      icon: Icons.grid_view_rounded,
+                                      tooltip: 'Grid view',
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                             const SizedBox(height: 22),
@@ -323,49 +339,6 @@ class _Backdrop extends CustomPainter {
 
   @override
   bool shouldRepaint(_Backdrop old) => old.palette != palette;
-}
-
-/// List / grid switch: a soft pill holding two icons, the current one
-/// pressed in.
-class _LayoutSwitch extends StatelessWidget {
-  const _LayoutSwitch({required this.settings});
-
-  final SettingsRepository settings;
-
-  @override
-  Widget build(BuildContext context) {
-    final p = Palette.of(context);
-    Widget option(HomeLayout layout, IconData icon, String tooltip) {
-      final selected = settings.homeLayout == layout;
-      return Semantics(
-        selected: selected,
-        child: IconButton(
-          tooltip: tooltip,
-          onPressed: () => settings.setHomeLayout(layout),
-          style: IconButton.styleFrom(
-            backgroundColor: selected
-                ? p.ink.withValues(alpha: p.isDark ? 0.14 : 0.08)
-                : Colors.transparent,
-          ),
-          icon: Icon(icon, size: 20, color: selected ? p.ink : p.label),
-        ),
-      );
-    }
-
-    return DecoratedBox(
-      decoration: softSurface(p, radius: BorderRadius.circular(26)),
-      child: Padding(
-        padding: const EdgeInsets.all(2),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            option(HomeLayout.list, Icons.view_agenda_outlined, 'List view'),
-            option(HomeLayout.grid, Icons.grid_view_rounded, 'Grid view'),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 /// List row: round icon button, name and description, chevron.
