@@ -298,6 +298,7 @@ class LevelScreen extends StatelessWidget {
         StatusBanner(
           icon: viewModel.held ? Icons.pause_circle_rounded : icon,
           text: viewModel.held ? 'Held · $guidance' : guidance,
+          tone: state.isLevel ? StatusTone.success : StatusTone.neutral,
         ),
         const SizedBox(height: 16),
         Row(

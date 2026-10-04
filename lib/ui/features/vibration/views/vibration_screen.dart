@@ -105,7 +105,13 @@ class VibrationScreen extends StatelessWidget {
                     const SizedBox(height: 14),
                     _Graph(values: r.history),
                     const SizedBox(height: 14),
-                    StatusBanner(icon: icon, text: text),
+                    StatusBanner(
+                      icon: icon,
+                      text: text,
+                      tone: viewModel.level == VibrationLevel.strong
+                          ? StatusTone.warning
+                          : StatusTone.neutral,
+                    ),
                     const SizedBox(height: 14),
                     SoftButton(
                       label: 'Reset peak',

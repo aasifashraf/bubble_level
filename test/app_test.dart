@@ -6,6 +6,7 @@ import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/main.dart';
+import 'package:bubble_level/ui/core/theme.dart';
 import 'package:bubble_level/ui/core/vial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -647,6 +648,57 @@ void main() {
       await tester.tap(find.text('Sounds'));
       await tester.pumpAndSettle();
       expect((await SettingsRepository.load()).sounds, isFalse);
+    });
+  });
+
+  group('status tones', () {
+    testWidgets('compass interference is an amber caution pill', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Compass');
+      final pose = devicePose(heading: 90, pitch: 0);
+      for (var i = 0; i < 30; i++) {
+        sensors.sendMagnet(pose.field * 4);
+        await send(tester, pose.up);
+      }
+      expect(
+        find.ancestor(
+          of: find.textContaining('Magnetic interference'),
+          matching: find.byWidgetPredicate(
+            (w) =>
+                w is DecoratedBox &&
+                w.decoration is BoxDecoration &&
+                (w.decoration as BoxDecoration).color ==
+                    Palette.light.warningTint,
+          ),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('level reached reads in the success orange', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Level');
+      for (var i = 0; i < 10; i++) {
+        await send(tester, Vec3.up);
+      }
+      final status = find.byWidgetPredicate(
+        (w) =>
+            w is Text &&
+            w.data == 'Level' &&
+            w.style?.color == Palette.light.success,
+      );
+      expect(status, findsOneWidget);
+    });
+
+    testWidgets('metal: no check until metal is found', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Metal detector');
+      sensors.sendMagnet(const Vec3(0, 45, 0));
+      await send(tester, Vec3.up);
+      expect(find.text('No metal nearby'), findsOneWidget);
+      expect(find.byIcon(Icons.check_circle_rounded), findsNothing);
     });
   });
 }

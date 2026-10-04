@@ -62,6 +62,7 @@ class CompassScreen extends StatelessWidget {
               : const StatusBanner(
                   icon: Icons.warning_amber_rounded,
                   text: 'Magnetic interference · move away from metal',
+                  tone: StatusTone.warning,
                 ),
         );
       },

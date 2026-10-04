@@ -72,9 +72,10 @@ class MetalScreen extends StatelessWidget {
 
   Widget _footer(BuildContext context, MetalState state) {
     final (icon, text) = switch (state.level) {
-      MetalLevel.clear => (Icons.check_circle_rounded, 'No metal nearby'),
+      // Finding metal is the goal: "detected" reads as a reached target.
+      MetalLevel.clear => (Icons.search_rounded, 'No metal nearby'),
       MetalLevel.nearby => (Icons.sensors_rounded, 'Metal nearby'),
-      MetalLevel.detected => (Icons.warning_amber_rounded, 'Metal detected'),
+      MetalLevel.detected => (Icons.check_circle_rounded, 'Metal detected'),
     };
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -97,7 +98,13 @@ class MetalScreen extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        StatusBanner(icon: icon, text: text),
+        StatusBanner(
+          icon: icon,
+          text: text,
+          tone: state.level == MetalLevel.detected
+              ? StatusTone.success
+              : StatusTone.neutral,
+        ),
         const SizedBox(height: 4),
         Text(
           'Finds iron, steel and magnets',

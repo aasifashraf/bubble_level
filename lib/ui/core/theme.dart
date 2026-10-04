@@ -36,6 +36,9 @@ class Palette extends ThemeExtension<Palette> {
     required this.ballDark,
     required this.tab,
     required this.icon,
+    required this.success,
+    required this.warning,
+    required this.warningTint,
   });
 
   static const light = Palette(
@@ -67,6 +70,9 @@ class Palette extends ThemeExtension<Palette> {
     ballDark: Color(0xFFFF6E36),
     tab: Color(0xFF39424B),
     icon: Color(0xFF48525C),
+    success: Color(0xFFC2410C),
+    warning: Color(0xFFB45309),
+    warningTint: Color(0xFFFDF0C8),
   );
 
   static const dark = Palette(
@@ -98,6 +104,9 @@ class Palette extends ThemeExtension<Palette> {
     ballDark: Color(0xFFFF6E36),
     tab: Color(0xFF39424B),
     icon: Color(0xFFFDB52B),
+    success: Color(0xFFFFA54E),
+    warning: Color(0xFFFBBF24),
+    warningTint: Color(0x29FBBF24),
   );
 
   final Color background;
@@ -121,6 +130,14 @@ class Palette extends ThemeExtension<Palette> {
 
   /// The back tab on the left edge, and the sun/moon icon.
   final Color tab, icon;
+
+  /// Status text for "target reached" (level, metal found): the dial's
+  /// orange, deepened in light mode so small text stays readable.
+  final Color success;
+
+  /// Caution ("the reading can't be trusted"): the icon colour and the soft
+  /// pill behind the status line.
+  final Color warning, warningTint;
 
   bool get isDark => background.computeLuminance() < 0.2;
 

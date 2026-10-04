@@ -98,6 +98,18 @@ Widget detailsPreview() => Padding(
         icon: Icons.arrow_forward_rounded,
         text: 'Right side high',
       ),
+      const SizedBox(height: 12),
+      const StatusBanner(
+        icon: Icons.check_circle_rounded,
+        text: 'Level',
+        tone: StatusTone.success,
+      ),
+      const SizedBox(height: 12),
+      const StatusBanner(
+        icon: Icons.warning_amber_rounded,
+        text: 'Magnetic interference · move away from metal',
+        tone: StatusTone.warning,
+      ),
       const SizedBox(height: 16),
       Row(
         spacing: 14,
