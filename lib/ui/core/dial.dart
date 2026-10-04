@@ -1,5 +1,7 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
@@ -48,9 +50,12 @@ class InstrumentDial extends StatelessWidget {
     required this.semanticsLabel,
     this.ballAngle,
     this.arcSweep,
+    this.arcStart = 0,
     this.waterAngle,
     this.bubble,
     this.labels = true,
+    this.scaleLabels,
+    this.arms,
     this.letters = false,
     this.locked = false,
     this.reserved = 180,
@@ -60,8 +65,17 @@ class InstrumentDial extends StatelessWidget {
   final String label;
   final String semanticsLabel;
   final double? ballAngle, arcSweep, waterAngle;
+
+  /// Where the arc begins, degrees clockwise from 12 o'clock.
+  final double arcStart;
   final Offset? bubble;
   final bool labels, letters, locked;
+
+  /// Twelve labels for the scale (every 30°) instead of degrees, for meters.
+  final List<String>? scaleLabels;
+
+  /// Protractor arms: long rays from the centre, each with a ball handle.
+  final List<double>? arms;
 
   /// Vertical space taken by header and footer, kept clear of the dial.
   final double reserved;
@@ -81,9 +95,12 @@ class InstrumentDial extends StatelessWidget {
           label: label,
           ballAngle: ballAngle,
           arcSweep: arcSweep,
+          arcStart: arcStart,
           waterAngle: waterAngle,
           bubble: bubble,
           labels: labels,
+          scaleLabels: scaleLabels,
+          arms: arms,
           letters: letters,
           locked: locked,
           reserved: reserved,
@@ -127,9 +144,12 @@ class DialPainter extends CustomPainter {
     required this.label,
     required this.ballAngle,
     required this.arcSweep,
+    required this.arcStart,
     required this.waterAngle,
     required this.bubble,
     required this.labels,
+    required this.scaleLabels,
+    required this.arms,
     required this.letters,
     required this.locked,
     required this.reserved,
@@ -139,8 +159,11 @@ class DialPainter extends CustomPainter {
   final String? fontFamily;
   final String value, label;
   final double? ballAngle, arcSweep, waterAngle;
+  final double arcStart;
   final Offset? bubble;
   final bool labels, letters, locked;
+  final List<String>? scaleLabels;
+  final List<double>? arms;
   final double reserved;
 
   @override
@@ -160,11 +183,15 @@ class DialPainter extends CustomPainter {
     _well(canvas, c, DialGeometry.wellR * s, s);
     if (waterAngle != null) _water(canvas, c, s, waterAngle!);
     if (arcSweep != null && arcSweep!.abs() > 0.05) _arc(canvas, c, s);
+    if (arms != null) _arms(canvas, c, size, s);
     _button(canvas, c, s);
     _reading(canvas, c, s);
     if (bubble != null) _bubble(canvas, c, s);
     if (ballAngle != null) {
       _ball(canvas, _polar(c, DialGeometry.trackR * s, ballAngle!), s);
+    }
+    for (final a in arms ?? const <double>[]) {
+      _ball(canvas, _polar(c, DialGeometry.dialR * s, a), s * 1.25);
     }
   }
 
@@ -242,9 +269,10 @@ class DialPainter extends CustomPainter {
     for (var d = 0; d < 360; d += 30) {
       final cardinal = d % 90 == 0;
       final color = cardinal ? p.inkStrong : p.label;
+      final custom = scaleLabels?[d ~/ 30];
       final tp = TextPainter(
         text: TextSpan(
-          text: '$d',
+          text: custom ?? '$d',
           style: TextStyle(
             fontFamily: fontFamily,
             fontSize: (cardinal ? 10.5 : 9.5) * s,
@@ -255,8 +283,8 @@ class DialPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      final ring = 1.6 * s;
-      final total = tp.width + 1.2 * s + ring * 2;
+      final ring = custom == null ? 1.6 * s : 0.0;
+      final total = tp.width + (custom == null ? 1.2 * s + ring * 2 : 0);
       canvas
         ..save()
         ..translate(c.dx, c.dy)
@@ -264,16 +292,17 @@ class DialPainter extends CustomPainter {
         ..translate(0, -DialGeometry.labelR * s);
       final origin = Offset(-total / 2, -tp.height / 2);
       tp.paint(canvas, origin);
-      canvas
-        ..drawCircle(
+      if (custom == null) {
+        canvas.drawCircle(
           origin + Offset(tp.width + 1.2 * s + ring, tp.height * 0.72),
           ring,
           Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = 0.8 * s
             ..color = color,
-        )
-        ..restore();
+        );
+      }
+      canvas.restore();
     }
   }
 
@@ -364,7 +393,7 @@ class DialPainter extends CustomPainter {
   void _arc(Canvas canvas, Offset c, double s) {
     canvas.drawArc(
       Rect.fromCircle(center: c, radius: DialGeometry.trackR * s),
-      -math.pi / 2,
+      (arcStart - 90) * _deg,
       arcSweep! * _deg,
       false,
       Paint()
@@ -497,6 +526,36 @@ class DialPainter extends CustomPainter {
       );
   }
 
+  /// Protractor arms: rays from the button's edge out to the halo, fading
+  /// at the end — long enough to line up with an object lying on the glass,
+  /// short enough to stay clear of the header and footer.
+  void _arms(Canvas canvas, Offset c, Size size, double s) {
+    final from = DialGeometry.buttonRimR * s;
+    final to = DialGeometry.haloR * s * 0.98;
+    final color = palette.ballDark;
+    for (final a in arms!) {
+      final start = _polar(c, from, a), end = _polar(c, to, a);
+      canvas.drawLine(
+        start,
+        end,
+        Paint()
+          ..strokeWidth = 2 * s
+          ..strokeCap = StrokeCap.round
+          // A gradient along the ray itself, fading at its outer end.
+          ..shader = ui.Gradient.linear(
+            start,
+            end,
+            [
+              color.withValues(alpha: 0.9),
+              color.withValues(alpha: 0.9),
+              color.withValues(alpha: 0),
+            ],
+            const [0, 0.7, 1],
+          ),
+      );
+    }
+  }
+
   void _ball(Canvas canvas, Offset at, double s) {
     final p = palette;
     final r = DialGeometry.ballR * s;
@@ -533,6 +592,9 @@ class DialPainter extends CustomPainter {
       old.waterAngle != waterAngle ||
       old.bubble != bubble ||
       old.labels != labels ||
+      !listEquals(old.scaleLabels, scaleLabels) ||
+      !listEquals(old.arms, arms) ||
+      old.arcStart != arcStart ||
       old.letters != letters ||
       old.locked != locked ||
       old.reserved != reserved;

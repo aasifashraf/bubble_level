@@ -28,3 +28,23 @@ String formatAngle(double deg, AngleUnit unit, {bool signed = false}) {
   };
   return signed && s != '—' ? _sign(s) : s;
 }
+
+/// Explicit sign for a whole number: +3, −3, 0.
+String _signedInt(int v) => v > 0
+    ? '+$v'
+    : v < 0
+    ? '−${-v}'
+    : '0';
+
+String formatMicroTesla(double v, {bool signed = false}) =>
+    '${signed ? _signedInt(v.round()) : v.round()} µT';
+
+String formatAcceleration(double v) => '${_fixed(v)} m/s²';
+
+String formatPressure(double v) => '${v.toStringAsFixed(1)} hPa';
+
+/// One decimal with an explicit sign: +3.2, −1.0, 0.0.
+String formatSignedDecimal(double v) => _sign(_fixed(v));
+
+String formatMeters(double v, {bool signed = false}) =>
+    '${signed ? formatSignedDecimal(v) : _fixed(v)} m';

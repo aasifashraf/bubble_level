@@ -61,21 +61,46 @@ class SensorGate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reading.accel == SensorState.missing) {
-      return const _Message(
-        icon: Icons.sensors_off_outlined,
-        text: 'This device has no accelerometer, so tilt can’t be measured.',
+      return const SensorStateGate(
+        state: SensorState.missing,
+        ready: false,
+        missingText:
+            'This device has no accelerometer, so tilt can’t be measured.',
+        child: SizedBox.shrink(),
       );
     }
-    if (needsMagnetometer && reading.magnet == SensorState.missing) {
-      return const _Message(
-        icon: Icons.explore_off_outlined,
-        text:
-            'This device has no magnetometer, so the compass isn’t available.',
-      );
+    return SensorStateGate(
+      state: needsMagnetometer ? reading.magnet : SensorState.ok,
+      ready:
+          reading.gravity != null &&
+          (!needsMagnetometer || reading.magnetic != null),
+      missingText:
+          'This device has no magnetometer, so this tool isn’t available.',
+      child: child,
+    );
+  }
+}
+
+/// Waiting / not-available message for any one sensor, else [child].
+class SensorStateGate extends StatelessWidget {
+  const SensorStateGate({
+    super.key,
+    required this.state,
+    required this.ready,
+    required this.missingText,
+    required this.child,
+  });
+
+  final SensorState state;
+  final bool ready;
+  final String missingText;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (state == SensorState.missing) {
+      return _Message(icon: Icons.sensors_off_outlined, text: missingText);
     }
-    final ready =
-        reading.gravity != null &&
-        (!needsMagnetometer || reading.magnetic != null);
     if (!ready) {
       return const _Message(
         icon: Icons.sensors_outlined,
