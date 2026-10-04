@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../data/repositories/settings_repository.dart';
+import 'dial.dart';
 import 'theme.dart';
 
 /// Full-screen page as in the design: content edge to edge behind the
 /// status bar, the header floating on top, an optional footer at the bottom.
+///
+/// A tool page (one with [onBack]) in landscape has too little height for
+/// the dial above its readings, so the dial takes the left side below the
+/// header and the footer becomes a column on the right.
 class ToolFrame extends StatelessWidget {
   const ToolFrame({
     super.key,
@@ -47,13 +52,35 @@ class ToolFrame extends StatelessWidget {
               statusBarColor: Colors.transparent,
               systemNavigationBarColor: Colors.transparent,
             );
+    final size = MediaQuery.sizeOf(context);
+    final landscape = onBack != null && size.width > size.height;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlay,
       child: Scaffold(
         backgroundColor: palette.background,
         body: Stack(
           children: [
-            Positioned.fill(bottom: bodyBottomInset, child: body),
+            if (landscape)
+              ..._landscape(context, size)
+            else ...[
+              Positioned.fill(bottom: bodyBottomInset, child: body),
+              if (footer != null)
+                Positioned(
+                  left: 24,
+                  right: 24,
+                  bottom: 0,
+                  child: SafeArea(
+                    top: false,
+                    minimum: const EdgeInsets.only(bottom: 20),
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 440),
+                        child: footer!,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
             Positioned(
               top: 0,
               left: 0,
@@ -94,26 +121,39 @@ class ToolFrame extends StatelessWidget {
                 ),
               ),
             ),
-            if (footer != null)
-              Positioned(
-                left: 24,
-                right: 24,
-                bottom: 0,
-                child: SafeArea(
-                  top: false,
-                  minimum: const EdgeInsets.only(bottom: 20),
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 440),
-                      child: footer!,
-                    ),
-                  ),
-                ),
-              ),
           ],
         ),
       ),
     );
+  }
+
+  /// Height of the header below the status bar.
+  static const _headerHeight = 18.0 + 70;
+
+  /// Landscape tool page: the body fills the free box left of the footer
+  /// and below the header, so the dial only needs a small margin; the
+  /// footer is centred in its column and scrolls if it's still too tall.
+  List<Widget> _landscape(BuildContext context, Size size) {
+    final pad = MediaQuery.paddingOf(context);
+    final top = pad.top + _headerHeight;
+    final panel = (size.width * 0.42).clamp(280.0, 440.0);
+    return [
+      Positioned(
+        left: pad.left,
+        top: top,
+        right: footer == null ? pad.right : pad.right + 24 + panel,
+        bottom: pad.bottom + 12,
+        child: DialFit(reserved: 16, child: body),
+      ),
+      if (footer != null)
+        Positioned(
+          top: top,
+          bottom: pad.bottom + 12,
+          right: pad.right + 24,
+          width: panel,
+          child: Center(child: SingleChildScrollView(child: footer)),
+        ),
+    ];
   }
 }
 

@@ -103,11 +103,26 @@ class InstrumentDial extends StatelessWidget {
           arms: arms,
           letters: letters,
           locked: locked,
-          reserved: reserved,
+          reserved: DialFit.reservedOf(context) ?? reserved,
         ),
       ),
     );
   }
+}
+
+/// Overrides [InstrumentDial.reserved] below it, for layouts whose box
+/// already keeps the dial clear of header and footer (tool pages in
+/// landscape), so the dial only keeps a margin.
+class DialFit extends InheritedWidget {
+  const DialFit({super.key, required this.reserved, required super.child});
+
+  final double reserved;
+
+  static double? reservedOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<DialFit>()?.reserved;
+
+  @override
+  bool updateShouldNotify(DialFit old) => old.reserved != reserved;
 }
 
 const _deg = math.pi / 180;
