@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'data/repositories/orientation_repository.dart';
+import 'data/repositories/review_repository.dart';
 import 'data/repositories/settings_repository.dart';
 import 'data/services/motion_sensor_service.dart';
 import 'data/services/sensor_availability_service.dart';
@@ -16,12 +17,14 @@ Future<void> main() async {
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   final settings = await SettingsRepository.load();
   final missingSensors = await const SensorAvailabilityService().missing();
+  final review = await ReviewRepository.load();
   runApp(
     BubbleLevelApp(
       settings: settings,
       orientation: OrientationRepository(),
       missingSensors: missingSensors,
       sound: AudioSoundService(),
+      review: review,
     ),
   );
 }
@@ -34,6 +37,7 @@ class BubbleLevelApp extends StatefulWidget {
     this.sensors = const MotionSensorService(),
     this.missingSensors = const {},
     this.sound = const SilentSoundService(),
+    this.review,
   });
 
   final SettingsRepository settings;
@@ -44,6 +48,9 @@ class BubbleLevelApp extends StatefulWidget {
 
   /// The level chime and metal detector beep (silent in tests).
   final SoundService sound;
+
+  /// Asks for a store review after enough successes (none in tests).
+  final ReviewRepository? review;
 
   /// Sensors for the vibration meter and altimeter (fakes in tests).
   final MotionSensorService sensors;
@@ -77,6 +84,7 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         sensors: widget.sensors,
         missingSensors: widget.missingSensors,
         sound: widget.sound,
+        review: widget.review,
       ),
     );
   }

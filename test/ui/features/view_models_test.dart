@@ -190,12 +190,13 @@ void main() {
     });
 
     test('chimes once per arrival at level, with sounds on', () async {
-      var chimes = 0;
+      var chimes = 0, successes = 0;
       final chiming = LevelViewModel(
         orientation: orientation,
         settings: settings,
         onLevelReached: () {},
         onChime: () => chimes++,
+        onSuccess: () => successes++,
       )..active = true;
       addTearDown(chiming.dispose);
       await settings.setHaptics(false); // the chime doesn't depend on it
@@ -222,6 +223,8 @@ void main() {
       await settings.setSounds(false);
       await arrive();
       expect(chimes, 2, reason: 'sounds off');
+      // Each arrival counts toward a review ask, with or without sound.
+      expect(successes, 3);
 
       await settings.setSounds(true);
       await show(_pitched(5));

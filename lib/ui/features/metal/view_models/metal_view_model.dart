@@ -38,6 +38,7 @@ class MetalViewModel extends SensorViewModel {
     required this._settings,
     required this._onDetected,
     this._onTick = _silent,
+    this._onSuccess = _silent,
   }) : super(orientation);
 
   /// Change from the baseline that counts as metal nearby / detected, µT.
@@ -48,6 +49,9 @@ class MetalViewModel extends SensorViewModel {
 
   /// Plays one beep.
   final void Function() _onTick;
+
+  /// Metal was found: counts toward asking for a store review.
+  final void Function() _onSuccess;
 
   static void _silent() {}
 
@@ -147,10 +151,9 @@ class MetalViewModel extends SensorViewModel {
           : change.abs() >= nearbyAt
           ? MetalLevel.nearby
           : MetalLevel.clear;
-      if (level == MetalLevel.detected &&
-          _previous != MetalLevel.detected &&
-          _settings.haptics) {
-        _onDetected();
+      if (level == MetalLevel.detected && _previous != MetalLevel.detected) {
+        if (_settings.haptics) _onDetected();
+        _onSuccess();
       }
       _previous = level;
       _state = MetalState(field: field, change: change, level: level);

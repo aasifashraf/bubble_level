@@ -60,6 +60,7 @@ class LevelViewModel extends SensorViewModel {
     required this._settings,
     required this._onLevelReached,
     this._onChime = _silent,
+    this._onSuccess = _silent,
   }) : super(orientation) {
     _settings.addListener(_onSettingsChanged);
   }
@@ -85,6 +86,9 @@ class LevelViewModel extends SensorViewModel {
 
   /// Plays the "level" chime.
   final void Function() _onChime;
+
+  /// The level was reached: counts toward asking for a store review.
+  final void Function() _onSuccess;
 
   static void _silent() {}
 
@@ -123,6 +127,7 @@ class LevelViewModel extends SensorViewModel {
     if (level && !_wasLevel && !_held) {
       if (_settings.haptics) _onLevelReached();
       if (_settings.sounds) _onChime();
+      _onSuccess();
     }
     _wasLevel = level;
     notifyListeners();

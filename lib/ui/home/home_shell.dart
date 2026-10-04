@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../data/repositories/barometer_repository.dart';
 import '../../data/repositories/orientation_repository.dart';
+import '../../data/repositories/review_repository.dart';
 import '../../data/repositories/settings_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
 import '../../data/services/motion_sensor_service.dart';
@@ -51,6 +54,7 @@ class HomeShell extends StatefulWidget {
     this.sensors = const MotionSensorService(),
     this.missingSensors = const {},
     this.sound = const SilentSoundService(),
+    this.review,
   });
 
   final OrientationRepository orientation;
@@ -62,6 +66,9 @@ class HomeShell extends StatefulWidget {
 
   /// The level chime and metal detector beep.
   final SoundService sound;
+
+  /// Asks for a store review after enough successes (none in tests).
+  final ReviewRepository? review;
 
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
@@ -76,6 +83,7 @@ class _HomeShellState extends State<HomeShell> {
     settings: widget.settings,
     onLevelReached: HapticFeedback.selectionClick,
     onChime: widget.sound.chime,
+    onSuccess: _recordSuccess,
   );
   late final _angle = AngleViewModel(
     orientation: widget.orientation,
@@ -88,7 +96,10 @@ class _HomeShellState extends State<HomeShell> {
     settings: widget.settings,
     onDetected: HapticFeedback.heavyImpact,
     onTick: widget.sound.tick,
+    onSuccess: _recordSuccess,
   );
+
+  void _recordSuccess() => unawaited(widget.review?.recordSuccess());
   late final _vibrationRepo = VibrationRepository(sensors: widget.sensors);
   late final _vibration = VibrationViewModel(repository: _vibrationRepo);
   late final _barometerRepo = BarometerRepository(sensors: widget.sensors);
