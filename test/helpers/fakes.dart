@@ -10,6 +10,8 @@ class FakeMotionSensorService implements MotionSensorService {
   final accel = StreamController<SensorSample>.broadcast();
   final gyro = StreamController<SensorSample>.broadcast();
   final magnet = StreamController<SensorSample>.broadcast();
+  final userAccel = StreamController<SensorSample>.broadcast();
+  final baro = StreamController<ScalarSample>.broadcast();
 
   var _t = DateTime(2026);
 
@@ -21,6 +23,11 @@ class FakeMotionSensorService implements MotionSensorService {
 
   void sendAccel(Vec3 v) => accel.add(_sample(v));
   void sendMagnet(Vec3 v) => magnet.add(_sample(v));
+  void sendUserAccel(Vec3 v) => userAccel.add(_sample(v));
+  void sendPressure(double hPa) {
+    _t = _t.add(const Duration(milliseconds: 200));
+    baro.add((value: hPa, timestamp: _t));
+  }
 
   /// Accelerometer reading for a phone whose "up" is [up] (any length).
   void sendUp(Vec3 up) => sendAccel(up.normalized() * 9.81);
@@ -31,6 +38,10 @@ class FakeMotionSensorService implements MotionSensorService {
   Stream<SensorSample> gyroscope() => gyro.stream;
   @override
   Stream<SensorSample> magnetometer() => magnet.stream;
+  @override
+  Stream<SensorSample> userAccelerometer() => userAccel.stream;
+  @override
+  Stream<ScalarSample> barometer() => baro.stream;
 }
 
 class FakeDisplayRotationService implements DisplayRotationService {
