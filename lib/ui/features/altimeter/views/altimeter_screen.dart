@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/repositories/settings_repository.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
+import '../../../core/help.dart';
 import '../../../core/readout.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/altimeter_view_model.dart';
@@ -13,13 +13,22 @@ class AltimeterScreen extends StatelessWidget {
   const AltimeterScreen({
     super.key,
     required this.viewModel,
-    required this.settings,
     required this.onBack,
   });
 
   final AltimeterViewModel viewModel;
-  final SettingsRepository settings;
   final VoidCallback onBack;
+
+  static const _help = ToolHelp(
+    tool: 'Altimeter',
+    steps: [
+      'The dial shows air pressure in hPa, and altitude is estimated from it.',
+      'To measure a height change, like stairs or floors, tap Set zero here where you start.',
+      'Go up or down. The centre shows the metres from your zero.',
+      'Tap Clear zero to go back.',
+    ],
+    tip: 'Weather changes air pressure, so altitude can be off by tens of metres. Height from your zero is accurate over short periods. This tool needs a phone with a barometer.',
+  );
 
   static const _scaleMin = 950.0, _scaleSpan = 120.0;
   static const _scale = [
@@ -40,8 +49,8 @@ class AltimeterScreen extends StatelessWidget {
             : ((pressure - _scaleMin) / _scaleSpan).clamp(0.0, 0.999) * 360;
         return ToolFrame(
           title: 'Altimeter',
-          settings: settings,
           onBack: onBack,
+          trailing: const HelpButton(help: _help),
           bodyBottomInset: 120,
           body: SensorStateGate(
             state: r.state,

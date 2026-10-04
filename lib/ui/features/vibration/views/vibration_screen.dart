@@ -2,9 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../../../data/repositories/settings_repository.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
+import '../../../core/help.dart';
 import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
@@ -16,13 +16,22 @@ class VibrationScreen extends StatelessWidget {
   const VibrationScreen({
     super.key,
     required this.viewModel,
-    required this.settings,
     required this.onBack,
   });
 
   final VibrationViewModel viewModel;
-  final SettingsRepository settings;
   final VoidCallback onBack;
+
+  static const _help = ToolHelp(
+    tool: 'Vibration',
+    steps: [
+      'Place the phone flat on the surface or machine you want to check, and keep your hands off it.',
+      'The dial shows vibration right now in m/s². The graph shows the last few seconds.',
+      'Peak is the strongest moment. Average is the level over the last second.',
+      'Tap Reset peak before each new test.',
+    ],
+    tip: '“Still” is under 0.3 m/s² and “Strong” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.',
+  );
 
   static const _scaleMax = 12.0;
   static const _scale = [
@@ -48,8 +57,8 @@ class VibrationScreen extends StatelessWidget {
         final ready = r.history.isNotEmpty;
         return ToolFrame(
           title: 'Vibration',
-          settings: settings,
           onBack: onBack,
+          trailing: const HelpButton(help: _help),
           bodyBottomInset: 190,
           body: SensorStateGate(
             state: r.state,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/repositories/settings_repository.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
+import '../../../core/help.dart';
 import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
@@ -11,16 +11,21 @@ import '../view_models/metal_view_model.dart';
 /// Metal detector: field strength on a 0–240 µT gauge; the button turns
 /// orange when metal is detected.
 class MetalScreen extends StatelessWidget {
-  const MetalScreen({
-    super.key,
-    required this.viewModel,
-    required this.settings,
-    required this.onBack,
-  });
+  const MetalScreen({super.key, required this.viewModel, required this.onBack});
 
   final MetalViewModel viewModel;
-  final SettingsRepository settings;
   final VoidCallback onBack;
+
+  static const _help = ToolHelp(
+    tool: 'Metal detector',
+    steps: [
+      'Open the tool away from metal. That first reading counts as “no metal”.',
+      'Move the phone slowly over the area. The sensor is usually near the top of the phone.',
+      '“Metal nearby” means a small change. “Metal detected” means a strong one: the centre turns orange and the phone buzzes if vibration is on.',
+      'If it shows metal with nothing there, move away from metal and tap Set baseline.',
+    ],
+    tip: 'It only senses iron, steel and magnets, not aluminium, copper, gold or silver. Magnetic phone cases affect it.',
+  );
 
   static const _scaleMax = 240.0;
   static const _scale = [
@@ -36,8 +41,8 @@ class MetalScreen extends StatelessWidget {
         final state = viewModel.state;
         return ToolFrame(
           title: 'Metal detector',
-          settings: settings,
           onBack: onBack,
+          trailing: const HelpButton(help: _help),
           bodyBottomInset: 120,
           body: SensorGate(
             reading: viewModel.reading,

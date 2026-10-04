@@ -12,16 +12,15 @@ class ToolFrame extends StatelessWidget {
   const ToolFrame({
     super.key,
     required this.title,
-    required this.settings,
     required this.body,
     this.onBack,
     this.leading,
+    this.trailing,
     this.footer,
     this.bodyBottomInset = 0,
   });
 
   final String title;
-  final SettingsRepository settings;
   final Widget body;
 
   /// Shows the design's back tab on the left edge when set.
@@ -29,6 +28,9 @@ class ToolFrame extends StatelessWidget {
 
   /// Used instead of the back tab when there is nowhere to go back to.
   final Widget? leading;
+
+  /// The header's right corner: the theme toggle on home, help on a tool.
+  final Widget? trailing;
   final Widget? footer;
 
   /// Lifts the body off the bottom so a tall footer doesn't crowd it.
@@ -85,10 +87,7 @@ class ToolFrame extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 56,
-                          child: ThemeToggle(settings: settings),
-                        ),
+                        SizedBox(width: 56, child: trailing),
                       ],
                     ),
                   ),

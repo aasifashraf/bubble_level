@@ -95,62 +95,33 @@ class _HomeShellState extends State<HomeShell> {
   }
 
   void _openTool(_Tool tool) {
-    final settings = widget.settings;
     void back() => Navigator.of(context).pop();
     switch (tool) {
       case _Tool.level:
-        _open(
-          _level,
-          (_) =>
-              LevelScreen(viewModel: _level, settings: settings, onBack: back),
-        );
+        _open(_level, (_) => LevelScreen(viewModel: _level, onBack: back));
       case _Tool.angle:
-        _open(
-          _angle,
-          (_) =>
-              AngleScreen(viewModel: _angle, settings: settings, onBack: back),
-        );
+        _open(_angle, (_) => AngleScreen(viewModel: _angle, onBack: back));
       case _Tool.compass:
         _open(
           _compass,
-          (_) => CompassScreen(
-            viewModel: _compass,
-            settings: settings,
-            onBack: back,
-          ),
+          (_) => CompassScreen(viewModel: _compass, onBack: back),
         );
       case _Tool.protractor:
         _open(
           null,
-          (_) => ProtractorScreen(
-            viewModel: _protractor,
-            settings: settings,
-            onBack: back,
-          ),
+          (_) => ProtractorScreen(viewModel: _protractor, onBack: back),
         );
       case _Tool.metal:
-        _open(
-          _metal,
-          (_) =>
-              MetalScreen(viewModel: _metal, settings: settings, onBack: back),
-        );
+        _open(_metal, (_) => MetalScreen(viewModel: _metal, onBack: back));
       case _Tool.vibration:
         _open(
           _vibration,
-          (_) => VibrationScreen(
-            viewModel: _vibration,
-            settings: settings,
-            onBack: back,
-          ),
+          (_) => VibrationScreen(viewModel: _vibration, onBack: back),
         );
       case _Tool.altimeter:
         _open(
           _altimeter,
-          (_) => AltimeterScreen(
-            viewModel: _altimeter,
-            settings: settings,
-            onBack: back,
-          ),
+          (_) => AltimeterScreen(viewModel: _altimeter, onBack: back),
         );
     }
   }
@@ -191,12 +162,12 @@ class _HomeShellState extends State<HomeShell> {
     final palette = Palette.of(context);
     return ToolFrame(
       title: 'Bubble Level',
-      settings: settings,
       leading: IconButton(
         tooltip: 'Settings',
         icon: Icon(Icons.tune_rounded, color: palette.ink),
         onPressed: () => showSettingsSheet(context, settings),
       ),
+      trailing: ThemeToggle(settings: settings),
       body: Stack(
         children: [
           Positioned.fill(child: CustomPaint(painter: _Backdrop(palette))),

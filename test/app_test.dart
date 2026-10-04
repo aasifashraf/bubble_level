@@ -221,6 +221,43 @@ void main() {
     expect(reloaded.themeMode, ThemeMode.dark);
   });
 
+  testWidgets('tools show help, not the theme toggle', (tester) async {
+    await pumpApp(tester);
+    for (final tool in _allTools) {
+      await openTool(tester, tool);
+      expect(find.byTooltip('Dark mode'), findsNothing, reason: tool);
+      expect(find.byTooltip('Light mode'), findsNothing, reason: tool);
+
+      await tester.tap(find.byTooltip('How to use'));
+      await tester.pumpAndSettle();
+      expect(find.text('How to use $tool'), findsOneWidget, reason: tool);
+      await tester.ensureVisible(find.text('Got it'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Got it'));
+      await tester.pumpAndSettle();
+      expect(find.text('How to use $tool'), findsNothing, reason: tool);
+
+      await tester.tap(find.byTooltip('Back'));
+      await tester.pumpAndSettle();
+    }
+  });
+
+  testWidgets('help fits a small phone with large text', (tester) async {
+    await pumpApp(tester, size: const Size(320, 568));
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await openTool(tester, 'Level');
+    await tester.tap(find.byTooltip('How to use'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    // The sheet scrolls, so the last control is still reachable.
+    await tester.ensureVisible(find.text('Got it'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Got it'));
+    await tester.pumpAndSettle();
+    expect(find.text('How to use Level'), findsNothing);
+  });
+
   testWidgets('settings sheet: theme and vibration are saved', (tester) async {
     await pumpApp(tester);
     await tester.tap(find.byTooltip('Settings'));

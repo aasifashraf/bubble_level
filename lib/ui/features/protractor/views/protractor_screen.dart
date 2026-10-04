@@ -2,9 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../../../data/repositories/settings_repository.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
+import '../../../core/help.dart';
 import '../../../core/readout.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/protractor_view_model.dart';
@@ -15,13 +15,21 @@ class ProtractorScreen extends StatelessWidget {
   const ProtractorScreen({
     super.key,
     required this.viewModel,
-    required this.settings,
     required this.onBack,
   });
 
   final ProtractorViewModel viewModel;
-  final SettingsRepository settings;
   final VoidCallback onBack;
+
+  static const _help = ToolHelp(
+    tool: 'Protractor',
+    steps: [
+      'Lay the phone flat and place the object on the screen, with its corner at the centre.',
+      'Drag each orange handle so its line runs along one edge of the angle.',
+      'Read the angle in the centre. Reflex is the other side (360° minus it).',
+      'Tap Reset to start again.',
+    ],
+  );
 
   /// Degrees clockwise from 12 o'clock of [position] around the centre of
   /// a box of [size].
@@ -38,8 +46,8 @@ class ProtractorScreen extends StatelessWidget {
         final angle = viewModel.angle;
         return ToolFrame(
           title: 'Protractor',
-          settings: settings,
           onBack: onBack,
+          trailing: const HelpButton(help: _help),
           bodyBottomInset: 120,
           body: LayoutBuilder(
             builder: (context, constraints) {

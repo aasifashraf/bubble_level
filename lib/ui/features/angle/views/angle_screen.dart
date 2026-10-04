@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/repositories/settings_repository.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
+import '../../../core/help.dart';
 import '../../../core/readout.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/angle_view_model.dart';
@@ -10,16 +10,21 @@ import '../view_models/angle_view_model.dart';
 /// Angle from the Earth, or — after "Set zero" — how far the phone has
 /// moved from a starting position; the compass design with an arc.
 class AngleScreen extends StatelessWidget {
-  const AngleScreen({
-    super.key,
-    required this.viewModel,
-    required this.settings,
-    required this.onBack,
-  });
+  const AngleScreen({super.key, required this.viewModel, required this.onBack});
 
   final AngleViewModel viewModel;
-  final SettingsRepository settings;
   final VoidCallback onBack;
+
+  static const _help = ToolHelp(
+    tool: 'Angle',
+    steps: [
+      'The dial shows how far the phone is tilted from lying flat: 0° flat, 90° upright.',
+      'To measure a change, hold the phone in the starting position and tap Set zero here.',
+      'Tilt or move the phone. The dial shows how many degrees it moved from your zero.',
+      'Tap Clear zero to go back to the angle from flat.',
+    ],
+    tip: 'Press the phone flat against an object, like a board, door or ramp, to measure its angle.',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +37,8 @@ class AngleScreen extends StatelessWidget {
         final zeroed = state?.zeroed ?? false;
         return ToolFrame(
           title: 'Angle',
-          settings: settings,
           onBack: onBack,
+          trailing: const HelpButton(help: _help),
           body: SensorGate(
             reading: viewModel.reading,
             child: state == null
