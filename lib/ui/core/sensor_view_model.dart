@@ -3,30 +3,38 @@ import 'package:flutter/foundation.dart';
 import '../../data/repositories/orientation_repository.dart';
 import '../../domain/orientation_reading.dart';
 
-/// Base for view models driven by the orientation sensors. A view model only
-/// follows the sensors while [active] (its screen is showing), so hidden tabs
-/// cost nothing and can't fire side effects such as haptics.
-abstract class SensorViewModel extends ChangeNotifier {
-  SensorViewModel(this._orientation);
+/// Base for view models that only do work while [active] (their screen is
+/// showing), so hidden tools cost nothing and can't fire side effects such
+/// as haptics. It follows [source] while active; subclasses can also start
+/// and stop their own sensors in [onActivate] / [onDeactivate].
+abstract class ActiveViewModel extends ChangeNotifier {
+  ActiveViewModel(this._source);
 
-  final OrientationRepository _orientation;
+  final Listenable _source;
   bool _active = false;
 
-  OrientationReading get reading => _orientation.value;
   bool get active => _active;
 
   set active(bool value) {
     if (value == _active) return;
     _active = value;
     if (value) {
-      _orientation.addListener(update);
+      onActivate();
+      _source.addListener(update);
       update();
     } else {
-      _orientation.removeListener(update);
+      _source.removeListener(update);
+      onDeactivate();
     }
   }
 
-  /// Recomputes state from [reading] and notifies listeners.
+  @protected
+  void onActivate() {}
+
+  @protected
+  void onDeactivate() {}
+
+  /// Recomputes state from the source and notifies listeners.
   @protected
   void update();
 
@@ -35,4 +43,13 @@ abstract class SensorViewModel extends ChangeNotifier {
     active = false;
     super.dispose();
   }
+}
+
+/// A view model driven by the shared orientation sensors.
+abstract class SensorViewModel extends ActiveViewModel {
+  SensorViewModel(this._orientation) : super(_orientation);
+
+  final OrientationRepository _orientation;
+
+  OrientationReading get reading => _orientation.value;
 }
