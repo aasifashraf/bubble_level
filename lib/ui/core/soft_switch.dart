@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'controls.dart';
 import 'theme.dart';
-import 'tool_frame.dart';
 
 /// One choice in a [SoftSwitch].
 typedef SoftSwitchOption<T> = ({T value, IconData icon, String tooltip});

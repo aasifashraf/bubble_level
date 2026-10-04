@@ -8,7 +8,7 @@ void main() {
     final wav = wavTone(const [
       (hz: 880, seconds: 0.1),
       (hz: 1320, seconds: 0.1),
-    ], volume: 0.5);
+    ]);
     final data = ByteData.sublistView(wav);
     String ascii(int at) => String.fromCharCodes(wav.sublist(at, at + 4));
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/repositories/settings_repository.dart';
 import '../../../../domain/angles.dart';
+import '../../../core/controls.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';

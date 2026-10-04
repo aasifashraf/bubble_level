@@ -17,7 +17,7 @@ class SpiritVial extends StatelessWidget {
     required this.semanticsLabel,
     this.vertical = false,
     this.ticks = 10,
-    this.markGap = 0.05,
+    required this.markGap,
     this.locked = false,
   });
 

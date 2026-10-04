@@ -3,8 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../data/services/sensor_availability_service.dart';
+import 'controls.dart';
 import 'theme.dart';
-import 'tool_frame.dart';
 
 /// A short "How to use" guide for one tool: numbered steps and one tip.
 @immutable

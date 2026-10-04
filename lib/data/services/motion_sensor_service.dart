@@ -35,7 +35,7 @@ class MotionSensorService {
           .map((e) => (value: Vec3(e.x, e.y, e.z), timestamp: e.timestamp));
 
   /// Air pressure in hPa.
-  Stream<ScalarSample> barometer() =>
-      barometerEventStream(samplingPeriod: SensorInterval.normalInterval)
-          .map((e) => (value: e.pressure, timestamp: e.timestamp));
+  Stream<ScalarSample> barometer() => barometerEventStream().map(
+    (e) => (value: e.pressure, timestamp: e.timestamp),
+  );
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 
+import 'controls.dart';
 import 'dial.dart';
 import 'readout.dart';
-import 'tool_frame.dart';
 import 'theme.dart';
 
 // Design previews for the Flutter Widget Previewer (VS Code sidebar, or

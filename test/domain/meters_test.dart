@@ -15,7 +15,7 @@ void main() {
     });
 
     test('RMS covers only the last window', () {
-      final m = VibrationMeter(window: 1)..add(const Vec3(10, 0, 0), 0);
+      final m = VibrationMeter()..add(const Vec3(10, 0, 0), 0);
       for (var i = 1; i <= 100; i++) {
         m.add(const Vec3(2, 0, 0), 1 + i * 0.02);
       }

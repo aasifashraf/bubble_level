@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/repositories/settings_repository.dart';
+import '../../../core/controls.dart';
 import '../../../core/theme.dart';
-import '../../../core/tool_frame.dart';
 
 /// Settings in the dial's design language: soft raised cards, recessed
 /// tracks with a sliding raised pill, and a switch whose knob is the dial's
