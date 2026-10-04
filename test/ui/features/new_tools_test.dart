@@ -116,7 +116,8 @@ void main() {
       expect(sensors.userAccel.hasListener, isFalse);
     });
 
-    test('vibration: a missing sensor is reported', () async {
+    test('vibration: without linear acceleration, uses the accelerometer '
+        'minus gravity; missing only when that is missing too', () async {
       final repo = VibrationRepository(sensors: sensors);
       final vm = VibrationViewModel(repository: repo)..active = true;
       addTearDown(() {
@@ -124,6 +125,23 @@ void main() {
         repo.dispose();
       });
       sensors.userAccel.addError(Exception('NO_SENSOR'));
+      await flush();
+      expect(vm.reading.state, isNot(SensorState.missing));
+      expect(sensors.accel.hasListener, isTrue);
+
+      // Resting on a table: gravity alone reads as still.
+      for (var i = 0; i < 20; i++) {
+        sensors.sendAccel(const Vec3(0, 0, 9.81));
+      }
+      await flush();
+      expect(vm.reading.state, SensorState.ok);
+      expect(vm.reading.current, closeTo(0, 1e-6));
+      // A sudden jolt on top of gravity shows up as vibration.
+      sensors.sendAccel(const Vec3(3, 0, 9.81));
+      await flush();
+      expect(vm.reading.current, greaterThan(1));
+
+      sensors.accel.addError(Exception('NO_SENSOR'));
       await flush();
       expect(vm.reading.state, SensorState.missing);
     });

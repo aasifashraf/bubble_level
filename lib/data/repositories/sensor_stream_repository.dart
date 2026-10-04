@@ -51,6 +51,13 @@ abstract class SensorStreamRepository<S, R> extends ValueNotifier<R> {
     );
   }
 
+  /// Subscribes again, e.g. to a fallback stream chosen in [onMissing].
+  @protected
+  void resubscribe() {
+    _pause();
+    _resume();
+  }
+
   void _pause() {
     _subscription?.cancel();
     _subscription = null;

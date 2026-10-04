@@ -64,8 +64,8 @@ class VibrationScreen extends StatelessWidget {
             state: r.state,
             ready: ready,
             missingText:
-                'This device can’t measure motion, so the vibration meter '
-                'isn’t available.',
+                'This phone has no accelerometer, so vibration can’t be '
+                'measured here. Tools that don’t need it still work.',
             child: InstrumentDial(
               value: r.current.toStringAsFixed(1),
               label: 'm/s²',
