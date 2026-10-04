@@ -168,6 +168,8 @@ Future<void> _showSheet(
 }) => showModalBottomSheet<void>(
   context: context,
   isScrollControlled: true,
+  // Never taller than the space below the status bar (landscape).
+  useSafeArea: true,
   backgroundColor: Colors.transparent,
   builder: (context) {
     final p = Palette.of(context);

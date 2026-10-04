@@ -14,6 +14,8 @@ Future<void> showSettingsSheet(
   return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
+    // Never taller than the space below the status bar (landscape).
+    useSafeArea: true,
     // The body paints the background itself so it follows a theme change
     // made from inside the sheet.
     backgroundColor: Colors.transparent,
