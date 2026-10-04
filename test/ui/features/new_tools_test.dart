@@ -37,6 +37,22 @@ void main() {
     });
   });
 
+  group('metal detector beep', () {
+    test('silent with no metal, then faster the bigger the change', () {
+      expect(MetalViewModel.beepGap(0), isNull);
+      expect(MetalViewModel.beepGap(MetalViewModel.nearbyAt - 1), isNull);
+      final near = MetalViewModel.beepGap(MetalViewModel.nearbyAt)!;
+      final mid = MetalViewModel.beepGap(60)!;
+      final close = MetalViewModel.beepGap(MetalViewModel.fastestAt)!;
+      expect(near, MetalViewModel.slowestGap);
+      expect(mid, lessThan(near));
+      expect(close, MetalViewModel.fastestGap);
+      expect(MetalViewModel.beepGap(500), MetalViewModel.fastestGap);
+      // A drop in the field counts as much as a rise.
+      expect(MetalViewModel.beepGap(-60), mid);
+    });
+  });
+
   group('sensor tools', () {
     late FakeMotionSensorService sensors;
     late OrientationRepository orientation;

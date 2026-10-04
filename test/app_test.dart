@@ -3,8 +3,10 @@ import 'dart:math' as math;
 import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
+import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/main.dart';
+import 'package:bubble_level/ui/core/vial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +32,7 @@ void main() {
     Size size = const Size(411, 860),
     Map<String, Object> prefs = const {},
     Set<SensorKind> missing = const {},
+    SoundService sound = const SilentSoundService(),
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -46,6 +49,7 @@ void main() {
         ),
         sensors: sensors,
         missingSensors: missing,
+        sound: sound,
       ),
     );
   }
@@ -518,5 +522,131 @@ void main() {
     await tester.tap(find.byTooltip('How to use'));
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull, reason: 'help');
+  });
+
+  group('level tube view', () {
+    SpiritVial vial(WidgetTester tester, String label) => tester.widget(
+      find.byWidgetPredicate(
+        (w) => w is SpiritVial && w.semanticsLabel == label,
+      ),
+    );
+
+    testWidgets('switches from the dial, and is remembered', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Level');
+      await send(tester, const Vec3(0.1, 0, 1)); // flat, right side high
+      expect(find.byType(SpiritVial), findsNothing);
+
+      await tester.tap(find.byTooltip('Tube view'));
+      await tester.pump();
+      // Flat: a left/right tube and a forward/back tube.
+      expect(find.byType(SpiritVial), findsNWidgets(2));
+      // The bubble floats toward the high (right) end.
+      expect(vial(tester, 'Left and right tube').position, greaterThan(0.3));
+      expect(vial(tester, 'Forward and back tube').position, closeTo(0, 0.05));
+
+      // On an edge: one tube along it.
+      for (var i = 0; i < 40; i++) {
+        await send(tester, const Vec3(0, 1, 0.02));
+      }
+      expect(find.byType(SpiritVial), findsOneWidget);
+
+      await tester.tap(find.byTooltip('Back'));
+      await tester.pumpAndSettle();
+      await openTool(tester, 'Level');
+      for (var i = 0; i < 40; i++) {
+        await send(tester, const Vec3(0.1, 0, 1));
+      }
+      expect(find.byType(SpiritVial), findsNWidgets(2));
+      expect((await SettingsRepository.load()).levelStyle, LevelStyle.tube);
+    });
+
+    testWidgets('landscape: the tube fills the space below the header', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        size: const Size(860, 411),
+        prefs: {'levelStyle': 'tube'},
+      );
+      await openTool(tester, 'Level');
+      for (var i = 0; i < 40; i++) {
+        await send(tester, const Vec3(0, 1, 0.02));
+      }
+      final tube = tester.getRect(find.byType(SpiritVial));
+      final hold = tester.getRect(find.text('Hold'));
+      expect(tube.width, greaterThan(250), reason: 'not squeezed');
+      expect(tube.top, greaterThan(88), reason: 'below the header');
+      expect(tube.right, lessThanOrEqualTo(hold.left));
+    });
+
+    for (final (name, size) in [
+      ('small phone', const Size(320, 568)),
+      ('phone landscape', const Size(860, 411)),
+      ('tablet landscape', const Size(1200, 800)),
+    ]) {
+      testWidgets('no overflow on a $name with large text', (tester) async {
+        tester.platformDispatcher.textScaleFactorTestValue = 1.6;
+        addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+        await pumpApp(tester, size: size, prefs: {'levelStyle': 'tube'});
+        await openTool(tester, 'Level');
+        await send(tester, const Vec3(0.1, 0, 1));
+        expect(tester.takeException(), isNull, reason: 'flat');
+        for (var i = 0; i < 40; i++) {
+          await send(tester, const Vec3(0, 1, 0.02));
+        }
+        expect(tester.takeException(), isNull, reason: 'edge');
+      });
+    }
+  });
+
+  group('sounds', () {
+    testWidgets('metal detector beeps near metal; the speaker mutes it', (
+      tester,
+    ) async {
+      final sound = RecordingSoundService();
+      await pumpApp(tester, sound: sound);
+      await openTool(tester, 'Metal detector');
+      sensors.sendMagnet(const Vec3(0, 45, 0));
+      await send(tester, Vec3.up);
+      await tester.pump(const Duration(seconds: 2));
+      expect(sound.ticks, 0, reason: 'no metal, no beep');
+
+      // A magnet next to the phone: about 100 µT over the baseline.
+      for (var i = 0; i < 30; i++) {
+        sensors.sendMagnet(const Vec3(0, 145, 0));
+        await send(tester, Vec3.up);
+      }
+      sound.ticks = 0;
+      await tester.pump(const Duration(seconds: 2));
+      expect(sound.ticks, greaterThan(8), reason: 'beeping fast');
+
+      await tester.tap(find.byTooltip('Mute sound'));
+      await tester.pump();
+      expect(find.byTooltip('Turn sound on'), findsOneWidget);
+      sound.ticks = 0;
+      await tester.pump(const Duration(seconds: 2));
+      expect(sound.ticks, 0, reason: 'muted');
+      expect((await SettingsRepository.load()).sounds, isFalse);
+
+      await tester.tap(find.byTooltip('Turn sound on'));
+      await tester.pump();
+      await tester.tap(find.byTooltip('Back'));
+      await tester.pumpAndSettle();
+      sound.ticks = 0;
+      await tester.pump(const Duration(seconds: 2));
+      expect(sound.ticks, 0, reason: 'closed');
+    });
+
+    testWidgets('Settings has a Sounds switch, remembered', (tester) async {
+      await pumpApp(tester);
+      await tester.tap(find.byTooltip('Settings'));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Sounds'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Sounds'));
+      await tester.pumpAndSettle();
+      expect((await SettingsRepository.load()).sounds, isFalse);
+    });
   });
 }

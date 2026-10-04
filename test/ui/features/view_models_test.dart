@@ -189,6 +189,47 @@ void main() {
       expect(vm.state!.isLevel, isTrue);
     });
 
+    test('chimes once per arrival at level, with sounds on', () async {
+      var chimes = 0;
+      final chiming = LevelViewModel(
+        orientation: orientation,
+        settings: settings,
+        onLevelReached: () {},
+        onChime: () => chimes++,
+      )..active = true;
+      addTearDown(chiming.dispose);
+      await settings.setHaptics(false); // the chime doesn't depend on it
+
+      Future<void> show(Vec3 up) async {
+        orientation
+          ..stop()
+          ..start();
+        sensors.sendUp(up);
+        await flush();
+      }
+
+      Future<void> arrive() async {
+        await show(_pitched(5));
+        await show(Vec3.up);
+      }
+
+      await arrive();
+      await show(Vec3.up);
+      expect(chimes, 1, reason: 'not again while it stays level');
+      await arrive();
+      expect(chimes, 2);
+
+      await settings.setSounds(false);
+      await arrive();
+      expect(chimes, 2, reason: 'sounds off');
+
+      await settings.setSounds(true);
+      await show(_pitched(5));
+      chiming.toggleHold();
+      await show(Vec3.up);
+      expect(chimes, 2, reason: 'held');
+    });
+
     test('an inactive view model ignores sensors and never vibrates', () async {
       vm.active = false;
       sensors.sendUp(Vec3.up);

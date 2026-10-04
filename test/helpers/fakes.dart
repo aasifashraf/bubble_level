@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:bubble_level/data/services/display_rotation_service.dart';
 import 'package:bubble_level/data/services/motion_sensor_service.dart';
+import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
 
 /// Sensor streams the test drives by hand.
@@ -74,4 +75,15 @@ const _d2r = math.pi / 180;
   final z = top * -math.sin(p) + worldUp * math.cos(p);
   Vec3 toDevice(Vec3 w) => Vec3(w.dot(x), w.dot(y), w.dot(z));
   return (up: toDevice(worldUp), field: toDevice(const Vec3(0, 20, -40)));
+}
+
+/// Counts the sounds the app asks for.
+class RecordingSoundService implements SoundService {
+  int chimes = 0, ticks = 0;
+
+  @override
+  void chime() => chimes++;
+
+  @override
+  void tick() => ticks++;
 }
