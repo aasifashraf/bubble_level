@@ -94,12 +94,12 @@ class LevelViewModel extends SensorViewModel {
 
   LevelMode _mode = LevelMode.flat;
   int _quadrant = 0;
-  bool _held = false;
+  bool _locked = false;
   bool _wasLevel = false;
   LevelState? _state;
 
   LevelState? get state => _state;
-  bool get held => _held;
+  bool get locked => _locked;
   AngleUnit get unit => _settings.unit;
 
   /// Dial or tube, remembered across launches.
@@ -110,10 +110,14 @@ class LevelViewModel extends SensorViewModel {
     notifyListeners();
   }
 
-  void toggleHold() {
-    _held = !_held;
+  void toggleLock() {
+    _locked = !_locked;
     update();
   }
+
+  /// Opens unlocked, so nobody returns to a frozen reading.
+  @override
+  void onActivate() => _locked = false;
 
   void _onSettingsChanged() {
     if (active) update();
@@ -121,10 +125,10 @@ class LevelViewModel extends SensorViewModel {
 
   @override
   void update() {
-    if (!_held) _state = _compute();
+    if (!_locked) _state = _compute();
     final level = _state?.isLevel ?? false;
-    // Once per arrival at level (with hysteresis), never while held.
-    if (level && !_wasLevel && !_held) {
+    // Once per arrival at level (with hysteresis), never while locked.
+    if (level && !_wasLevel && !_locked) {
       if (_settings.haptics) _onLevelReached();
       if (_settings.sounds) _onChime();
       _onSuccess();
@@ -177,12 +181,18 @@ class LevelViewModel extends SensorViewModel {
     );
   }
 
+  /// Whether a calibration is in use (so it can be reset).
+  bool get calibrated => _settings.isLevelCalibrated;
+
+  /// Back to the factory sensor zero.
+  Future<void> resetCalibration() => _settings.resetLevelCalibration();
+
   /// Treats the current position as perfectly level for the current mode.
-  /// Releases Hold first so the mode and quadrant reflect the live position.
+  /// Unlocks first so the mode and quadrant reflect the live position.
   Future<CalibrationResult> calibrate() async {
     final g = reading.gravity;
     if (g == null) return CalibrationResult.noData;
-    _held = false;
+    _locked = false;
     _state = _compute();
     if (_mode == LevelMode.flat) {
       if (tiltDeg(g) > maxCalibrationError) {

@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'controls.dart';
 import 'theme.dart';
 
-/// One choice in a [SoftSwitch].
-typedef SoftSwitchOption<T> = ({T value, IconData icon, String tooltip});
+/// One choice in a [SoftSwitch]: an [icon], or a short [label] ("cm").
+typedef SoftSwitchOption<T> = ({
+  T value,
+  IconData? icon,
+  String? label,
+  String tooltip,
+});
 
-/// A soft raised pill holding a few icon choices, the selected one pressed
-/// in: home's list/grid switch and the Level tool's dial/tube switch.
+/// A soft raised pill holding a few choices, the selected one pressed in:
+/// home's list/grid switch, the Level's dial/tube switch and the Ruler's
+/// units.
 class SoftSwitch<T> extends StatelessWidget {
   const SoftSwitch({
     super.key,
@@ -41,11 +47,27 @@ class SoftSwitch<T> extends StatelessWidget {
                         ? p.ink.withValues(alpha: p.isDark ? 0.14 : 0.08)
                         : Colors.transparent,
                   ),
-                  icon: Icon(
-                    o.icon,
-                    size: 20,
-                    color: o.value == value ? p.ink : p.label,
-                  ),
+                  icon: o.icon != null
+                      ? Icon(
+                          o.icon,
+                          size: 20,
+                          color: o.value == value ? p.ink : p.label,
+                        )
+                      : SizedBox(
+                          width: 40,
+                          child: Text(
+                            o.label ?? '',
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            style: TextStyle(
+                              // Large text (18.7 px+ bold) so the orange
+                              // reads at its 3:1 contrast.
+                              fontSize: 19,
+                              fontWeight: FontWeight.w700,
+                              color: o.value == value ? p.accentText : p.label,
+                            ),
+                          ),
+                        ),
                 ),
               ),
           ],

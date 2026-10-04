@@ -21,7 +21,8 @@ class CompassState {
   /// False when the magnetic field looks disturbed or uncalibrated.
   final bool reliable;
 
-  String get cardinalName => cardinal(heading);
+  /// Compass sector 0–7 (N, NE, … NW).
+  int get sector => cardinalSector(heading);
 }
 
 class CompassViewModel extends SensorViewModel {

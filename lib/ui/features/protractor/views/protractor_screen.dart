@@ -6,6 +6,7 @@ import '../../../core/controls.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
+import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/protractor_view_model.dart';
@@ -22,13 +23,14 @@ class ProtractorScreen extends StatelessWidget {
   final ProtractorViewModel viewModel;
   final VoidCallback onBack;
 
-  static const _help = ToolHelp(
-    tool: 'Protractor',
+  static ToolHelp _help(AppLocalizations l) => ToolHelp(
+    tool: l.toolProtractor,
     steps: [
-      'Lay the phone flat and place the object on the screen, with its corner at the centre.',
-      'Drag each orange handle so its line runs along one edge of the angle.',
-      'Read the angle in the centre. Reflex is the other side (360° minus it).',
-      'Tap Reset to start again.',
+      l.protractorHelp1,
+      l.protractorHelp2,
+      l.protractorHelp3,
+      l.protractorHelp4,
+      l.protractorHelp5,
     ],
   );
 
@@ -46,9 +48,9 @@ class ProtractorScreen extends StatelessWidget {
       builder: (context, _) {
         final angle = viewModel.angle;
         return ToolFrame(
-          title: 'Protractor',
+          title: context.l10n.toolProtractor,
           onBack: onBack,
-          trailing: const HelpButton(help: _help),
+          trailing: HelpButton(help: _help(context.l10n)),
           bodyBottomInset: 120,
           body: LayoutBuilder(
             builder: (context, constraints) {
@@ -61,8 +63,9 @@ class ProtractorScreen extends StatelessWidget {
                 onTapUp: (d) => viewModel.beginDrag(at(d.localPosition)),
                 child: InstrumentDial(
                   value: formatDegrees(angle),
-                  semanticsLabel:
-                      'Angle between the arms ${formatDegrees(angle)}',
+                  semanticsLabel: context.l10n.armsSemantics(
+                    formatDegrees(angle),
+                  ),
                   arms: [viewModel.arm(0), viewModel.arm(1)],
                   arcStart: viewModel.arcStart,
                   arcSweep: angle,
@@ -80,27 +83,50 @@ class ProtractorScreen extends StatelessWidget {
                   Expanded(
                     child: ValueTile(
                       value: formatDegrees(angle),
-                      caption: 'Angle',
+                      caption: context.l10n.angle,
                     ),
                   ),
                   Expanded(
                     child: ValueTile(
                       value: formatDegrees(viewModel.reflex),
-                      caption: 'Reflex',
+                      caption: context.l10n.reflex,
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              const StatusBanner(
-                icon: Icons.touch_app_rounded,
-                text: 'Drag the orange handles along the edges',
-              ),
+              viewModel.locked
+                  ? StatusBanner(
+                      icon: Icons.lock_rounded,
+                      text: context.l10n.handlesLocked,
+                    )
+                  : StatusBanner(
+                      icon: Icons.touch_app_rounded,
+                      text: context.l10n.dragHandles,
+                    ),
               const SizedBox(height: 16),
-              SoftButton(
-                label: 'Reset',
-                icon: Icons.restart_alt_rounded,
-                onPressed: viewModel.reset,
+              Row(
+                spacing: 14,
+                children: [
+                  Expanded(
+                    child: SoftButton(
+                      label: context.l10n.reset,
+                      icon: Icons.restart_alt_rounded,
+                      onPressed: viewModel.locked ? null : viewModel.reset,
+                    ),
+                  ),
+                  // Keeps the handles in place while the object is moved.
+                  SoftIconButton(
+                    icon: viewModel.locked
+                        ? Icons.lock_rounded
+                        : Icons.lock_open_rounded,
+                    tooltip: viewModel.locked
+                        ? context.l10n.unlock
+                        : context.l10n.lockHandles,
+                    active: viewModel.locked,
+                    onPressed: viewModel.toggleLock,
+                  ),
+                ],
               ),
             ],
           ),

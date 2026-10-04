@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/repositories/settings_repository.dart';
 import '../../../core/controls.dart';
+import '../../../core/help.dart';
+import '../../../core/l10n.dart';
 import '../../../core/theme.dart';
 
 /// Settings in the dial's design language: soft raised cards, recessed
@@ -56,7 +58,7 @@ class _SettingsBody extends StatelessWidget {
               ),
               const SizedBox(height: 18),
               Text(
-                'Settings',
+                context.l10n.settings,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
@@ -68,19 +70,27 @@ class _SettingsBody extends StatelessWidget {
               const SizedBox(height: 22),
               _Card(
                 children: [
-                  const _Label('Appearance'),
+                  _Label(context.l10n.appearance),
                   const SizedBox(height: 12),
                   _Segmented<ThemeMode>(
                     value: settings.themeMode,
                     onChanged: settings.setThemeMode,
-                    options: const [
+                    options: [
                       (
                         ThemeMode.system,
                         Icons.brightness_auto_rounded,
-                        'System',
+                        context.l10n.themeSystem,
                       ),
-                      (ThemeMode.light, Icons.light_mode_rounded, 'Light'),
-                      (ThemeMode.dark, Icons.dark_mode_rounded, 'Dark'),
+                      (
+                        ThemeMode.light,
+                        Icons.light_mode_rounded,
+                        context.l10n.themeLight,
+                      ),
+                      (
+                        ThemeMode.dark,
+                        Icons.dark_mode_rounded,
+                        context.l10n.themeDark,
+                      ),
                     ],
                   ),
                 ],
@@ -90,15 +100,16 @@ class _SettingsBody extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Expanded(child: _Label('Level units')),
+                      Expanded(child: _Label(context.l10n.levelUnits)),
                       SizedBox(
-                        width: 132,
+                        width: 180,
                         child: _Segmented<AngleUnit>(
                           value: settings.unit,
                           onChanged: settings.setUnit,
                           options: const [
                             (AngleUnit.degrees, null, '°'),
                             (AngleUnit.percent, null, '%'),
+                            (AngleUnit.pitch, null, '/12'),
                           ],
                         ),
                       ),
@@ -108,7 +119,7 @@ class _SettingsBody extends StatelessWidget {
                   Divider(height: 1, color: p.ink.withValues(alpha: 0.08)),
                   const SizedBox(height: 16),
                   _ToggleRow(
-                    label: 'Vibrate when level',
+                    label: context.l10n.vibrateWhenLevel,
                     value: settings.haptics,
                     onChanged: settings.setHaptics,
                   ),
@@ -116,12 +127,14 @@ class _SettingsBody extends StatelessWidget {
                   Divider(height: 1, color: p.ink.withValues(alpha: 0.08)),
                   const SizedBox(height: 16),
                   _ToggleRow(
-                    label: 'Sounds',
+                    label: context.l10n.sounds,
                     value: settings.sounds,
                     onChanged: settings.setSounds,
                   ),
                 ],
               ),
+              const SizedBox(height: 18),
+              _Card(children: [_LanguageRow(settings: settings)]),
               const SizedBox(height: 18),
               _ResetCard(settings: settings),
             ],
@@ -198,7 +211,10 @@ class _Segmented<T> extends StatelessWidget {
           AnimatedAlign(
             duration: const Duration(milliseconds: 260),
             curve: Curves.easeOutCubic,
-            alignment: Alignment(n == 1 ? 0 : -1 + 2 * index / (n - 1), 0),
+            alignment: AlignmentDirectional(
+              n == 1 ? 0 : -1 + 2 * index / (n - 1),
+              0,
+            ),
             child: FractionallySizedBox(
               widthFactor: 1 / n,
               heightFactor: 1,
@@ -321,15 +337,55 @@ class _BallSwitch extends StatelessWidget {
   }
 }
 
+/// Resets every tool's calibration, after saying exactly what goes.
 class _ResetCard extends StatelessWidget {
   const _ResetCard({required this.settings});
 
   final SettingsRepository settings;
 
+  Future<void> _confirm(BuildContext context) =>
+      showAppSheet<void>(context, (context) {
+        final l = context.l10n;
+        final p = Palette.of(context);
+        return AppSheet(
+          title: l.resetAllTitle,
+          action: Row(
+            spacing: 14,
+            children: [
+              Expanded(
+                child: SoftButton(
+                  label: l.cancel,
+                  icon: Icons.close_rounded,
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+              Expanded(
+                child: SoftButton(
+                  label: l.reset,
+                  icon: Icons.restart_alt_rounded,
+                  emphasis: true,
+                  onPressed: () {
+                    settings.resetAllCalibrations();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+            ],
+          ),
+          children: [
+            Text(
+              l.resetAllBody,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15, height: 1.45, color: p.ink),
+            ),
+          ],
+        );
+      });
+
   @override
   Widget build(BuildContext context) {
     final p = Palette.of(context);
-    final enabled = settings.isCalibrated;
+    final enabled = settings.hasAnyCalibration;
     final radius = BorderRadius.circular(26);
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 200),
@@ -340,7 +396,7 @@ class _ResetCard extends StatelessWidget {
           type: MaterialType.transparency,
           child: InkWell(
             borderRadius: radius,
-            onTap: enabled ? settings.resetCalibration : null,
+            onTap: enabled ? () => _confirm(context) : null,
             child: Padding(
               padding: const EdgeInsets.all(14),
               child: Row(
@@ -379,12 +435,12 @@ class _ResetCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const _Label('Reset calibration'),
+                        _Label(context.l10n.resetAllCalibrations),
                         const SizedBox(height: 2),
                         Text(
                           enabled
-                              ? 'Use the factory sensor zero again'
-                              : 'Not calibrated',
+                              ? context.l10n.resetAllCalibrationsHint
+                              : context.l10n.notCalibrated,
                           style: TextStyle(fontSize: 13, color: p.label),
                         ),
                       ],
@@ -429,3 +485,131 @@ class _ToggleRow extends StatelessWidget {
     ),
   );
 }
+
+/// "Language" with the current choice; opens the list of languages.
+class _LanguageRow extends StatelessWidget {
+  const _LanguageRow({required this.settings});
+
+  final SettingsRepository settings;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    final l = context.l10n;
+    final current = settings.language;
+    return MergeSemantics(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => _showLanguages(context, settings),
+        child: Row(
+          children: [
+            Expanded(child: _Label(l.language)),
+            Flexible(
+              child: Text(
+                current == null ? l.languageSystem : languageNames[current]!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.end,
+                style: TextStyle(fontSize: 15, color: p.label),
+              ),
+            ),
+            const SizedBox(width: 4),
+            Icon(Icons.chevron_right_rounded, color: p.label),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The phone's language first, then each language in its own name.
+Future<void> _showLanguages(
+  BuildContext context,
+  SettingsRepository settings,
+) => showModalBottomSheet<void>(
+  context: context,
+  isScrollControlled: true,
+  useSafeArea: true,
+  backgroundColor: Colors.transparent,
+  builder: (context) {
+    final p = Palette.of(context);
+    final l = context.l10n;
+    Widget option(String? code, String name) {
+      final selected = settings.language == code;
+      return ListTile(
+        title: Text(
+          name,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+            color: p.ink,
+          ),
+        ),
+        trailing: selected
+            ? Icon(Icons.check_rounded, color: p.ballDark)
+            : null,
+        selected: selected,
+        onTap: () {
+          settings.setLanguage(code);
+          Navigator.of(context).pop();
+        },
+      );
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: p.background,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: 44,
+                  height: 5,
+                  decoration: insetSurface(p, radius: BorderRadius.circular(3)),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                l.language,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: p.inkStrong,
+                ),
+              ),
+              const SizedBox(height: 16),
+              DecoratedBox(
+                decoration: softSurface(p, radius: BorderRadius.circular(26)),
+                child: Material(
+                  // The rows' tap ripple paints on this, over the card.
+                  type: MaterialType.transparency,
+                  borderRadius: BorderRadius.circular(26),
+                  clipBehavior: Clip.antiAlias,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Column(
+                      children: [
+                        option(null, l.languageSystem),
+                        for (final MapEntry(:key, :value)
+                            in languageNames.entries)
+                          option(key, value),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  },
+);

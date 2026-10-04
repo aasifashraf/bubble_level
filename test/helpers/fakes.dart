@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:bubble_level/data/services/display_rotation_service.dart';
+import 'package:bubble_level/data/services/microphone_service.dart';
 import 'package:bubble_level/data/services/motion_sensor_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
@@ -13,6 +14,7 @@ class FakeMotionSensorService implements MotionSensorService {
   final magnet = StreamController<SensorSample>.broadcast();
   final userAccel = StreamController<SensorSample>.broadcast();
   final baro = StreamController<ScalarSample>.broadcast();
+  final lightSensor = StreamController<ScalarSample>.broadcast();
 
   var _t = DateTime(2026);
 
@@ -30,6 +32,11 @@ class FakeMotionSensorService implements MotionSensorService {
     baro.add((value: hPa, timestamp: _t));
   }
 
+  void sendLux(double lux) {
+    _t = _t.add(const Duration(milliseconds: 200));
+    lightSensor.add((value: lux, timestamp: _t));
+  }
+
   /// Accelerometer reading for a phone whose "up" is [up] (any length).
   void sendUp(Vec3 up) => sendAccel(up.normalized() * 9.81);
 
@@ -43,13 +50,21 @@ class FakeMotionSensorService implements MotionSensorService {
   Stream<SensorSample> userAccelerometer() => userAccel.stream;
   @override
   Stream<ScalarSample> barometer() => baro.stream;
+  @override
+  Stream<ScalarSample> light() => lightSensor.stream;
 }
 
 class FakeDisplayRotationService implements DisplayRotationService {
   int turns = 0;
 
+  /// What the "platform" reports for the ruler; null like iOS.
+  ({double xdpi, double ydpi})? ppi;
+
   @override
   Future<int> quarterTurns() async => turns;
+
+  @override
+  Future<({double xdpi, double ydpi})?> pixelsPerInch() async => ppi;
 }
 
 /// Lets stream events and async callbacks run.
@@ -86,4 +101,41 @@ class RecordingSoundService implements SoundService {
 
   @override
   void tick() => ticks++;
+}
+
+/// A microphone the test drives: permission answers and sound blocks.
+class FakeMicrophoneService implements MicrophoneService {
+  /// Whether access is already granted.
+  bool granted = false;
+
+  /// The answer to the system prompt.
+  bool grantOnRequest = true;
+
+  int requests = 0, settingsOpened = 0;
+  final blocks = StreamController<ScalarSample>.broadcast();
+  var _t = DateTime(2026);
+
+  /// Sends [seconds] of steady sound at mean square [meanSquare], in the
+  /// service's 100 ms blocks.
+  void sendSound(double meanSquare, {double seconds = 0.1}) {
+    for (var i = 0; i < (seconds * 10).round(); i++) {
+      _t = _t.add(const Duration(milliseconds: 100));
+      blocks.add((value: meanSquare, timestamp: _t));
+    }
+  }
+
+  @override
+  Future<bool> hasPermission({bool request = false}) async {
+    if (request && !granted) {
+      requests++;
+      granted = grantOnRequest;
+    }
+    return granted;
+  }
+
+  @override
+  Future<void> openAppSettings() async => settingsOpened++;
+
+  @override
+  Stream<ScalarSample> levels() => blocks.stream;
 }

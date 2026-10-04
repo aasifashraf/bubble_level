@@ -4,6 +4,7 @@ import '../../../core/controls.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
+import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/altimeter_view_model.dart';
@@ -20,15 +21,15 @@ class AltimeterScreen extends StatelessWidget {
   final AltimeterViewModel viewModel;
   final VoidCallback onBack;
 
-  static const _help = ToolHelp(
-    tool: 'Altimeter',
+  static ToolHelp _help(AppLocalizations l) => ToolHelp(
+    tool: l.toolAltimeter,
     steps: [
-      'The dial shows air pressure in hPa, and altitude is estimated from it.',
-      'To measure a height change, like stairs or floors, tap Set zero here where you start.',
-      'Go up or down. The centre shows the metres from your zero.',
-      'Tap Clear zero to go back.',
+      l.altimeterHelp1,
+      l.altimeterHelp2,
+      l.altimeterHelp3,
+      l.altimeterHelp4,
     ],
-    tip: 'Weather changes air pressure, so altitude can be off by tens of metres. Height from your zero is accurate over short periods. This tool needs a phone with a barometer.',
+    tip: l.altimeterTip,
   );
 
   static const _scaleMin = 950.0, _scaleSpan = 120.0;
@@ -49,9 +50,9 @@ class AltimeterScreen extends StatelessWidget {
             ? 0.0
             : ((pressure - _scaleMin) / _scaleSpan).clamp(0.0, 0.999) * 360;
         return ToolFrame(
-          title: 'Altimeter',
+          title: context.l10n.toolAltimeter,
           onBack: onBack,
-          trailing: const HelpButton(help: _help),
+          trailing: HelpButton(help: _help(context.l10n)),
           bodyBottomInset: 120,
           body: SensorStateGate(
             state: r.state,
@@ -60,23 +61,24 @@ class AltimeterScreen extends StatelessWidget {
             // barometer; on iPhone the usual cause is Motion & Fitness
             // access being off.
             missingText: Theme.of(context).platform == TargetPlatform.iOS
-                ? 'Can’t read the barometer. Turn on Motion & Fitness for '
-                      'this app in Settings › Privacy & Security, then open '
-                      'the Altimeter again.'
-                : 'This phone has no barometer (air pressure sensor), so '
-                      'the altimeter can’t work here. Other tools still work.',
+                ? context.l10n.barometerIos
+                : context.l10n.noBarometer,
             child: pressure == null
                 ? const SizedBox.shrink()
                 : InstrumentDial(
                     value: relative == null
-                        ? pressure.toStringAsFixed(1)
+                        ? formatDecimal(pressure)
                         : formatSignedDecimal(relative),
-                    label: relative == null ? 'hPa' : 'm from zero',
+                    label: relative == null
+                        ? 'hPa'
+                        : context.l10n.metresFromZero,
                     semanticsLabel: relative == null
-                        ? 'Air pressure ${pressure.toStringAsFixed(1)} '
-                              'hectopascals'
-                        : 'Height ${formatMeters(relative, signed: true)} '
-                              'from zero',
+                        ? context.l10n.pressureSemantics(
+                            formatDecimal(pressure),
+                          )
+                        : context.l10n.heightSemantics(
+                            formatMeters(relative, signed: true),
+                          ),
                     scaleLabels: _scale,
                     arcSweep: sweep,
                     ballAngle: sweep,
@@ -94,13 +96,13 @@ class AltimeterScreen extends StatelessWidget {
                         Expanded(
                           child: ValueTile(
                             value: formatPressure(pressure),
-                            caption: 'Pressure',
+                            caption: context.l10n.pressure,
                           ),
                         ),
                         Expanded(
                           child: ValueTile(
                             value: '≈ ${formatMeters(r.altitude!)}',
-                            caption: 'Altitude (approx.)',
+                            caption: context.l10n.altitudeApprox,
                           ),
                         ),
                       ],
@@ -111,18 +113,18 @@ class AltimeterScreen extends StatelessWidget {
                           ? Icons.adjust_rounded
                           : Icons.terrain_rounded,
                       text: viewModel.zeroed
-                          ? 'Measuring height from your zero'
-                          : 'Air pressure and altitude',
+                          ? context.l10n.measuringHeight
+                          : context.l10n.airPressureAltitude,
                     ),
                     const SizedBox(height: 16),
                     viewModel.zeroed
                         ? SoftButton(
-                            label: 'Clear zero',
+                            label: context.l10n.clearZero,
                             icon: Icons.close_rounded,
                             onPressed: viewModel.clearZero,
                           )
                         : SoftButton(
-                            label: 'Set zero here',
+                            label: context.l10n.setZeroHere,
                             icon: Icons.adjust_rounded,
                             onPressed: viewModel.setZero,
                             emphasis: true,

@@ -3,6 +3,7 @@ import 'package:flutter/widget_previews.dart';
 
 import 'controls.dart';
 import 'dial.dart';
+import 'l10n.dart';
 import 'readout.dart';
 import 'theme.dart';
 
@@ -16,9 +17,13 @@ Widget darkTheme(Widget child) => _themed(Brightness.dark, child);
 
 Widget _themed(Brightness brightness, Widget child) {
   final theme = buildTheme(brightness);
-  return Theme(
-    data: theme,
-    child: ColoredBox(color: theme.colorScheme.surface, child: child),
+  return Localizations(
+    locale: const Locale('en'),
+    delegates: AppLocalizations.localizationsDelegates,
+    child: Theme(
+      data: theme,
+      child: ColoredBox(color: theme.colorScheme.surface, child: child),
+    ),
   );
 }
 
@@ -83,7 +88,7 @@ Widget compassPreview() => const InstrumentDial(
   value: '260°',
   label: 'W',
   semanticsLabel: 'Magnetic heading 260 degrees, W',
-  letters: true,
+  letters: ['N', 'E', 'S', 'W'],
   ballAngle: 260,
 );
 

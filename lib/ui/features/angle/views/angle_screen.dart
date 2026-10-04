@@ -4,6 +4,7 @@ import '../../../core/controls.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
+import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/angle_view_model.dart';
@@ -16,15 +17,16 @@ class AngleScreen extends StatelessWidget {
   final AngleViewModel viewModel;
   final VoidCallback onBack;
 
-  static const _help = ToolHelp(
-    tool: 'Angle',
+  static ToolHelp _help(AppLocalizations l) => ToolHelp(
+    tool: l.toolAngle,
     steps: [
-      'The dial shows how far the phone is tilted from lying flat: 0° flat, 90° upright.',
-      'To measure a change, hold the phone in the starting position and tap Set zero here.',
-      'Tilt or move the phone. The dial shows how many degrees it moved from your zero.',
-      'Tap Clear zero to go back to the angle from flat.',
+      l.angleHelp1,
+      l.angleHelp2,
+      l.angleHelp3,
+      l.angleHelp4,
+      l.angleHelp5,
     ],
-    tip: 'Press the phone flat against an object, like a board, door or ramp, to measure its angle.',
+    tip: l.angleTip,
   );
 
   @override
@@ -37,17 +39,18 @@ class AngleScreen extends StatelessWidget {
         final value = formatDegrees(degrees);
         final zeroed = state?.zeroed ?? false;
         return ToolFrame(
-          title: 'Angle',
+          title: context.l10n.toolAngle,
           onBack: onBack,
-          trailing: const HelpButton(help: _help),
+          trailing: HelpButton(help: _help(context.l10n)),
           body: SensorGate(
             reading: viewModel.reading,
             child: state == null
                 ? const SizedBox.shrink()
                 : InstrumentDial(
                     value: value,
-                    semanticsLabel:
-                        '${zeroed ? 'Moved from zero' : 'From level'} $value',
+                    semanticsLabel: zeroed
+                        ? context.l10n.movedFromZero(value)
+                        : context.l10n.fromLevel(value),
                     arcSweep: degrees,
                     ballAngle: degrees,
                     reserved: 300,
@@ -58,31 +61,55 @@ class AngleScreen extends StatelessWidget {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    StatusBanner(
-                      icon: zeroed
-                          ? Icons.adjust_rounded
-                          : Icons.public_rounded,
-                      text: zeroed
-                          ? 'Measuring from your zero'
-                          : 'Angle from the Earth',
-                    ),
+                    _status(context, zeroed),
                     const SizedBox(height: 16),
-                    zeroed
-                        ? SoftButton(
-                            label: 'Clear zero',
-                            icon: Icons.close_rounded,
-                            onPressed: viewModel.clearZero,
-                          )
-                        : SoftButton(
-                            label: 'Set zero here',
-                            icon: Icons.adjust_rounded,
-                            onPressed: viewModel.setZero,
-                            emphasis: true,
-                          ),
+                    Row(
+                      spacing: 14,
+                      children: [
+                        Expanded(
+                          child: zeroed
+                              ? SoftButton(
+                                  label: context.l10n.clearZero,
+                                  icon: Icons.close_rounded,
+                                  onPressed: viewModel.clearZero,
+                                )
+                              : SoftButton(
+                                  label: context.l10n.setZeroHere,
+                                  icon: Icons.adjust_rounded,
+                                  onPressed: viewModel.setZero,
+                                  emphasis: true,
+                                ),
+                        ),
+                        // Freezes the reading to read it after lifting the
+                        // phone off what it measured.
+                        SoftIconButton(
+                          icon: viewModel.locked
+                              ? Icons.lock_rounded
+                              : Icons.lock_open_rounded,
+                          tooltip: viewModel.locked
+                              ? context.l10n.unlock
+                              : context.l10n.lockReading,
+                          active: viewModel.locked,
+                          onPressed: viewModel.toggleLock,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
         );
       },
+    );
+  }
+
+  Widget _status(BuildContext context, bool zeroed) {
+    final l = context.l10n;
+    final text = zeroed ? l.measuringFromZero : l.angleFromEarth;
+    if (viewModel.locked) {
+      return StatusBanner(icon: Icons.lock_rounded, text: l.locked(text));
+    }
+    return StatusBanner(
+      icon: zeroed ? Icons.adjust_rounded : Icons.public_rounded,
+      text: text,
     );
   }
 }

@@ -179,10 +179,10 @@ void main() {
   });
 
   test('cardinal', () {
-    expect(cardinal(0), 'N');
-    expect(cardinal(359), 'N');
-    expect(cardinal(44), 'NE');
-    expect(cardinal(90), 'E');
-    expect(cardinal(225), 'SW');
+    expect(cardinalSector(0), 0); // N
+    expect(cardinalSector(359), 0); // N
+    expect(cardinalSector(44), 1); // NE
+    expect(cardinalSector(90), 2); // E
+    expect(cardinalSector(225), 5); // SW
   });
 }

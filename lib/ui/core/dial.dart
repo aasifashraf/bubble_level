@@ -40,8 +40,10 @@ abstract final class DialGeometry {
 ///
 /// Variants: [ballAngle] (degrees clockwise from 12 o'clock), [arcSweep]
 /// (Angle), [waterAngle] (Level on an edge), [bubble] (Level flat, each axis
-/// in [-1, 1]), [labels] (degree labels), [letters] (N/E/S/W), [locked]
-/// (level reached: the button turns orange).
+/// in [-1, 1]), [labels] (degree labels), [letters] (the four cardinal
+/// letters N, E, S, W in the user's language, N in red), [locked]
+/// (level reached: the button turns orange), [zones] (a meter's colour
+/// bands: the arc takes each band's colour, the ball the current one's).
 class InstrumentDial extends StatelessWidget {
   const InstrumentDial({
     super.key,
@@ -56,8 +58,9 @@ class InstrumentDial extends StatelessWidget {
     this.labels = true,
     this.scaleLabels,
     this.arms,
-    this.letters = false,
+    this.letters,
     this.locked = false,
+    this.zones,
     this.reserved = 180,
   });
 
@@ -69,13 +72,19 @@ class InstrumentDial extends StatelessWidget {
   /// Where the arc begins, degrees clockwise from 12 o'clock.
   final double arcStart;
   final Offset? bubble;
-  final bool labels, letters, locked;
+  final bool labels, locked;
+
+  /// N, E, S, W around the ring, or none.
+  final List<String>? letters;
 
   /// Twelve labels for the scale (every 30°) instead of degrees, for meters.
   final List<String>? scaleLabels;
 
   /// Protractor arms: long rays from the centre, each with a ball handle.
   final List<double>? arms;
+
+  /// Colour bands, by their start angle; none keeps the orange.
+  final List<DialZone>? zones;
 
   /// Vertical space taken by header and footer, kept clear of the dial.
   final double reserved;
@@ -103,6 +112,7 @@ class InstrumentDial extends StatelessWidget {
           arms: arms,
           letters: letters,
           locked: locked,
+          zones: zones,
           reserved: DialFit.reservedOf(context) ?? reserved,
         ),
       ),
@@ -151,6 +161,10 @@ void paintHalo(Canvas canvas, Offset c, double r, Palette p) {
 Offset _polar(Offset c, double r, double angle) =>
     c + Offset(math.sin(angle * _deg), -math.cos(angle * _deg)) * r;
 
+/// One colour band of a meter's dial, from [from] degrees (clockwise from
+/// 12 o'clock) up to the next band's start.
+typedef DialZone = ({double from, Color color});
+
 class DialPainter extends CustomPainter {
   DialPainter({
     required this.palette,
@@ -167,6 +181,7 @@ class DialPainter extends CustomPainter {
     required this.arms,
     required this.letters,
     required this.locked,
+    this.zones,
     required this.reserved,
   });
 
@@ -176,10 +191,44 @@ class DialPainter extends CustomPainter {
   final double? ballAngle, arcSweep, waterAngle;
   final double arcStart;
   final Offset? bubble;
-  final bool labels, letters, locked;
+  final bool labels, locked;
+
+  /// N, E, S, W around the ring, or none.
+  final List<String>? letters;
   final List<String>? scaleLabels;
   final List<double>? arms;
+  final List<DialZone>? zones;
   final double reserved;
+
+  /// The zone colour at [angle], or null without zones.
+  Color? _zoneAt(double angle) {
+    final z = zones;
+    if (z == null || z.isEmpty) return null;
+    var k = 0;
+    for (var i = 0; i < z.length; i++) {
+      if (angle >= z[i].from) k = i;
+    }
+    // Near a boundary, ease from one band's colour into the next.
+    for (var j = 1; j < z.length; j++) {
+      final b = z[j].from;
+      final w = _blendHalf(j);
+      if (angle > b - w && angle < b + w) {
+        final t = (angle - (b - w)) / (2 * w);
+        final eased = t * t * (3 - 2 * t);
+        return Color.lerp(z[j - 1].color, z[j].color, eased);
+      }
+    }
+    return z[k].color;
+  }
+
+  /// How far either side of band [j]'s start the colours blend: up to 20°,
+  /// never more than half of either neighbouring band.
+  double _blendHalf(int j) {
+    final z = zones!;
+    final before = z[j].from - z[j - 1].from;
+    final after = (j + 1 < z.length ? z[j + 1].from : 360.0) - z[j].from;
+    return math.min(20, math.min(before, after) / 2);
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -194,7 +243,7 @@ class DialPainter extends CustomPainter {
     _dial(canvas, c, DialGeometry.dialR * s, s);
     _ticks(canvas, c, s);
     if (labels) _labels(canvas, c, s);
-    if (letters) _letters(canvas, c, s);
+    if (letters != null) _letters(canvas, c, s, letters!);
     _well(canvas, c, DialGeometry.wellR * s, s);
     if (waterAngle != null) _water(canvas, c, s, waterAngle!);
     if (arcSweep != null && arcSweep!.abs() > 0.05) _arc(canvas, c, s);
@@ -203,7 +252,12 @@ class DialPainter extends CustomPainter {
     _reading(canvas, c, s);
     if (bubble != null) _bubble(canvas, c, s);
     if (ballAngle != null) {
-      _ball(canvas, _polar(c, DialGeometry.trackR * s, ballAngle!), s);
+      _ball(
+        canvas,
+        _polar(c, DialGeometry.trackR * s, ballAngle!),
+        s,
+        tint: _zoneAt(ballAngle!),
+      );
     }
     for (final a in arms ?? const <double>[]) {
       _ball(canvas, _polar(c, DialGeometry.dialR * s, a), s * 1.25);
@@ -321,22 +375,19 @@ class DialPainter extends CustomPainter {
     }
   }
 
-  void _letters(Canvas canvas, Offset c, double s) {
+  void _letters(Canvas canvas, Offset c, double s, List<String> names) {
     final p = palette;
-    for (final (letter, d) in const [
-      ('N', 0.0),
-      ('E', 90.0),
-      ('S', 180.0),
-      ('W', 270.0),
-    ]) {
+    for (final (i, letter) in names.indexed) {
+      final d = i * 90.0;
+      final north = i == 0;
       final tp = TextPainter(
         text: TextSpan(
           text: letter,
           style: TextStyle(
             fontFamily: fontFamily,
             fontSize: 20 * s,
-            fontWeight: letter == 'N' ? FontWeight.w600 : FontWeight.w400,
-            color: letter == 'N' ? p.north : p.cardinal,
+            fontWeight: north ? FontWeight.w600 : FontWeight.w400,
+            color: north ? p.north : p.cardinal,
           ),
         ),
         textDirection: TextDirection.ltr,
@@ -406,16 +457,51 @@ class DialPainter extends CustomPainter {
   }
 
   void _arc(Canvas canvas, Offset c, double s) {
+    final rect = Rect.fromCircle(center: c, radius: DialGeometry.trackR * s);
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4 * s
+      ..strokeCap = StrokeCap.round
+      ..color = palette.ballDark.withValues(alpha: 0.75);
+    final z = zones;
+    if (z == null || z.isEmpty) {
+      canvas.drawArc(
+        rect,
+        (arcStart - 90) * _deg,
+        arcSweep! * _deg,
+        false,
+        paint,
+      );
+      return;
+    }
+    // Each band in its own colour, easing smoothly into the next: the
+    // same colours the ball takes, sampled every 3°.
+    final colors = [
+      for (var a = 0.0; a <= 360; a += 3) _zoneAt(a)!.withValues(alpha: 0.85),
+    ];
+    paint
+      ..color = const Color(0xFF000000)
+      ..strokeCap = StrokeCap.butt
+      ..shader = SweepGradient(
+        colors: colors,
+        stops: [
+          for (var i = 0; i < colors.length; i++) i / (colors.length - 1),
+        ],
+        transform: const GradientRotation(-math.pi / 2),
+      ).createShader(rect);
     canvas.drawArc(
-      Rect.fromCircle(center: c, radius: DialGeometry.trackR * s),
+      rect,
       (arcStart - 90) * _deg,
       arcSweep! * _deg,
       false,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 4 * s
-        ..strokeCap = StrokeCap.round
-        ..color = palette.ballDark.withValues(alpha: 0.75),
+      paint,
+    );
+    // A round start in the first colour (a round cap would wrap round the
+    // gradient and take the last band's colour).
+    canvas.drawCircle(
+      _polar(c, DialGeometry.trackR * s, arcStart),
+      2 * s,
+      Paint()..color = _zoneAt(arcStart)!.withValues(alpha: 0.85),
     );
   }
 
@@ -581,9 +667,12 @@ class DialPainter extends CustomPainter {
     }
   }
 
-  void _ball(Canvas canvas, Offset at, double s) {
+  void _ball(Canvas canvas, Offset at, double s, {Color? tint}) {
     final p = palette;
     final r = DialGeometry.ballR * s;
+    final (light, dark) = tint == null
+        ? (p.ballLight, p.ballDark)
+        : (Color.lerp(tint, Colors.white, 0.35)!, tint);
     canvas
       ..drawCircle(
         at + Offset(1.5 * s, 3 * s),
@@ -591,7 +680,7 @@ class DialPainter extends CustomPainter {
         Paint()
           ..color = p.isDark
               ? Colors.black.withValues(alpha: 0.55)
-              : p.ballDark.withValues(alpha: 0.35)
+              : dark.withValues(alpha: 0.35)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, 5 * s),
       )
       ..drawCircle(
@@ -601,7 +690,7 @@ class DialPainter extends CustomPainter {
           ..shader = RadialGradient(
             center: const Alignment(-0.1, -0.15),
             radius: 0.95,
-            colors: [p.ballLight, p.ballDark],
+            colors: [light, dark],
           ).createShader(Rect.fromCircle(center: at, radius: r)),
       );
   }
@@ -620,7 +709,8 @@ class DialPainter extends CustomPainter {
       !listEquals(old.scaleLabels, scaleLabels) ||
       !listEquals(old.arms, arms) ||
       old.arcStart != arcStart ||
-      old.letters != letters ||
+      !listEquals(old.letters, letters) ||
       old.locked != locked ||
+      !listEquals(old.zones, zones) ||
       old.reserved != reserved;
 }

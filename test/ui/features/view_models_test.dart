@@ -137,10 +137,10 @@ void main() {
     test('hold freezes the reading', () async {
       sensors.sendUp(_pitched(2));
       await flush();
-      vm.toggleHold();
+      vm.toggleLock();
       sensors.sendUp(_pitched(20));
       await flush();
-      expect(vm.held, isTrue);
+      expect(vm.locked, isTrue);
       expect(vm.state!.angle, closeTo(2, 1e-6));
     });
 
@@ -149,7 +149,7 @@ void main() {
       await flush();
       expect(await vm.calibrate(), CalibrationResult.done);
       expect(vm.state!.angle, closeTo(0, 1e-6));
-      expect(settings.isCalibrated, isTrue);
+      expect(settings.isLevelCalibrated, isTrue);
 
       final reloaded = await SettingsRepository.load();
       expect(reloaded.flatRef.y, closeTo(settings.flatRef.y, 1e-12));
@@ -159,7 +159,7 @@ void main() {
       sensors.sendUp(_pitched(10));
       await flush();
       expect(await vm.calibrate(), CalibrationResult.notLevel);
-      expect(settings.isCalibrated, isFalse);
+      expect(settings.isLevelCalibrated, isFalse);
     });
 
     test('edge calibration subtracts the offset', () async {
@@ -167,7 +167,7 @@ void main() {
       await flush();
       expect(await vm.calibrate(), CalibrationResult.done);
       expect(vm.state!.deviation, closeTo(0, 1e-6));
-      await settings.resetCalibration();
+      await settings.resetLevelCalibration();
       expect(vm.state!.deviation, closeTo(1.5, 1e-6));
     });
 
@@ -228,7 +228,7 @@ void main() {
 
       await settings.setSounds(true);
       await show(_pitched(5));
-      chiming.toggleHold();
+      chiming.toggleLock();
       await show(Vec3.up);
       expect(chimes, 2, reason: 'held');
     });
@@ -243,14 +243,14 @@ void main() {
     test('calibrating while held uses the live position', () async {
       sensors.sendUp(_onEdge(30));
       await flush();
-      vm.toggleHold(); // held in edge mode
+      vm.toggleLock(); // locked in edge mode
       orientation
         ..stop()
         ..start();
       sensors.sendUp(_pitched(1)); // now lying flat
       await flush();
       expect(await vm.calibrate(), CalibrationResult.done);
-      expect(vm.held, isFalse);
+      expect(vm.locked, isFalse);
       expect(settings.edgeOffset, 0);
       expect(vm.state!.mode, LevelMode.flat);
       expect(vm.state!.angle, closeTo(0, 1e-6));
@@ -336,7 +336,7 @@ void main() {
       sensors.sendUp(pose.up); // publish with the magnetometer value
       await flush();
       expect(vm.state!.heading, closeTo(120, 1e-6));
-      expect(vm.state!.cardinalName, 'SE');
+      expect(vm.state!.sector, 3); // SE
       expect(vm.state!.flat, isTrue);
       expect(vm.state!.reliable, isTrue);
     });

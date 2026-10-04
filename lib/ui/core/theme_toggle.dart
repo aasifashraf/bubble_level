@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../data/repositories/settings_repository.dart';
+import 'l10n.dart';
 import 'theme.dart';
 
 /// One-tap light/dark switch: a moon (with sparkles) in light mode, a sun
@@ -17,7 +18,7 @@ class ThemeToggle extends StatelessWidget {
     final palette = Palette.of(context);
     final dark = palette.isDark;
     return IconButton(
-      tooltip: dark ? 'Light mode' : 'Dark mode',
+      tooltip: dark ? context.l10n.lightMode : context.l10n.darkMode,
       onPressed: () =>
           settings.setThemeMode(dark ? ThemeMode.light : ThemeMode.dark),
       icon: CustomPaint(

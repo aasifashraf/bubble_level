@@ -49,8 +49,18 @@ class AngleViewModel extends SensorViewModel {
   LevelMode _zeroMode = LevelMode.flat;
   LevelMode _mode = LevelMode.flat;
   AngleState? _state;
+  bool _locked = false;
 
   AngleState? get state => _state;
+
+  /// Locked: the reading stays frozen so it can be read after the phone is
+  /// lifted off what it measured.
+  bool get locked => _locked;
+
+  void toggleLock() {
+    _locked = !_locked;
+    update();
+  }
 
   void setZero() {
     final g = reading.gravity;
@@ -58,14 +68,23 @@ class AngleViewModel extends SensorViewModel {
     _zeroGravity = g;
     _zeroMode = _mode;
     _zeroHeading = _deviceHeading(_mode);
-    update();
+    _refresh();
   }
 
   void clearZero() {
     _zeroGravity = null;
     _zeroHeading = null;
-    update();
+    _refresh();
   }
+
+  /// Recomputes even while locked: a new zero applies to the frozen reading.
+  void _refresh() {
+    _state = _compute();
+    notifyListeners();
+  }
+
+  @override
+  void onActivate() => _locked = false;
 
   /// Heading of a device-fixed axis, so the turn doesn't jump when the UI
   /// rotates. Null without a trustworthy magnetometer.
@@ -75,7 +94,7 @@ class AngleViewModel extends SensorViewModel {
 
   @override
   void update() {
-    _state = _compute();
+    if (!_locked) _state = _compute();
     notifyListeners();
   }
 

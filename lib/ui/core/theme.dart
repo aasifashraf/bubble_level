@@ -34,11 +34,16 @@ class Palette extends ThemeExtension<Palette> {
     required this.north,
     required this.ballLight,
     required this.ballDark,
+    required this.accentText,
     required this.tab,
     required this.icon,
     required this.success,
     required this.warning,
     required this.warningTint,
+    required this.gaugeSafe,
+    required this.gaugeCaution,
+    required this.gaugeDanger,
+    required this.dangerTint,
   });
 
   static const light = Palette(
@@ -68,11 +73,16 @@ class Palette extends ThemeExtension<Palette> {
     north: Color(0xFFF60001),
     ballLight: Color(0xFFFFA54E),
     ballDark: Color(0xFFFF6E36),
+    accentText: Color(0xFFF14300),
     tab: Color(0xFF39424B),
     icon: Color(0xFF48525C),
     success: Color(0xFFC2410C),
     warning: Color(0xFFB45309),
     warningTint: Color(0xFFFDF0C8),
+    gaugeSafe: Color(0xFF22A45D),
+    gaugeCaution: Color(0xFFFF8A1F),
+    gaugeDanger: Color(0xFFE5383B),
+    dangerTint: Color(0xFFFDE2E1),
   );
 
   static const dark = Palette(
@@ -102,11 +112,16 @@ class Palette extends ThemeExtension<Palette> {
     north: Color(0xFFF60100),
     ballLight: Color(0xFFFFA54E),
     ballDark: Color(0xFFFF6E36),
+    accentText: Color(0xFFFFA54E),
     tab: Color(0xFF39424B),
     icon: Color(0xFFFDB52B),
     success: Color(0xFFFFA54E),
     warning: Color(0xFFFBBF24),
     warningTint: Color(0x29FBBF24),
+    gaugeSafe: Color(0xFF3DD68C),
+    gaugeCaution: Color(0xFFFFA54E),
+    gaugeDanger: Color(0xFFFF5A52),
+    dangerTint: Color(0x33FF5A52),
   );
 
   final Color background;
@@ -128,6 +143,12 @@ class Palette extends ThemeExtension<Palette> {
   /// The glossy indicator ball: highlight and body.
   final Color ballLight, ballDark;
 
+  /// The indicator orange for large bold text (18.7 px+, WCAG AA 3:1) on a
+  /// pressed control: in light mode the lightest shade of the lines' hue
+  /// that reaches 3:1 (the line orange itself is 2.3:1); in dark mode the
+  /// ball's light orange (4.6:1).
+  final Color accentText;
+
   /// The back tab on the left edge, and the sun/moon icon.
   final Color tab, icon;
 
@@ -138,6 +159,10 @@ class Palette extends ThemeExtension<Palette> {
   /// Caution ("the reading can't be trusted"): the icon colour and the soft
   /// pill behind the status line.
   final Color warning, warningTint;
+
+  /// A meter's zones on its dial, like a traffic light: fine, take care,
+  /// harmful. [dangerTint] backs a status line in the harmful zone.
+  final Color gaugeSafe, gaugeCaution, gaugeDanger, dangerTint;
 
   bool get isDark => background.computeLuminance() < 0.2;
 

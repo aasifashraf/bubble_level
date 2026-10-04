@@ -136,10 +136,9 @@ double? headingDeg(Vec3 g, Vec3 m, {required bool flat}) {
   return (a * _rad2deg + 360) % 360;
 }
 
-const _cardinals = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-
-String cardinal(double heading) =>
-    _cardinals[((heading % 360) / 45).round() % 8];
+/// Which of the eight 45° compass sectors (0 = N, 1 = NE, … 7 = NW) a
+/// heading falls in; the UI names it in the user's language.
+int cardinalSector(double heading) => ((heading % 360) / 45).round() % 8;
 
 /// Grade of a slope in percent, or null when it is (near) vertical.
 double? slopePercent(double deg) =>

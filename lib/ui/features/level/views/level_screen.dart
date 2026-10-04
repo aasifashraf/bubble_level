@@ -8,6 +8,7 @@ import '../../../core/controls.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
+import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
 import '../../../core/soft_switch.dart';
 import '../../../core/theme.dart';
@@ -24,51 +25,83 @@ class LevelScreen extends StatelessWidget {
   final LevelViewModel viewModel;
   final VoidCallback onBack;
 
-  static const _help = ToolHelp(
-    tool: 'Level',
+  static ToolHelp _help(AppLocalizations l) => ToolHelp(
+    tool: l.toolLevel,
     steps: [
-      'Lay the phone flat on the surface, or stand it on one of its edges.',
-      'Flat: centre the bubble. X is left/right tilt, Y is forward/back tilt. On an edge, you see the angle and slope.',
-      'Follow the hint on screen (for example “Right side high”) until it reads level: it turns orange and the phone chimes and buzzes (turn these off in Settings).',
-      'Tap Hold to freeze the reading, and Release to go live again.',
-      'Prefer a classic spirit level? Tap the tube icon in the switch; '
-          'the round icon brings the dial back.',
+      l.levelHelp1,
+      l.levelHelp2,
+      l.levelHelp3,
+      l.levelHelp4,
+      l.levelHelp5,
     ],
-    tip: 'If a surface you know is level doesn’t read 0°, put the phone on it and tap Calibrate. You can undo this in Settings.',
+    tip: l.levelTip,
   );
 
   /// What to do, in words: which side is high or which way to turn.
-  static (IconData, String) _guidance(LevelState state) {
-    if (state.isLevel) return (Icons.check_circle_rounded, 'Level');
+  static (IconData, String) _guidance(AppLocalizations l, LevelState state) {
+    if (state.isLevel) return (Icons.check_circle_rounded, l.statusLevel);
     if (state.mode == LevelMode.edge) {
       // Positive deviation: the left end has dropped; turn clockwise.
       return state.deviation > 0
-          ? (Icons.rotate_right_rounded, 'Left end low')
-          : (Icons.rotate_left_rounded, 'Right end low');
+          ? (Icons.rotate_right_rounded, l.leftEndLow)
+          : (Icons.rotate_left_rounded, l.rightEndLow);
     }
     if (state.roll.abs() >= state.pitch.abs()) {
       return state.roll > 0
-          ? (Icons.arrow_forward_rounded, 'Right side high')
-          : (Icons.arrow_back_rounded, 'Left side high');
+          ? (Icons.arrow_forward_rounded, l.rightSideHigh)
+          : (Icons.arrow_back_rounded, l.leftSideHigh);
     }
     return state.pitch > 0
-        ? (Icons.arrow_upward_rounded, 'Top edge high')
-        : (Icons.arrow_downward_rounded, 'Bottom edge high');
+        ? (Icons.arrow_upward_rounded, l.topEdgeHigh)
+        : (Icons.arrow_downward_rounded, l.bottomEdgeHigh);
+  }
+
+  /// Calibrates at once; once calibrated, offers calibrating again or going
+  /// back to the factory zero (as the Ruler's Calibrate does).
+  Future<void> _calibrateOrReset(BuildContext context) async {
+    if (!viewModel.calibrated) return _calibrate(context);
+    final l = context.l10n;
+    final messenger = ScaffoldMessenger.of(context);
+    final action = await showOptionsSheet<VoidCallback>(
+      context,
+      title: l.calibrate,
+      options: [
+        (
+          value: () => _calibrate(context),
+          icon: Icons.tune_rounded,
+          title: l.calibrateHere,
+          subtitle: l.calibrateHereInfo,
+          enabled: true,
+        ),
+        (
+          value: () async {
+            await viewModel.resetCalibration();
+            messenger
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(l.calibrationRemoved)));
+          },
+          icon: Icons.restart_alt_rounded,
+          title: l.resetCalibration,
+          subtitle: l.resetCalibrationHint,
+          enabled: true,
+        ),
+      ],
+    );
+    if (context.mounted) action?.call();
   }
 
   Future<void> _calibrate(BuildContext context) async {
     final messenger = ScaffoldMessenger.of(context);
+    final l = context.l10n;
     final result = await viewModel.calibrate();
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
           content: Text(switch (result) {
-            CalibrationResult.done => 'Calibrated. This position now reads 0°.',
-            CalibrationResult.notLevel =>
-              'Too far from level to calibrate. Place the phone on a level '
-                  'surface first.',
-            CalibrationResult.noData => 'Waiting for sensors…',
+            CalibrationResult.done => l.calibrated,
+            CalibrationResult.notLevel => l.tooFarToCalibrate,
+            CalibrationResult.noData => l.waitingForSensors,
           }),
         ),
       );
@@ -81,9 +114,9 @@ class LevelScreen extends StatelessWidget {
       builder: (context, _) {
         final state = viewModel.state;
         return ToolFrame(
-          title: 'Level',
+          title: context.l10n.toolLevel,
           onBack: onBack,
-          trailing: const HelpButton(help: _help),
+          trailing: HelpButton(help: _help(context.l10n)),
           body: SensorGate(
             reading: viewModel.reading,
             child: state == null
@@ -107,9 +140,9 @@ class LevelScreen extends StatelessWidget {
       return tube
           ? Padding(
               padding: const EdgeInsets.only(top: 4, bottom: 8),
-              child: _tube(state, compact: true),
+              child: _tube(context, state, compact: true),
             )
-          : _dial(state);
+          : _dial(context, state);
     }
     final top = MediaQuery.paddingOf(context).top + ToolFrame.headerHeight;
     return Stack(
@@ -118,28 +151,30 @@ class LevelScreen extends StatelessWidget {
           child: tube
               ? Padding(
                   padding: EdgeInsets.only(top: top + 56, bottom: 90),
-                  child: _tube(state, compact: false),
+                  child: _tube(context, state, compact: false),
                 )
-              : _dial(state),
+              : _dial(context, state),
         ),
-        Positioned(top: top + 4, right: 20, child: _styleSwitch()),
+        Positioned(top: top + 4, right: 20, child: _styleSwitch(context)),
       ],
     );
   }
 
-  Widget _styleSwitch() => SoftSwitch<LevelStyle>(
+  Widget _styleSwitch(BuildContext context) => SoftSwitch<LevelStyle>(
     value: viewModel.style,
     onChanged: viewModel.setStyle,
-    options: const [
+    options: [
       (
         value: LevelStyle.dial,
         icon: Icons.adjust_rounded,
-        tooltip: 'Dial view',
+        label: null,
+        tooltip: context.l10n.dialView,
       ),
       (
         value: LevelStyle.tube,
         icon: Icons.straighten_rounded,
-        tooltip: 'Tube view',
+        label: null,
+        tooltip: context.l10n.tubeView,
       ),
     ],
   );
@@ -150,16 +185,27 @@ class LevelScreen extends StatelessWidget {
   ///
   /// In a [compact] (landscape) box the reading takes a slim top row, so the
   /// tubes get the full height below it.
-  Widget _tube(LevelState state, {required bool compact}) {
+  Widget _tube(
+    BuildContext context,
+    LevelState state, {
+    required bool compact,
+  }) {
+    final l = context.l10n;
     final flat = state.mode == LevelMode.flat;
     final value = formatAngle(state.angle, viewModel.unit);
     const range = LevelViewModel.bubbleRange;
     const gap = LevelViewModel.tolerance / range;
     final locked = state.isLevel;
-    final turns = (state.quadrant ~/ 90) % 4;
-    // Turned a quarter, the top row would run down the side: stack instead.
-    final beside = compact && turns.isEven;
     final reading = _TubeReading(value: value, locked: locked);
+    // The screen never turns by itself (the header's rotate button does
+    // that), so on its side the edge tube runs along the screen's length
+    // to stay level in the world; the bubble's direction follows suit.
+    final turns = (state.quadrant ~/ 90) % 4;
+    final upright = turns.isEven;
+    final edgePosition = switch (turns) {
+      0 || 3 => state.deviation,
+      _ => -state.deviation,
+    };
 
     SpiritVial vial(double degrees, String label, {bool vertical = false}) =>
         SpiritVial(
@@ -174,11 +220,15 @@ class LevelScreen extends StatelessWidget {
     Widget tubes(BoxConstraints box, double below) {
       final height = box.maxHeight - below;
       if (!flat) {
-        final length = math.min(box.maxWidth - 48, 560.0);
+        final length = math.min(
+          upright ? box.maxWidth - 48 : height - 48,
+          560.0,
+        );
+        final thick = (length * 0.2).clamp(52.0, 84.0);
         return SizedBox(
-          width: length,
-          height: (length * 0.2).clamp(52.0, 84.0),
-          child: vial(state.deviation, 'Level tube'),
+          width: upright ? length : thick,
+          height: upright ? thick : length,
+          child: vial(edgePosition, l.levelTube, vertical: !upright),
         );
       }
       final thick = (math.min(box.maxWidth, height) * 0.17).clamp(48.0, 80.0);
@@ -190,12 +240,12 @@ class LevelScreen extends StatelessWidget {
           SizedBox(
             width: math.min(across, 520),
             height: thick,
-            child: vial(state.roll, 'Left and right tube'),
+            child: vial(state.roll, l.leftRightTube),
           ),
           SizedBox(
             width: thick,
             height: math.max(120, math.min(height, box.maxWidth * 0.8)),
-            child: vial(state.pitch, 'Forward and back tube', vertical: true),
+            child: vial(state.pitch, l.forwardBackTube, vertical: true),
           ),
         ],
       );
@@ -206,83 +256,85 @@ class LevelScreen extends StatelessWidget {
       child: FittedBox(fit: BoxFit.scaleDown, child: child),
     );
 
-    return RotatedBox(
-      quarterTurns: turns,
-      child: Semantics(
-        label: '${flat ? 'Tilt from level' : 'From level'} $value',
-        child: beside
-            ? Column(
-                children: [
-                  SizedBox(height: 52, child: fit(reading)),
-                  const SizedBox(height: 12),
-                  Expanded(
-                    child: LayoutBuilder(
-                      builder: (context, box) => fit(tubes(box, 0)),
-                    ),
-                  ),
-                ],
-              )
-            : LayoutBuilder(
-                builder: (context, box) => fit(
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      reading,
-                      const SizedBox(height: 24),
-                      tubes(box, 80),
-                    ],
+    return Semantics(
+      label: flat ? l.tiltFromLevel(value) : l.fromLevel(value),
+      child: compact
+          ? Column(
+              children: [
+                SizedBox(height: 52, child: fit(reading)),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, box) => fit(tubes(box, 0)),
                   ),
                 ),
+              ],
+            )
+          : LayoutBuilder(
+              builder: (context, box) => fit(
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    reading,
+                    const SizedBox(height: 24),
+                    tubes(box, 80),
+                  ],
+                ),
               ),
-      ),
+            ),
     );
   }
 
-  Widget _dial(LevelState state) {
+  Widget _dial(BuildContext context, LevelState state) {
+    final l = context.l10n;
     final flat = state.mode == LevelMode.flat;
     final value = formatAngle(state.angle, viewModel.unit);
-    // Standing on its side, the dial turns so the reading stays upright
-    // even with auto-rotate off.
-    return RotatedBox(
-      quarterTurns: (state.quadrant ~/ 90) % 4,
-      child: InstrumentDial(
-        value: value,
-        semanticsLabel: '${flat ? 'Tilt from level' : 'From level'} $value',
-        labels: !flat,
-        locked: state.isLevel,
-        bubble: flat ? state.bubble : null,
-        waterAngle: flat ? null : state.deviation,
-        // The ball rides the well where the level line meets it.
-        ballAngle: flat ? null : 90 + state.deviation,
-        reserved: 200,
-      ),
+    // Drawn in the screen's frame (it only turns with the header's rotate
+    // button), so the water line sits at the edge's full angle: the
+    // deviation from the nearest side plus that side's quadrant.
+    final water = state.deviation + state.quadrant;
+    return InstrumentDial(
+      value: value,
+      semanticsLabel: flat ? l.tiltFromLevel(value) : l.fromLevel(value),
+      labels: !flat,
+      locked: state.isLevel,
+      bubble: flat ? state.bubble : null,
+      waterAngle: flat ? null : water,
+      // The ball rides the well where the level line meets it.
+      ballAngle: flat ? null : 90 + water,
+      reserved: 200,
     );
   }
 
   Widget _footer(BuildContext context, LevelState state) {
-    final (icon, guidance) = _guidance(state);
+    final l = context.l10n;
+    final (icon, guidance) = _guidance(l, state);
     final unit = viewModel.unit;
     final flat = state.mode == LevelMode.flat;
     // Flat: X = left/right tilt, Y = forward/back tilt. On an edge the
-    // same tiles show the angle and the slope.
+    // same tiles show the angle and the slope: in the user's unit, or as a
+    // percentage when that unit is degrees (the angle tile has those).
     final tiles = flat
         ? [
-            ('X · left / right', formatAngle(state.roll, unit, signed: true)),
-            (
-              'Y · forward / back',
-              formatAngle(state.pitch, unit, signed: true),
-            ),
+            (l.xLeftRight, formatAngle(state.roll, unit, signed: true)),
+            (l.yForwardBack, formatAngle(state.pitch, unit, signed: true)),
           ]
         : [
-            ('Angle', formatDelta(state.deviation)),
-            ('Slope', formatAngle(state.angle, AngleUnit.percent)),
+            (l.angle, formatDelta(state.deviation)),
+            (
+              l.slope,
+              formatAngle(
+                state.angle,
+                unit == AngleUnit.degrees ? AngleUnit.percent : unit,
+              ),
+            ),
           ];
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         // Landscape: the view switch heads the controls column.
         if (ToolFrame.sideBySide(context)) ...[
-          _styleSwitch(),
+          _styleSwitch(context),
           const SizedBox(height: 16),
         ],
         Row(
@@ -296,8 +348,8 @@ class LevelScreen extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         StatusBanner(
-          icon: viewModel.held ? Icons.pause_circle_rounded : icon,
-          text: viewModel.held ? 'Held · $guidance' : guidance,
+          icon: viewModel.locked ? Icons.lock_rounded : icon,
+          text: viewModel.locked ? l.locked(guidance) : guidance,
           tone: state.isLevel ? StatusTone.success : StatusTone.neutral,
         ),
         const SizedBox(height: 16),
@@ -306,18 +358,19 @@ class LevelScreen extends StatelessWidget {
           children: [
             Expanded(
               child: SoftButton(
-                label: viewModel.held ? 'Release' : 'Hold',
-                icon: viewModel.held
-                    ? Icons.play_arrow_rounded
-                    : Icons.pause_rounded,
-                onPressed: viewModel.toggleHold,
+                label: viewModel.locked ? l.unlock : l.lock,
+                icon: viewModel.locked
+                    ? Icons.lock_rounded
+                    : Icons.lock_open_rounded,
+                emphasis: viewModel.locked,
+                onPressed: viewModel.toggleLock,
               ),
             ),
             Expanded(
               child: SoftButton(
-                label: 'Calibrate',
+                label: l.calibrate,
                 icon: Icons.tune_rounded,
-                onPressed: () => _calibrate(context),
+                onPressed: () => _calibrateOrReset(context),
               ),
             ),
           ],
@@ -344,6 +397,7 @@ class _TubeReading extends StatelessWidget {
         child: Text(
           value,
           maxLines: 1,
+          textDirection: TextDirection.ltr,
           textScaler: TextScaler.noScaling,
           style: TextStyle(
             fontSize: 44,

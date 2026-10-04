@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../domain/orientation_reading.dart';
+import 'l10n.dart';
 import 'theme.dart';
 
 /// What a status line means, beyond its words.
@@ -13,13 +14,17 @@ enum StatusTone {
   /// The target is reached ("Level", "Metal detected").
   success,
 
-  /// The reading can't be trusted ("Magnetic interference").
+  /// The reading can't be trusted ("Magnetic interference"), or a meter
+  /// is in its take-care zone.
   warning,
+
+  /// A meter is in its harmful zone ("Very loud").
+  danger,
 }
 
 /// One short line stating the status in words with an icon, so it reads at
 /// a glance and never relies on colour alone. [tone] colours it: orange for
-/// a reached target, an amber pill for a caution.
+/// a reached target, an amber pill for a caution, a red pill for harm.
 class StatusBanner extends StatelessWidget {
   const StatusBanner({
     super.key,
@@ -39,6 +44,7 @@ class StatusBanner extends StatelessWidget {
       StatusTone.neutral => (palette.ink, palette.ink),
       StatusTone.success => (palette.success, palette.success),
       StatusTone.warning => (palette.warning, palette.inkStrong),
+      StatusTone.danger => (palette.gaugeDanger, palette.inkStrong),
     };
     // Always one line (shrinks to fit) so a longer message can't grow and
     // push the instrument around.
@@ -62,10 +68,12 @@ class StatusBanner extends StatelessWidget {
         ],
       ),
     );
-    if (tone == StatusTone.warning) {
+    if (tone == StatusTone.warning || tone == StatusTone.danger) {
       line = DecoratedBox(
         decoration: BoxDecoration(
-          color: palette.warningTint,
+          color: tone == StatusTone.danger
+              ? palette.dangerTint
+              : palette.warningTint,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
@@ -100,13 +108,11 @@ class SensorGate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reading.accel == SensorState.missing) {
-      return const SensorStateGate(
+      return SensorStateGate(
         state: SensorState.missing,
         ready: false,
-        missingText:
-            'This phone has no accelerometer, so this tool can’t measure '
-            'anything here. Tools that don’t need it still work.',
-        child: SizedBox.shrink(),
+        missingText: context.l10n.noAccelerometer,
+        child: const SizedBox.shrink(),
       );
     }
     return SensorStateGate(
@@ -114,9 +120,7 @@ class SensorGate extends StatelessWidget {
       ready:
           reading.gravity != null &&
           (!needsMagnetometer || reading.magnetic != null),
-      missingText:
-          'This phone has no magnetometer (compass sensor), so this tool '
-          'can’t work here. Tools that don’t need it still work.',
+      missingText: context.l10n.noMagnetometer,
       child: child,
     );
   }
@@ -182,17 +186,14 @@ class _WaitingState extends State<_Waiting> {
 
   @override
   Widget build(BuildContext context) => _late
-      ? const _Message(
+      ? _Message(
           icon: Icons.sensors_off_outlined,
           warning: true,
-          text:
-              'No readings from the sensor yet. Go back and open the tool '
-              'again; if it keeps happening, restart your phone. Some phones '
-              'don’t support this tool.',
+          text: context.l10n.noReadings,
         )
-      : const _Message(
+      : _Message(
           icon: Icons.sensors_outlined,
-          text: 'Waiting for sensors…',
+          text: context.l10n.waitingForSensors,
         );
 }
 

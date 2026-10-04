@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'theme.dart';
 
 /// Soft raised pill button in the dial's material; [emphasis] fills it
-/// with the indicator orange.
+/// with the indicator orange. A null [onPressed] shows it disabled.
 class SoftButton extends StatelessWidget {
   const SoftButton({
     super.key,
@@ -15,48 +15,103 @@ class SoftButton extends StatelessWidget {
 
   final String label;
   final IconData icon;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool emphasis;
 
   @override
   Widget build(BuildContext context) {
     final p = Palette.of(context);
     final fg = emphasis ? Colors.white : p.ink;
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 200),
+      opacity: onPressed == null ? 0.45 : 1,
+      child: Container(
+        height: 50,
+        decoration: softSurface(
+          p,
+          radius: BorderRadius.circular(25),
+          colors: emphasis ? [p.ballLight, p.ballDark] : null,
+        ),
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(25),
+            onTap: onPressed,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(icon, size: 20, color: fg),
+                      const SizedBox(width: 8),
+                      Text(
+                        label,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: fg,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Round soft button beside a pill button: the lock, the speaker. [active]
+/// fills it with the indicator orange (a locked reading), so the state is
+/// obvious at a glance.
+class SoftIconButton extends StatelessWidget {
+  const SoftIconButton({
+    super.key,
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+    this.active = false,
+    this.muted = false,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+  final bool active;
+
+  /// Draws the icon in the label grey (e.g. sound off).
+  final bool muted;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
     return Container(
+      width: 50,
       height: 50,
       decoration: softSurface(
         p,
         radius: BorderRadius.circular(25),
-        colors: emphasis ? [p.ballLight, p.ballDark] : null,
+        colors: active ? [p.ballLight, p.ballDark] : null,
       ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(25),
-          onTap: onPressed,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(icon, size: 20, color: fg),
-                    const SizedBox(width: 8),
-                    Text(
-                      label,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: fg,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+      child: Semantics(
+        toggled: active,
+        child: IconButton(
+          tooltip: tooltip,
+          onPressed: onPressed,
+          icon: Icon(
+            icon,
+            color: active
+                ? Colors.white
+                : muted
+                ? p.label
+                : p.ink,
           ),
         ),
       ),
@@ -89,6 +144,7 @@ class ValueTile extends StatelessWidget {
             children: [
               Text(
                 value,
+                textDirection: TextDirection.ltr,
                 maxLines: 1,
                 style: TextStyle(
                   fontSize: 20,

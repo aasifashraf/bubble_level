@@ -1,23 +1,30 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../data/repositories/barometer_repository.dart';
+import '../../data/repositories/light_repository.dart';
 import '../../data/repositories/orientation_repository.dart';
 import '../../data/repositories/review_repository.dart';
 import '../../data/repositories/settings_repository.dart';
+import '../../data/repositories/sound_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
+import '../../data/services/display_rotation_service.dart';
+import '../../data/services/microphone_service.dart';
 import '../../data/services/motion_sensor_service.dart';
 import '../../data/services/sensor_availability_service.dart';
 import '../../data/services/sound_service.dart';
 import '../core/dial.dart';
 import '../core/help.dart';
+import '../core/l10n.dart';
 import '../core/sensor_view_model.dart';
 import '../core/soft_switch.dart';
 import '../core/theme.dart';
 import '../core/theme_toggle.dart';
 import '../core/tool_frame.dart';
+import '../core/tool_rotation.dart';
 import '../features/altimeter/view_models/altimeter_view_model.dart';
 import '../features/altimeter/views/altimeter_screen.dart';
 import '../features/angle/view_models/angle_view_model.dart';
@@ -26,11 +33,17 @@ import '../features/compass/view_models/compass_view_model.dart';
 import '../features/compass/views/compass_screen.dart';
 import '../features/level/view_models/level_view_model.dart';
 import '../features/level/views/level_screen.dart';
+import '../features/light/view_models/light_view_model.dart';
+import '../features/light/views/light_screen.dart';
 import '../features/metal/view_models/metal_view_model.dart';
 import '../features/metal/views/metal_screen.dart';
 import '../features/protractor/view_models/protractor_view_model.dart';
 import '../features/protractor/views/protractor_screen.dart';
+import '../features/ruler/view_models/ruler_view_model.dart';
+import '../features/ruler/views/ruler_screen.dart';
 import '../features/settings/views/settings_sheet.dart';
+import '../features/sound/view_models/sound_view_model.dart';
+import '../features/sound/views/sound_screen.dart';
 import '../features/vibration/view_models/vibration_view_model.dart';
 import '../features/vibration/views/vibration_screen.dart';
 import 'tool_glyphs.dart';
@@ -55,6 +68,8 @@ class HomeShell extends StatefulWidget {
     this.missingSensors = const {},
     this.sound = const SilentSoundService(),
     this.review,
+    this.display = const DisplayRotationService(),
+    this.microphone = const MicrophoneService(),
   });
 
   final OrientationRepository orientation;
@@ -69,6 +84,12 @@ class HomeShell extends StatefulWidget {
 
   /// Asks for a store review after enough successes (none in tests).
   final ReviewRepository? review;
+
+  /// Screen rotation and density (the ruler's scale).
+  final DisplayRotationService display;
+
+  /// The sound meter's microphone.
+  final MicrophoneService microphone;
 
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
@@ -91,6 +112,10 @@ class _HomeShellState extends State<HomeShell> {
   );
   late final _compass = CompassViewModel(orientation: widget.orientation);
   late final _protractor = ProtractorViewModel();
+  late final _ruler = RulerViewModel(
+    settings: widget.settings,
+    display: widget.display,
+  );
   late final _metal = MetalViewModel(
     orientation: widget.orientation,
     settings: widget.settings,
@@ -104,6 +129,13 @@ class _HomeShellState extends State<HomeShell> {
   late final _vibration = VibrationViewModel(repository: _vibrationRepo);
   late final _barometerRepo = BarometerRepository(sensors: widget.sensors);
   late final _altimeter = AltimeterViewModel(repository: _barometerRepo);
+  late final _soundRepo = SoundRepository(microphone: widget.microphone);
+  late final _sound = SoundViewModel(
+    repository: _soundRepo,
+    microphone: widget.microphone,
+  );
+  late final _lightRepo = LightRepository(sensors: widget.sensors);
+  late final _light = LightViewModel(repository: _lightRepo);
 
   @override
   void dispose() {
@@ -111,38 +143,85 @@ class _HomeShellState extends State<HomeShell> {
       vm.dispose();
     }
     _protractor.dispose();
+    _ruler.dispose();
     _vibration.dispose();
     _altimeter.dispose();
+    _light.dispose();
+    _lightRepo.dispose();
+    _sound.dispose();
+    _soundRepo.dispose();
     _vibrationRepo.dispose();
     _barometerRepo.dispose();
     super.dispose();
   }
 
+  /// Tools that hold portrait unless turned with their rotate button.
+  static const _rotatable = {
+    HomeTool.level,
+    HomeTool.angle,
+    HomeTool.compass,
+    HomeTool.protractor,
+  };
+
   /// Opens a tool full screen; its view model (if it uses sensors) follows
-  /// them only while the tool is showing.
-  Future<void> _open(ActiveViewModel? vm, WidgetBuilder page) async {
+  /// them only while the tool is showing. A [_rotatable] [tool] holds its
+  /// remembered orientation; the rest, and home, follow the phone.
+  Future<void> _open(
+    ActiveViewModel? vm,
+    WidgetBuilder page, {
+    HomeTool? tool,
+  }) async {
+    final rotatable = _rotatable.contains(tool) ? tool!.name : null;
+    if (rotatable != null) {
+      unawaited(lockOrientation(widget.settings.toolLandscape(rotatable)));
+    }
     vm?.active = true;
-    await Navigator.of(context).push(MaterialPageRoute<void>(builder: page));
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: rotatable == null
+            ? page
+            : (context) => RotatableTool(
+                settings: widget.settings,
+                tool: rotatable,
+                child: page(context),
+              ),
+      ),
+    );
     vm?.active = false;
+    if (rotatable != null) unawaited(lockOrientation(null));
   }
 
   void _openTool(HomeTool tool) {
     void back() => Navigator.of(context).pop();
     switch (tool) {
       case HomeTool.level:
-        _open(_level, (_) => LevelScreen(viewModel: _level, onBack: back));
+        _open(
+          _level,
+          (_) => LevelScreen(viewModel: _level, onBack: back),
+          tool: tool,
+        );
       case HomeTool.angle:
-        _open(_angle, (_) => AngleScreen(viewModel: _angle, onBack: back));
+        _open(
+          _angle,
+          (_) => AngleScreen(viewModel: _angle, onBack: back),
+          tool: tool,
+        );
       case HomeTool.compass:
         _open(
           _compass,
           (_) => CompassScreen(viewModel: _compass, onBack: back),
+          tool: tool,
         );
       case HomeTool.protractor:
+        _protractor.unlock();
         _open(
           null,
           (_) => ProtractorScreen(viewModel: _protractor, onBack: back),
+          tool: tool,
         );
+      case HomeTool.ruler:
+        _ruler.open();
+        _open(null, (_) => RulerScreen(viewModel: _ruler, onBack: back));
       case HomeTool.metal:
         _open(_metal, (_) => MetalScreen(viewModel: _metal, onBack: back));
       case HomeTool.vibration:
@@ -150,6 +229,10 @@ class _HomeShellState extends State<HomeShell> {
           _vibration,
           (_) => VibrationScreen(viewModel: _vibration, onBack: back),
         );
+      case HomeTool.sound:
+        _open(_sound, (_) => SoundScreen(viewModel: _sound, onBack: back));
+      case HomeTool.light:
+        _open(_light, (_) => LightScreen(viewModel: _light, onBack: back));
       case HomeTool.altimeter:
         _open(
           _altimeter,
@@ -158,47 +241,68 @@ class _HomeShellState extends State<HomeShell> {
     }
   }
 
-  static const List<_ToolEntry> _tools = [
+  /// The tools in display order, named in the user's language.
+  static List<_ToolEntry> _tools(AppLocalizations l) => [
     (
       tool: HomeTool.level,
-      title: 'Level',
-      subtitle: 'Bubble and spirit level',
+      title: l.toolLevel,
+      subtitle: l.toolLevelSubtitle,
       needs: [SensorKind.accelerometer],
     ),
     (
       tool: HomeTool.angle,
-      title: 'Angle',
-      subtitle: 'Angle from level or from a zero',
+      title: l.toolAngle,
+      subtitle: l.toolAngleSubtitle,
       needs: [SensorKind.accelerometer],
     ),
     (
       tool: HomeTool.compass,
-      title: 'Compass',
-      subtitle: 'Heading and direction',
+      title: l.toolCompass,
+      subtitle: l.toolCompassSubtitle,
       needs: [SensorKind.accelerometer, SensorKind.magnetometer],
     ),
     (
       tool: HomeTool.protractor,
-      title: 'Protractor',
-      subtitle: 'Measure angles on the screen',
+      title: l.toolProtractor,
+      subtitle: l.toolProtractorSubtitle,
+      needs: [],
+    ),
+    (
+      tool: HomeTool.ruler,
+      title: l.toolRuler,
+      subtitle: l.toolRulerSubtitle,
       needs: [],
     ),
     (
       tool: HomeTool.metal,
-      title: 'Metal detector',
-      subtitle: 'Find iron, steel and magnets',
+      title: l.toolMetal,
+      subtitle: l.toolMetalSubtitle,
       needs: [SensorKind.accelerometer, SensorKind.magnetometer],
     ),
     (
       tool: HomeTool.vibration,
-      title: 'Vibration',
-      subtitle: 'Vibration meter with live graph',
+      title: l.toolVibration,
+      subtitle: l.toolVibrationSubtitle,
       needs: [SensorKind.accelerometer],
     ),
     (
+      tool: HomeTool.sound,
+      title: l.toolSound,
+      subtitle: l.toolSoundSubtitle,
+      needs: [SensorKind.microphone],
+    ),
+    // iPhones have a light sensor, but Apple doesn't let apps read it.
+    if (defaultTargetPlatform != TargetPlatform.iOS)
+      (
+        tool: HomeTool.light,
+        title: l.toolLight,
+        subtitle: l.toolLightSubtitle,
+        needs: [SensorKind.light],
+      ),
+    (
       tool: HomeTool.altimeter,
-      title: 'Altimeter',
-      subtitle: 'Air pressure and height',
+      title: l.toolAltimeter,
+      subtitle: l.toolAltimeterSubtitle,
       needs: [SensorKind.barometer],
     ),
   ];
@@ -222,9 +326,9 @@ class _HomeShellState extends State<HomeShell> {
     final settings = widget.settings;
     final palette = Palette.of(context);
     return ToolFrame(
-      title: 'Bubble Level',
+      title: context.l10n.homeTitle,
       leading: IconButton(
-        tooltip: 'Settings',
+        tooltip: context.l10n.settings,
         icon: Icon(Icons.tune_rounded, color: palette.ink),
         onPressed: () => showSettingsSheet(context, settings),
       ),
@@ -254,28 +358,36 @@ class _HomeShellState extends State<HomeShell> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  'Tools',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: palette.label,
+                                // Shrinks with an ellipsis rather than
+                                // pushing the switch off in long languages.
+                                Expanded(
+                                  child: Text(
+                                    context.l10n.tools,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: palette.label,
+                                    ),
                                   ),
                                 ),
-                                const Spacer(),
+                                const SizedBox(width: 12),
                                 SoftSwitch<HomeLayout>(
                                   value: settings.homeLayout,
                                   onChanged: settings.setHomeLayout,
-                                  options: const [
+                                  options: [
                                     (
                                       value: HomeLayout.list,
                                       icon: Icons.view_agenda_outlined,
-                                      tooltip: 'List view',
+                                      label: null,
+                                      tooltip: context.l10n.listView,
                                     ),
                                     (
                                       value: HomeLayout.grid,
                                       icon: Icons.grid_view_rounded,
-                                      tooltip: 'Grid view',
+                                      label: null,
+                                      tooltip: context.l10n.gridView,
                                     ),
                                   ],
                                 ),
@@ -284,7 +396,7 @@ class _HomeShellState extends State<HomeShell> {
                             const SizedBox(height: 22),
                             AnimatedSwitcher(
                               duration: const Duration(milliseconds: 200),
-                              child: grid ? _grid() : _list(),
+                              child: grid ? _grid() : _list(context),
                             ),
                           ],
                         );
@@ -300,12 +412,12 @@ class _HomeShellState extends State<HomeShell> {
     );
   }
 
-  Widget _list() => Column(
+  Widget _list(BuildContext context) => Column(
     key: const ValueKey('list'),
     mainAxisSize: MainAxisSize.min,
     spacing: 18,
     children: [
-      for (final t in _tools)
+      for (final t in _tools(context.l10n))
         ToolTile(
           tool: t.tool,
           title: t.title,
@@ -322,7 +434,7 @@ class _HomeShellState extends State<HomeShell> {
     builder: (context, constraints) => Wrap(
       runSpacing: 26,
       children: [
-        for (final t in _tools)
+        for (final t in _tools(context.l10n))
           SizedBox(
             width: constraints.maxWidth / 3,
             child: ToolButton(

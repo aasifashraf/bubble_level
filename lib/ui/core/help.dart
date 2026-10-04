@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/services/sensor_availability_service.dart';
 import 'controls.dart';
+import 'l10n.dart';
 import 'theme.dart';
 
 /// A short "How to use" guide for one tool: numbered steps and one tip.
@@ -31,7 +32,7 @@ class HelpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = Palette.of(context);
     return IconButton(
-      tooltip: 'How to use',
+      tooltip: context.l10n.howToUse,
       onPressed: () => showHelpSheet(context, help),
       icon: CustomPaint(
         size: const Size(28, 28),
@@ -92,10 +93,11 @@ class _HelpGlyphPainter extends CustomPainter {
 /// card, a tip, and a "Got it" button.
 Future<void> showHelpSheet(BuildContext context, ToolHelp help) {
   final tip = help.tip;
+  final l = context.l10n;
   return _showSheet(
     context,
-    title: 'How to use ${help.tool}',
-    button: 'Got it',
+    title: l.howToUseTool(help.tool),
+    button: l.gotIt,
     children: [
       _Card(
         child: Column(
@@ -106,7 +108,7 @@ Future<void> showHelpSheet(BuildContext context, ToolHelp help) {
           ],
         ),
       ),
-      if (tip != null) _Tip(label: 'Good to know: ', text: tip),
+      if (tip != null) _Tip(label: l.goodToKnow, text: tip),
     ],
   );
 }
@@ -118,11 +120,12 @@ Future<void> showUnavailableSheet(
   required String tool,
   required List<SensorKind> missing,
 }) {
-  final needs = missing.map((s) => s.description).join(' and ');
+  final l = context.l10n;
+  final names = missing.map(l.sensorName).join(l.listSeparator);
   return _showSheet(
     context,
-    title: '$tool isn’t available',
-    button: 'OK',
+    title: l.toolUnavailableTitle(tool),
+    button: l.ok,
     children: [
       _Card(
         child: Column(
@@ -134,8 +137,7 @@ Future<void> showUnavailableSheet(
               color: Palette.of(context).ballDark,
             ),
             Text(
-              '$tool needs $needs, and this phone doesn’t have '
-              '${missing.length == 1 ? 'one' : 'them'}.',
+              l.toolUnavailableBody(tool, missing.length, names),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -147,81 +149,205 @@ Future<void> showUnavailableSheet(
           ],
         ),
       ),
-      const _Tip(
-        label: 'Good to know: ',
-        text:
-            'This is a limit of the phone’s hardware, not a fault in the '
-            'app. All the other tools work normally.',
-      ),
+      _Tip(label: l.goodToKnow, text: l.hardwareLimitTip),
     ],
   );
 }
 
-/// The app's bottom sheet: themed background with rounded top, a grab
-/// handle, a title, [children] and one emphasised button that closes it.
-/// Scrolls when large text makes it taller than the screen.
-Future<void> _showSheet(
+/// One choice in [showOptionsSheet]; a disabled one shows why in its
+/// [subtitle].
+typedef SheetOption<T> = ({
+  T value,
+  IconData icon,
+  String title,
+  String subtitle,
+  bool enabled,
+});
+
+/// Asks the user to pick one of [options]; null when they cancel.
+Future<T?> showOptionsSheet<T>(
+  BuildContext context, {
+  required String title,
+  required List<SheetOption<T>> options,
+}) => _showSheet<T>(
+  context,
+  title: title,
+  button: context.l10n.cancel,
+  buttonIcon: Icons.close_rounded,
+  emphasis: false,
+  children: [for (final o in options) _Option<T>(option: o)],
+);
+
+/// An [AppSheet] whose one button closes it (emphasised unless
+/// [emphasis] is false).
+Future<T?> _showSheet<T>(
   BuildContext context, {
   required String title,
   required String button,
   required List<Widget> children,
-}) => showModalBottomSheet<void>(
-  context: context,
-  isScrollControlled: true,
-  // Never taller than the space below the status bar (landscape).
-  useSafeArea: true,
-  backgroundColor: Colors.transparent,
-  builder: (context) {
+  IconData buttonIcon = Icons.check_rounded,
+  bool emphasis = true,
+}) => showAppSheet<T>(
+  context,
+  (context) => AppSheet(
+    title: title,
+    action: SoftButton(
+      label: button,
+      icon: buttonIcon,
+      emphasis: emphasis,
+      onPressed: () => Navigator.of(context).pop(),
+    ),
+    children: children,
+  ),
+);
+
+/// Opens [builder]'s [AppSheet] as a modal bottom sheet.
+Future<T?> showAppSheet<T>(BuildContext context, WidgetBuilder builder) =>
+    showModalBottomSheet<T>(
+      context: context,
+      isScrollControlled: true,
+      // Never taller than the space below the status bar (landscape).
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: builder,
+    );
+
+/// The app's bottom sheet: themed background with rounded top, a grab
+/// handle, a title, [children] and the [action] buttons. Stays above the
+/// keyboard, and scrolls when large text makes it taller than the screen.
+class AppSheet extends StatelessWidget {
+  const AppSheet({
+    super.key,
+    required this.title,
+    required this.children,
+    required this.action,
+  });
+
+  final String title;
+  final List<Widget> children;
+  final Widget action;
+
+  @override
+  Widget build(BuildContext context) {
     final p = Palette.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        color: p.background,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-      ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Container(
-                  width: 44,
-                  height: 5,
-                  decoration: insetSurface(p, radius: BorderRadius.circular(3)),
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+      child: Container(
+        decoration: BoxDecoration(
+          color: p.background,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Container(
+                    width: 44,
+                    height: 5,
+                    decoration: insetSurface(
+                      p,
+                      radius: BorderRadius.circular(3),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 18),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.3,
-                  color: p.inkStrong,
+                const SizedBox(height: 18),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.3,
+                    color: p.inkStrong,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 22),
-              for (final (i, child) in children.indexed) ...[
-                if (i > 0) const SizedBox(height: 16),
-                child,
+                const SizedBox(height: 22),
+                for (final (i, child) in children.indexed) ...[
+                  if (i > 0) const SizedBox(height: 16),
+                  child,
+                ],
+                const SizedBox(height: 20),
+                action,
               ],
-              const SizedBox(height: 20),
-              SoftButton(
-                label: button,
-                icon: Icons.check_rounded,
-                emphasis: true,
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
-  },
-);
+  }
+}
+
+/// A tappable choice on a soft raised card: icon, title and subtitle.
+class _Option<T> extends StatelessWidget {
+  const _Option({required this.option});
+
+  final SheetOption<T> option;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    final o = option;
+    final radius = BorderRadius.circular(24);
+    return Opacity(
+      opacity: o.enabled ? 1 : 0.45,
+      child: Container(
+        decoration: softSurface(p, radius: radius),
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            borderRadius: radius,
+            onTap: o.enabled ? () => Navigator.of(context).pop(o.value) : null,
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Row(
+                spacing: 14,
+                children: [
+                  Container(
+                    width: 44,
+                    height: 44,
+                    decoration: insetSurface(
+                      p,
+                      radius: BorderRadius.circular(22),
+                    ),
+                    child: Icon(o.icon, size: 22, color: p.ballDark),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 2,
+                      children: [
+                        Text(
+                          o.title,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: p.inkStrong,
+                          ),
+                        ),
+                        Text(
+                          o.subtitle,
+                          style: TextStyle(
+                            fontSize: 13.5,
+                            height: 1.35,
+                            color: p.label,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 /// The sheet's main content on a soft raised card.
 class _Card extends StatelessWidget {

@@ -1,15 +1,21 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'dial.dart';
+import 'l10n.dart';
 import 'theme.dart';
+import 'tool_rotation.dart';
 
 /// Full-screen page as in the design: content edge to edge behind the
 /// status bar, the header floating on top, an optional footer at the bottom.
 ///
 /// A tool page (one with [onBack]) in landscape has too little height for
 /// the dial above its readings, so the dial takes the left side below the
-/// header and the footer becomes a column on the right.
+/// header and the footer becomes a column on the right. A long, flat body
+/// (the ruler) sets [footerBelowInLandscape] instead: it spans the full
+/// width and the footer sits under it.
 class ToolFrame extends StatelessWidget {
   const ToolFrame({
     super.key,
@@ -20,6 +26,7 @@ class ToolFrame extends StatelessWidget {
     this.trailing,
     this.footer,
     this.bodyBottomInset = 0,
+    this.footerBelowInLandscape = false,
   });
 
   final String title;
@@ -38,6 +45,10 @@ class ToolFrame extends StatelessWidget {
   /// Lifts the body off the bottom so a tall footer doesn't crowd it.
   final double bodyBottomInset;
 
+  /// In landscape, keeps the body full width with the footer below it
+  /// rather than beside it.
+  final bool footerBelowInLandscape;
+
   @override
   Widget build(BuildContext context) {
     final palette = Palette.of(context);
@@ -51,6 +62,8 @@ class ToolFrame extends StatelessWidget {
             );
     final size = MediaQuery.sizeOf(context);
     final landscape = onBack != null && sideBySide(context);
+    // Both corners as wide as the wider one, so the title stays centred.
+    final corner = RotateButton.shown(context) ? 104.0 : 56.0;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlay,
       child: Scaffold(
@@ -90,10 +103,15 @@ class ToolFrame extends StatelessWidget {
                     height: 70,
                     child: Row(
                       children: [
-                        if (onBack != null)
-                          BackTab(onTap: onBack!)
-                        else
-                          SizedBox(width: 56, child: leading),
+                        SizedBox(
+                          width: corner,
+                          child: Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: onBack != null
+                                ? BackTab(onTap: onBack!)
+                                : SizedBox(width: 56, child: leading),
+                          ),
+                        ),
                         Expanded(
                           child: Center(
                             child: FittedBox(
@@ -111,7 +129,16 @@ class ToolFrame extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: 56, child: trailing),
+                        SizedBox(
+                          width: corner,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const RotateButton(),
+                              SizedBox(width: 56, child: trailing),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -140,20 +167,50 @@ class ToolFrame extends StatelessWidget {
   List<Widget> _landscape(BuildContext context, Size size) {
     final pad = MediaQuery.paddingOf(context);
     final top = pad.top + headerHeight;
+    if (footerBelowInLandscape) {
+      return [
+        Positioned.fill(
+          top: top,
+          child: SafeArea(
+            top: false,
+            minimum: const EdgeInsets.only(bottom: 12),
+            child: Column(
+              children: [
+                Expanded(child: body),
+                if (footer != null)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 760),
+                      child: footer,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ];
+    }
     final panel = (size.width * 0.42).clamp(280.0, 440.0);
     return [
-      Positioned(
-        left: pad.left,
+      // Instrument at the start (left, or right in Arabic), controls at
+      // the end.
+      PositionedDirectional(
+        start: 0,
         top: top,
-        right: footer == null ? pad.right : pad.right + 24 + panel,
+        end: footer == null ? 0 : 24 + panel,
         bottom: pad.bottom + 12,
-        child: DialFit(reserved: 16, child: body),
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: DialFit(reserved: 16, child: body),
+        ),
       ),
       if (footer != null)
-        Positioned(
+        PositionedDirectional(
           top: top,
           bottom: pad.bottom + 12,
-          right: pad.right + 24,
+          end: 24 + math.max(pad.left, pad.right),
           width: panel,
           child: Center(child: SingleChildScrollView(child: footer)),
         ),
@@ -171,17 +228,20 @@ class BackTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: 'Back',
+      message: context.l10n.back,
       child: Semantics(
         button: true,
-        label: 'Back',
+        label: context.l10n.back,
         excludeSemantics: true,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: onTap,
-          child: CustomPaint(
-            size: const Size(56, 70),
-            painter: _BackTabPainter(Palette.of(context).tab),
+          child: Transform.flip(
+            flipX: Directionality.of(context) == TextDirection.rtl,
+            child: CustomPaint(
+              size: const Size(56, 70),
+              painter: _BackTabPainter(Palette.of(context).tab),
+            ),
           ),
         ),
       ),

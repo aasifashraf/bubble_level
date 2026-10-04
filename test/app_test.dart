@@ -5,10 +5,17 @@ import 'package:bubble_level/data/repositories/settings_repository.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
+import 'package:bubble_level/domain/light.dart';
+import 'package:bubble_level/domain/ruler.dart';
 import 'package:bubble_level/main.dart';
+import 'package:bubble_level/ui/core/controls.dart';
+import 'package:bubble_level/ui/core/dial.dart';
+import 'package:bubble_level/ui/core/readout.dart';
 import 'package:bubble_level/ui/core/theme.dart';
 import 'package:bubble_level/ui/core/vial.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,13 +26,17 @@ const _allTools = [
   'Angle',
   'Compass',
   'Protractor',
+  'Ruler',
   'Metal detector',
   'Vibration',
+  'Sound meter',
+  'Light meter',
   'Altimeter',
 ];
 
 void main() {
   late FakeMotionSensorService sensors;
+  late FakeMicrophoneService microphone;
 
   /// Phone-sized window unless [size] says otherwise.
   Future<void> pumpApp(
@@ -41,8 +52,10 @@ void main() {
     SharedPreferences.setMockInitialValues(prefs);
     final settings = await SettingsRepository.load();
     sensors = FakeMotionSensorService();
+    microphone = FakeMicrophoneService();
     await tester.pumpWidget(
       BubbleLevelApp(
+        microphone: microphone,
         settings: settings,
         orientation: OrientationRepository(
           sensors: sensors,
@@ -79,30 +92,96 @@ void main() {
     expect(find.byType(NavigationBar), findsNothing);
   });
 
-  testWidgets('home: list by default, grid on request, remembered', (
-    tester,
-  ) async {
+  testWidgets('home: grid and light by default, list on request, '
+      'remembered', (tester) async {
     await pumpApp(tester);
     double y(String t) => tester.getCenter(find.text(t)).dy;
     double x(String t) => tester.getCenter(find.text(t)).dx;
+    final settings = await SettingsRepository.load();
+    expect(settings.themeMode, ThemeMode.light);
 
-    // List: Level, Angle, Compass from top to bottom.
-    expect(find.text('Bubble and spirit level'), findsOneWidget);
-    expect(y('Level') < y('Angle') && y('Angle') < y('Compass'), isTrue);
-
-    await tester.tap(find.byTooltip('Grid view'));
-    await tester.pumpAndSettle();
-    // Grid: one row, same order left to right, no descriptions.
+    // Grid: one row, Level, Angle, Compass left to right, no descriptions.
     expect(find.text('Bubble and spirit level'), findsNothing);
     expect(y('Level'), y('Compass'));
     expect(x('Level') < x('Angle') && x('Angle') < x('Compass'), isTrue);
+
+    await tester.tap(find.byTooltip('List view'));
+    await tester.pumpAndSettle();
+    // List: same order top to bottom, with descriptions.
+    expect(find.text('Bubble and spirit level'), findsOneWidget);
+    expect(y('Level') < y('Angle') && y('Angle') < y('Compass'), isTrue);
     final reloaded = await SettingsRepository.load();
-    expect(reloaded.homeLayout, HomeLayout.grid);
+    expect(reloaded.homeLayout, HomeLayout.list);
 
     // Tools still open from the grid.
     await openTool(tester, 'Angle');
     await send(tester, Vec3.up);
     expect(find.text('Angle from the Earth'), findsOneWidget);
+  });
+
+  testWidgets('level, angle, protractor and compass hold portrait until '
+      'turned; the choice is remembered per tool', (tester) async {
+    final locks = <List<Object?>>[];
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      SystemChannels.platform,
+      (call) async {
+        if (call.method == 'SystemChrome.setPreferredOrientations') {
+          locks.add(call.arguments as List<Object?>);
+        }
+        return null;
+      },
+    );
+    addTearDown(
+      () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        null,
+      ),
+    );
+    const portrait = ['DeviceOrientation.portraitUp'];
+    const landscape = [
+      'DeviceOrientation.landscapeLeft',
+      'DeviceOrientation.landscapeRight',
+    ];
+    Future<void> back() async {
+      await tester.tap(find.byTooltip('Back'));
+      await tester.pumpAndSettle();
+    }
+
+    await pumpApp(tester);
+    for (final tool in ['Level', 'Angle', 'Protractor', 'Compass']) {
+      await openTool(tester, tool);
+      expect(locks.last, portrait, reason: tool);
+      expect(find.byTooltip('Turn to landscape'), findsOneWidget);
+      await back();
+      expect(locks.last, isEmpty, reason: 'home follows the phone');
+    }
+
+    // Turn Compass; it stays turned, and Level doesn't.
+    await openTool(tester, 'Compass');
+    await tester.tap(find.byTooltip('Turn to landscape'));
+    await tester.pump();
+    expect(locks.last, landscape);
+    expect(find.byTooltip('Turn to portrait'), findsOneWidget);
+    await back();
+    await openTool(tester, 'Compass');
+    expect(locks.last, landscape);
+    await tester.tap(find.byTooltip('Turn to portrait'));
+    await tester.pump();
+    expect(locks.last, portrait);
+    await tester.tap(find.byTooltip('Turn to landscape'));
+    await tester.pump();
+    await back();
+    await openTool(tester, 'Level');
+    expect(locks.last, portrait);
+    await back();
+    expect((await SettingsRepository.load()).toolLandscape('compass'), isTrue);
+
+    // The other tools follow the phone and have no rotate button.
+    final count = locks.length;
+    await openTool(tester, 'Ruler');
+    expect(find.byTooltip('Turn to landscape'), findsNothing);
+    expect(locks.length, count);
+    await back();
   });
 
   testWidgets('a tool opens full screen and the back tab returns home', (
@@ -118,7 +197,7 @@ void main() {
     expect(find.text('Waiting for sensors…'), findsNothing);
   });
 
-  testWidgets('level: reading, guidance, hold and release', (tester) async {
+  testWidgets('level: reading, guidance, lock and unlock', (tester) async {
     await pumpApp(tester);
     await openTool(tester, 'Level');
     final semantics = tester.ensureSemantics();
@@ -127,12 +206,12 @@ void main() {
     expect(find.bySemanticsLabel('Tilt from level 0.0°'), findsOneWidget);
     expect(find.text('Level'), findsWidgets);
 
-    await tester.tap(find.text('Hold'));
+    await tester.tap(find.text('Lock'));
     await tester.pump();
-    expect(find.text('Held · Level'), findsOneWidget);
-    await tester.tap(find.text('Release'));
+    expect(find.text('Locked · Level'), findsOneWidget);
+    await tester.tap(find.text('Unlock'));
     await tester.pump();
-    expect(find.text('Held · Level'), findsNothing);
+    expect(find.text('Locked · Level'), findsNothing);
     semantics.dispose();
   });
 
@@ -287,6 +366,114 @@ void main() {
     expect(reloaded.haptics, isFalse);
   });
 
+  testWidgets('settings resets every tool’s calibration, only after '
+      'confirming, and keeps other settings', (tester) async {
+    await pumpApp(
+      tester,
+      prefs: {
+        'edgeOffset': 1.5,
+        'rulerPxPerMm:1080x2400': 16.2,
+        'rulerMethod:1080x2400': 'card',
+        'rulerPxPerMm:1812x2176': 14.0,
+        'themeMode': 'dark',
+        'rulerUnit': 'cm',
+      },
+    );
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Reset all calibrations'));
+    await tester.pumpAndSettle();
+
+    // Cancel changes nothing.
+    await tester.tap(find.text('Reset all calibrations'));
+    await tester.pumpAndSettle();
+    expect(find.text('Reset all calibrations?'), findsOneWidget);
+    expect(
+      find.textContaining('the Level and the screen size'),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect((await SettingsRepository.load()).hasAnyCalibration, isTrue);
+
+    await tester.tap(find.text('Reset all calibrations'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Reset'));
+    await tester.pumpAndSettle();
+    final reloaded = await SettingsRepository.load();
+    expect(reloaded.hasAnyCalibration, isFalse);
+    expect(reloaded.isLevelCalibrated, isFalse);
+    expect(reloaded.rulerPxPerMm('1080x2400'), isNull);
+    expect(reloaded.rulerPxPerMm('1812x2176'), isNull);
+    expect(reloaded.themeMode, ThemeMode.dark);
+    expect(reloaded.rulerUnit, LengthUnit.cm);
+    // Nothing left to reset: the card is shown as not calibrated.
+    expect(find.text('Not calibrated'), findsOneWidget);
+  });
+
+  testWidgets('level: once calibrated, Calibrate also offers a reset', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Level');
+    await send(tester, const Vec3(0.02, 0, 1)); // flat, about 1° off
+    // Not calibrated: Calibrate acts at once.
+    await tester.tap(find.text('Calibrate'));
+    await tester.pumpAndSettle();
+    expect(
+      find.text('Calibrated. This position now reads 0°.'),
+      findsOneWidget,
+    );
+    expect((await SettingsRepository.load()).isLevelCalibrated, isTrue);
+    await tester.pump(const Duration(seconds: 5)); // the message goes
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Calibrate'));
+    await tester.pumpAndSettle();
+    expect(find.text('Calibrate here'), findsOneWidget);
+    await tester.tap(find.text('Reset calibration'));
+    await tester.pumpAndSettle();
+    expect(
+      find.text(
+        'Calibration removed. The Level uses the factory sensor zero again.',
+      ),
+      findsOneWidget,
+    );
+    expect((await SettingsRepository.load()).isLevelCalibrated, isFalse);
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
+
+    // Back to acting at once.
+    await tester.tap(find.text('Calibrate'));
+    await tester.pumpAndSettle();
+    expect(find.text('Calibrate here'), findsNothing);
+  });
+
+  testWidgets('roof pitch: the level reads in x/12, flat and on an edge', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('/12'));
+    await tester.pumpAndSettle();
+    expect((await SettingsRepository.load()).unit, AngleUnit.pitch);
+    await tester.tapAt(const Offset(10, 10)); // dismiss
+    await tester.pumpAndSettle();
+
+    await openTool(tester, 'Level');
+    final semantics = tester.ensureSemantics();
+    await send(tester, Vec3.up);
+    expect(find.bySemanticsLabel('Tilt from level 0.0/12'), findsOneWidget);
+    // On an edge, 4/12 off level (18.4°): the slope tile reads the pitch.
+    final rise = math.atan(4 / 12);
+    for (var i = 0; i < 40; i++) {
+      await send(tester, Vec3(math.sin(rise), math.cos(rise), 0.02));
+    }
+    expect(find.text('4.0/12'), findsWidgets);
+    semantics.dispose();
+  });
+
   testWidgets('settings sheet switches units', (tester) async {
     await pumpApp(tester);
     await tester.tap(find.byTooltip('Settings'));
@@ -429,10 +616,227 @@ void main() {
     expect(find.textContaining('no barometer'), findsOneWidget);
   });
 
+  group('sound meter', () {
+    /// Mean square for a level of [db] (see domain/sound.dart).
+    double ms(double db) => math.pow(10, (db - 90) / 10).toDouble();
+
+    testWidgets('explains first, asks only on Allow, then measures', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      await pumpApp(tester);
+      await openTool(tester, 'Sound meter');
+      expect(find.text('Allow the microphone'), findsOneWidget);
+      expect(
+        find.textContaining('never recorded, saved or sent'),
+        findsOneWidget,
+      );
+      expect(microphone.requests, 0, reason: 'no prompt before the reason');
+
+      await tester.tap(find.text('Allow microphone'));
+      await tester.pumpAndSettle();
+      expect(microphone.requests, 1);
+      microphone.sendSound(ms(60), seconds: 3);
+      await tester.pump();
+      await tester.pump();
+      expect(
+        find.bySemanticsLabel('Sound level about 60 decibels'),
+        findsOneWidget,
+      );
+      expect(find.text('Moderate, like a conversation'), findsOneWidget);
+      expect(find.text('60 dB'), findsNWidgets(2)); // average and max
+      semantics.dispose();
+    });
+
+    testWidgets('refused: points to Settings, and works once allowed there', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      microphone.grantOnRequest = false;
+      await openTool(tester, 'Sound meter');
+      await tester.tap(find.text('Allow microphone'));
+      await tester.pumpAndSettle();
+      expect(find.text('Microphone access is off'), findsOneWidget);
+      await tester.tap(find.text('Open settings'));
+      await tester.pump();
+      expect(microphone.settingsOpened, 1);
+
+      // Allowed in Settings, then back to the app.
+      microphone.granted = true;
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+      microphone.sendSound(ms(40), seconds: 2);
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('Quiet, like a library'), findsOneWidget);
+    });
+
+    testWidgets('loud: a hearing warning; Reset and the lock', (tester) async {
+      await pumpApp(tester);
+      microphone.granted = true;
+      await openTool(tester, 'Sound meter');
+      microphone.sendSound(ms(92), seconds: 3);
+      await tester.pump();
+      await tester.pump();
+      final banner = tester.widget<StatusBanner>(find.byType(StatusBanner));
+      expect(banner.tone, StatusTone.danger);
+      expect(banner.text, 'Very loud: long exposure can damage hearing');
+
+      // Quieter now; Reset starts Max again from the current level.
+      microphone.sendSound(ms(50), seconds: 6);
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('92 dB'), findsOneWidget); // max
+      await tester.tap(find.text('Reset'));
+      await tester.pump();
+      expect(find.text('92 dB'), findsNothing);
+
+      await tester.tap(find.byTooltip('Lock reading'));
+      await tester.pump();
+      microphone.sendSound(ms(95), seconds: 3);
+      await tester.pump();
+      await tester.pump();
+      expect(find.textContaining('Locked · '), findsOneWidget);
+      expect(find.text('Quiet, like a library'), findsNothing);
+    });
+
+    testWidgets('the dial goes green, orange, red like a traffic light', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      microphone.granted = true;
+      await openTool(tester, 'Sound meter');
+      microphone.sendSound(ms(60), seconds: 3);
+      await tester.pump();
+      await tester.pump();
+      final dial = tester.widget<InstrumentDial>(find.byType(InstrumentDial));
+      final p = Palette.light;
+      // Bands start at 0, 70 and 85 dB (3° per dB).
+      expect(dial.zones, [
+        (from: 0.0, color: p.gaugeSafe),
+        (from: 210.0, color: p.gaugeCaution),
+        (from: 255.0, color: p.gaugeDanger),
+      ]);
+      StatusTone tone() =>
+          tester.widget<StatusBanner>(find.byType(StatusBanner)).tone;
+      expect(tone(), StatusTone.neutral);
+      microphone.sendSound(ms(78), seconds: 12);
+      await tester.pump();
+      await tester.pump();
+      expect(tone(), StatusTone.warning);
+    });
+
+    testWidgets('a phone without a microphone is marked on home', (
+      tester,
+    ) async {
+      await pumpApp(tester, missing: {SensorKind.microphone});
+      await tester.ensureVisible(find.text('Sound meter'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Sound meter'));
+      await tester.pumpAndSettle();
+      expect(find.text('Sound meter isn’t available'), findsOneWidget);
+    });
+  });
+
+  group('light meter', () {
+    testWidgets('lux, foot-candles and what the light is good for', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      await pumpApp(tester);
+      await openTool(tester, 'Light meter');
+      expect(find.text('Waiting for sensors…'), findsOneWidget);
+      sensors.sendLux(420);
+      await tester.pump();
+      await tester.pump();
+      expect(find.bySemanticsLabel('Brightness 420 lux'), findsOneWidget);
+      expect(find.text('420 lx'), findsOneWidget);
+      expect(find.text('39 fc'), findsOneWidget);
+      expect(find.text('Good for reading and desk work'), findsOneWidget);
+      semantics.dispose();
+    });
+
+    testWidgets('the dial is green where light suits reading', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Light meter');
+      sensors.sendLux(420);
+      await tester.pump();
+      await tester.pump();
+      final zones = tester
+          .widget<InstrumentDial>(find.byType(InstrumentDial))
+          .zones!;
+      final p = Palette.light;
+      // Red below 50 lx, orange to 300, green to 10 000, then orange.
+      expect(
+        [for (final z in zones) z.color],
+        [p.gaugeDanger, p.gaugeCaution, p.gaugeSafe, p.gaugeCaution],
+      );
+      expect(zones[1].from, closeTo(lightSweep(50), 1e-9));
+      expect(zones[2].from, closeTo(lightSweep(300), 1e-9));
+      expect(zones[3].from, closeTo(lightSweep(10000), 1e-9));
+    });
+
+    testWidgets('the lock holds a reading', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Light meter');
+      sensors.sendLux(420);
+      await tester.pump();
+      await tester.pump();
+      await tester.tap(find.text('Lock'));
+      await tester.pump();
+      sensors.sendLux(12);
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('420 lx'), findsOneWidget);
+      expect(
+        find.text('Locked · Good for reading and desk work'),
+        findsOneWidget,
+      );
+      await tester.tap(find.text('Unlock'));
+      await tester.pump();
+      expect(find.text('12 lx'), findsOneWidget);
+      expect(find.text('Dim light'), findsOneWidget);
+    });
+
+    testWidgets('a phone without a light sensor says so', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Light meter');
+      sensors.lightSensor.addError(Exception('NO_SENSOR'));
+      await tester.pump();
+      await tester.pump();
+      expect(find.textContaining('no light sensor'), findsOneWidget);
+    });
+
+    testWidgets('home marks it unavailable without the sensor', (tester) async {
+      await pumpApp(tester, missing: {SensorKind.light});
+      await tester.ensureVisible(find.text('Light meter'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Light meter'));
+      await tester.pumpAndSettle();
+      expect(find.text('Light meter isn’t available'), findsOneWidget);
+      expect(find.textContaining('light sensor'), findsWidgets);
+    });
+
+    testWidgets('iPhones don’t list it: Apple keeps the sensor private', (
+      tester,
+    ) async {
+      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+      await pumpApp(tester);
+      expect(find.text('Light meter'), findsNothing);
+      expect(find.text('Altimeter'), findsOneWidget);
+      debugDefaultTargetPlatformOverride = null;
+    });
+  });
+
   testWidgets('home marks tools this phone can’t run and explains why', (
     tester,
   ) async {
-    await pumpApp(tester, missing: {SensorKind.barometer});
+    await pumpApp(
+      tester,
+      prefs: {'homeLayout': 'list'},
+      missing: {SensorKind.barometer},
+    );
     await tester.ensureVisible(find.text('Altimeter'));
     await tester.pumpAndSettle();
     expect(find.text('Not available on this phone'), findsOneWidget);
@@ -440,7 +844,10 @@ void main() {
     await tester.tap(find.text('Altimeter'));
     await tester.pumpAndSettle();
     expect(find.text('Altimeter isn’t available'), findsOneWidget);
-    expect(find.textContaining('needs a barometer'), findsOneWidget);
+    expect(
+      find.textContaining('barometer (air pressure sensor)'),
+      findsOneWidget,
+    );
     // The tool itself didn't open.
     expect(find.text('Set zero here'), findsNothing);
     await tester.ensureVisible(find.text('OK'));
@@ -498,7 +905,7 @@ void main() {
     await openTool(tester, 'Level');
     await send(tester, const Vec3(0, 1, 0.02));
     final dial = tester.getRect(find.bySemanticsLabel(RegExp('level')));
-    final hold = tester.getRect(find.text('Hold'));
+    final hold = tester.getRect(find.text('Lock'));
     expect(hold.left, greaterThan(430), reason: 'footer on the right');
     expect(dial.right, lessThanOrEqualTo(hold.left));
     // The header title is the topmost "Level" (the status line also says it).
@@ -562,6 +969,29 @@ void main() {
       expect((await SettingsRepository.load()).levelStyle, LevelStyle.tube);
     });
 
+    testWidgets('on its side the level doesn’t turn itself: the water line '
+        'and the tube follow the real edge instead', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Level');
+      // Standing on its left edge, about 2.9° off: edge 87.1°.
+      for (var i = 0; i < 40; i++) {
+        await send(tester, const Vec3(1, 0.05, 0.02));
+      }
+      expect(find.byType(RotatedBox), findsNothing);
+      final dial = tester.widget<InstrumentDial>(find.byType(InstrumentDial));
+      expect(dial.waterAngle, closeTo(87.1, 0.2));
+      expect(dial.ballAngle, closeTo(177.1, 0.2));
+
+      await tester.tap(find.byTooltip('Tube view'));
+      await tester.pump();
+      expect(find.byType(RotatedBox), findsNothing);
+      final tube = vial(tester, 'Level tube');
+      expect(tube.vertical, isTrue, reason: 'runs along the screen');
+      expect(tube.position, greaterThan(0.1));
+      final rect = tester.getRect(find.byType(SpiritVial));
+      expect(rect.height, greaterThan(rect.width * 3));
+    });
+
     testWidgets('landscape: the tube fills the space below the header', (
       tester,
     ) async {
@@ -575,7 +1005,7 @@ void main() {
         await send(tester, const Vec3(0, 1, 0.02));
       }
       final tube = tester.getRect(find.byType(SpiritVial));
-      final hold = tester.getRect(find.text('Hold'));
+      final hold = tester.getRect(find.text('Lock'));
       expect(tube.width, greaterThan(250), reason: 'not squeezed');
       expect(tube.top, greaterThan(88), reason: 'below the header');
       expect(tube.right, lessThanOrEqualTo(hold.left));
@@ -699,6 +1129,81 @@ void main() {
       await send(tester, Vec3.up);
       expect(find.text('No metal nearby'), findsOneWidget);
       expect(find.byIcon(Icons.check_circle_rounded), findsNothing);
+    });
+  });
+
+  group('lock', () {
+    testWidgets('angle: the lock freezes the reading until unlocked', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Angle');
+      final semantics = tester.ensureSemantics();
+      for (var i = 0; i < 20; i++) {
+        await send(tester, const Vec3(0, 1, 1)); // 45°
+      }
+      expect(find.bySemanticsLabel('From level 45.0°'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('Lock reading'));
+      await tester.pump();
+      expect(find.text('Locked · Angle from the Earth'), findsOneWidget);
+      for (var i = 0; i < 20; i++) {
+        await send(tester, Vec3.up); // lifted and laid flat
+      }
+      expect(find.bySemanticsLabel('From level 45.0°'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('Unlock'));
+      for (var i = 0; i < 40; i++) {
+        await send(tester, Vec3.up);
+      }
+      expect(find.bySemanticsLabel('From level 45.0°'), findsNothing);
+      expect(find.text('Angle from the Earth'), findsOneWidget);
+
+      // Reopening the tool starts unlocked.
+      await tester.tap(find.byTooltip('Lock reading'));
+      await tester.pump();
+      await tester.tap(find.byTooltip('Back'));
+      await tester.pumpAndSettle();
+      await openTool(tester, 'Angle');
+      expect(find.byTooltip('Lock reading'), findsOneWidget);
+      semantics.dispose();
+    });
+
+    testWidgets('protractor: locked handles ignore drags; Reset is off', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Protractor');
+      final semantics = tester.ensureSemantics();
+      await tester.tap(find.byTooltip('Lock handles'));
+      await tester.pump();
+      expect(
+        find.text('Handles locked · tap the lock to adjust'),
+        findsOneWidget,
+      );
+      final centre = tester.getCenter(
+        find.bySemanticsLabel(RegExp('^Angle between')),
+      );
+      await tester.dragFrom(centre + const Offset(120, 0), const Offset(0, 80));
+      await tester.pump();
+      expect(
+        find.bySemanticsLabel('Angle between the arms 60.0°'),
+        findsOneWidget,
+      );
+      final reset = tester.widget<SoftButton>(
+        find.widgetWithText(SoftButton, 'Reset'),
+      );
+      expect(reset.onPressed, isNull);
+
+      await tester.tap(find.byTooltip('Unlock'));
+      await tester.pump();
+      await tester.dragFrom(centre + const Offset(120, 0), const Offset(0, 80));
+      await tester.pump();
+      expect(
+        find.bySemanticsLabel('Angle between the arms 60.0°'),
+        findsNothing,
+      );
+      semantics.dispose();
     });
   });
 }

@@ -6,6 +6,7 @@ import '../../../core/controls.dart';
 import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
+import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
@@ -23,15 +24,15 @@ class VibrationScreen extends StatelessWidget {
   final VibrationViewModel viewModel;
   final VoidCallback onBack;
 
-  static const _help = ToolHelp(
-    tool: 'Vibration',
+  static ToolHelp _help(AppLocalizations l) => ToolHelp(
+    tool: l.toolVibration,
     steps: [
-      'Place the phone flat on the surface or machine you want to check, and keep your hands off it.',
-      'The dial shows vibration right now in m/s². The graph shows the last few seconds.',
-      'Peak is the strongest moment. Average is the level over the last second.',
-      'Tap Reset peak before each new test.',
+      l.vibrationHelp1,
+      l.vibrationHelp2,
+      l.vibrationHelp3,
+      l.vibrationHelp4,
     ],
-    tip: '“Still” is under 0.3 m/s² and “Strong” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.',
+    tip: l.vibrationTip,
   );
 
   static const _scaleMax = 12.0;
@@ -48,31 +49,35 @@ class VibrationScreen extends StatelessWidget {
         final r = viewModel.reading;
         final sweep = (r.current / _scaleMax).clamp(0.0, 0.999) * 360;
         final (icon, text) = switch (viewModel.level) {
-          VibrationLevel.still => (Icons.check_circle_rounded, 'Still'),
-          VibrationLevel.light => (Icons.vibration_rounded, 'Light vibration'),
+          VibrationLevel.still => (
+            Icons.check_circle_rounded,
+            context.l10n.still,
+          ),
+          VibrationLevel.light => (
+            Icons.vibration_rounded,
+            context.l10n.lightVibration,
+          ),
           VibrationLevel.strong => (
             Icons.warning_amber_rounded,
-            'Strong vibration',
+            context.l10n.strongVibration,
           ),
         };
         final ready = r.history.isNotEmpty;
         return ToolFrame(
-          title: 'Vibration',
+          title: context.l10n.toolVibration,
           onBack: onBack,
-          trailing: const HelpButton(help: _help),
+          trailing: HelpButton(help: _help(context.l10n)),
           bodyBottomInset: 190,
           body: SensorStateGate(
             state: r.state,
             ready: ready,
-            missingText:
-                'This phone has no accelerometer, so vibration can’t be '
-                'measured here. Tools that don’t need it still work.',
+            missingText: context.l10n.noAccelerometerVibration,
             child: InstrumentDial(
               value: r.current.toStringAsFixed(1),
               label: 'm/s²',
-              semanticsLabel:
-                  'Vibration ${r.current.toStringAsFixed(1)} metres per '
-                  'second squared',
+              semanticsLabel: context.l10n.vibrationSemantics(
+                formatDecimal(r.current),
+              ),
               scaleLabels: _scale,
               arcSweep: sweep,
               ballAngle: sweep,
@@ -91,13 +96,13 @@ class VibrationScreen extends StatelessWidget {
                         Expanded(
                           child: ValueTile(
                             value: formatAcceleration(r.peak),
-                            caption: 'Peak',
+                            caption: context.l10n.peak,
                           ),
                         ),
                         Expanded(
                           child: ValueTile(
                             value: formatAcceleration(r.rms),
-                            caption: 'Average',
+                            caption: context.l10n.average,
                           ),
                         ),
                       ],
@@ -114,7 +119,7 @@ class VibrationScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 14),
                     SoftButton(
-                      label: 'Reset peak',
+                      label: context.l10n.resetPeak,
                       icon: Icons.restart_alt_rounded,
                       onPressed: viewModel.resetPeak,
                     ),
@@ -140,7 +145,7 @@ class _Graph extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: softSurface(p, radius: BorderRadius.circular(20)),
       child: Semantics(
-        label: 'Vibration graph',
+        label: context.l10n.vibrationGraph,
         child: CustomPaint(
           size: Size.infinite,
           painter: _GraphPainter(values: values, color: p.ballDark),

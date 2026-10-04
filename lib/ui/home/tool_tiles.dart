@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/controls.dart';
+import '../core/l10n.dart';
 import '../core/theme.dart';
 import 'tool_glyphs.dart';
 
@@ -56,7 +57,7 @@ class ToolTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        available ? subtitle : 'Not available on this phone',
+                        available ? subtitle : context.l10n.notAvailableOnPhone,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 13, color: p.label),
@@ -99,7 +100,7 @@ class ToolButton extends StatelessWidget {
     final p = Palette.of(context);
     return Semantics(
       button: true,
-      label: available ? title : '$title, not available on this phone',
+      label: available ? title : context.l10n.toolNotAvailableSemantics(title),
       excludeSemantics: true,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -121,7 +122,7 @@ class ToolButton extends StatelessWidget {
             ),
             if (!available)
               Text(
-                'Not on this phone',
+                context.l10n.notOnPhone,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 style: TextStyle(fontSize: 12, color: p.label),

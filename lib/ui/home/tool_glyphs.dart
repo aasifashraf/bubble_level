@@ -3,7 +3,18 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 /// The tools on the home screen, in display order.
-enum HomeTool { level, angle, compass, protractor, metal, vibration, altimeter }
+enum HomeTool {
+  level,
+  angle,
+  compass,
+  protractor,
+  ruler,
+  metal,
+  vibration,
+  sound,
+  light,
+  altimeter,
+}
 
 /// Line icons drawn in the design's stroke style.
 class ToolGlyphPainter extends CustomPainter {
@@ -100,6 +111,34 @@ class ToolGlyphPainter extends CustomPainter {
             line..color = accent,
           )
           ..drawCircle(o, 1.6, Paint()..color = accent);
+      case HomeTool.ruler:
+        // A ruler laid at an angle, with ticks and one orange mark.
+        canvas
+          ..save()
+          ..translate(12, 12)
+          ..rotate(-math.pi / 4)
+          ..drawRRect(
+            RRect.fromLTRBR(-11, -4.5, 11, 4.5, const Radius.circular(1.5)),
+            line,
+          );
+        for (var i = -8; i <= 8; i += 2) {
+          final long = i % 4 == 0;
+          canvas.drawLine(
+            Offset(i.toDouble(), -4.5),
+            Offset(i.toDouble(), long ? -0.5 : -2),
+            line,
+          );
+        }
+        canvas
+          ..drawLine(
+            const Offset(2, -4.5),
+            const Offset(2, -0.5),
+            Paint()
+              ..strokeWidth = 1.9
+              ..strokeCap = StrokeCap.round
+              ..color = accent,
+          )
+          ..restore();
       case HomeTool.metal:
         // Horseshoe magnet with orange poles.
         canvas
@@ -134,6 +173,65 @@ class ToolGlyphPainter extends CustomPainter {
           canvas.drawLine(Offset(x, 12 - h), Offset(x, 12 + h), line);
         }
         canvas.drawCircle(const Offset(12, 17.4), 1.2, Paint()..color = accent);
+      case HomeTool.sound:
+        // A speaker with orange sound waves.
+        canvas.drawPath(
+          Path()
+            ..moveTo(3, 9.5)
+            ..lineTo(6.5, 9.5)
+            ..lineTo(11, 5.5)
+            ..lineTo(11, 18.5)
+            ..lineTo(6.5, 14.5)
+            ..lineTo(3, 14.5)
+            ..close(),
+          line,
+        );
+        final wave = Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.9
+          ..strokeCap = StrokeCap.round
+          ..color = accent;
+        for (final r in [4.0, 7.5]) {
+          canvas.drawArc(
+            Rect.fromCircle(center: const Offset(12, 12), radius: r),
+            -math.pi / 4,
+            math.pi / 2,
+            false,
+            wave,
+          );
+        }
+      case HomeTool.light:
+        // A light bulb with an orange filament.
+        canvas
+          ..drawPath(
+            Path()
+              ..moveTo(9, 17)
+              ..lineTo(9, 15.2)
+              ..arcTo(
+                Rect.fromCircle(center: const Offset(12, 9.5), radius: 6.5),
+                math.pi * 0.62,
+                math.pi * 1.76,
+                false,
+              )
+              ..lineTo(15, 17)
+              ..close(),
+            line,
+          )
+          ..drawLine(const Offset(9.5, 20.2), const Offset(14.5, 20.2), line)
+          ..drawPath(
+            Path()
+              ..moveTo(10, 10.5)
+              ..lineTo(11, 12.5)
+              ..lineTo(12, 10.5)
+              ..lineTo(13, 12.5)
+              ..lineTo(14, 10.5),
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1.6
+              ..strokeCap = StrokeCap.round
+              ..strokeJoin = StrokeJoin.round
+              ..color = accent,
+          );
       case HomeTool.altimeter:
         // Mountain peaks with an orange sun.
         canvas

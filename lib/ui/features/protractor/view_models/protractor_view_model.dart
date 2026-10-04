@@ -13,6 +13,20 @@ class ProtractorViewModel extends ChangeNotifier {
   /// The arm being dragged.
   int _dragging = 0;
 
+  bool _locked = false;
+
+  /// Locked: the handles ignore touches, so placing or moving the object
+  /// on the screen can't shift them.
+  bool get locked => _locked;
+
+  void toggleLock() {
+    _locked = !_locked;
+    notifyListeners();
+  }
+
+  /// Opens unlocked, so nobody returns to handles that won't move.
+  void unlock() => _locked = false;
+
   double arm(int i) => _arms[i];
 
   /// Clockwise turn from arm 0 to arm 1, [0, 360).
@@ -35,6 +49,7 @@ class ProtractorViewModel extends ChangeNotifier {
 
   /// Moves arm [i] to [degrees], snapped to whole degrees.
   void setArm(int i, double degrees) {
+    if (_locked) return;
     final snapped = degrees.round() % 360;
     if (_arms[i] == snapped) return;
     _arms[i] = snapped.toDouble();
@@ -43,6 +58,7 @@ class ProtractorViewModel extends ChangeNotifier {
 
   /// Starts dragging the arm nearest to [degrees] and moves it there.
   void beginDrag(double degrees) {
+    if (_locked) return;
     _dragging = nearestArm(degrees);
     setArm(_dragging, degrees);
   }
@@ -51,6 +67,7 @@ class ProtractorViewModel extends ChangeNotifier {
   void dragTo(double degrees) => setArm(_dragging, degrees);
 
   void reset() {
+    if (_locked) return;
     _arms
       ..[0] = _defaultArms[0]
       ..[1] = _defaultArms[1];
