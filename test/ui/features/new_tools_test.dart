@@ -1,0 +1,157 @@
+import 'package:bubble_level/data/repositories/barometer_repository.dart';
+import 'package:bubble_level/data/repositories/orientation_repository.dart';
+import 'package:bubble_level/data/repositories/settings_repository.dart';
+import 'package:bubble_level/data/repositories/vibration_repository.dart';
+import 'package:bubble_level/domain/angles.dart';
+import 'package:bubble_level/domain/orientation_reading.dart';
+import 'package:bubble_level/ui/features/altimeter/view_models/altimeter_view_model.dart';
+import 'package:bubble_level/ui/features/metal/view_models/metal_view_model.dart';
+import 'package:bubble_level/ui/features/protractor/view_models/protractor_view_model.dart';
+import 'package:bubble_level/ui/features/vibration/view_models/vibration_view_model.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../helpers/fakes.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('ProtractorViewModel', () {
+    test('angle between the arms, the short way round', () {
+      final vm = ProtractorViewModel();
+      expect(vm.angle, 60);
+      vm.setArm(1, 300); // 0° and 300° are 60° apart the other way
+      expect(vm.angle, 60);
+      expect(vm.reflex, 300);
+      expect(vm.arcStart, 300);
+    });
+
+    test('drags the nearest arm and snaps to whole degrees', () {
+      final vm = ProtractorViewModel()..beginDrag(55.4);
+      expect(vm.arm(1), 55); // arm 1 (at 60°) was nearer
+      vm.dragTo(90.6);
+      expect(vm.arm(1), 91);
+      expect(vm.arm(0), 0);
+      vm.reset();
+      expect(vm.angle, 60);
+    });
+  });
+
+  group('sensor tools', () {
+    late FakeMotionSensorService sensors;
+    late OrientationRepository orientation;
+    late SettingsRepository settings;
+
+    setUp(() async {
+      SharedPreferences.setMockInitialValues({});
+      settings = await SettingsRepository.load();
+      sensors = FakeMotionSensorService();
+      orientation = OrientationRepository(
+        sensors: sensors,
+        display: FakeDisplayRotationService(),
+      );
+      await flush();
+    });
+
+    tearDown(() => orientation.dispose());
+
+    Future<void> field(double strength) async {
+      sensors
+        ..sendMagnet(Vec3(0, strength, 0))
+        ..sendUp(Vec3.up);
+      await flush();
+    }
+
+    test('metal: baseline from the first reading, levels, one buzz', () async {
+      var buzzes = 0;
+      final vm = MetalViewModel(
+        orientation: orientation,
+        settings: settings,
+        onDetected: () => buzzes++,
+      )..active = true;
+      addTearDown(vm.dispose);
+
+      await field(50);
+      expect(vm.state!.change, closeTo(0, 1e-9));
+      expect(vm.state!.level, MetalLevel.clear);
+
+      // Fresh orientation timing so the low-pass jumps straight to the value.
+      orientation
+        ..stop()
+        ..start();
+      await field(70);
+      expect(vm.state!.level, MetalLevel.nearby);
+
+      orientation
+        ..stop()
+        ..start();
+      await field(120);
+      expect(vm.state!.level, MetalLevel.detected);
+      await field(121);
+      expect(buzzes, 1);
+
+      vm.setBaseline();
+      expect(vm.state!.level, MetalLevel.clear);
+    });
+
+    test('vibration: runs only while active, reports level', () async {
+      final repo = VibrationRepository(sensors: sensors);
+      final vm = VibrationViewModel(repository: repo);
+      addTearDown(() {
+        vm.dispose();
+        repo.dispose();
+      });
+      expect(sensors.userAccel.hasListener, isFalse);
+
+      vm.active = true;
+      expect(sensors.userAccel.hasListener, isTrue);
+      for (var i = 0; i < 20; i++) {
+        sensors.sendUserAccel(const Vec3(3, 0, 0));
+      }
+      await flush();
+      expect(vm.reading.current, closeTo(3, 1e-9));
+      expect(vm.level, VibrationLevel.strong);
+
+      vm.active = false;
+      expect(sensors.userAccel.hasListener, isFalse);
+    });
+
+    test('vibration: a missing sensor is reported', () async {
+      final repo = VibrationRepository(sensors: sensors);
+      final vm = VibrationViewModel(repository: repo)..active = true;
+      addTearDown(() {
+        vm.dispose();
+        repo.dispose();
+      });
+      sensors.userAccel.addError(Exception('NO_SENSOR'));
+      await flush();
+      expect(vm.reading.state, SensorState.missing);
+    });
+
+    test('altimeter: pressure, altitude and height from zero', () async {
+      final repo = BarometerRepository(sensors: sensors);
+      final vm = AltimeterViewModel(repository: repo)..active = true;
+      addTearDown(() {
+        vm.dispose();
+        repo.dispose();
+      });
+
+      sensors.sendPressure(1013.25);
+      await flush();
+      expect(vm.reading.pressure, closeTo(1013.25, 1e-9));
+      expect(vm.reading.altitude, closeTo(0, 1e-6));
+      vm.setZero();
+      expect(vm.relative, closeTo(0, 1e-6));
+
+      // Restart so the filter takes the next sample as-is.
+      vm
+        ..active = false
+        ..active = true;
+      sensors.sendPressure(1012.25); // about 8 m higher
+      await flush();
+      expect(vm.relative, closeTo(8.4, 0.3));
+      vm.clearZero();
+      expect(vm.relative, isNull);
+    });
+  });
+}

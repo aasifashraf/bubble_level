@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
 import 'package:bubble_level/domain/angles.dart';
@@ -7,6 +9,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fakes.dart';
+
+const _allTools = [
+  'Level',
+  'Angle',
+  'Compass',
+  'Protractor',
+  'Metal detector',
+  'Vibration',
+  'Altimeter',
+];
 
 void main() {
   late FakeMotionSensorService sensors;
@@ -30,6 +42,7 @@ void main() {
           sensors: sensors,
           display: FakeDisplayRotationService(),
         ),
+        sensors: sensors,
       ),
     );
   }
@@ -248,7 +261,7 @@ void main() {
   testWidgets('dark theme renders every screen without errors', (tester) async {
     await pumpApp(tester, prefs: {'themeMode': 'dark'});
     final pose = devicePose(heading: 120, pitch: 0);
-    for (final tool in ['Compass', 'Level', 'Angle']) {
+    for (final tool in _allTools) {
       await openTool(tester, tool);
       sensors
         ..sendUp(pose.up)
@@ -270,7 +283,7 @@ void main() {
       addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
       await pumpApp(tester, size: size);
       expect(tester.takeException(), isNull, reason: 'home');
-      for (final tool in ['Compass', 'Level', 'Angle']) {
+      for (final tool in _allTools) {
         await openTool(tester, tool);
         await send(tester, const Vec3(0.1, 0, 1));
         expect(tester.takeException(), isNull, reason: tool);
@@ -279,4 +292,94 @@ void main() {
       }
     });
   }
+
+  testWidgets('protractor: dragging an arm changes the angle', (tester) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Protractor');
+    final semantics = tester.ensureSemantics();
+    expect(
+      find.bySemanticsLabel('Angle between the arms 60.0°'),
+      findsOneWidget,
+    );
+
+    final centre = tester.getCenter(
+      find.bySemanticsLabel(RegExp('^Angle between')),
+    );
+    Offset at(double degrees) {
+      final a = degrees * math.pi / 180;
+      return centre + Offset(math.sin(a), -math.cos(a)) * 150;
+    }
+
+    final gesture = await tester.startGesture(at(60));
+    await gesture.moveTo(at(75));
+    await gesture.moveTo(at(90));
+    await gesture.up();
+    await tester.pump();
+    expect(
+      find.bySemanticsLabel('Angle between the arms 90.0°'),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.text('Reset'));
+    await tester.pump();
+    expect(
+      find.bySemanticsLabel('Angle between the arms 60.0°'),
+      findsOneWidget,
+    );
+    semantics.dispose();
+  });
+
+  testWidgets('metal detector: field, status and baseline', (tester) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Metal detector');
+    sensors
+      ..sendMagnet(const Vec3(0, 45, 0))
+      ..sendUp(Vec3.up);
+    await tester.pump();
+    await send(tester, Vec3.up);
+    expect(find.text('No metal nearby'), findsOneWidget);
+    expect(find.text('45 µT'), findsOneWidget);
+    await tester.tap(find.text('Set baseline'));
+    await tester.pump();
+    expect(find.text('0 µT'), findsOneWidget); // change from baseline
+  });
+
+  testWidgets('vibration: live reading, status and peak reset', (tester) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Vibration');
+    expect(find.text('Waiting for sensors…'), findsOneWidget);
+    for (var i = 0; i < 10; i++) {
+      sensors.sendUserAccel(const Vec3(3, 0, 0));
+    }
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('Strong vibration'), findsOneWidget);
+    expect(find.text('3.0 m/s²'), findsWidgets);
+    await tester.tap(find.text('Reset peak'));
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('altimeter: zeroing measures height', (tester) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Altimeter');
+    sensors.sendPressure(1013.25);
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('1013.3 hPa'), findsOneWidget);
+    await tester.tap(find.text('Set zero here'));
+    await tester.pump();
+    expect(find.text('Measuring height from your zero'), findsOneWidget);
+  });
+
+  testWidgets('altimeter: phones without a barometer are told so', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Altimeter');
+    sensors.baro.addError(Exception('NO_SENSOR'));
+    await tester.pump();
+    await tester.pump();
+    expect(find.textContaining('no barometer'), findsOneWidget);
+  });
 }
