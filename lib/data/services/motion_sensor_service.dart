@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../domain/angles.dart';
@@ -8,8 +9,9 @@ typedef SensorSample = ({Vec3 value, DateTime timestamp});
 /// One raw sample of a single-valued sensor.
 typedef ScalarSample = ({double value, DateTime timestamp});
 
-/// Thin wrapper over `sensors_plus`. A stream emits an error when the device
-/// lacks that sensor.
+/// Thin wrapper over `sensors_plus`, plus the light sensor through the
+/// app's own channel. A stream emits an error when the device lacks that
+/// sensor.
 class MotionSensorService {
   const MotionSensorService();
 
@@ -37,5 +39,13 @@ class MotionSensorService {
   /// Air pressure in hPa.
   Stream<ScalarSample> barometer() => barometerEventStream().map(
     (e) => (value: e.pressure, timestamp: e.timestamp),
+  );
+
+  static const _light = EventChannel('bubble_level/light');
+
+  /// Illuminance in lux, from the ambient light sensor (Android; see
+  /// MainActivity.kt). Emits only when the level changes.
+  Stream<ScalarSample> light() => _light.receiveBroadcastStream().map(
+    (e) => (value: (e as num).toDouble(), timestamp: DateTime.now()),
   );
 }

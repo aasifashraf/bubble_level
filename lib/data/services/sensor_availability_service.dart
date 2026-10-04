@@ -1,16 +1,7 @@
 import 'package:flutter/services.dart';
 
-/// Hardware sensors a tool can depend on.
-enum SensorKind {
-  accelerometer('an accelerometer'),
-  magnetometer('a magnetometer (compass sensor)'),
-  barometer('a barometer (air pressure sensor)');
-
-  const SensorKind(this.description);
-
-  /// How the sensor is named to people, with its article.
-  final String description;
-}
+/// Hardware a tool can depend on (the microphone counts too).
+enum SensorKind { accelerometer, magnetometer, barometer, light, microphone }
 
 /// Asks the platform which sensors this device lacks (see MainActivity.kt /
 /// AppDelegate.swift), so home can say so before a tool is opened.
