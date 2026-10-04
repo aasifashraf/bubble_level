@@ -53,5 +53,19 @@ import UIKit
       if !CMAltimeter.isRelativeAltitudeAvailable() { missing.append("barometer") }
       result(missing)
     }
+
+    // Opens this app's page in Settings, to allow a refused permission.
+    let app = FlutterMethodChannel(
+      name: "bubble_level/app", binaryMessenger: registrar.messenger())
+    app.setMethodCallHandler { call, result in
+      guard call.method == "openSettings",
+        let url = URL(string: UIApplication.openSettingsURLString)
+      else {
+        result(FlutterMethodNotImplemented)
+        return
+      }
+      UIApplication.shared.open(url)
+      result(nil)
+    }
   }
 }

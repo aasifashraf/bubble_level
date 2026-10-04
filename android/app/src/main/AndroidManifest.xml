@@ -1,6 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Sound meter only: audio is measured in memory, never recorded,
+         saved or sent (the app has no internet access). -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- The microphone and light sensor are optional: the tools that need
+         them explain when a phone lacks one. -->
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
+    <uses-feature android:name="android.hardware.sensor.light" android:required="false" />
     <application
-        android:label="Bubble Level"
+        android:label="@string/app_name"
+        android:localeConfig="@xml/locales_config"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

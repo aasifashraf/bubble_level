@@ -2,6 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>es</string>
+		<string>pt-BR</string>
+		<string>hi</string>
+		<string>id</string>
+		<string>de</string>
+		<string>fr</string>
+		<string>ru</string>
+		<string>tr</string>
+		<string>ja</string>
+		<string>ar</string>
+		<string>ur</string>
+	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -53,17 +68,21 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	
-	
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	
+	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The Sound meter uses the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Motion sensors and the barometer are used to measure tilt, angles, compass heading, vibration and altitude.</string>
 </dict>

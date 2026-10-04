@@ -36,6 +36,10 @@ dependencies:
   audioplayers: ^6.8.1
   path_provider: ^2.1.6
   in_app_review: ^2.0.12
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+  record: 7.1.1
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +58,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  # Builds AppLocalizations from lib/l10n/*.arb (see l10n.yaml).
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
