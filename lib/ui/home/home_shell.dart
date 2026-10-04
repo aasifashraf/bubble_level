@@ -8,7 +8,9 @@ import '../../data/repositories/orientation_repository.dart';
 import '../../data/repositories/settings_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
 import '../../data/services/motion_sensor_service.dart';
+import '../../data/services/sensor_availability_service.dart';
 import '../core/dial.dart';
+import '../core/help.dart';
 import '../core/sensor_view_model.dart';
 import '../core/theme.dart';
 import '../core/tool_frame.dart';
@@ -30,6 +32,13 @@ import '../features/settings/views/settings_sheet.dart';
 
 enum _Tool { level, angle, compass, protractor, metal, vibration, altimeter }
 
+typedef _ToolEntry = ({
+  _Tool tool,
+  String title,
+  String subtitle,
+  List<SensorKind> needs,
+});
+
 /// Home: the tools as a list (default) or a grid of soft round buttons in
 /// the dial's material. Each opens full screen with the back tab; only the
 /// open tool follows the sensors.
@@ -39,10 +48,15 @@ class HomeShell extends StatefulWidget {
     required this.orientation,
     required this.settings,
     this.sensors = const MotionSensorService(),
+    this.missingSensors = const {},
   });
 
   final OrientationRepository orientation;
   final SettingsRepository settings;
+
+  /// Sensors this device lacks; tools that need them are shown as
+  /// unavailable and explain why instead of opening.
+  final Set<SensorKind> missingSensors;
 
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
@@ -126,35 +140,64 @@ class _HomeShellState extends State<HomeShell> {
     }
   }
 
-  static const _tools = [
-    (tool: _Tool.level, title: 'Level', subtitle: 'Bubble and spirit level'),
+  static const List<_ToolEntry> _tools = [
+    (
+      tool: _Tool.level,
+      title: 'Level',
+      subtitle: 'Bubble and spirit level',
+      needs: [SensorKind.accelerometer],
+    ),
     (
       tool: _Tool.angle,
       title: 'Angle',
       subtitle: 'Angle from level or from a zero',
+      needs: [SensorKind.accelerometer],
     ),
-    (tool: _Tool.compass, title: 'Compass', subtitle: 'Heading and direction'),
+    (
+      tool: _Tool.compass,
+      title: 'Compass',
+      subtitle: 'Heading and direction',
+      needs: [SensorKind.accelerometer, SensorKind.magnetometer],
+    ),
     (
       tool: _Tool.protractor,
       title: 'Protractor',
       subtitle: 'Measure angles on the screen',
+      needs: [],
     ),
     (
       tool: _Tool.metal,
       title: 'Metal detector',
       subtitle: 'Find iron, steel and magnets',
+      needs: [SensorKind.accelerometer, SensorKind.magnetometer],
     ),
     (
       tool: _Tool.vibration,
       title: 'Vibration',
       subtitle: 'Vibration meter with live graph',
+      needs: [SensorKind.accelerometer],
     ),
     (
       tool: _Tool.altimeter,
       title: 'Altimeter',
       subtitle: 'Air pressure and height',
+      needs: [SensorKind.barometer],
     ),
   ];
+
+  /// Sensors [t] needs that this device lacks.
+  List<SensorKind> _missing(_ToolEntry t) =>
+      t.needs.where(widget.missingSensors.contains).toList();
+
+  /// Opens the tool, or explains why it can't work on this device.
+  void _tap(_ToolEntry t) {
+    final missing = _missing(t);
+    if (missing.isEmpty) {
+      _openTool(t.tool);
+    } else {
+      showUnavailableSheet(context, tool: t.title, missing: missing);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +277,8 @@ class _HomeShellState extends State<HomeShell> {
           tool: t.tool,
           title: t.title,
           subtitle: t.subtitle,
-          onTap: () => _openTool(t.tool),
+          available: _missing(t).isEmpty,
+          onTap: () => _tap(t),
         ),
     ],
   );
@@ -251,7 +295,8 @@ class _HomeShellState extends State<HomeShell> {
             child: _ToolButton(
               tool: t.tool,
               title: t.title,
-              onTap: () => _openTool(t.tool),
+              available: _missing(t).isEmpty,
+              onTap: () => _tap(t),
             ),
           ),
       ],
@@ -329,12 +374,17 @@ class _ToolTile extends StatelessWidget {
     required this.tool,
     required this.title,
     required this.subtitle,
+    required this.available,
     required this.onTap,
   });
 
   final _Tool tool;
   final String title;
   final String subtitle;
+
+  /// False when the device lacks a sensor the tool needs: the row is
+  /// dimmed and says so, and tapping explains why.
+  final bool available;
   final VoidCallback onTap;
 
   @override
@@ -353,7 +403,7 @@ class _ToolTile extends StatelessWidget {
             child: Row(
               spacing: 16,
               children: [
-                _ToolIcon(tool: tool, size: 60),
+                _ToolIcon(tool: tool, size: 60, available: available),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,12 +414,12 @@ class _ToolTile extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: p.ink,
+                          color: available ? p.ink : p.label,
                         ),
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        subtitle,
+                        available ? subtitle : 'Not available on this phone',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 13, color: p.label),
@@ -377,7 +427,12 @@ class _ToolTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(Icons.chevron_right_rounded, color: p.label),
+                Icon(
+                  available
+                      ? Icons.chevron_right_rounded
+                      : Icons.info_outline_rounded,
+                  color: p.label,
+                ),
               ],
             ),
           ),
@@ -392,11 +447,13 @@ class _ToolButton extends StatelessWidget {
   const _ToolButton({
     required this.tool,
     required this.title,
+    required this.available,
     required this.onTap,
   });
 
   final _Tool tool;
   final String title;
+  final bool available;
   final VoidCallback onTap;
 
   @override
@@ -404,7 +461,7 @@ class _ToolButton extends StatelessWidget {
     final p = Palette.of(context);
     return Semantics(
       button: true,
-      label: title,
+      label: available ? title : '$title, not available on this phone',
       excludeSemantics: true,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -412,7 +469,7 @@ class _ToolButton extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _ToolIcon(tool: tool, size: 88),
+            _ToolIcon(tool: tool, size: 88, available: available),
             const SizedBox(height: 14),
             Text(
               title,
@@ -421,9 +478,16 @@ class _ToolButton extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: p.ink,
+                color: available ? p.ink : p.label,
               ),
             ),
+            if (!available)
+              Text(
+                'Not on this phone',
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                style: TextStyle(fontSize: 12, color: p.label),
+              ),
           ],
         ),
       ),
@@ -434,10 +498,17 @@ class _ToolButton extends StatelessWidget {
 /// A soft raised round button with the tool's line icon, as in the design:
 /// light face, bright rim, soft shadow down-right.
 class _ToolIcon extends StatelessWidget {
-  const _ToolIcon({required this.tool, required this.size});
+  const _ToolIcon({
+    required this.tool,
+    required this.size,
+    this.available = true,
+  });
 
   final _Tool tool;
   final double size;
+
+  /// Unavailable tools draw their glyph faded, in the label grey.
+  final bool available;
 
   @override
   Widget build(BuildContext context) {
@@ -467,7 +538,13 @@ class _ToolIcon extends StatelessWidget {
         ],
       ),
       child: CustomPaint(
-        painter: _GlyphPainter(tool: tool, ink: p.ink, accent: p.ballDark),
+        painter: available
+            ? _GlyphPainter(tool: tool, ink: p.ink, accent: p.ballDark)
+            : _GlyphPainter(
+                tool: tool,
+                ink: p.label.withValues(alpha: 0.5),
+                accent: p.label.withValues(alpha: 0.5),
+              ),
       ),
     );
   }

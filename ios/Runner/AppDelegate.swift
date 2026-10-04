@@ -1,3 +1,4 @@
+import CoreMotion
 import Flutter
 import UIKit
 
@@ -35,6 +36,22 @@ import UIKit
       case .landscapeLeft: result(3)
       default: result(0)
       }
+    }
+
+    // Lists the sensors this device lacks, by the names the app uses.
+    let sensors = FlutterMethodChannel(
+      name: "bubble_level/sensors", binaryMessenger: registrar.messenger())
+    sensors.setMethodCallHandler { call, result in
+      guard call.method == "missing" else {
+        result(FlutterMethodNotImplemented)
+        return
+      }
+      let motion = CMMotionManager()
+      var missing: [String] = []
+      if !motion.isAccelerometerAvailable { missing.append("accelerometer") }
+      if !motion.isMagnetometerAvailable { missing.append("magnetometer") }
+      if !CMAltimeter.isRelativeAltitudeAvailable() { missing.append("barometer") }
+      result(missing)
     }
   }
 }
