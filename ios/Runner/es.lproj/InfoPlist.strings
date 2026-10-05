@@ -1,0 +1,4 @@
+/* App name and permission prompts shown by iOS in this language. */
+"CFBundleDisplayName" = "Nivel de burbuja";
+"NSMicrophoneUsageDescription" = "El sonómetro usa el micrófono para medir cuánto ruido hay. El sonido se mide en tu teléfono y nunca se graba, guarda ni envía.";
+"NSMotionUsageDescription" = "Los sensores de movimiento y el barómetro miden inclinación, ángulos, rumbo de la brújula, vibración y altitud.";

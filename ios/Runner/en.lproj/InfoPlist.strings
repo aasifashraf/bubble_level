@@ -1,0 +1,4 @@
+/* App name and permission prompts shown by iOS in this language. */
+"CFBundleDisplayName" = "Bubble Level";
+"NSMicrophoneUsageDescription" = "The Sound meter uses the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.";
+"NSMotionUsageDescription" = "Motion sensors and the barometer are used to measure tilt, angles, compass heading, vibration and altitude.";

@@ -1,0 +1,4 @@
+/* App name and permission prompts shown by iOS in this language. */
+"CFBundleDisplayName" = "ميزان الماء";
+"NSMicrophoneUsageDescription" = "يستخدم مقياس الصوت الميكروفون لقياس شدة الصوت. يُقاس الصوت على هاتفك فقط، ولا يُسجَّل أو يُحفظ أو يُرسل أبدًا.";
+"NSMotionUsageDescription" = "تُستخدم مستشعرات الحركة والبارومتر لقياس الميل والزوايا واتجاه البوصلة والاهتزاز والارتفاع.";

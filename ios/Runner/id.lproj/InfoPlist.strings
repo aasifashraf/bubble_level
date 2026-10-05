@@ -1,0 +1,4 @@
+/* App name and permission prompts shown by iOS in this language. */
+"CFBundleDisplayName" = "Waterpass";
+"NSMicrophoneUsageDescription" = "Pengukur suara memakai mikrofon untuk mengukur seberapa keras suara. Suara diukur di ponsel Anda dan tidak pernah direkam, disimpan, atau dikirim.";
+"NSMotionUsageDescription" = "Sensor gerak dan barometer dipakai untuk mengukur kemiringan, sudut, arah kompas, getaran, dan ketinggian.";

@@ -1,0 +1,4 @@
+/* App name and permission prompts shown by iOS in this language. */
+"CFBundleDisplayName" = "Wasserwaage";
+"NSMicrophoneUsageDescription" = "Der Schallpegelmesser misst mit dem Mikrofon, wie laut es ist. Der Ton wird auf deinem Handy gemessen und nie aufgenommen, gespeichert oder gesendet.";
+"NSMotionUsageDescription" = "Bewegungssensoren und Barometer messen Neigung, Winkel, Kompassrichtung, Vibration und Höhe.";

@@ -1,0 +1,4 @@
+/* App name and permission prompts shown by iOS in this language. */
+"CFBundleDisplayName" = "水平器";
+"NSMicrophoneUsageDescription" = "騒音計はマイクで音の大きさを測ります。音は端末内で測るだけで、録音・保存・送信は一切しません。";
+"NSMotionUsageDescription" = "モーションセンサーと気圧計で、傾き、角度、方位、振動、高度を測ります。";
