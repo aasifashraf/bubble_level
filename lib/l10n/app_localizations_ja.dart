@@ -291,7 +291,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get calibrate => '補正';
 
   @override
-  String get angleHelp1 => '目盛りは、平置きから端末がどれだけ傾いているかを示します。平置きで0°、垂直で90°です。';
+  String get angleHelp1 =>
+      '面に置くと傾きを、斜面や手すり、パイプに端末を立てて当てると角度を測れます。大きな数字が長辺の角度で、短辺の角度は下に表示されます。';
 
   @override
   String get angleHelp2 => '変化を測るには、開始位置で端末を持ち「ここをゼロに」をタップします。';
@@ -306,7 +307,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get angleHelp5 => '見えない位置の角度は、端末を物に当てて鍵をタップし、離してから読み取ります。';
 
   @override
-  String get angleTip => '板やドア、スロープなどに端末を平らに当てると、その角度を測れます。';
+  String get angleHelp6 =>
+      '平置きと立て置きは自動で切り替わります。固定したいときは上部の平置きか立て置きのアイコンを、自動に戻すには最初のアイコンをタップします。';
+
+  @override
+  String get angleTip => 'スロープや階段の手すり、屋根に端末の長辺を当てると勾配を、板やドアに画面を平らに当てると傾きを測れます。';
 
   @override
   String movedFromZero(String value) {
@@ -318,6 +323,34 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get angleFromEarth => '地面に対する角度';
+
+  @override
+  String get angleFlatStatus => '平置き · 地面に対する角度';
+
+  @override
+  String get longEdgeFromLevel => '立て置き · 長辺の水平からの角度';
+
+  @override
+  String shortEdge(String value) {
+    return '短辺 $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return '長辺は水平から $long、短辺は $short';
+  }
+
+  @override
+  String get angleModeAuto => '自動';
+
+  @override
+  String get angleModeFlat => '面に平らに置く';
+
+  @override
+  String get angleModeEdge => '辺で立てる';
+
+  @override
+  String get standOnEdge => '端末をいずれかの辺で立ててください';
 
   @override
   String get clearZero => 'ゼロを解除';

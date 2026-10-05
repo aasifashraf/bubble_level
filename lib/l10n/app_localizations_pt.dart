@@ -297,7 +297,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'O mostrador indica quanto o celular está inclinado a partir da posição deitada: 0° deitado, 90° em pé.';
+      'Deite o celular numa superfície para ver a inclinação, ou apoie-o de lado contra uma rampa, corrimão ou cano: o número grande é o ângulo da borda longa; o da curta aparece embaixo.';
 
   @override
   String get angleHelp2 =>
@@ -316,8 +316,12 @@ class AppLocalizationsPt extends AppLocalizations {
       'Para ler um ângulo que você não vê, encoste o celular no objeto, toque no cadeado e depois afaste-o para ler.';
 
   @override
+  String get angleHelp6 =>
+      'Ele alterna sozinho entre deitado e de lado. Para fixar um, toque no ícone de deitado ou de lado no topo; o primeiro ícone volta ao automático.';
+
+  @override
   String get angleTip =>
-      'Encoste o celular deitado em um objeto, como uma tábua, porta ou rampa, para medir o ângulo dele.';
+      'Encoste o lado longo do celular numa rampa, corrimão ou telhado para ver a inclinação, ou encoste a tela numa tábua ou porta para medir o quanto ela está inclinada.';
 
   @override
   String movedFromZero(String value) {
@@ -329,6 +333,34 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Ângulo em relação à Terra';
+
+  @override
+  String get angleFlatStatus => 'Deitado · ângulo em relação à Terra';
+
+  @override
+  String get longEdgeFromLevel => 'De lado · borda longa em relação ao nível';
+
+  @override
+  String shortEdge(String value) {
+    return 'Borda curta $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Borda longa $long em relação ao nível, borda curta $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Automático';
+
+  @override
+  String get angleModeFlat => 'Deitado numa superfície';
+
+  @override
+  String get angleModeEdge => 'De lado';
+
+  @override
+  String get standOnEdge => 'Apoie o celular em uma das bordas';
 
   @override
   String get clearZero => 'Limpar zero';

@@ -298,7 +298,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Шкала показывает, насколько телефон наклонён от горизонтального положения: 0° — лёжа, 90° — вертикально.';
+      'Положите телефон на поверхность, чтобы узнать её наклон, или поставьте на ребро к склону, перилам или трубе: крупное число — угол длинной грани, угол короткой — ниже.';
 
   @override
   String get angleHelp2 =>
@@ -317,8 +317,12 @@ class AppLocalizationsRu extends AppLocalizations {
       'Чтобы узнать угол, который не видно, прижмите телефон к предмету, нажмите на замок, затем уберите телефон и посмотрите.';
 
   @override
+  String get angleHelp6 =>
+      'Он сам переключается между «плашмя» и «на ребре». Чтобы закрепить режим, нажмите значок плашмя или ребра вверху; первый значок возвращает автоматический режим.';
+
+  @override
   String get angleTip =>
-      'Прижмите телефон плашмя к предмету, например доске, двери или пандусу, чтобы измерить его угол.';
+      'Приложите длинную сторону телефона к пандусу, перилам или крыше, чтобы узнать уклон, или прижмите экран к доске или двери, чтобы измерить её наклон.';
 
   @override
   String movedFromZero(String value) {
@@ -330,6 +334,34 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Угол относительно Земли';
+
+  @override
+  String get angleFlatStatus => 'Плашмя · угол относительно Земли';
+
+  @override
+  String get longEdgeFromLevel => 'На ребре · длинная грань от горизонта';
+
+  @override
+  String shortEdge(String value) {
+    return 'Короткая грань $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Длинная грань $long от горизонта, короткая грань $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Автоматически';
+
+  @override
+  String get angleModeFlat => 'Плашмя на поверхности';
+
+  @override
+  String get angleModeEdge => 'На ребре';
+
+  @override
+  String get standOnEdge => 'Поставьте телефон на одну из граней';
 
   @override
   String get clearZero => 'Сбросить ноль';

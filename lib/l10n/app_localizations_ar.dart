@@ -297,7 +297,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'يُظهر القرص مقدار ميل الهاتف عن الوضع المسطح: 0° مسطحًا و90° قائمًا.';
+      'ضع الهاتف على سطح لقراءة ميله، أو أوقفه على حافته على منحدر أو درابزين أو أنبوب: الرقم الكبير هو زاوية الحافة الطويلة، وزاوية القصيرة أسفله.';
 
   @override
   String get angleHelp2 =>
@@ -315,8 +315,12 @@ class AppLocalizationsAr extends AppLocalizations {
       'لقراءة زاوية لا تراها، ألصق الهاتف بالجسم واضغط القفل، ثم ارفعه واقرأ.';
 
   @override
+  String get angleHelp6 =>
+      'يتنقل تلقائيًا بين الوضع المسطح والوقوف على الحافة. لتثبيت أحدهما، اضغط أيقونة المسطح أو الحافة في الأعلى؛ والأيقونة الأولى تعيده إلى التلقائي.';
+
+  @override
   String get angleTip =>
-      'ألصق الهاتف مسطحًا على جسم، مثل لوح أو باب أو منحدر، لقياس زاويته.';
+      'ضع الجانب الطويل للهاتف على منحدر أو درابزين أو سقف لقراءة ميله، أو ألصق الشاشة بلوح أو باب لقياس ميله.';
 
   @override
   String movedFromZero(String value) {
@@ -328,6 +332,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'الزاوية بالنسبة إلى الأرض';
+
+  @override
+  String get angleFlatStatus => 'مسطح · الزاوية بالنسبة إلى الأرض';
+
+  @override
+  String get longEdgeFromLevel => 'على الحافة · الحافة الطويلة عن الوضع الأفقي';
+
+  @override
+  String shortEdge(String value) {
+    return 'الحافة القصيرة $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'الحافة الطويلة $long عن الوضع الأفقي، والحافة القصيرة $short';
+  }
+
+  @override
+  String get angleModeAuto => 'تلقائي';
+
+  @override
+  String get angleModeFlat => 'مسطح على سطح';
+
+  @override
+  String get angleModeEdge => 'على حافة';
+
+  @override
+  String get standOnEdge => 'أوقف الهاتف على إحدى حوافه';
 
   @override
   String get clearZero => 'مسح الصفر';

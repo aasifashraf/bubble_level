@@ -16,6 +16,10 @@ enum HomeLayout { list, grid }
 /// spirit-level tube.
 enum LevelStyle { dial, tube }
 
+/// How the Angle tool decides between lying flat and standing on an edge:
+/// by how the phone is held, or held at one of them.
+enum AngleMode { auto, flat, edge }
+
 /// User preferences and level calibration, persisted across launches.
 class SettingsRepository extends ChangeNotifier {
   SettingsRepository._(this._prefs)
@@ -53,6 +57,7 @@ class SettingsRepository extends ChangeNotifier {
   static const _kRulerMethod = 'rulerMethod:';
   static const _kLandscape = 'landscape:';
   static const _kRulerUnit = 'rulerUnit';
+  static const _kAngleMode = 'angleMode';
 
   final SharedPreferences _prefs;
   Vec3 _flatRef;
@@ -223,6 +228,15 @@ class SettingsRepository extends ChangeNotifier {
 
   Future<void> setToolLandscape(String tool, bool landscape) async {
     await _prefs.setBool('$_kLandscape$tool', landscape);
+    notifyListeners();
+  }
+
+  AngleMode get angleMode =>
+      AngleMode.values.asNameMap()[_prefs.getString(_kAngleMode)] ??
+      AngleMode.auto;
+
+  Future<void> setAngleMode(AngleMode v) async {
+    await _prefs.setString(_kAngleMode, v.name);
     notifyListeners();
   }
 

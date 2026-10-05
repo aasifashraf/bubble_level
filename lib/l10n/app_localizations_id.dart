@@ -297,7 +297,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Dial menunjukkan seberapa miring ponsel dari posisi mendatar: 0° mendatar, 90° tegak.';
+      'Letakkan ponsel di permukaan untuk membaca kemiringannya, atau berdirikan di sisinya pada lereng, pegangan tangga, atau pipa: angka besar adalah sudut sisi panjang, sudut sisi pendek ada di bawahnya.';
 
   @override
   String get angleHelp2 =>
@@ -316,8 +316,12 @@ class AppLocalizationsId extends AppLocalizations {
       'Untuk membaca sudut yang tidak terlihat, tempelkan ponsel ke benda, ketuk gembok, lalu angkat dan baca.';
 
   @override
+  String get angleHelp6 =>
+      'Alat ini beralih sendiri antara mendatar dan di sisi. Untuk menahan salah satunya, ketuk ikon mendatar atau sisi di atas; ikon pertama kembali ke otomatis.';
+
+  @override
   String get angleTip =>
-      'Tempelkan ponsel mendatar ke benda, seperti papan, pintu, atau ram, untuk mengukur sudutnya.';
+      'Tempelkan sisi panjang ponsel pada ram, pegangan tangga, atau atap untuk membaca kemiringannya, atau tempelkan layar ke papan atau pintu untuk mengukur kemiringannya.';
 
   @override
   String movedFromZero(String value) {
@@ -329,6 +333,34 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Sudut terhadap Bumi';
+
+  @override
+  String get angleFlatStatus => 'Mendatar · sudut terhadap Bumi';
+
+  @override
+  String get longEdgeFromLevel => 'Di sisi · sisi panjang dari datar';
+
+  @override
+  String shortEdge(String value) {
+    return 'Sisi pendek $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Sisi panjang $long dari datar, sisi pendek $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Otomatis';
+
+  @override
+  String get angleModeFlat => 'Mendatar di permukaan';
+
+  @override
+  String get angleModeEdge => 'Di sisi';
+
+  @override
+  String get standOnEdge => 'Berdirikan ponsel pada salah satu sisinya';
 
   @override
   String get clearZero => 'Hapus nol';

@@ -299,7 +299,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Le cadran indique de combien le téléphone est incliné par rapport à la position à plat : 0° à plat, 90° debout.';
+      'Posez le téléphone sur une surface pour lire son inclinaison, ou mettez-le sur la tranche contre une pente, une rampe ou un tuyau : le grand nombre est l’angle du grand côté, celui du petit côté est en dessous.';
 
   @override
   String get angleHelp2 =>
@@ -318,8 +318,12 @@ class AppLocalizationsFr extends AppLocalizations {
       'Pour lire un angle que vous ne voyez pas, plaquez le téléphone contre l’objet, touchez le cadenas, puis éloignez-le pour lire.';
 
   @override
+  String get angleHelp6 =>
+      'Il passe seul de « à plat » à « sur la tranche ». Pour en garder un, touchez l’icône correspondante en haut ; la première icône revient en automatique.';
+
+  @override
   String get angleTip =>
-      'Plaquez le téléphone contre un objet, comme une planche, une porte ou une rampe, pour mesurer son angle.';
+      'Posez le grand côté du téléphone le long d’une rampe, d’une main courante ou d’un toit pour lire sa pente, ou plaquez l’écran contre une planche ou une porte pour mesurer son inclinaison.';
 
   @override
   String movedFromZero(String value) {
@@ -331,6 +335,35 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Angle par rapport à la Terre';
+
+  @override
+  String get angleFlatStatus => 'À plat · angle par rapport à la Terre';
+
+  @override
+  String get longEdgeFromLevel =>
+      'Sur la tranche · grand côté par rapport à l’horizontale';
+
+  @override
+  String shortEdge(String value) {
+    return 'Petit côté $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Grand côté $long par rapport à l’horizontale, petit côté $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Automatique';
+
+  @override
+  String get angleModeFlat => 'À plat sur une surface';
+
+  @override
+  String get angleModeEdge => 'Sur la tranche';
+
+  @override
+  String get standOnEdge => 'Posez le téléphone sur l’une de ses tranches';
 
   @override
   String get clearZero => 'Effacer le zéro';

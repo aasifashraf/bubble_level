@@ -298,7 +298,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Kadran, telefonun düz konumdan ne kadar eğildiğini gösterir: düz 0°, dik 90°.';
+      'Eğimi okumak için telefonu bir yüzeye yatırın ya da bir yokuşa, korkuluğa veya boruya kenarı üstünde dayayın: büyük sayı uzun kenarın açısıdır, kısa kenarınki altta görünür.';
 
   @override
   String get angleHelp2 =>
@@ -317,8 +317,12 @@ class AppLocalizationsTr extends AppLocalizations {
       'Göremediğiniz bir açıyı okumak için telefonu nesneye dayayın, kilide dokunun, sonra kaldırıp okuyun.';
 
   @override
+  String get angleHelp6 =>
+      'Düz ve kenar üstü arasında kendiliğinden geçer. Birini sabitlemek için üstteki düz veya kenar simgesine dokunun; ilk simge otomatiğe döner.';
+
+  @override
   String get angleTip =>
-      'Açısını ölçmek için telefonu tahta, kapı veya rampa gibi bir nesneye düz bastırın.';
+      'Eğimini okumak için telefonun uzun kenarını bir rampaya, merdiven korkuluğuna veya çatıya dayayın ya da eğimini ölçmek için ekranı bir tahtaya veya kapıya düz bastırın.';
 
   @override
   String movedFromZero(String value) {
@@ -330,6 +334,34 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Dünya\'ya göre açı';
+
+  @override
+  String get angleFlatStatus => 'Düz · Dünya’ya göre açı';
+
+  @override
+  String get longEdgeFromLevel => 'Kenar üstünde · uzun kenarın yataydan açısı';
+
+  @override
+  String shortEdge(String value) {
+    return 'Kısa kenar $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Uzun kenar yataydan $long, kısa kenar $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Otomatik';
+
+  @override
+  String get angleModeFlat => 'Bir yüzeyde düz';
+
+  @override
+  String get angleModeEdge => 'Kenar üstünde';
+
+  @override
+  String get standOnEdge => 'Telefonu kenarlarından birinin üstüne koyun';
 
   @override
   String get clearZero => 'Sıfırı temizle';

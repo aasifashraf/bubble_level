@@ -299,7 +299,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'La esfera muestra cuánto se inclina el teléfono desde la posición plana: 0° plano, 90° vertical.';
+      'Apoya el teléfono sobre una superficie para ver su inclinación, o ponlo de canto contra una pendiente, barandilla o tubo: el número grande es el ángulo del borde largo; el del corto aparece debajo.';
 
   @override
   String get angleHelp2 =>
@@ -318,8 +318,12 @@ class AppLocalizationsEs extends AppLocalizations {
       'Para leer un ángulo que no ves, apoya el teléfono en el objeto, toca el candado y luego levántalo para leer.';
 
   @override
+  String get angleHelp6 =>
+      'Cambia solo entre plano y de canto. Para fijar uno, toca el icono de plano o de canto arriba; el primer icono vuelve al modo automático.';
+
+  @override
   String get angleTip =>
-      'Apoya el teléfono plano contra un objeto, como una tabla, una puerta o una rampa, para medir su ángulo.';
+      'Apoya el lado largo del teléfono en una rampa, barandilla o tejado para ver su pendiente, o pega la pantalla a una tabla o puerta para medir su inclinación.';
 
   @override
   String movedFromZero(String value) {
@@ -331,6 +335,35 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Ángulo respecto a la Tierra';
+
+  @override
+  String get angleFlatStatus => 'Plano · ángulo respecto a la Tierra';
+
+  @override
+  String get longEdgeFromLevel =>
+      'De canto · borde largo respecto a la horizontal';
+
+  @override
+  String shortEdge(String value) {
+    return 'Borde corto $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Borde largo $long respecto a la horizontal, borde corto $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Automático';
+
+  @override
+  String get angleModeFlat => 'Plano sobre una superficie';
+
+  @override
+  String get angleModeEdge => 'De canto';
+
+  @override
+  String get standOnEdge => 'Pon el teléfono de canto';
 
   @override
   String get clearZero => 'Quitar cero';

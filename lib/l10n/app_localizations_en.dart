@@ -297,7 +297,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'The dial shows how far the phone is tilted from lying flat: 0° flat, 90° upright.';
+      'Lay the phone on a surface to read its tilt, or stand it on an edge against a slope, rail or pipe: the big number is the long edge’s angle, the short edge’s is below.';
 
   @override
   String get angleHelp2 =>
@@ -315,8 +315,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'To read an angle you can’t see, hold the phone against the object, tap the lock, then lift it and read.';
 
   @override
+  String get angleHelp6 =>
+      'It switches between flat and on-edge by itself. To keep one, tap the flat or edge icon at the top; the first icon goes back to automatic.';
+
+  @override
   String get angleTip =>
-      'Press the phone flat against an object, like a board, door or ramp, to measure its angle.';
+      'Lay the phone’s long side along a ramp, stair rail or roof to read its slope, or press the screen flat against a board or door to measure its tilt.';
 
   @override
   String movedFromZero(String value) {
@@ -328,6 +332,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Angle from the Earth';
+
+  @override
+  String get angleFlatStatus => 'Flat · angle from the Earth';
+
+  @override
+  String get longEdgeFromLevel => 'On edge · long edge from level';
+
+  @override
+  String shortEdge(String value) {
+    return 'Short edge $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Long edge $long from level, short edge $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Automatic';
+
+  @override
+  String get angleModeFlat => 'Flat on a surface';
+
+  @override
+  String get angleModeEdge => 'On an edge';
+
+  @override
+  String get standOnEdge => 'Stand the phone on one of its edges';
 
   @override
   String get clearZero => 'Clear zero';

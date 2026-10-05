@@ -298,7 +298,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Die Skala zeigt, wie weit das Handy aus der flachen Lage geneigt ist: 0° flach, 90° aufrecht.';
+      'Leg das Handy auf eine Fläche, um die Neigung zu lesen, oder stell es mit einer Kante an eine Schräge, ein Geländer oder ein Rohr: Die große Zahl ist der Winkel der langen Kante, der der kurzen steht darunter.';
 
   @override
   String get angleHelp2 =>
@@ -317,8 +317,12 @@ class AppLocalizationsDe extends AppLocalizations {
       'Für einen Winkel, den du nicht ablesen kannst: Handy an den Gegenstand halten, auf das Schloss tippen, dann abheben und ablesen.';
 
   @override
+  String get angleHelp6 =>
+      'Es wechselt selbst zwischen flach und auf der Kante. Um eins festzuhalten, tippe oben auf das Flach- oder Kanten-Symbol; das erste Symbol schaltet zurück auf automatisch.';
+
+  @override
   String get angleTip =>
-      'Drück das Handy flach an einen Gegenstand, etwa ein Brett, eine Tür oder eine Rampe, um dessen Winkel zu messen.';
+      'Leg die lange Seite des Handys an eine Rampe, ein Treppengeländer oder ein Dach, um die Steigung zu lesen, oder drück den Bildschirm flach an ein Brett oder eine Tür, um die Neigung zu messen.';
 
   @override
   String movedFromZero(String value) {
@@ -330,6 +334,34 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'Winkel zur Erde';
+
+  @override
+  String get angleFlatStatus => 'Flach · Winkel zur Erde';
+
+  @override
+  String get longEdgeFromLevel => 'Auf der Kante · lange Kante zur Waagrechten';
+
+  @override
+  String shortEdge(String value) {
+    return 'Kurze Kante $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'Lange Kante $long zur Waagrechten, kurze Kante $short';
+  }
+
+  @override
+  String get angleModeAuto => 'Automatisch';
+
+  @override
+  String get angleModeFlat => 'Flach auf einer Fläche';
+
+  @override
+  String get angleModeEdge => 'Auf einer Kante';
+
+  @override
+  String get standOnEdge => 'Stell das Handy auf eine seiner Kanten';
 
   @override
   String get clearZero => 'Nullpunkt löschen';

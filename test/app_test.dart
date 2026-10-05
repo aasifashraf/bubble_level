@@ -116,10 +116,10 @@ void main() {
     // Tools still open from the grid.
     await openTool(tester, 'Angle');
     await send(tester, Vec3.up);
-    expect(find.text('Angle from the Earth'), findsOneWidget);
+    expect(find.text('Flat · angle from the Earth'), findsOneWidget);
   });
 
-  testWidgets('level, angle, protractor and compass hold portrait until '
+  testWidgets('level, angle, protractor, compass and ruler hold portrait until '
       'turned; the choice is remembered per tool', (tester) async {
     final locks = <List<Object?>>[];
     tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
@@ -244,11 +244,85 @@ void main() {
     semantics.dispose();
   });
 
+  testWidgets('angle: on an edge it reads the edge’s slope, both edges', (
+    tester,
+  ) async {
+    final semantics = tester.ensureSemantics();
+    await pumpApp(tester);
+    await openTool(tester, 'Angle');
+    // Long side along a 30° ramp: gravity 60° round in the screen plane.
+    final a = 60 * math.pi / 180;
+    for (var i = 0; i < 60; i++) {
+      await send(tester, Vec3(math.sin(a), math.cos(a), 0.02));
+    }
+    expect(
+      find.bySemanticsLabel('Long edge 30.0° from level, short edge 60.0°'),
+      findsOneWidget,
+    );
+    expect(find.text('On edge · long edge from level'), findsOneWidget);
+    expect(find.text('Short edge 60.0°'), findsOneWidget);
+
+    // Set zero still measures from there.
+    await tester.tap(find.text('Set zero here'));
+    await tester.pump();
+    expect(find.text('Measuring from your zero'), findsOneWidget);
+    expect(find.text('Short edge 60.0°'), findsNothing);
+
+    // Back flat: the tilt from flat again.
+    await tester.tap(find.text('Clear zero'));
+    await tester.pump();
+    for (var i = 0; i < 60; i++) {
+      await send(tester, Vec3.up);
+    }
+    expect(find.text('Flat · angle from the Earth'), findsOneWidget);
+    semantics.dispose();
+  });
+
+  testWidgets('angle: Flat or Edge holds the mode; Edge while flat asks to '
+      'stand the phone up; the choice is remembered', (tester) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Angle');
+    final a = 60 * math.pi / 180;
+    Future<void> hold(Vec3 up) async {
+      for (var i = 0; i < 60; i++) {
+        await send(tester, up);
+      }
+    }
+
+    // Held flat: standing on an edge still reads the screen's tilt.
+    await tester.tap(find.byTooltip('Flat on a surface'));
+    await tester.pump();
+    await hold(Vec3(math.sin(a), math.cos(a), 0.02));
+    expect(find.text('Flat · angle from the Earth'), findsOneWidget);
+    expect((await SettingsRepository.load()).angleMode, AngleMode.flat);
+
+    // Held on edge: lying flat there's no edge to read.
+    await tester.tap(find.byTooltip('On an edge'));
+    await tester.pump();
+    await hold(Vec3.up);
+    expect(find.text('Stand the phone on one of its edges'), findsOneWidget);
+    await hold(Vec3(math.sin(a), math.cos(a), 0.02));
+    expect(find.text('Short edge 60.0°'), findsOneWidget);
+
+    // Remembered when the tool opens again.
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    await openTool(tester, 'Angle');
+    await hold(Vec3.up);
+    expect(find.text('Stand the phone on one of its edges'), findsOneWidget);
+
+    // Automatic again.
+    await tester.tap(find.byTooltip('Automatic'));
+    await tester.pump();
+    await hold(Vec3.up);
+    expect(find.text('Flat · angle from the Earth'), findsOneWidget);
+  });
+
   testWidgets('angle: set and clear zero', (tester) async {
     await pumpApp(tester);
     await openTool(tester, 'Angle');
     await send(tester, Vec3.up);
-    expect(find.text('Angle from the Earth'), findsOneWidget);
+    expect(find.text('Flat · angle from the Earth'), findsOneWidget);
 
     await tester.tap(find.text('Set zero here'));
     await tester.pump();
@@ -1146,7 +1220,7 @@ void main() {
 
       await tester.tap(find.byTooltip('Lock reading'));
       await tester.pump();
-      expect(find.text('Locked · Angle from the Earth'), findsOneWidget);
+      expect(find.text('Locked · Flat · angle from the Earth'), findsOneWidget);
       for (var i = 0; i < 20; i++) {
         await send(tester, Vec3.up); // lifted and laid flat
       }
@@ -1157,7 +1231,7 @@ void main() {
         await send(tester, Vec3.up);
       }
       expect(find.bySemanticsLabel('From level 45.0°'), findsNothing);
-      expect(find.text('Angle from the Earth'), findsOneWidget);
+      expect(find.text('Flat · angle from the Earth'), findsOneWidget);
 
       // Reopening the tool starts unlocked.
       await tester.tap(find.byTooltip('Lock reading'));

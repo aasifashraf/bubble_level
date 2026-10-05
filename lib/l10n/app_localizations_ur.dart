@@ -297,7 +297,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'ڈائل دکھاتا ہے کہ فون لیٹی حالت سے کتنا جھکا ہے: لیٹا ہوا 0°، سیدھا کھڑا 90°۔';
+      'جھکاؤ پڑھنے کے لیے فون کو کسی سطح پر لٹائیں، یا ڈھلوان، ریلنگ یا پائپ کے ساتھ کنارے کے بل کھڑا کریں: بڑا نمبر لمبے کنارے کا زاویہ ہے، چھوٹے کنارے کا نیچے دکھتا ہے۔';
 
   @override
   String get angleHelp2 =>
@@ -316,8 +316,12 @@ class AppLocalizationsUr extends AppLocalizations {
       'جو زاویہ نظر نہ آئے اسے پڑھنے کے لیے فون کو چیز کے ساتھ لگائیں، تالا دبائیں، پھر فون ہٹا کر پڑھیں۔';
 
   @override
+  String get angleHelp6 =>
+      'یہ خود ہی لٹائے اور کنارے والے موڈ میں بدلتا ہے۔ کسی ایک کو برقرار رکھنے کے لیے اوپر لٹائے یا کنارے والا آئیکن دبائیں؛ پہلا آئیکن دوبارہ خودکار کر دیتا ہے۔';
+
+  @override
   String get angleTip =>
-      'کسی چیز کا زاویہ ناپنے کے لیے فون کو اس کے ساتھ سیدھا لگائیں، جیسے تختہ، دروازہ یا ڈھلوان۔';
+      'ڈھلوان پڑھنے کے لیے فون کا لمبا کنارہ ریمپ، سیڑھی کی ریلنگ یا چھت پر رکھیں، یا جھکاؤ ناپنے کے لیے اسکرین کو تختے یا دروازے سے لگا دیں۔';
 
   @override
   String movedFromZero(String value) {
@@ -329,6 +333,34 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get angleFromEarth => 'زمین کے لحاظ سے زاویہ';
+
+  @override
+  String get angleFlatStatus => 'سیدھا لٹایا · زمین کے لحاظ سے زاویہ';
+
+  @override
+  String get longEdgeFromLevel => 'کنارے پر · لمبا کنارہ ہموار سے';
+
+  @override
+  String shortEdge(String value) {
+    return 'چھوٹا کنارہ $value';
+  }
+
+  @override
+  String edgeAngleSemantics(String long, String short) {
+    return 'لمبا کنارہ ہموار سے $long، چھوٹا کنارہ $short';
+  }
+
+  @override
+  String get angleModeAuto => 'خودکار';
+
+  @override
+  String get angleModeFlat => 'سطح پر سیدھا لٹایا';
+
+  @override
+  String get angleModeEdge => 'کنارے پر';
+
+  @override
+  String get standOnEdge => 'فون کو اس کے کسی کنارے پر کھڑا کریں';
 
   @override
   String get clearZero => 'صفر ہٹائیں';

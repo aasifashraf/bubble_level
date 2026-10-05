@@ -172,6 +172,21 @@ void main() {
     });
   });
 
+  test('longEdgeDeg: the long edge from level, whichever way up', () {
+    final s60 = math.sin(60 * math.pi / 180),
+        c60 = math.cos(60 * math.pi / 180);
+    expect(longEdgeDeg(const Vec3(1, 0, 0)), closeTo(0, 1e-9));
+    expect(longEdgeDeg(const Vec3(-1, 0, 0)), closeTo(0, 1e-9));
+    expect(longEdgeDeg(const Vec3(0, 1, 0)), closeTo(90, 1e-9));
+    expect(longEdgeDeg(const Vec3(0, -1, 0)), closeTo(90, 1e-9));
+    // On a 30° slope, lying on the long edge, either side down.
+    expect(longEdgeDeg(Vec3(s60, c60, 0)), closeTo(30, 1e-9));
+    expect(longEdgeDeg(Vec3(-s60, -c60, 0)), closeTo(30, 1e-9));
+    expect(longEdgeDeg(Vec3(s60, -c60, 0)), closeTo(30, 1e-9));
+    // The Level's on-edge calibration shifts it.
+    expect(longEdgeDeg(Vec3(s60, c60, 0), offset: -2), closeTo(28, 1e-9));
+  });
+
   test('slopePercent', () {
     expect(slopePercent(45), closeTo(100, eps));
     expect(slopePercent(0), 0);
