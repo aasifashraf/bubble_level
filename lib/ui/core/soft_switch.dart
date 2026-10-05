@@ -3,17 +3,28 @@ import 'package:flutter/material.dart';
 import 'controls.dart';
 import 'theme.dart';
 
-/// One choice in a [SoftSwitch]: an [icon], or a short [label] ("cm").
-typedef SoftSwitchOption<T> = ({
-  T value,
-  IconData? icon,
-  String? label,
-  String tooltip,
-});
+/// One choice in a [SoftSwitch]: an [icon], a short [label] ("cm"), or a
+/// drawn [glyph] (given the colour to draw in) when no icon says it.
+@immutable
+class SoftSwitchOption<T> {
+  const SoftSwitchOption({
+    required this.value,
+    required this.tooltip,
+    this.icon,
+    this.label,
+    this.glyph,
+  });
+
+  final T value;
+  final String tooltip;
+  final IconData? icon;
+  final String? label;
+  final Widget Function(Color color)? glyph;
+}
 
 /// A soft raised pill holding a few choices, the selected one pressed in:
-/// home's list/grid switch, the Level's dial/tube switch and the Ruler's
-/// units.
+/// home's list/grid switch, the Level's dial/tube switch, the Ruler's
+/// units and the Angle's modes.
 class SoftSwitch<T> extends StatelessWidget {
   const SoftSwitch({
     super.key,
@@ -47,7 +58,12 @@ class SoftSwitch<T> extends StatelessWidget {
                         ? p.ink.withValues(alpha: p.isDark ? 0.14 : 0.08)
                         : Colors.transparent,
                   ),
-                  icon: o.icon != null
+                  icon: o.glyph != null
+                      ? SizedBox.square(
+                          dimension: 26,
+                          child: o.glyph!(o.value == value ? p.ink : p.label),
+                        )
+                      : o.icon != null
                       ? Icon(
                           o.icon,
                           size: 20,

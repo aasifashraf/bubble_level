@@ -175,21 +175,18 @@ class RulerScreen extends StatelessWidget {
       value: unit,
       onChanged: viewModel.setUnit,
       options: [
-        (
+        SoftSwitchOption(
           value: LengthUnit.mm,
-          icon: null,
           label: 'mm',
           tooltip: l.unitMillimetres,
         ),
-        (
+        SoftSwitchOption(
           value: LengthUnit.cm,
-          icon: null,
           label: 'cm',
           tooltip: l.unitCentimetres,
         ),
-        (
+        SoftSwitchOption(
           value: LengthUnit.inch,
-          icon: null,
           label: 'in',
           tooltip: l.unitInches,
         ),

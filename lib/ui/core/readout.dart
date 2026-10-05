@@ -25,15 +25,18 @@ enum StatusTone {
 /// One short line stating the status in words with an icon, so it reads at
 /// a glance and never relies on colour alone. [tone] colours it: orange for
 /// a reached target, an amber pill for a caution, a red pill for harm.
+/// The icon is an [icon], or a drawn [glyph] given the colour to draw in.
 class StatusBanner extends StatelessWidget {
   const StatusBanner({
     super.key,
-    required this.icon,
+    this.icon,
+    this.glyph,
     required this.text,
     this.tone = StatusTone.neutral,
-  });
+  }) : assert(icon != null || glyph != null, 'an icon or a glyph');
 
-  final IconData icon;
+  final IconData? icon;
+  final Widget Function(Color color)? glyph;
   final String text;
   final StatusTone tone;
 
@@ -53,7 +56,10 @@ class StatusBanner extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 18, color: iconColor),
+          if (glyph case final draw?)
+            SizedBox.square(dimension: 20, child: draw(iconColor))
+          else
+            Icon(icon, size: 18, color: iconColor),
           const SizedBox(width: 6),
           Text(
             text,

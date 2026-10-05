@@ -164,16 +164,14 @@ class LevelScreen extends StatelessWidget {
     value: viewModel.style,
     onChanged: viewModel.setStyle,
     options: [
-      (
+      SoftSwitchOption(
         value: LevelStyle.dial,
         icon: Icons.adjust_rounded,
-        label: null,
         tooltip: context.l10n.dialView,
       ),
-      (
+      SoftSwitchOption(
         value: LevelStyle.tube,
         icon: Icons.straighten_rounded,
-        label: null,
         tooltip: context.l10n.tubeView,
       ),
     ],

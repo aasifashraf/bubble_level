@@ -377,16 +377,14 @@ class _HomeShellState extends State<HomeShell> {
                                   value: settings.homeLayout,
                                   onChanged: settings.setHomeLayout,
                                   options: [
-                                    (
+                                    SoftSwitchOption(
                                       value: HomeLayout.list,
                                       icon: Icons.view_agenda_outlined,
-                                      label: null,
                                       tooltip: context.l10n.listView,
                                     ),
-                                    (
+                                    SoftSwitchOption(
                                       value: HomeLayout.grid,
                                       icon: Icons.grid_view_rounded,
-                                      label: null,
                                       tooltip: context.l10n.gridView,
                                     ),
                                   ],
