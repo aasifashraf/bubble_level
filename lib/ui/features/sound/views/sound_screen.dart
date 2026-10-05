@@ -22,7 +22,13 @@ class SoundScreen extends StatelessWidget {
 
   static ToolHelp _help(AppLocalizations l) => ToolHelp(
     tool: l.toolSound,
-    steps: [l.soundHelp1, l.soundHelp2, l.soundHelp3, l.soundHelp4],
+    steps: [
+      l.soundHelp1,
+      l.soundHelp2,
+      l.soundHelp3,
+      l.soundHelp4,
+      l.soundHelp5,
+    ],
     tip: l.soundTip,
   );
 
@@ -127,23 +133,10 @@ class SoundScreen extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          spacing: 14,
-          children: [
-            Expanded(
-              child: ValueTile(
-                value: '${formatDb(r.average!)} dB',
-                caption: l.soundAverage,
-              ),
-            ),
-            Expanded(
-              child: ValueTile(
-                value: '${formatDb(r.max!)} dB',
-                caption: l.soundMax,
-              ),
-            ),
-          ],
-        ),
+        ValueTiles([
+          ('${formatDb(r.average!)} dB', l.average),
+          ('${formatDb(r.max!)} dB', l.soundMax),
+        ]),
         const SizedBox(height: 16),
         StatusBanner(
           icon: viewModel.locked
@@ -169,12 +162,8 @@ class SoundScreen extends StatelessWidget {
                 onPressed: viewModel.locked ? null : viewModel.reset,
               ),
             ),
-            SoftIconButton(
-              icon: viewModel.locked
-                  ? Icons.lock_rounded
-                  : Icons.lock_open_rounded,
-              tooltip: viewModel.locked ? l.unlock : l.lockReading,
-              active: viewModel.locked,
+            LockButton(
+              locked: viewModel.locked,
               onPressed: viewModel.toggleLock,
             ),
           ],
@@ -201,7 +190,7 @@ class _Permission extends StatelessWidget {
     final p = Palette.of(context);
     final top = ToolFrame.sideBySide(context)
         ? 0.0
-        : MediaQuery.paddingOf(context).top + ToolFrame.headerHeight;
+        : ToolFrame.contentTop(context);
     return SafeArea(
       top: false,
       child: Padding(

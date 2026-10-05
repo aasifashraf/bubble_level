@@ -332,9 +332,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get measuringFromZero => 'आपके शून्य से माप';
 
   @override
-  String get angleFromEarth => 'पृथ्वी से कोण';
-
-  @override
   String get angleFlatStatus => 'सीधा लिटाया · पृथ्वी से कोण';
 
   @override
@@ -374,7 +371,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get compassHelp2 =>
-      'फ़ोन का ऊपरी हिस्सा उस दिशा में करें जिसे आप जानना चाहते हैं।';
+      'फ़ोन का ऊपरी हिस्सा उस दिशा में करें जिसे आप जानना चाहते हैं। सीधा पकड़ने पर यह पीछे वाले कैमरे की दिशा दिखाता है।';
 
   @override
   String get compassHelp3 =>
@@ -493,9 +490,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get rulerEstimated => 'कैलिब्रेट नहीं · माप 10% तक गलत हो सकता है';
 
   @override
-  String get calibrateCard => 'कैलिब्रेट करें';
-
-  @override
   String get cardLongEdge =>
       'कोई भी बैंक या आईडी कार्ड स्क्रीन पर रखें, लंबा किनारा रूलर के साथ और एक सिरा गहरी रेखा पर। नारंगी रेखा को कार्ड के दूसरे सिरे तक खींचें।';
 
@@ -520,7 +514,7 @@ class AppLocalizationsHi extends AppLocalizations {
       'यह कार्ड के आकार से मेल नहीं खाता। उसे गहरी रेखा से मिलाकर फिर से कोशिश करें।';
 
   @override
-  String get rotateToCalibrate => 'कैलिब्रेट करने के लिए फ़ोन को सीधा घुमाएँ';
+  String get rotateToCalibrate => 'कैलिब्रेट करने के लिए पोर्ट्रेट में घुमाएँ';
 
   @override
   String get calibrateHow => 'किससे कैलिब्रेट करें';
@@ -746,7 +740,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'लक्स और रोशनी किस काम लायक है, यह पढ़ें: पढ़ने और डेस्क के काम के लिए 300–500 lx ठीक है।';
+      'लक्स और रोशनी किस काम लायक है, यह पढ़ें: पढ़ने और डेस्क के काम के लिए 300–750 lx ठीक है।';
 
   @override
   String get lightHelp4 =>
@@ -767,9 +761,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (लगभग)';
-
-  @override
-  String get soundAverage => 'औसत';
 
   @override
   String get soundMax => 'अधिकतम';
@@ -829,7 +820,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      '85 dB से ऊपर लंबे समय तक सुनने से नुकसान हो सकता है: स्टेटस लाइन पीली हो जाती है।';
+      '70 dB से स्टेटस लाइन पीली हो जाती है; 85 dB से, जहाँ लंबे समय तक सुनने से नुकसान हो सकता है, लाल हो जाती है।';
+
+  @override
+  String get soundHelp5 =>
+      'फ़ोन हिलाते समय रीडिंग स्क्रीन पर बनाए रखने के लिए ताला दबाएँ।';
 
   @override
   String get soundTip =>
@@ -876,7 +871,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String get levelUnits => 'लेवल की इकाई';
 
   @override
-  String get vibrateWhenLevel => 'समतल होने पर वाइब्रेट';
+  String get unitDegrees => 'डिग्री';
+
+  @override
+  String get unitPercent => 'प्रतिशत ढलान';
+
+  @override
+  String get unitRoofPitch => 'छत की ढलान (12 पर ऊँचाई)';
+
+  @override
+  String get vibrateWhenLevel => 'वाइब्रेशन';
 
   @override
   String get sounds => 'आवाज़ें';
@@ -909,13 +913,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'इससे लेवल में आपका सेट किया शून्य और रूलर में आपका सेट किया स्क्रीन साइज़ हट जाएगा। दोनों फ़ैक्टरी सेटिंग पर लौट आएँगे। आपकी बाकी सेटिंग्स वैसी ही रहेंगी, और आप कभी भी फिर से कैलिब्रेट कर सकते हैं।';
+      'इससे लेवल (जिसे एंगल टूल भी इस्तेमाल करता है) और रूलर में किया गया कैलिब्रेशन हट जाएगा। दोनों फ़ैक्टरी सेटिंग पर लौट आएँगे। आपकी बाकी सेटिंग्स वैसी ही रहेंगी, और आप कभी भी फिर से कैलिब्रेट कर सकते हैं।';
 
   @override
   String get notCalibrated => 'कैलिब्रेट नहीं किया गया';
 
   @override
   String get language => 'भाषा';
+
+  @override
+  String get licenses => 'ओपन-सोर्स लाइसेंस';
 
   @override
   String get languageSystem => 'फ़ोन की भाषा';

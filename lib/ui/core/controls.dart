@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'l10n.dart';
 import 'theme.dart';
 
 /// Soft raised pill button in the dial's material; [emphasis] fills it
@@ -121,6 +122,63 @@ class SoftIconButton extends StatelessWidget {
 
 /// A read-only value in the design's material: a soft raised tile with the
 /// number above a small caption.
+/// The lock that tools use to freeze a reading or their handles: a round
+/// icon button, or, [wide], a labelled one ("Lock" / "Unlock"). Filled
+/// orange while locked. [tooltip] says what locking does; "Unlock" while
+/// locked.
+class LockButton extends StatelessWidget {
+  const LockButton({
+    super.key,
+    required this.locked,
+    required this.onPressed,
+    this.tooltip,
+    this.wide = false,
+  });
+
+  final bool locked;
+  final VoidCallback onPressed;
+  final String? tooltip;
+  final bool wide;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    final icon = locked ? Icons.lock_rounded : Icons.lock_open_rounded;
+    if (wide) {
+      return SoftButton(
+        label: locked ? l.unlock : l.lock,
+        icon: icon,
+        emphasis: locked,
+        onPressed: onPressed,
+      );
+    }
+    return SoftIconButton(
+      icon: icon,
+      tooltip: locked ? l.unlock : (tooltip ?? l.lockReading),
+      active: locked,
+      onPressed: onPressed,
+    );
+  }
+}
+
+/// A row of [ValueTile]s sharing the width: (value, caption) each.
+class ValueTiles extends StatelessWidget {
+  const ValueTiles(this.tiles, {super.key});
+
+  final List<(String value, String caption)> tiles;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    spacing: 14,
+    children: [
+      for (final (value, caption) in tiles)
+        Expanded(
+          child: ValueTile(value: value, caption: caption),
+        ),
+    ],
+  );
+}
+
 class ValueTile extends StatelessWidget {
   const ValueTile({super.key, required this.value, required this.caption});
 

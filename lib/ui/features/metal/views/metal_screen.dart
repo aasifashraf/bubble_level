@@ -81,23 +81,10 @@ class MetalScreen extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          spacing: 14,
-          children: [
-            Expanded(
-              child: ValueTile(
-                value: formatMicroTesla(state.field),
-                caption: context.l10n.field,
-              ),
-            ),
-            Expanded(
-              child: ValueTile(
-                value: formatMicroTesla(state.change, signed: true),
-                caption: context.l10n.change,
-              ),
-            ),
-          ],
-        ),
+        ValueTiles([
+          (formatMicroTesla(state.field), context.l10n.field),
+          (formatMicroTesla(state.change, signed: true), context.l10n.change),
+        ]),
         const SizedBox(height: 16),
         StatusBanner(
           icon: icon,

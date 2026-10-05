@@ -332,9 +332,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get measuringFromZero => 'Mengukur dari titik nol Anda';
 
   @override
-  String get angleFromEarth => 'Sudut terhadap Bumi';
-
-  @override
   String get angleFlatStatus => 'Mendatar · sudut terhadap Bumi';
 
   @override
@@ -374,7 +371,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get compassHelp2 =>
-      'Arahkan bagian atas ponsel ke arah yang ingin Anda ketahui.';
+      'Arahkan bagian atas ponsel ke arah yang ingin Anda ketahui. Jika dipegang tegak, kompas menunjukkan arah kamera belakang.';
 
   @override
   String get compassHelp3 =>
@@ -494,9 +491,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get rulerEstimated => 'Belum dikalibrasi · panjang bisa meleset 10%';
 
   @override
-  String get calibrateCard => 'Kalibrasi';
-
-  @override
   String get cardLongEdge =>
       'Letakkan kartu bank atau identitas di layar, sisi panjang di sepanjang penggaris, satu ujung di garis gelap. Seret garis oranye ke ujung kartu lainnya.';
 
@@ -521,7 +515,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Itu tidak sesuai dengan ukuran kartu. Sejajarkan dengan garis gelap lalu coba lagi.';
 
   @override
-  String get rotateToCalibrate => 'Putar ponsel tegak untuk kalibrasi';
+  String get rotateToCalibrate => 'Putar ke potret untuk kalibrasi';
 
   @override
   String get calibrateHow => 'Kalibrasi dengan';
@@ -748,7 +742,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Baca nilai lux dan cocok untuk apa cahayanya: 300–500 lx pas untuk membaca dan bekerja di meja.';
+      'Baca nilai lux dan cocok untuk apa cahayanya: 300–750 lx pas untuk membaca dan bekerja di meja.';
 
   @override
   String get lightHelp4 =>
@@ -769,9 +763,6 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (perkiraan)';
-
-  @override
-  String get soundAverage => 'Rata-rata';
 
   @override
   String get soundMax => 'Maks';
@@ -832,7 +823,11 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      'Mulai 85 dB, paparan lama bisa merusak pendengaran: baris status menjadi kuning.';
+      'Mulai 70 dB baris status menjadi kuning; mulai 85 dB, saat paparan lama bisa merusak pendengaran, menjadi merah.';
+
+  @override
+  String get soundHelp5 =>
+      'Ketuk gembok untuk menahan bacaan di layar saat Anda menggerakkan ponsel.';
 
   @override
   String get soundTip =>
@@ -879,7 +874,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get levelUnits => 'Satuan waterpass';
 
   @override
-  String get vibrateWhenLevel => 'Getar saat rata';
+  String get unitDegrees => 'Derajat';
+
+  @override
+  String get unitPercent => 'Kemiringan persen';
+
+  @override
+  String get unitRoofPitch => 'Kemiringan atap (naik per 12)';
+
+  @override
+  String get vibrateWhenLevel => 'Getaran';
 
   @override
   String get sounds => 'Suara';
@@ -913,13 +917,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'Ini menghapus nol yang Anda atur di waterpass dan ukuran layar yang Anda atur di penggaris. Keduanya kembali ke setelan pabrik. Setelan lain tetap sama, dan Anda bisa mengkalibrasi lagi kapan saja.';
+      'Ini menghapus kalibrasi yang Anda atur di waterpass (juga dipakai pengukur sudut) dan di penggaris. Keduanya kembali ke setelan pabrik. Setelan lain tetap sama, dan Anda bisa mengkalibrasi lagi kapan saja.';
 
   @override
   String get notCalibrated => 'Belum dikalibrasi';
 
   @override
   String get language => 'Bahasa';
+
+  @override
+  String get licenses => 'Lisensi sumber terbuka';
 
   @override
   String get languageSystem => 'Bahasa ponsel';

@@ -88,7 +88,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get toolAltimeter => 'Altimeter';
 
   @override
-  String get toolAltimeterSubtitle => 'Air pressure and height';
+  String get toolAltimeterSubtitle => 'Air pressure and altitude';
 
   @override
   String get toolLight => 'Light meter';
@@ -193,7 +193,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get levelHelp3 =>
-      'Follow the hint on screen (for example “Right side high”) until it reads level: it turns orange and the phone chimes and buzzes (turn these off in Settings).';
+      'Follow the hint on screen (for example “Right side high”) until it reads level: it turns orange and the phone chimes and taps (turn these off in Settings).';
 
   @override
   String get levelHelp4 =>
@@ -331,9 +331,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get measuringFromZero => 'Measuring from your zero';
 
   @override
-  String get angleFromEarth => 'Angle from the Earth';
-
-  @override
   String get angleFlatStatus => 'Flat · angle from the Earth';
 
   @override
@@ -373,7 +370,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compassHelp2 =>
-      'Point the top of the phone in the direction you want to know.';
+      'Point the top of the phone in the direction you want to know. Holding it upright? It reads the direction the back camera faces.';
 
   @override
   String get compassHelp3 =>
@@ -494,9 +491,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rulerEstimated => 'Not calibrated · lengths may be 10% off';
 
   @override
-  String get calibrateCard => 'Calibrate';
-
-  @override
   String get cardLongEdge =>
       'Lay any bank or ID card on the screen, long edge along the ruler, one end on the dark line. Drag the orange line to the card’s other end.';
 
@@ -521,7 +515,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'That doesn’t match a card. Line it up with the dark line and try again.';
 
   @override
-  String get rotateToCalibrate => 'Turn the phone upright to calibrate';
+  String get rotateToCalibrate => 'Turn to portrait to calibrate';
 
   @override
   String get calibrateHow => 'Calibrate with';
@@ -584,7 +578,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get metalHelp4 =>
-      'Held still for a few seconds, it re-zeroes itself, so a false reading fades away. To check a spot again, move the phone away and back. Set baseline re-zeroes at once.';
+      'Hold the phone still for a few seconds and it re-zeroes itself, so a false reading fades away. To check a spot again, move the phone away and back. Tap Set baseline to re-zero at once.';
 
   @override
   String get metalTip =>
@@ -639,7 +633,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vibrationTip =>
-      '“Still” is under 0.3 m/s² and “Strong” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.';
+      '“Still” is under 0.3 m/s² and “Strong vibration” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.';
 
   @override
   String get still => 'Still';
@@ -684,7 +678,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Go up or down. The centre shows the metres from your zero.';
 
   @override
-  String get altimeterHelp4 => 'Tap Clear zero to go back.';
+  String get altimeterHelp4 => 'Tap Clear zero to show air pressure again.';
 
   @override
   String get altimeterTip =>
@@ -747,7 +741,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Read the lux and what the light is good for: 300–500 lx suits reading and desk work.';
+      'Read the lux and what the light is good for: 300–750 lx suits reading and desk work.';
 
   @override
   String get lightHelp4 =>
@@ -768,9 +762,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (approx.)';
-
-  @override
-  String get soundAverage => 'Average';
 
   @override
   String get soundMax => 'Max';
@@ -830,7 +821,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      'From 85 dB, long exposure can damage hearing: the status line turns yellow.';
+      'From 70 dB the status line turns yellow; from 85 dB, where long exposure can damage hearing, it turns red.';
+
+  @override
+  String get soundHelp5 =>
+      'Tap the lock to keep a reading on screen while you move the phone.';
 
   @override
   String get soundTip =>
@@ -877,7 +872,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get levelUnits => 'Level units';
 
   @override
-  String get vibrateWhenLevel => 'Vibrate when level';
+  String get unitDegrees => 'Degrees';
+
+  @override
+  String get unitPercent => 'Percent slope';
+
+  @override
+  String get unitRoofPitch => 'Roof pitch (rise per 12)';
+
+  @override
+  String get vibrateWhenLevel => 'Vibration';
 
   @override
   String get sounds => 'Sounds';
@@ -910,13 +914,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'This removes the zero you set in the Level and the screen size you set in the Ruler. Both go back to their factory settings. Your other settings stay as they are, and you can calibrate again at any time.';
+      'This removes the calibration you set in the Level (also used by the Angle tool) and in the Ruler. Both go back to their factory settings. Your other settings stay as they are, and you can calibrate again at any time.';
 
   @override
   String get notCalibrated => 'Not calibrated';
 
   @override
   String get language => 'Language';
+
+  @override
+  String get licenses => 'Open-source licences';
 
   @override
   String get languageSystem => 'Phone language';

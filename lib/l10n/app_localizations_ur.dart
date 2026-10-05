@@ -332,9 +332,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get measuringFromZero => 'آپ کے صفر سے پیمائش';
 
   @override
-  String get angleFromEarth => 'زمین کے لحاظ سے زاویہ';
-
-  @override
   String get angleFlatStatus => 'سیدھا لٹایا · زمین کے لحاظ سے زاویہ';
 
   @override
@@ -374,7 +371,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get compassHelp2 =>
-      'فون کا اوپری حصہ اس سمت میں کریں جو آپ جاننا چاہتے ہیں۔';
+      'فون کا اوپری حصہ اس سمت میں کریں جو آپ جاننا چاہتے ہیں۔ سیدھا پکڑنے پر یہ پچھلے کیمرے کی سمت دکھاتا ہے۔';
 
   @override
   String get compassHelp3 =>
@@ -494,9 +491,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get rulerEstimated => 'کیلیبریٹ نہیں · لمبائی 10% تک غلط ہو سکتی ہے';
 
   @override
-  String get calibrateCard => 'کیلیبریٹ';
-
-  @override
   String get cardLongEdge =>
       'کوئی بھی بینک یا شناختی کارڈ اسکرین پر رکھیں، لمبا کنارہ رولر کے ساتھ اور ایک سرا گہری لکیر پر۔ نارنجی لکیر کو کارڈ کے دوسرے سرے تک کھینچیں۔';
 
@@ -521,7 +515,7 @@ class AppLocalizationsUr extends AppLocalizations {
       'یہ کارڈ کے سائز سے میل نہیں کھاتا۔ اسے گہری لکیر سے ملا کر دوبارہ کوشش کریں۔';
 
   @override
-  String get rotateToCalibrate => 'کیلیبریٹ کرنے کے لیے فون کو سیدھا کریں';
+  String get rotateToCalibrate => 'کیلیبریٹ کرنے کے لیے عمودی رخ پر گھمائیں';
 
   @override
   String get calibrateHow => 'کس سے کیلیبریٹ کریں';
@@ -748,7 +742,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'لکس اور روشنی کس کام کے لائق ہے، یہ پڑھیں: پڑھنے اور میز کے کام کے لیے 300–500 lx ٹھیک ہے۔';
+      'لکس اور روشنی کس کام کے لائق ہے، یہ پڑھیں: پڑھنے اور میز کے کام کے لیے 300–750 lx ٹھیک ہے۔';
 
   @override
   String get lightHelp4 =>
@@ -769,9 +763,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (تقریباً)';
-
-  @override
-  String get soundAverage => 'اوسط';
 
   @override
   String get soundMax => 'زیادہ سے زیادہ';
@@ -832,7 +823,11 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      '85 dB سے اوپر دیر تک سننے سے نقصان ہو سکتا ہے: اسٹیٹس لائن پیلی ہو جاتی ہے۔';
+      '70 dB سے اسٹیٹس لائن پیلی ہو جاتی ہے؛ 85 dB سے، جہاں دیر تک سننے سے سماعت کو نقصان ہو سکتا ہے، سرخ ہو جاتی ہے۔';
+
+  @override
+  String get soundHelp5 =>
+      'فون ہلاتے وقت ریڈنگ اسکرین پر برقرار رکھنے کے لیے تالا دبائیں۔';
 
   @override
   String get soundTip =>
@@ -879,7 +874,16 @@ class AppLocalizationsUr extends AppLocalizations {
   String get levelUnits => 'لیول کی اکائی';
 
   @override
-  String get vibrateWhenLevel => 'ہموار ہونے پر وائبریٹ';
+  String get unitDegrees => 'ڈگری';
+
+  @override
+  String get unitPercent => 'فیصد ڈھلوان';
+
+  @override
+  String get unitRoofPitch => 'چھت کی ڈھلوان (12 پر اونچائی)';
+
+  @override
+  String get vibrateWhenLevel => 'وائبریشن';
 
   @override
   String get sounds => 'آوازیں';
@@ -911,13 +915,16 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'اس سے لیول میں آپ کا مقرر کیا ہوا صفر اور رولر میں آپ کا مقرر کیا ہوا اسکرین سائز ہٹ جائے گا۔ دونوں فیکٹری سیٹنگ پر لوٹ آئیں گے۔ آپ کی باقی سیٹنگز ویسی ہی رہیں گی، اور آپ کسی بھی وقت دوبارہ کیلیبریٹ کر سکتے ہیں۔';
+      'اس سے لیول (جسے زاویہ پیما بھی استعمال کرتا ہے) اور رولر میں کی گئی کیلیبریشن ہٹ جائے گی۔ دونوں فیکٹری سیٹنگ پر لوٹ آئیں گے۔ آپ کی باقی سیٹنگز ویسی ہی رہیں گی، اور آپ کسی بھی وقت دوبارہ کیلیبریٹ کر سکتے ہیں۔';
 
   @override
   String get notCalibrated => 'کیلیبریٹ نہیں ہوا';
 
   @override
   String get language => 'زبان';
+
+  @override
+  String get licenses => 'اوپن سورس لائسنس';
 
   @override
   String get languageSystem => 'فون کی زبان';

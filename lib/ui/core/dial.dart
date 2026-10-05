@@ -92,29 +92,37 @@ class InstrumentDial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fontFamily = DefaultTextStyle.of(context).style.fontFamily;
+    DialPainter painter(DialLayer layer) => DialPainter(
+      layer: layer,
+      palette: Palette.of(context),
+      fontFamily: fontFamily,
+      value: value,
+      label: label,
+      ballAngle: ballAngle,
+      arcSweep: arcSweep,
+      arcStart: arcStart,
+      waterAngle: waterAngle,
+      bubble: bubble,
+      labels: labels,
+      scaleLabels: scaleLabels,
+      arms: arms,
+      letters: letters,
+      locked: locked,
+      zones: zones,
+      reserved: DialFit.reservedOf(context) ?? reserved,
+    );
+    // The face (halo, ring, ticks, labels, well) changes only with the theme
+    // or size, so it's painted once into its own layer; each sensor sample
+    // repaints just the moving parts on top.
     return Semantics(
       label: semanticsLabel,
       excludeSemantics: true,
-      child: CustomPaint(
-        size: Size.infinite,
-        painter: DialPainter(
-          palette: Palette.of(context),
-          fontFamily: fontFamily,
-          value: value,
-          label: label,
-          ballAngle: ballAngle,
-          arcSweep: arcSweep,
-          arcStart: arcStart,
-          waterAngle: waterAngle,
-          bubble: bubble,
-          labels: labels,
-          scaleLabels: scaleLabels,
-          arms: arms,
-          letters: letters,
-          locked: locked,
-          zones: zones,
-          reserved: DialFit.reservedOf(context) ?? reserved,
-        ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          RepaintBoundary(child: CustomPaint(painter: painter(DialLayer.face))),
+          CustomPaint(painter: painter(DialLayer.live)),
+        ],
       ),
     );
   }
@@ -165,8 +173,20 @@ Offset _polar(Offset c, double r, double angle) =>
 /// 12 o'clock) up to the next band's start.
 typedef DialZone = ({double from, Color color});
 
+/// Which part of the dial a [DialPainter] draws.
+enum DialLayer {
+  /// What depends only on the theme, size and scale: halo, ring, ticks,
+  /// labels, well.
+  face,
+
+  /// What follows the reading: water, arc, arms, button, value, bubble,
+  /// balls.
+  live,
+}
+
 class DialPainter extends CustomPainter {
   DialPainter({
+    required this.layer,
     required this.palette,
     required this.fontFamily,
     required this.value,
@@ -185,6 +205,7 @@ class DialPainter extends CustomPainter {
     required this.reserved,
   });
 
+  final DialLayer layer;
   final Palette palette;
   final String? fontFamily;
   final String value, label;
@@ -234,17 +255,8 @@ class DialPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final s = DialGeometry.scaleFor(size, reserved: reserved);
     final c = size.center(Offset.zero);
+    if (layer == DialLayer.face) return _face(canvas, c, s);
 
-    _halo(
-      canvas,
-      c + Offset(0, DialGeometry.haloDy * s),
-      DialGeometry.haloR * s,
-    );
-    _dial(canvas, c, DialGeometry.dialR * s, s);
-    _ticks(canvas, c, s);
-    if (labels) _labels(canvas, c, s);
-    if (letters != null) _letters(canvas, c, s, letters!);
-    _well(canvas, c, DialGeometry.wellR * s, s);
     if (waterAngle != null) _water(canvas, c, s, waterAngle!);
     if (arcSweep != null && arcSweep!.abs() > 0.05) _arc(canvas, c, s);
     if (arms != null) _arms(canvas, c, size, s);
@@ -262,6 +274,19 @@ class DialPainter extends CustomPainter {
     for (final a in arms ?? const <double>[]) {
       _ball(canvas, _polar(c, DialGeometry.dialR * s, a), s * 1.25);
     }
+  }
+
+  void _face(Canvas canvas, Offset c, double s) {
+    _halo(
+      canvas,
+      c + Offset(0, DialGeometry.haloDy * s),
+      DialGeometry.haloR * s,
+    );
+    _dial(canvas, c, DialGeometry.dialR * s, s);
+    _ticks(canvas, c, s);
+    if (labels) _labels(canvas, c, s);
+    if (letters != null) _letters(canvas, c, s, letters!);
+    _well(canvas, c, DialGeometry.wellR * s, s);
   }
 
   Paint _linear(Rect r, Color topLeft, Color bottomRight) =>
@@ -697,6 +722,16 @@ class DialPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(DialPainter old) =>
+      old.layer != layer ||
+      old.palette != palette ||
+      old.fontFamily != fontFamily ||
+      old.labels != labels ||
+      !listEquals(old.scaleLabels, scaleLabels) ||
+      !listEquals(old.letters, letters) ||
+      old.reserved != reserved ||
+      (layer == DialLayer.live && _liveChanged(old));
+
+  bool _liveChanged(DialPainter old) =>
       old.palette != palette ||
       old.fontFamily != fontFamily ||
       old.value != value ||

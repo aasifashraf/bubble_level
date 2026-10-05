@@ -144,7 +144,7 @@ class LevelScreen extends StatelessWidget {
             )
           : _dial(context, state);
     }
-    final top = MediaQuery.paddingOf(context).top + ToolFrame.headerHeight;
+    final top = ToolFrame.contentTop(context);
     return Stack(
       children: [
         Positioned.fill(
@@ -155,7 +155,13 @@ class LevelScreen extends StatelessWidget {
                 )
               : _dial(context, state),
         ),
-        Positioned(top: top + 4, right: 20, child: _styleSwitch(context)),
+        // At the end side, so it moves to the left in right-to-left
+        // languages, as the other tools' switches do.
+        PositionedDirectional(
+          top: top + 4,
+          end: 20,
+          child: _styleSwitch(context),
+        ),
       ],
     );
   }
@@ -335,15 +341,7 @@ class LevelScreen extends StatelessWidget {
           _styleSwitch(context),
           const SizedBox(height: 16),
         ],
-        Row(
-          spacing: 14,
-          children: [
-            for (final (caption, value) in tiles)
-              Expanded(
-                child: ValueTile(value: value, caption: caption),
-              ),
-          ],
-        ),
+        ValueTiles([for (final (caption, value) in tiles) (value, caption)]),
         const SizedBox(height: 16),
         StatusBanner(
           icon: viewModel.locked ? Icons.lock_rounded : icon,
@@ -355,13 +353,10 @@ class LevelScreen extends StatelessWidget {
           spacing: 14,
           children: [
             Expanded(
-              child: SoftButton(
-                label: viewModel.locked ? l.unlock : l.lock,
-                icon: viewModel.locked
-                    ? Icons.lock_rounded
-                    : Icons.lock_open_rounded,
-                emphasis: viewModel.locked,
+              child: LockButton(
+                locked: viewModel.locked,
                 onPressed: viewModel.toggleLock,
+                wide: true,
               ),
             ),
             Expanded(

@@ -334,9 +334,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get measuringFromZero => 'Mesure depuis votre zéro';
 
   @override
-  String get angleFromEarth => 'Angle par rapport à la Terre';
-
-  @override
   String get angleFlatStatus => 'À plat · angle par rapport à la Terre';
 
   @override
@@ -377,7 +374,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get compassHelp2 =>
-      'Pointez le haut du téléphone dans la direction que vous voulez connaître.';
+      'Pointez le haut du téléphone dans la direction que vous voulez connaître. Tenu à la verticale, elle indique la direction de la caméra arrière.';
 
   @override
   String get compassHelp3 =>
@@ -500,9 +497,6 @@ class AppLocalizationsFr extends AppLocalizations {
       'Non calibrée · les longueurs peuvent varier de 10 %';
 
   @override
-  String get calibrateCard => 'Calibrer';
-
-  @override
   String get cardLongEdge =>
       'Posez une carte bancaire ou d’identité sur l’écran, grand côté le long de la règle, une extrémité sur la ligne foncée. Faites glisser la ligne orange à l’autre extrémité.';
 
@@ -527,8 +521,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Cela ne correspond pas à une carte. Alignez-la sur la ligne foncée et réessayez.';
 
   @override
-  String get rotateToCalibrate =>
-      'Tenez le téléphone à la verticale pour calibrer';
+  String get rotateToCalibrate => 'Passez en portrait pour calibrer';
 
   @override
   String get calibrateHow => 'Calibrer avec';
@@ -755,7 +748,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Lisez les lux et à quoi convient cette lumière : 300–500 lx conviennent pour lire et travailler au bureau.';
+      'Lisez les lux et à quoi convient cette lumière : 300–750 lx conviennent pour lire et travailler au bureau.';
 
   @override
   String get lightHelp4 =>
@@ -776,9 +769,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (env.)';
-
-  @override
-  String get soundAverage => 'Moyenne';
 
   @override
   String get soundMax => 'Max';
@@ -839,7 +829,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      'À partir de 85 dB, une longue exposition peut abîmer l’audition : la ligne d’état passe au jaune.';
+      'Dès 70 dB, la ligne d’état passe au jaune ; dès 85 dB, où une longue exposition peut abîmer l’audition, elle passe au rouge.';
+
+  @override
+  String get soundHelp5 =>
+      'Touchez le cadenas pour garder une mesure à l’écran pendant que vous déplacez le téléphone.';
 
   @override
   String get soundTip =>
@@ -886,7 +880,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get levelUnits => 'Unité du niveau';
 
   @override
-  String get vibrateWhenLevel => 'Vibrer quand c’est de niveau';
+  String get unitDegrees => 'Degrés';
+
+  @override
+  String get unitPercent => 'Pente en pourcentage';
+
+  @override
+  String get unitRoofPitch => 'Pente de toit (montée pour 12)';
+
+  @override
+  String get vibrateWhenLevel => 'Vibrations';
 
   @override
   String get sounds => 'Sons';
@@ -918,13 +921,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'Cela supprime le zéro réglé dans le niveau et la taille d’écran réglée dans la règle. Les deux reviennent aux réglages d’usine. Vos autres réglages restent inchangés, et vous pouvez recalibrer à tout moment.';
+      'Cela supprime les étalonnages réglés dans le niveau (aussi utilisé par la mesure d’angle) et dans la règle. Les deux reviennent aux réglages d’usine. Vos autres réglages restent inchangés, et vous pouvez recalibrer à tout moment.';
 
   @override
   String get notCalibrated => 'Non étalonné';
 
   @override
   String get language => 'Langue';
+
+  @override
+  String get licenses => 'Licences open source';
 
   @override
   String get languageSystem => 'Langue du téléphone';

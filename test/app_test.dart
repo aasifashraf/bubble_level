@@ -433,11 +433,31 @@ void main() {
     );
 
     // The vibration switch: the knob toggles on tap.
-    await tester.tap(find.text('Vibrate when level'));
+    // In the sheet, above home's Vibration tool.
+    await tester.tap(find.text('Vibration').last);
     await tester.pumpAndSettle();
     final reloaded = await SettingsRepository.load();
     expect(reloaded.themeMode, ThemeMode.dark);
     expect(reloaded.haptics, isFalse);
+  });
+
+  testWidgets('settings opens the open-source licences, Inter’s included', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Open-source licences'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Open-source licences'));
+    await tester.pumpAndSettle();
+    expect(find.byType(LicensePage), findsOneWidget);
+    // Unit symbols are read out by name.
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    final semantics = tester.ensureSemantics();
+    expect(find.bySemanticsLabel('Roof pitch (rise per 12)'), findsOneWidget);
+    semantics.dispose();
   });
 
   testWidgets('settings resets every tool’s calibration, only after '
@@ -463,7 +483,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Reset all calibrations?'), findsOneWidget);
     expect(
-      find.textContaining('the Level and the screen size'),
+      find.textContaining('in the Level (also used by the Angle tool)'),
       findsOneWidget,
     );
     await tester.tap(find.text('Cancel'));

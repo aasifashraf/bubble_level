@@ -77,23 +77,10 @@ class ProtractorScreen extends StatelessWidget {
           footer: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                spacing: 14,
-                children: [
-                  Expanded(
-                    child: ValueTile(
-                      value: formatDegrees(angle),
-                      caption: context.l10n.angle,
-                    ),
-                  ),
-                  Expanded(
-                    child: ValueTile(
-                      value: formatDegrees(viewModel.reflex),
-                      caption: context.l10n.reflex,
-                    ),
-                  ),
-                ],
-              ),
+              ValueTiles([
+                (formatDegrees(angle), context.l10n.angle),
+                (formatDegrees(viewModel.reflex), context.l10n.reflex),
+              ]),
               const SizedBox(height: 16),
               viewModel.locked
                   ? StatusBanner(
@@ -116,15 +103,10 @@ class ProtractorScreen extends StatelessWidget {
                     ),
                   ),
                   // Keeps the handles in place while the object is moved.
-                  SoftIconButton(
-                    icon: viewModel.locked
-                        ? Icons.lock_rounded
-                        : Icons.lock_open_rounded,
-                    tooltip: viewModel.locked
-                        ? context.l10n.unlock
-                        : context.l10n.lockHandles,
-                    active: viewModel.locked,
+                  LockButton(
+                    locked: viewModel.locked,
                     onPressed: viewModel.toggleLock,
+                    tooltip: context.l10n.lockHandles,
                   ),
                 ],
               ),

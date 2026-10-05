@@ -161,6 +161,10 @@ class ToolFrame extends StatelessWidget {
   /// Height of the header below the status bar.
   static const headerHeight = 18.0 + 70;
 
+  /// Where content starts below the floating header (portrait).
+  static double contentTop(BuildContext context) =>
+      MediaQuery.paddingOf(context).top + headerHeight;
+
   /// Landscape tool page: the body fills the free box left of the footer
   /// and below the header, so the dial only needs a small margin; the
   /// footer is centred in its column and scrolls if it's still too tall.

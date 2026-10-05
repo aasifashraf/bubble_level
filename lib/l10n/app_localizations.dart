@@ -277,7 +277,7 @@ abstract class AppLocalizations {
   /// No description provided for @toolAltimeterSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Air pressure and height'**
+  /// **'Air pressure and altitude'**
   String get toolAltimeterSubtitle;
 
   /// No description provided for @toolLight.
@@ -445,7 +445,7 @@ abstract class AppLocalizations {
   /// No description provided for @levelHelp3.
   ///
   /// In en, this message translates to:
-  /// **'Follow the hint on screen (for example “Right side high”) until it reads level: it turns orange and the phone chimes and buzzes (turn these off in Settings).'**
+  /// **'Follow the hint on screen (for example “Right side high”) until it reads level: it turns orange and the phone chimes and taps (turn these off in Settings).'**
   String get levelHelp3;
 
   /// No description provided for @levelHelp4.
@@ -682,12 +682,6 @@ abstract class AppLocalizations {
   /// **'Measuring from your zero'**
   String get measuringFromZero;
 
-  /// No description provided for @angleFromEarth.
-  ///
-  /// In en, this message translates to:
-  /// **'Angle from the Earth'**
-  String get angleFromEarth;
-
   /// No description provided for @angleFlatStatus.
   ///
   /// In en, this message translates to:
@@ -757,7 +751,7 @@ abstract class AppLocalizations {
   /// No description provided for @compassHelp2.
   ///
   /// In en, this message translates to:
-  /// **'Point the top of the phone in the direction you want to know.'**
+  /// **'Point the top of the phone in the direction you want to know. Holding it upright? It reads the direction the back camera faces.'**
   String get compassHelp2;
 
   /// No description provided for @compassHelp3.
@@ -958,12 +952,6 @@ abstract class AppLocalizations {
   /// **'Not calibrated · lengths may be 10% off'**
   String get rulerEstimated;
 
-  /// No description provided for @calibrateCard.
-  ///
-  /// In en, this message translates to:
-  /// **'Calibrate'**
-  String get calibrateCard;
-
   /// No description provided for @cardLongEdge.
   ///
   /// In en, this message translates to:
@@ -1009,7 +997,7 @@ abstract class AppLocalizations {
   /// No description provided for @rotateToCalibrate.
   ///
   /// In en, this message translates to:
-  /// **'Turn the phone upright to calibrate'**
+  /// **'Turn to portrait to calibrate'**
   String get rotateToCalibrate;
 
   /// No description provided for @calibrateHow.
@@ -1111,7 +1099,7 @@ abstract class AppLocalizations {
   /// No description provided for @metalHelp4.
   ///
   /// In en, this message translates to:
-  /// **'Held still for a few seconds, it re-zeroes itself, so a false reading fades away. To check a spot again, move the phone away and back. Set baseline re-zeroes at once.'**
+  /// **'Hold the phone still for a few seconds and it re-zeroes itself, so a false reading fades away. To check a spot again, move the phone away and back. Tap Set baseline to re-zero at once.'**
   String get metalHelp4;
 
   /// No description provided for @metalTip.
@@ -1207,7 +1195,7 @@ abstract class AppLocalizations {
   /// No description provided for @vibrationTip.
   ///
   /// In en, this message translates to:
-  /// **'“Still” is under 0.3 m/s² and “Strong” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.'**
+  /// **'“Still” is under 0.3 m/s² and “Strong vibration” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.'**
   String get vibrationTip;
 
   /// No description provided for @still.
@@ -1285,7 +1273,7 @@ abstract class AppLocalizations {
   /// No description provided for @altimeterHelp4.
   ///
   /// In en, this message translates to:
-  /// **'Tap Clear zero to go back.'**
+  /// **'Tap Clear zero to show air pressure again.'**
   String get altimeterHelp4;
 
   /// No description provided for @altimeterTip.
@@ -1393,7 +1381,7 @@ abstract class AppLocalizations {
   /// No description provided for @lightHelp3.
   ///
   /// In en, this message translates to:
-  /// **'Read the lux and what the light is good for: 300–500 lx suits reading and desk work.'**
+  /// **'Read the lux and what the light is good for: 300–750 lx suits reading and desk work.'**
   String get lightHelp3;
 
   /// No description provided for @lightHelp4.
@@ -1425,12 +1413,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'dB (approx.)'**
   String get decibelsApprox;
-
-  /// No description provided for @soundAverage.
-  ///
-  /// In en, this message translates to:
-  /// **'Average'**
-  String get soundAverage;
 
   /// No description provided for @soundMax.
   ///
@@ -1537,8 +1519,14 @@ abstract class AppLocalizations {
   /// No description provided for @soundHelp4.
   ///
   /// In en, this message translates to:
-  /// **'From 85 dB, long exposure can damage hearing: the status line turns yellow.'**
+  /// **'From 70 dB the status line turns yellow; from 85 dB, where long exposure can damage hearing, it turns red.'**
   String get soundHelp4;
+
+  /// No description provided for @soundHelp5.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the lock to keep a reading on screen while you move the phone.'**
+  String get soundHelp5;
 
   /// No description provided for @soundTip.
   ///
@@ -1618,10 +1606,28 @@ abstract class AppLocalizations {
   /// **'Level units'**
   String get levelUnits;
 
+  /// No description provided for @unitDegrees.
+  ///
+  /// In en, this message translates to:
+  /// **'Degrees'**
+  String get unitDegrees;
+
+  /// No description provided for @unitPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Percent slope'**
+  String get unitPercent;
+
+  /// No description provided for @unitRoofPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Roof pitch (rise per 12)'**
+  String get unitRoofPitch;
+
   /// No description provided for @vibrateWhenLevel.
   ///
   /// In en, this message translates to:
-  /// **'Vibrate when level'**
+  /// **'Vibration'**
   String get vibrateWhenLevel;
 
   /// No description provided for @sounds.
@@ -1681,7 +1687,7 @@ abstract class AppLocalizations {
   /// No description provided for @resetAllBody.
   ///
   /// In en, this message translates to:
-  /// **'This removes the zero you set in the Level and the screen size you set in the Ruler. Both go back to their factory settings. Your other settings stay as they are, and you can calibrate again at any time.'**
+  /// **'This removes the calibration you set in the Level (also used by the Angle tool) and in the Ruler. Both go back to their factory settings. Your other settings stay as they are, and you can calibrate again at any time.'**
   String get resetAllBody;
 
   /// No description provided for @notCalibrated.
@@ -1695,6 +1701,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
+
+  /// No description provided for @licenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licences'**
+  String get licenses;
 
   /// No description provided for @languageSystem.
   ///

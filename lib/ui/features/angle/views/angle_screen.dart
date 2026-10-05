@@ -116,14 +116,8 @@ class AngleScreen extends StatelessWidget {
                         ),
                         // Freezes the reading to read it after lifting the
                         // phone off what it measured.
-                        SoftIconButton(
-                          icon: viewModel.locked
-                              ? Icons.lock_rounded
-                              : Icons.lock_open_rounded,
-                          tooltip: viewModel.locked
-                              ? context.l10n.unlock
-                              : context.l10n.lockReading,
-                          active: viewModel.locked,
+                        LockButton(
+                          locked: viewModel.locked,
                           onPressed: viewModel.toggleLock,
                         ),
                       ],
@@ -139,7 +133,7 @@ class AngleScreen extends StatelessWidget {
   /// view switch). Landscape: it moves to the controls column.
   Widget _withModeSwitch(BuildContext context, Widget instrument) {
     if (ToolFrame.sideBySide(context)) return instrument;
-    final top = MediaQuery.paddingOf(context).top + ToolFrame.headerHeight;
+    final top = ToolFrame.contentTop(context);
     return Stack(
       children: [
         Positioned.fill(child: instrument),

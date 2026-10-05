@@ -90,23 +90,10 @@ class AltimeterScreen extends StatelessWidget {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      spacing: 14,
-                      children: [
-                        Expanded(
-                          child: ValueTile(
-                            value: formatPressure(pressure),
-                            caption: context.l10n.pressure,
-                          ),
-                        ),
-                        Expanded(
-                          child: ValueTile(
-                            value: '≈ ${formatMeters(r.altitude!)}',
-                            caption: context.l10n.altitudeApprox,
-                          ),
-                        ),
-                      ],
-                    ),
+                    ValueTiles([
+                      (formatPressure(pressure), context.l10n.pressure),
+                      (formatMeters(r.altitude!), context.l10n.altitudeApprox),
+                    ]),
                     const SizedBox(height: 16),
                     StatusBanner(
                       icon: viewModel.zeroed

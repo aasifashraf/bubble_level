@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +17,12 @@ import 'ui/home/home_shell.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // The bundled Inter font's licence, next to Flutter's and the packages'.
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks([
+      'Inter',
+    ], await rootBundle.loadString('assets/fonts/Inter-OFL.txt'));
+  });
   // Full screen as in the design: draw behind the status and navigation
   // bars (each page sets transparent bars and matching icon colours).
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -72,6 +79,10 @@ class BubbleLevelApp extends StatefulWidget {
 }
 
 class _BubbleLevelAppState extends State<BubbleLevelApp> {
+  // Built once: the app rebuilds on every settings change.
+  final _light = buildTheme(Brightness.light);
+  final _dark = buildTheme(Brightness.dark);
+
   @override
   void dispose() {
     widget.orientation.dispose();
@@ -97,8 +108,8 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
           return child!;
         },
         debugShowCheckedModeBanner: false,
-        theme: buildTheme(Brightness.light),
-        darkTheme: buildTheme(Brightness.dark),
+        theme: _light,
+        darkTheme: _dark,
         themeMode: widget.settings.themeMode,
         home: home,
       ),

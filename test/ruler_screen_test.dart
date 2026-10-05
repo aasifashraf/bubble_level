@@ -339,7 +339,7 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Calibrate'));
     await tester.pumpAndSettle();
-    expect(find.text('Turn the phone upright to calibrate'), findsNWidgets(2));
+    expect(find.text('Turn to portrait to calibrate'), findsNWidgets(2));
     // Disabled: tapping the card does nothing.
     await tester.tap(find.text('A bank card'));
     await tester.pumpAndSettle();
@@ -577,6 +577,22 @@ void main() {
       vm.dragTo(-5, 100);
       expect(vm.end(1), 0);
       expect(vm.end(0), 0);
+    });
+
+    testWidgets('on a shorter ruler the length and the nearest line are '
+        'those drawn', (tester) async {
+      vm
+        ..setRulerLength(130)
+        ..beginDrag(50, 130)
+        ..dragTo(120, 130);
+      expect(vm.lengthMm, 120);
+      // Turned to a 60 mm ruler: the line is drawn at 60, so it reads 60.
+      vm.setRulerLength(60);
+      expect(vm.lengthMm, 60);
+      // A touch at 55 mm grabs that line, not the one at 0.
+      vm.beginDrag(55, 60);
+      expect(vm.end(1), 55);
+      await tester.pump();
     });
 
     test('lines beyond a shorter ruler (after rotating) stay visible', () {

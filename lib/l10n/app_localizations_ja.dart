@@ -322,9 +322,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get measuringFromZero => 'ゼロ点から測定中';
 
   @override
-  String get angleFromEarth => '地面に対する角度';
-
-  @override
   String get angleFlatStatus => '平置き · 地面に対する角度';
 
   @override
@@ -362,7 +359,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get compassHelp1 => '端末を水平にして体の前で持ちます。金属・磁石・電子機器から離してください。';
 
   @override
-  String get compassHelp2 => '端末の上端を知りたい方向に向けます。';
+  String get compassHelp2 => '端末の上端を知りたい方向に向けます。立てて持つと、背面カメラが向いている方角を表示します。';
 
   @override
   String get compassHelp3 => '数字は方位（度）、文字は方角です。オレンジの玉がリング上に示します。';
@@ -473,9 +470,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get rulerEstimated => '未補正 · 長さが10%ずれることがあります';
 
   @override
-  String get calibrateCard => '補正';
-
-  @override
   String get cardLongEdge =>
       '銀行カードや身分証を、長い辺を定規に沿わせ、片端を濃い線に合わせて画面に置きます。オレンジの線をカードのもう一方の端までドラッグします。';
 
@@ -499,7 +493,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get cardMismatch => 'カードの大きさと合いません。濃い線に合わせてもう一度お試しください。';
 
   @override
-  String get rotateToCalibrate => '補正するには端末を縦向きにしてください';
+  String get rotateToCalibrate => '補正するには縦向きにしてください';
 
   @override
   String get calibrateHow => '補正の方法';
@@ -711,7 +705,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get lightHelp2 => '測りたい場所で、画面を光の方に向けて持ちます。';
 
   @override
-  String get lightHelp3 => 'ルクスと用途の目安を読みます。読書やデスク作業には 300–500 lx が適しています。';
+  String get lightHelp3 => 'ルクスと用途の目安を読みます。読書やデスク作業には 300–750 lx が適しています。';
 
   @override
   String get lightHelp4 => '「ロック」をタップすると、端末を離しても値を保持できます。';
@@ -731,9 +725,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB（目安）';
-
-  @override
-  String get soundAverage => '平均';
 
   @override
   String get soundMax => '最大';
@@ -788,7 +779,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get soundHelp3 => '平均と最大はツールを開いてから数えます。「リセット」で最初からやり直せます。';
 
   @override
-  String get soundHelp4 => '85 dB を超えると、長時間聞くと聴力を損なうおそれがあります。状態表示が黄色になります。';
+  String get soundHelp4 =>
+      '70 dB を超えると状態表示が黄色に、長時間聞くと聴力を損なうおそれのある 85 dB を超えると赤になります。';
+
+  @override
+  String get soundHelp5 => '鍵をタップすると、端末を動かしても値を保持できます。';
 
   @override
   String get soundTip =>
@@ -835,7 +830,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get levelUnits => '水平器の単位';
 
   @override
-  String get vibrateWhenLevel => '水平で振動';
+  String get unitDegrees => '度';
+
+  @override
+  String get unitPercent => '勾配（％）';
+
+  @override
+  String get unitRoofPitch => '屋根勾配（12あたりの立ち上がり）';
+
+  @override
+  String get vibrateWhenLevel => '振動';
 
   @override
   String get sounds => 'サウンド';
@@ -866,13 +870,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      '水平器で設定したゼロと、定規で設定した画面サイズが削除され、どちらも工場出荷時の設定に戻ります。その他の設定はそのままで、いつでも補正し直せます。';
+      '水平器（角度計でも使用）と定規の補正が削除され、どちらも工場出荷時の設定に戻ります。その他の設定はそのままで、いつでも補正し直せます。';
 
   @override
   String get notCalibrated => '未補正';
 
   @override
   String get language => '言語';
+
+  @override
+  String get licenses => 'オープンソースライセンス';
 
   @override
   String get languageSystem => '端末の言語';

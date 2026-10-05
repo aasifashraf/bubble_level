@@ -111,6 +111,11 @@ class _SettingsBody extends StatelessWidget {
                             (AngleUnit.percent, null, '%'),
                             (AngleUnit.pitch, null, '/12'),
                           ],
+                          names: [
+                            context.l10n.unitDegrees,
+                            context.l10n.unitPercent,
+                            context.l10n.unitRoofPitch,
+                          ],
                         ),
                       ),
                     ],
@@ -134,7 +139,15 @@ class _SettingsBody extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 18),
-              _Card(children: [_LanguageRow(settings: settings)]),
+              _Card(
+                children: [
+                  _LanguageRow(settings: settings),
+                  const SizedBox(height: 16),
+                  Divider(height: 1, color: p.ink.withValues(alpha: 0.08)),
+                  const SizedBox(height: 16),
+                  const _LicensesRow(),
+                ],
+              ),
               const SizedBox(height: 18),
               _ResetCard(settings: settings),
             ],
@@ -191,11 +204,16 @@ class _Segmented<T> extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.options,
+    this.names,
   });
 
   final T value;
   final ValueChanged<T> onChanged;
   final List<(T, IconData?, String)> options;
+
+  /// What a screen reader says for each option, when its label is only a
+  /// symbol ("°", "%").
+  final List<String>? names;
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +254,7 @@ class _Segmented<T> extends StatelessWidget {
                   child: Semantics(
                     button: true,
                     selected: i == index,
-                    label: label,
+                    label: names?[i] ?? label,
                     excludeSemantics: true,
                     child: GestureDetector(
                       behavior: HitTestBehavior.opaque,
@@ -487,6 +505,30 @@ class _ToggleRow extends StatelessWidget {
 }
 
 /// "Language" with the current choice; opens the list of languages.
+/// Opens the licences of the app's fonts, Flutter and the packages it uses.
+class _LicensesRow extends StatelessWidget {
+  const _LicensesRow();
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    final l = context.l10n;
+    return MergeSemantics(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () =>
+            showLicensePage(context: context, applicationName: l.appTitle),
+        child: Row(
+          children: [
+            Expanded(child: _Label(l.licenses)),
+            Icon(Icons.chevron_right_rounded, color: p.label),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _LanguageRow extends StatelessWidget {
   const _LanguageRow({required this.settings});
 
@@ -506,7 +548,7 @@ class _LanguageRow extends StatelessWidget {
             Expanded(child: _Label(l.language)),
             Flexible(
               child: Text(
-                current == null ? l.languageSystem : languageNames[current]!,
+                languageNames[current] ?? l.languageSystem,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.end,

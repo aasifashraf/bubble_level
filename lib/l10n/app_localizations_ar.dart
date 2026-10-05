@@ -331,9 +331,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get measuringFromZero => 'القياس من نقطة الصفر';
 
   @override
-  String get angleFromEarth => 'الزاوية بالنسبة إلى الأرض';
-
-  @override
   String get angleFlatStatus => 'مسطح · الزاوية بالنسبة إلى الأرض';
 
   @override
@@ -372,7 +369,8 @@ class AppLocalizationsAr extends AppLocalizations {
       'أمسك الهاتف أفقيًا أمامك، بعيدًا عن المعادن والمغناطيس والأجهزة الإلكترونية.';
 
   @override
-  String get compassHelp2 => 'وجّه أعلى الهاتف نحو الاتجاه الذي تريد معرفته.';
+  String get compassHelp2 =>
+      'وجّه أعلى الهاتف نحو الاتجاه الذي تريد معرفته. وعند إمساكه رأسيًا تُظهر الاتجاه الذي تواجهه الكاميرا الخلفية.';
 
   @override
   String get compassHelp3 =>
@@ -490,9 +488,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get rulerEstimated => 'غير مُعايَرة · قد تخطئ الأطوال بنسبة 10%';
 
   @override
-  String get calibrateCard => 'معايرة';
-
-  @override
   String get cardLongEdge =>
       'ضع أي بطاقة بنكية أو هوية على الشاشة، ضلعها الطويل بمحاذاة المسطرة وأحد طرفيها على الخط الداكن. اسحب الخط البرتقالي إلى طرف البطاقة الآخر.';
 
@@ -517,7 +512,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'هذا لا يطابق حجم بطاقة. حاذِها مع الخط الداكن وحاول مجددًا.';
 
   @override
-  String get rotateToCalibrate => 'أدِر الهاتف رأسيًا للمعايرة';
+  String get rotateToCalibrate => 'دوّر إلى الوضع الرأسي للمعايرة';
 
   @override
   String get calibrateHow => 'المعايرة باستخدام';
@@ -743,7 +738,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'اقرأ قيمة اللوكس وما يناسبه الضوء: 300–500 لوكس مناسبة للقراءة والعمل على المكتب.';
+      'اقرأ قيمة اللوكس وما يناسبه الضوء: 300–750 لوكس مناسبة للقراءة والعمل على المكتب.';
 
   @override
   String get lightHelp4 => 'اضغط قفل للاحتفاظ بالقراءة أثناء إبعاد الهاتف.';
@@ -763,9 +758,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (تقريبي)';
-
-  @override
-  String get soundAverage => 'المتوسط';
 
   @override
   String get soundMax => 'الأقصى';
@@ -824,7 +816,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      'ابتداءً من 85 ديسيبل قد يضر التعرض الطويل بالسمع: يتحول سطر الحالة إلى الأصفر.';
+      'ابتداءً من 70 ديسيبل يتحول سطر الحالة إلى الأصفر، ومن 85 ديسيبل، حيث قد يضر التعرض الطويل بالسمع، إلى الأحمر.';
+
+  @override
+  String get soundHelp5 =>
+      'اضغط القفل للاحتفاظ بالقراءة على الشاشة أثناء تحريك الهاتف.';
 
   @override
   String get soundTip =>
@@ -871,7 +867,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get levelUnits => 'وحدة الميزان';
 
   @override
-  String get vibrateWhenLevel => 'الاهتزاز عند الاستواء';
+  String get unitDegrees => 'درجات';
+
+  @override
+  String get unitPercent => 'الميل بالنسبة المئوية';
+
+  @override
+  String get unitRoofPitch => 'ميل السقف (الارتفاع لكل 12)';
+
+  @override
+  String get vibrateWhenLevel => 'الاهتزاز';
 
   @override
   String get sounds => 'الأصوات';
@@ -904,13 +909,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'سيؤدي هذا إلى إزالة الصفر الذي ضبطته في ميزان الماء وحجم الشاشة الذي ضبطته في المسطرة، ليعود كلاهما إلى إعدادات المصنع. تبقى إعداداتك الأخرى كما هي، ويمكنك المعايرة من جديد في أي وقت.';
+      'سيؤدي هذا إلى إزالة المعايرة التي ضبطتها في ميزان الماء (ويستخدمها مقياس الزوايا أيضًا) وفي المسطرة، ليعود كلاهما إلى إعدادات المصنع. تبقى إعداداتك الأخرى كما هي، ويمكنك المعايرة من جديد في أي وقت.';
 
   @override
   String get notCalibrated => 'غير مُعايَر';
 
   @override
   String get language => 'اللغة';
+
+  @override
+  String get licenses => 'تراخيص المصادر المفتوحة';
 
   @override
   String get languageSystem => 'لغة الهاتف';

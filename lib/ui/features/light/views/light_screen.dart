@@ -87,23 +87,10 @@ class LightScreen extends StatelessWidget {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      spacing: 14,
-                      children: [
-                        Expanded(
-                          child: ValueTile(
-                            value: '${formatLux(lux)} lx',
-                            caption: l.illuminance,
-                          ),
-                        ),
-                        Expanded(
-                          child: ValueTile(
-                            value: '${formatLux(r.footCandles!)} fc',
-                            caption: l.footCandles,
-                          ),
-                        ),
-                      ],
-                    ),
+                    ValueTiles([
+                      ('${formatLux(lux)} lx', l.illuminance),
+                      ('${formatLux(r.footCandles!)} fc', l.footCandles),
+                    ]),
                     const SizedBox(height: 16),
                     viewModel.locked
                         ? StatusBanner(
@@ -115,13 +102,10 @@ class LightScreen extends StatelessWidget {
                             text: _band(l, LightBand.of(lux)),
                           ),
                     const SizedBox(height: 16),
-                    SoftButton(
-                      label: viewModel.locked ? l.unlock : l.lock,
-                      icon: viewModel.locked
-                          ? Icons.lock_rounded
-                          : Icons.lock_open_rounded,
-                      emphasis: viewModel.locked,
+                    LockButton(
+                      locked: viewModel.locked,
                       onPressed: viewModel.toggleLock,
+                      wide: true,
                     ),
                   ],
                 ),

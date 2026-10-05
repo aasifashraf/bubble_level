@@ -333,9 +333,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get measuringFromZero => 'Sıfır noktanızdan ölçülüyor';
 
   @override
-  String get angleFromEarth => 'Dünya\'ya göre açı';
-
-  @override
   String get angleFlatStatus => 'Düz · Dünya’ya göre açı';
 
   @override
@@ -375,7 +372,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get compassHelp2 =>
-      'Telefonun üst kısmını öğrenmek istediğiniz yöne çevirin.';
+      'Telefonun üst kısmını öğrenmek istediğiniz yöne çevirin. Dik tutarsanız arka kameranın baktığı yönü gösterir.';
 
   @override
   String get compassHelp3 =>
@@ -495,9 +492,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get rulerEstimated => 'Kalibre edilmedi · ölçüler %10 sapabilir';
 
   @override
-  String get calibrateCard => 'Kalibre et';
-
-  @override
   String get cardLongEdge =>
       'Bir banka veya kimlik kartını uzun kenarı cetvel boyunca, bir ucu koyu çizgide olacak şekilde ekrana koyun. Turuncu çizgiyi kartın diğer ucuna sürükleyin.';
 
@@ -522,7 +516,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bu bir kartla uyuşmuyor. Kartı koyu çizgiyle hizalayıp yeniden deneyin.';
 
   @override
-  String get rotateToCalibrate => 'Kalibrasyon için telefonu dik çevirin';
+  String get rotateToCalibrate => 'Kalibrasyon için dikeye çevirin';
 
   @override
   String get calibrateHow => 'Kalibrasyon yöntemi';
@@ -749,7 +743,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Lüks değerini ve ışığın neye uygun olduğunu okuyun: 300–500 lx okumak ve masa başı çalışmak için uygundur.';
+      'Lüks değerini ve ışığın neye uygun olduğunu okuyun: 300–750 lx okumak ve masa başı çalışmak için uygundur.';
 
   @override
   String get lightHelp4 =>
@@ -770,9 +764,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (yakl.)';
-
-  @override
-  String get soundAverage => 'Ortalama';
 
   @override
   String get soundMax => 'Maks.';
@@ -833,7 +824,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      '85 dB’den itibaren uzun süre maruz kalmak işitmeye zarar verebilir: durum satırı sarıya döner.';
+      '70 dB’den itibaren durum satırı sarıya, uzun süre maruz kalmanın işitmeye zarar verebileceği 85 dB’den itibaren kırmızıya döner.';
+
+  @override
+  String get soundHelp5 =>
+      'Telefonu hareket ettirirken bir okumayı ekranda tutmak için kilide dokunun.';
 
   @override
   String get soundTip =>
@@ -880,7 +875,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get levelUnits => 'Terazi birimi';
 
   @override
-  String get vibrateWhenLevel => 'Düz olunca titret';
+  String get unitDegrees => 'Derece';
+
+  @override
+  String get unitPercent => 'Yüzde eğim';
+
+  @override
+  String get unitRoofPitch => 'Çatı eğimi (12 başına yükselme)';
+
+  @override
+  String get vibrateWhenLevel => 'Titreşim';
 
   @override
   String get sounds => 'Sesler';
@@ -913,13 +917,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'Su terazisinde ayarladığınız sıfır ve cetvelde ayarladığınız ekran boyutu kaldırılır. İkisi de fabrika ayarlarına döner. Diğer ayarlarınız olduğu gibi kalır ve istediğiniz zaman yeniden kalibre edebilirsiniz.';
+      'Su terazisinde (açı ölçer de kullanır) ve cetvelde yaptığınız kalibrasyonlar kaldırılır. İkisi de fabrika ayarlarına döner. Diğer ayarlarınız olduğu gibi kalır ve istediğiniz zaman yeniden kalibre edebilirsiniz.';
 
   @override
   String get notCalibrated => 'Kalibre edilmedi';
 
   @override
   String get language => 'Dil';
+
+  @override
+  String get licenses => 'Açık kaynak lisansları';
 
   @override
   String get languageSystem => 'Telefonun dili';

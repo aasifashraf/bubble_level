@@ -73,7 +73,7 @@ class VibrationScreen extends StatelessWidget {
             ready: ready,
             missingText: context.l10n.noAccelerometerVibration,
             child: InstrumentDial(
-              value: r.current.toStringAsFixed(1),
+              value: formatDecimal(r.current),
               label: 'm/s²',
               semanticsLabel: context.l10n.vibrationSemantics(
                 formatDecimal(r.current),
@@ -90,23 +90,10 @@ class VibrationScreen extends StatelessWidget {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      spacing: 14,
-                      children: [
-                        Expanded(
-                          child: ValueTile(
-                            value: formatAcceleration(r.peak),
-                            caption: context.l10n.peak,
-                          ),
-                        ),
-                        Expanded(
-                          child: ValueTile(
-                            value: formatAcceleration(r.rms),
-                            caption: context.l10n.average,
-                          ),
-                        ),
-                      ],
-                    ),
+                    ValueTiles([
+                      (formatAcceleration(r.peak), context.l10n.peak),
+                      (formatAcceleration(r.rms), context.l10n.average),
+                    ]),
                     const SizedBox(height: 14),
                     _Graph(values: r.history),
                     const SizedBox(height: 14),

@@ -333,9 +333,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get measuringFromZero => 'Gemessen ab deinem Nullpunkt';
 
   @override
-  String get angleFromEarth => 'Winkel zur Erde';
-
-  @override
   String get angleFlatStatus => 'Flach · Winkel zur Erde';
 
   @override
@@ -375,7 +372,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get compassHelp2 =>
-      'Richte die Oberkante des Handys in die gesuchte Richtung.';
+      'Richte die Oberkante des Handys in die gesuchte Richtung. Hältst du es aufrecht, zeigt er die Richtung, in die die Rückkamera blickt.';
 
   @override
   String get compassHelp3 =>
@@ -496,9 +493,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'Nicht kalibriert · Längen können 10 % abweichen';
 
   @override
-  String get calibrateCard => 'Kalibrieren';
-
-  @override
   String get cardLongEdge =>
       'Leg eine Bank- oder Ausweiskarte auf den Bildschirm, lange Seite am Lineal, ein Ende an der dunklen Linie. Zieh die orange Linie ans andere Ende der Karte.';
 
@@ -523,7 +517,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Das passt nicht zu einer Karte. Leg sie an die dunkle Linie und versuch es erneut.';
 
   @override
-  String get rotateToCalibrate => 'Zum Kalibrieren das Handy aufrecht drehen';
+  String get rotateToCalibrate => 'Zum Kalibrieren ins Hochformat drehen';
 
   @override
   String get calibrateHow => 'Kalibrieren mit';
@@ -751,7 +745,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Lies die Lux und wofür das Licht taugt: 300–500 lx eignen sich zum Lesen und für den Schreibtisch.';
+      'Lies die Lux und wofür das Licht taugt: 300–750 lx eignen sich zum Lesen und für den Schreibtisch.';
 
   @override
   String get lightHelp4 =>
@@ -772,9 +766,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'dB (ca.)';
-
-  @override
-  String get soundAverage => 'Durchschnitt';
 
   @override
   String get soundMax => 'Max.';
@@ -835,7 +826,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      'Ab 85 dB kann längeres Zuhören das Gehör schädigen: Die Statuszeile wird gelb.';
+      'Ab 70 dB wird die Statuszeile gelb; ab 85 dB, wo längeres Zuhören das Gehör schädigen kann, rot.';
+
+  @override
+  String get soundHelp5 =>
+      'Tippe auf das Schloss, um einen Wert zu behalten, während du das Handy bewegst.';
 
   @override
   String get soundTip =>
@@ -882,7 +877,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get levelUnits => 'Einheit der Neigung';
 
   @override
-  String get vibrateWhenLevel => 'Vibrieren bei Waagrecht';
+  String get unitDegrees => 'Grad';
+
+  @override
+  String get unitPercent => 'Steigung in Prozent';
+
+  @override
+  String get unitRoofPitch => 'Dachneigung (Steigung pro 12)';
+
+  @override
+  String get vibrateWhenLevel => 'Vibration';
 
   @override
   String get sounds => 'Töne';
@@ -915,13 +919,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'Damit werden der Nullpunkt der Wasserwaage und die Bildschirmgröße des Lineals entfernt, die du eingestellt hast. Beide kehren zur Werkseinstellung zurück. Deine anderen Einstellungen bleiben erhalten, und du kannst jederzeit neu kalibrieren.';
+      'Damit werden die Kalibrierungen entfernt, die du in der Wasserwaage (auch vom Winkelmesser genutzt) und im Lineal eingestellt hast. Beide kehren zur Werkseinstellung zurück. Deine anderen Einstellungen bleiben erhalten, und du kannst jederzeit neu kalibrieren.';
 
   @override
   String get notCalibrated => 'Nicht kalibriert';
 
   @override
   String get language => 'Sprache';
+
+  @override
+  String get licenses => 'Open-Source-Lizenzen';
 
   @override
   String get languageSystem => 'Sprache des Handys';

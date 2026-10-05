@@ -333,9 +333,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get measuringFromZero => 'Измерение от вашего нуля';
 
   @override
-  String get angleFromEarth => 'Угол относительно Земли';
-
-  @override
   String get angleFlatStatus => 'Плашмя · угол относительно Земли';
 
   @override
@@ -374,7 +371,8 @@ class AppLocalizationsRu extends AppLocalizations {
       'Держите телефон горизонтально перед собой, вдали от металла, магнитов и электроники.';
 
   @override
-  String get compassHelp2 => 'Направьте верх телефона в нужную сторону.';
+  String get compassHelp2 =>
+      'Направьте верх телефона в нужную сторону. Если держать телефон вертикально, компас показывает, куда смотрит основная камера.';
 
   @override
   String get compassHelp3 =>
@@ -494,9 +492,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get rulerEstimated => 'Не откалибровано · ошибка до 10%';
 
   @override
-  String get calibrateCard => 'Калибровать';
-
-  @override
   String get cardLongEdge =>
       'Положите на экран банковскую карту или удостоверение длинной стороной вдоль линейки, одним концом к тёмной линии. Перетащите оранжевую линию к другому концу карты.';
 
@@ -521,8 +516,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Это не похоже на карту. Совместите её с тёмной линией и попробуйте снова.';
 
   @override
-  String get rotateToCalibrate =>
-      'Поверните телефон вертикально для калибровки';
+  String get rotateToCalibrate => 'Поверните вертикально для калибровки';
 
   @override
   String get calibrateHow => 'Калибровать по';
@@ -750,7 +744,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Смотрите люксы и для чего подходит свет: 300–500 лк хватает для чтения и работы за столом.';
+      'Смотрите люксы и для чего подходит свет: 300–750 лк хватает для чтения и работы за столом.';
 
   @override
   String get lightHelp4 =>
@@ -771,9 +765,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get decibelsApprox => 'дБ (прибл.)';
-
-  @override
-  String get soundAverage => 'Среднее';
 
   @override
   String get soundMax => 'Макс.';
@@ -834,7 +825,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get soundHelp4 =>
-      'От 85 дБ долгое воздействие может повредить слух: строка состояния становится жёлтой.';
+      'От 70 дБ строка состояния становится жёлтой, а от 85 дБ, когда долгое воздействие может повредить слух, — красной.';
+
+  @override
+  String get soundHelp5 =>
+      'Нажмите на замок, чтобы сохранить показание, пока перемещаете телефон.';
 
   @override
   String get soundTip =>
@@ -881,7 +876,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get levelUnits => 'Единицы уровня';
 
   @override
-  String get vibrateWhenLevel => 'Вибрация при ровном';
+  String get unitDegrees => 'Градусы';
+
+  @override
+  String get unitPercent => 'Уклон в процентах';
+
+  @override
+  String get unitRoofPitch => 'Уклон кровли (подъём на 12)';
+
+  @override
+  String get vibrateWhenLevel => 'Вибрация';
 
   @override
   String get sounds => 'Звуки';
@@ -914,13 +918,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get resetAllBody =>
-      'Будут удалены ноль, заданный в уровне, и размер экрана, заданный в линейке. Оба инструмента вернутся к заводским настройкам. Остальные настройки не изменятся, а откалибровать заново можно в любой момент.';
+      'Будут удалены калибровки уровня (её использует и угломер) и линейки. Оба инструмента вернутся к заводским настройкам. Остальные настройки не изменятся, а откалибровать заново можно в любой момент.';
 
   @override
   String get notCalibrated => 'Не откалибровано';
 
   @override
   String get language => 'Язык';
+
+  @override
+  String get licenses => 'Лицензии открытого ПО';
 
   @override
   String get languageSystem => 'Язык телефона';

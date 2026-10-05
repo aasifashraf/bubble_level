@@ -57,7 +57,7 @@ class RulerScreen extends StatelessWidget {
   Widget _body(BuildContext context, ScreenScale scale, double dpr) {
     final top = ToolFrame.sideBySide(context)
         ? 0.0
-        : MediaQuery.paddingOf(context).top + ToolFrame.headerHeight;
+        : ToolFrame.contentTop(context);
     return Padding(
       padding: EdgeInsets.only(top: top + _inset, bottom: _inset),
       // A physical instrument: never mirrored for right-to-left languages.
@@ -99,22 +99,36 @@ class RulerScreen extends StatelessWidget {
                               formatDecimal(mm),
                               formatDecimal(mm / mmPerInch, digits: 2),
                             ),
-                      child: CustomPaint(
-                        painter: _RulerPainter(
-                          palette: Palette.of(context),
-                          scale: scale,
-                          dpr: dpr,
-                          vertical: vertical,
-                          ends: [
-                            viewModel.shown(0, maxMm),
-                            viewModel.shown(1, maxMm),
-                          ],
-                          referenceSpan: aligning
-                              ? viewModel.referenceSpan
-                              : null,
-                          card: viewModel.method == CalibrationMethod.card,
-                          cardMm: referenceMm,
-                        ),
+                      // The scale only changes with the size or scale, so it
+                      // sits on its own cached layer; a drag repaints just
+                      // the lines on top.
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          for (final layer in _RulerLayer.values)
+                            RepaintBoundary(
+                              child: CustomPaint(
+                                painter: _RulerPainter(
+                                  layer: layer,
+                                  palette: Palette.of(context),
+                                  scale: scale,
+                                  dpr: dpr,
+                                  vertical: vertical,
+                                  ends: [
+                                    viewModel.shown(0, maxMm),
+                                    viewModel.shown(1, maxMm),
+                                  ],
+                                  referenceSpan: aligning
+                                      ? viewModel.referenceSpan
+                                      : null,
+                                  card:
+                                      viewModel.method ==
+                                      CalibrationMethod.card,
+                                  cardMm: referenceMm,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   ),
@@ -310,18 +324,17 @@ class RulerScreen extends StatelessWidget {
         ? StatusBanner(icon: Icons.lock_rounded, text: l.handlesLocked)
         : StatusBanner(icon: icon, text: text, tone: tone);
     final calibrate = SoftButton(
-      label: l.calibrateCard,
+      label: l.calibrate,
       icon: Icons.tune_rounded,
       emphasis: scale.source == ScaleSource.estimated,
       onPressed: viewModel.locked
           ? null
           : () => _chooseMethod(context, scale, dpr, physical),
     );
-    final lock = SoftIconButton(
-      icon: viewModel.locked ? Icons.lock_rounded : Icons.lock_open_rounded,
-      tooltip: viewModel.locked ? l.unlock : l.lockHandles,
-      active: viewModel.locked,
+    final lock = LockButton(
+      locked: viewModel.locked,
       onPressed: viewModel.toggleLock,
+      tooltip: l.lockHandles,
     );
     if (!ToolFrame.sideBySide(context)) {
       return _arrange(
@@ -491,6 +504,7 @@ class _ScreenSizeSheet extends StatefulWidget {
 class _ScreenSizeSheetState extends State<_ScreenSizeSheet> {
   final _text = TextEditingController();
   bool _failed = false;
+  bool _saving = false;
 
   @override
   void dispose() {
@@ -499,6 +513,9 @@ class _ScreenSizeSheetState extends State<_ScreenSizeSheet> {
   }
 
   Future<void> _save() async {
+    // Save and the keyboard's Done can both fire: pop the sheet once.
+    if (_saving) return;
+    _saving = true;
     final ok = await widget.viewModel.saveScreenSize(
       _text.text,
       dpr: widget.dpr,
@@ -508,7 +525,10 @@ class _ScreenSizeSheetState extends State<_ScreenSizeSheet> {
     if (ok) {
       Navigator.of(context).pop();
     } else {
-      setState(() => _failed = true);
+      setState(() {
+        _failed = true;
+        _saving = false;
+      });
     }
   }
 
@@ -641,8 +661,13 @@ class _Reading extends StatelessWidget {
   }
 }
 
+/// What a [_RulerPainter] draws: the mm and inch scale, or the lines (or
+/// calibration reference) over it.
+enum _RulerLayer { scale, overlay }
+
 class _RulerPainter extends CustomPainter {
   _RulerPainter({
+    required this.layer,
     required this.palette,
     required this.scale,
     required this.dpr,
@@ -653,6 +678,7 @@ class _RulerPainter extends CustomPainter {
     required this.cardMm,
   });
 
+  final _RulerLayer layer;
   final Palette palette;
   final ScreenScale scale;
   final double dpr;
@@ -674,6 +700,7 @@ class _RulerPainter extends CustomPainter {
     Offset at(double along, double a) =>
         vertical ? Offset(a, along) : Offset(along, a);
     double pos(double mm) => scale.logical(mm, dpr);
+    if (layer == _RulerLayer.overlay) return _overlay(canvas, across, at, pos);
 
     final minor = Paint()
       ..strokeWidth = 1
@@ -715,7 +742,15 @@ class _RulerPainter extends CustomPainter {
         _label(canvas, '${i ~/ 8}', at(x, across - 36), p.ink);
       }
     }
+  }
 
+  void _overlay(
+    Canvas canvas,
+    double across,
+    Offset Function(double, double) at,
+    double Function(double) pos,
+  ) {
+    final p = palette;
     final reference = referenceSpan;
     if (reference != null) {
       _reference(canvas, reference, across, at);
@@ -813,6 +848,14 @@ class _RulerPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_RulerPainter old) =>
+      old.layer != layer ||
+      old.palette != palette ||
+      old.scale != scale ||
+      old.dpr != dpr ||
+      old.vertical != vertical ||
+      (layer == _RulerLayer.overlay && _overlayChanged(old));
+
+  bool _overlayChanged(_RulerPainter old) =>
       old.scale != scale ||
       old.dpr != dpr ||
       old.vertical != vertical ||
