@@ -148,7 +148,7 @@ void main() {
     }
 
     await pumpApp(tester);
-    for (final tool in ['Level', 'Angle', 'Protractor', 'Compass']) {
+    for (final tool in ['Level', 'Angle', 'Protractor', 'Compass', 'Ruler']) {
       await openTool(tester, tool);
       expect(locks.last, portrait, reason: tool);
       expect(find.byTooltip('Turn to landscape'), findsOneWidget);
@@ -178,7 +178,7 @@ void main() {
 
     // The other tools follow the phone and have no rotate button.
     final count = locks.length;
-    await openTool(tester, 'Ruler');
+    await openTool(tester, 'Metal detector');
     expect(find.byTooltip('Turn to landscape'), findsNothing);
     expect(locks.length, count);
     await back();

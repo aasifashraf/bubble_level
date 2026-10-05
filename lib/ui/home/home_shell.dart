@@ -161,6 +161,7 @@ class _HomeShellState extends State<HomeShell> {
     HomeTool.angle,
     HomeTool.compass,
     HomeTool.protractor,
+    HomeTool.ruler,
   };
 
   /// Opens a tool full screen; its view model (if it uses sensors) follows
@@ -221,7 +222,11 @@ class _HomeShellState extends State<HomeShell> {
         );
       case HomeTool.ruler:
         _ruler.open();
-        _open(null, (_) => RulerScreen(viewModel: _ruler, onBack: back));
+        _open(
+          null,
+          (_) => RulerScreen(viewModel: _ruler, onBack: back),
+          tool: tool,
+        );
       case HomeTool.metal:
         _open(_metal, (_) => MetalScreen(viewModel: _metal, onBack: back));
       case HomeTool.vibration:
