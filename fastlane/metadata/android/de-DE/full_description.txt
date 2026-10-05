@@ -4,13 +4,13 @@ Libelle: Leg das Handy flach hin, um Regale, Tische und Geräte auszurichten. X 
 
 Wasserwaage und Neigungsmesser: Stell das Handy auf eine Kante, um Winkel und Gefälle in Grad oder Prozent abzulesen. Lieber klassisch? Wechsle zur Libellenansicht. Die Dachneigung gibt es auch im US-Format x/12.
 
-Winkelmesser: Sieh, wie weit das Handy geneigt ist, oder setz irgendwo einen Nullpunkt und miss, wie weit es sich davon bewegt.
+Winkelmesser: Sieh, wie weit das Handy geneigt ist, oder setz irgendwo einen Nullpunkt und miss, wie weit es sich davon bewegt. Stell es mit einer Kante an eine Rampe, ein Geländer oder ein Dach, um die Neigung der langen und kurzen Kante zu lesen.
 
 Kompass: ruhige magnetische Richtung, auch wenn das Handy geneigt ist, mit Warnung, wenn Metall in der Nähe stört.
 
 Winkelmesser auf dem Bildschirm: Leg einen Gegenstand auf das Display und zieh zwei Griffe an seine Kanten.
 
-Lineal: Miss kleine Gegenstände auf dem Bildschirm in mm, cm oder Zoll. Einmal mit einer Bankkarte, einem Lineal oder der Bildschirmgröße kalibrieren für ±0,5 mm.
+Lineal: Miss kleine Gegenstände auf dem Bildschirm in mm, cm oder Zoll. Einmal mit einer Bankkarte oder einem Lineal kalibrieren für ±0,5 mm, oder einfach die Bildschirmgröße eingeben.
 
 Metalldetektor: Finde Eisen, Stahl und Magnete, mit einem Piepton, der schneller wird, je näher du kommst.
 

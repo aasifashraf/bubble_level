@@ -4,13 +4,13 @@ Kabarcıklı terazi: rafları, masaları ve cihazları düzlemek için telefonu 
 
 Su terazisi ve eğim ölçer: açıyı ve eğimi derece veya yüzde olarak görmek için telefonu bir kenarı üzerine koyun. Klasik görünümü mü seviyorsunuz? Tüp görünümüne geçin. Çatı eğimini x/12 olarak da gösterir.
 
-Açı ölçer: telefonun ne kadar eğildiğini görün ya da herhangi bir konumda sıfır belirleyip oradan ne kadar hareket ettiğini ölçün.
+Açı ölçer: telefonun ne kadar eğildiğini görün ya da herhangi bir konumda sıfır belirleyip oradan ne kadar hareket ettiğini ölçün. Uzun ve kısa kenarın eğimini okumak için onu bir rampaya, korkuluğa veya çatıya kenarı üstünde dayayın.
 
 Pusula: telefon eğikken bile sabit manyetik yön; yakındaki metal bozduğunda uyarı.
 
 İletki: bir nesneyi ekrana koyun ve iki tutamacı kenarları boyunca sürükleyin.
 
-Cetvel: küçük nesneleri ekranda mm, cm veya inç olarak ölçün. ±0,5 mm için bir kez banka kartı, cetvel veya ekran boyutuyla kalibre edin.
+Cetvel: küçük nesneleri ekranda mm, cm veya inç olarak ölçün. ±0,5 mm için bir kez banka kartı veya cetvelle kalibre edin ya da yalnızca ekran boyutunu girin.
 
 Metal dedektörü: demir, çelik ve mıknatısları bulun; yaklaştıkça bip sesi hızlanır.
 

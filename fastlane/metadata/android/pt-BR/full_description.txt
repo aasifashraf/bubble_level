@@ -4,13 +4,13 @@ Nível de bolha: deite o celular para nivelar prateleiras, mesas e eletrodomést
 
 Nível de mão e inclinômetro: apoie o celular em uma borda para ver o ângulo e a inclinação, em graus ou porcentagem. Prefere o visual clássico? Mude para a visualização de tubo. Também mostra a inclinação de telhados como x/12.
 
-Medidor de ângulo: veja quanto o celular está inclinado ou zere em qualquer posição e meça quanto ele se move a partir dali.
+Medidor de ângulo: veja quanto o celular está inclinado ou zere em qualquer posição e meça quanto ele se move a partir dali. Apoie-o de lado numa rampa, corrimão ou telhado para ver a inclinação das bordas longa e curta.
 
 Bússola: rumo magnético estável mesmo com o celular inclinado, com aviso quando metais próximos interferem.
 
 Transferidor: coloque um objeto na tela e arraste duas alças pelas bordas.
 
-Régua: meça objetos pequenos na tela em mm, cm ou polegadas. Calibre uma vez com um cartão, uma régua ou o tamanho da tela para ±0,5 mm.
+Régua: meça objetos pequenos na tela em mm, cm ou polegadas. Calibre uma vez com um cartão ou uma régua para ±0,5 mm, ou apenas informe o tamanho da tela.
 
 Detector de metais: encontre ferro, aço e ímãs, com um bipe que acelera conforme você se aproxima.
 

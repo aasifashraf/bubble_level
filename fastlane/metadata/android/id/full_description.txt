@@ -4,13 +4,13 @@ Waterpass gelembung: letakkan ponsel mendatar untuk meratakan rak, meja, dan per
 
 Waterpass tabung dan inklinometer: berdirikan ponsel di sisinya untuk membaca sudut dan kemiringan, dalam derajat atau persen. Suka tampilan klasik? Pilih tampilan tabung. Kemiringan atap juga bisa dibaca sebagai x/12.
 
-Pengukur sudut: lihat seberapa miring ponsel, atau atur titik nol di mana saja dan ukur pergerakannya dari sana.
+Pengukur sudut: lihat seberapa miring ponsel, atau atur titik nol di mana saja dan ukur pergerakannya dari sana. Berdirikan di sisinya pada ram, pegangan tangga, atau atap untuk membaca kemiringan sisi panjang dan pendeknya.
 
 Kompas: arah magnetis stabil meski ponsel miring, dengan peringatan saat logam di dekatnya mengganggu.
 
 Busur derajat: letakkan benda di layar lalu seret dua pegangan di sepanjang tepinya.
 
-Penggaris: ukur benda kecil di layar dalam mm, cm, atau inci. Kalibrasi sekali dengan kartu bank, penggaris, atau ukuran layar untuk ±0,5 mm.
+Penggaris: ukur benda kecil di layar dalam mm, cm, atau inci. Kalibrasi sekali dengan kartu bank atau penggaris untuk ±0,5 mm, atau cukup masukkan ukuran layar.
 
 Detektor logam: temukan besi, baja, dan magnet, dengan bunyi bip yang makin cepat saat mendekat.
 

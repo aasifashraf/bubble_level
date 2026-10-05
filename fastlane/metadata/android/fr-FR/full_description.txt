@@ -4,13 +4,13 @@ Niveau à bulle : posez le téléphone à plat pour mettre de niveau étagères,
 
 Niveau et inclinomètre : posez le téléphone sur un bord pour lire l’angle et la pente, en degrés ou en pourcentage. Vous préférez le style classique ? Passez à la vue fiole. La pente de toit s’affiche aussi au format américain x/12.
 
-Mesure d’angle : voyez de combien le téléphone est incliné, ou définissez un zéro n’importe où et mesurez son déplacement.
+Mesure d’angle : voyez de combien le téléphone est incliné, ou définissez un zéro n’importe où et mesurez son déplacement. Posez-le sur la tranche contre une rampe, une main courante ou un toit pour lire la pente du grand et du petit côté.
 
 Boussole : cap magnétique stable même téléphone incliné, avec une alerte quand un métal proche la perturbe.
 
 Rapporteur : posez un objet sur l’écran et faites glisser deux poignées le long de ses bords.
 
-Règle : mesurez de petits objets sur l’écran en mm, cm ou pouces. Calibrez une fois avec une carte bancaire, une règle ou la taille de l’écran pour ±0,5 mm.
+Règle : mesurez de petits objets sur l’écran en mm, cm ou pouces. Calibrez une fois avec une carte bancaire ou une règle pour ±0,5 mm, ou saisissez simplement la taille de l’écran.
 
 Détecteur de métaux : trouvez le fer, l’acier et les aimants, avec un bip qui s’accélère à l’approche.
 

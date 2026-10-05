@@ -4,13 +4,13 @@ Bubble level: lay your phone flat to level shelves, tables and appliances. X and
 
 Spirit level and inclinometer: stand the phone on any edge to read the angle and slope, in degrees or percent. Prefer the classic look? Switch to tube view for a real spirit-level vial. Roofers can read the pitch as x/12.
 
-Angle finder: see how far the phone is tilted, or set a zero anywhere and measure how far it moves from there.
+Angle finder: see how far the phone is tilted, or set a zero anywhere and measure how far it moves from there. Stand it on an edge against a ramp, rail or roof to read the slope of its long and short edges.
 
 Compass: steady magnetic heading even when the phone is tilted, with a warning when nearby metal disturbs it.
 
 Protractor: place an object on the screen and drag two handles along its edges.
 
-Ruler: measure small objects on the screen in mm, cm or inches. Calibrate once with a bank card, a ruler or your screen size for ±0.5 mm.
+Ruler: measure small objects on the screen in mm, cm or inches. Calibrate once with a bank card or a ruler for ±0.5 mm, or just enter your screen size.
 
 Metal detector: find iron, steel and magnets, with a beep that speeds up as you get closer.
 

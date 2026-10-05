@@ -4,13 +4,13 @@ Nivel de burbuja: apoya el teléfono plano para nivelar estantes, mesas y electr
 
 Nivel de agua e inclinómetro: apoya el teléfono sobre un borde para ver el ángulo y la pendiente, en grados o en porcentaje. ¿Prefieres el aspecto clásico? Cambia a la vista de tubo. También muestra la pendiente de techos como x/12.
 
-Medidor de ángulos: mira cuánto se inclina el teléfono o fija un cero en cualquier posición y mide cuánto se mueve desde ahí.
+Medidor de ángulos: mira cuánto se inclina el teléfono o fija un cero en cualquier posición y mide cuánto se mueve desde ahí. Ponlo de canto contra una rampa, barandilla o tejado para ver la pendiente de sus bordes largo y corto.
 
 Brújula: rumbo magnético estable aunque el teléfono esté inclinado, con aviso cuando el metal cercano la altera.
 
 Transportador: coloca un objeto en la pantalla y arrastra dos tiradores por sus bordes.
 
-Regla: mide objetos pequeños en la pantalla en mm, cm o pulgadas. Calibra una vez con una tarjeta, una regla o el tamaño de pantalla para ±0,5 mm.
+Regla: mide objetos pequeños en la pantalla en mm, cm o pulgadas. Calibra una vez con una tarjeta o una regla para ±0,5 mm, o simplemente indica el tamaño de pantalla.
 
 Detector de metales: encuentra hierro, acero e imanes, con un pitido que se acelera al acercarte.
 
