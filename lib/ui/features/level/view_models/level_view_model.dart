@@ -150,10 +150,13 @@ class LevelViewModel extends SensorViewModel {
     _mode = nextMode(_mode, tiltDeg(g));
 
     if (_mode == LevelMode.flat) {
-      final gs = deviceToScreen(
+      final s = deviceToScreen(
         rotateFromTo(g, _settings.flatRef, Vec3.up),
         reading.quarterTurns,
       );
+      // Face down on a surface reads like face up (0° when level, so the
+      // chime still works), not 180°.
+      final gs = s.z < 0 ? Vec3(s.x, s.y, -s.z) : s;
       final tilt = tiltDeg(gs);
       // The bubble floats toward the high side: the horizontal part of "up".
       final high = Offset(gs.x, -gs.y);

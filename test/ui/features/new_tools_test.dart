@@ -8,6 +8,7 @@ import 'package:bubble_level/ui/features/altimeter/view_models/altimeter_view_mo
 import 'package:bubble_level/ui/features/metal/view_models/metal_view_model.dart';
 import 'package:bubble_level/ui/features/protractor/view_models/protractor_view_model.dart';
 import 'package:bubble_level/ui/features/vibration/view_models/vibration_view_model.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -68,6 +69,63 @@ void main() {
       ..toggleLock()
       ..unlock();
     expect(vm.locked, isFalse);
+  });
+
+  testWidgets('metal: no beeps while the app is in the background', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final settings = await SettingsRepository.load();
+    final sensors = FakeMotionSensorService();
+    final orientation = OrientationRepository(
+      sensors: sensors,
+      display: FakeDisplayRotationService(),
+    );
+    var beeps = 0;
+    final vm = MetalViewModel(
+      orientation: orientation,
+      settings: settings,
+      onDetected: () {},
+      onTick: () => beeps++,
+    )..active = true;
+    Future<void> field(double strength) async {
+      sensors
+        ..sendMagnet(Vec3(0, strength, 0))
+        ..sendUp(Vec3.up);
+      await tester.pump();
+    }
+
+    await field(50);
+    orientation
+      ..stop()
+      ..start();
+    await field(150); // strong metal: fast beeps
+    await tester.pump(const Duration(seconds: 1));
+    expect(beeps, greaterThan(3));
+
+    for (final state in [
+      AppLifecycleState.inactive,
+      AppLifecycleState.hidden,
+      AppLifecycleState.paused,
+    ]) {
+      tester.binding.handleAppLifecycleStateChanged(state);
+    }
+    beeps = 0;
+    await tester.pump(const Duration(seconds: 2));
+    expect(beeps, 0);
+
+    for (final state in [
+      AppLifecycleState.hidden,
+      AppLifecycleState.inactive,
+      AppLifecycleState.resumed,
+    ]) {
+      tester.binding.handleAppLifecycleStateChanged(state);
+    }
+    await field(150);
+    await tester.pump(const Duration(seconds: 1));
+    expect(beeps, greaterThan(0), reason: 'beeps again when back');
+    vm.dispose();
+    orientation.dispose();
   });
 
   group('sensor tools', () {
@@ -157,6 +215,25 @@ void main() {
       beeps = 0;
       await Future<void>.delayed(const Duration(milliseconds: 1200));
       expect(beeps, 0);
+    });
+
+    test('vibration: starts fresh each time it opens', () async {
+      final repo = VibrationRepository(sensors: sensors);
+      final vm = VibrationViewModel(repository: repo)..active = true;
+      addTearDown(() {
+        vm.dispose();
+        repo.dispose();
+      });
+      for (var i = 0; i < 20; i++) {
+        sensors.sendUserAccel(const Vec3(5, 0, 0));
+      }
+      await flush();
+      expect(vm.reading.peak, greaterThan(4));
+      vm
+        ..active = false
+        ..active = true;
+      expect(vm.reading.peak, 0);
+      expect(vm.reading.history, isEmpty);
     });
 
     test('vibration: runs only while active, reports level', () async {

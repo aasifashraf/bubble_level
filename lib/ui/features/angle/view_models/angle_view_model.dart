@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../../../data/repositories/orientation_repository.dart';
 import '../../../../data/repositories/settings_repository.dart';
 import '../../../../domain/angles.dart';
+import '../../../../domain/orientation_reading.dart';
 import '../../../core/sensor_view_model.dart';
 
 @immutable
@@ -57,7 +58,9 @@ class AngleViewModel extends SensorViewModel {
   LevelMode _zeroMode = LevelMode.flat;
   LevelMode _mode = LevelMode.flat;
   AngleState? _state;
-  bool _locked = false;
+
+  /// The reading held by the lock, or null while live.
+  OrientationReading? _frozen;
 
   AngleState? get state => _state;
 
@@ -74,15 +77,18 @@ class AngleViewModel extends SensorViewModel {
 
   /// Locked: the reading stays frozen so it can be read after the phone is
   /// lifted off what it measured.
-  bool get locked => _locked;
+  bool get locked => _frozen != null;
+
+  /// The reading to measure: frozen while locked, else live.
+  OrientationReading get _source => _frozen ?? reading;
 
   void toggleLock() {
-    _locked = !_locked;
+    _frozen = _frozen == null && reading.gravity != null ? reading : null;
     update();
   }
 
   void setZero() {
-    final g = reading.gravity;
+    final g = _source.gravity;
     if (g == null) return;
     _zeroGravity = g;
     _zeroMode = _mode;
@@ -96,29 +102,31 @@ class AngleViewModel extends SensorViewModel {
     _refresh();
   }
 
-  /// Recomputes even while locked: a new zero applies to the frozen reading.
+  /// Recomputes even while locked: a new zero or mode applies to the
+  /// frozen reading.
   void _refresh() {
     _state = _compute();
     notifyListeners();
   }
 
   @override
-  void onActivate() => _locked = false;
+  void onActivate() => _frozen = null;
 
   /// Heading of a device-fixed axis, so the turn doesn't jump when the UI
   /// rotates. Null without a trustworthy magnetometer.
-  double? _deviceHeading(LevelMode mode) => reading.magneticReliable
-      ? reading.heading(flat: mode == LevelMode.flat, screen: false)
+  double? _deviceHeading(LevelMode mode) => _source.magneticReliable
+      ? _source.heading(flat: mode == LevelMode.flat, screen: false)
       : null;
 
   @override
   void update() {
-    if (!_locked) _state = _compute();
+    if (!locked) _state = _compute();
     notifyListeners();
   }
 
   AngleState? _compute() {
-    final g = reading.gravity, gs = reading.screenGravity;
+    final r = _source;
+    final g = r.gravity, gs = r.screenGravity;
     if (g == null || gs == null) return null;
     // "From level" honours the Level tab's flat calibration.
     final tilt = tiltDeg(rotateFromTo(g, _settings.flatRef, Vec3.up));
@@ -141,7 +149,7 @@ class AngleViewModel extends SensorViewModel {
       return AngleState(tilt: tilt, rotation: rotation, longEdge: longEdge);
     }
 
-    final g0s = deviceToScreen(g0, reading.quarterTurns);
+    final g0s = deviceToScreen(g0, r.quarterTurns);
     final h0 = _zeroHeading;
     final h = _mode == _zeroMode ? _deviceHeading(_mode) : null;
     return AngleState(

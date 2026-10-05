@@ -24,7 +24,11 @@ class VibrationViewModel extends ActiveViewModel {
   void resetPeak() => _repository.resetPeak();
 
   @override
-  void onActivate() => _repository.start();
+  void onActivate() {
+    _repository
+      ..clear()
+      ..start();
+  }
 
   @override
   void onDeactivate() => _repository.stop();

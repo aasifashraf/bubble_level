@@ -16,7 +16,7 @@ class VibrationRepository
     : super(const VibrationReading());
 
   final MotionSensorService _sensors;
-  final _meter = VibrationMeter();
+  var _meter = VibrationMeter();
   final _gravity = VectorLowPass(0.3);
   var _fromAccelerometer = false;
 
@@ -45,6 +45,12 @@ class VibrationRepository
     if (_fromAccelerometer) return _publish(SensorState.missing);
     _fromAccelerometer = true;
     resubscribe();
+  }
+
+  /// A fresh meter (no peak or graph), for when the tool opens again.
+  void clear() {
+    _meter = VibrationMeter();
+    value = const VibrationReading();
   }
 
   void resetPeak() {

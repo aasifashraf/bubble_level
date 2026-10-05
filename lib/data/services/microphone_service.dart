@@ -15,6 +15,9 @@ class MicrophoneService {
   static const _sampleRate = 44100;
   static const _app = MethodChannel('bubble_level/app');
 
+  /// Completes when the last recorder has stopped and been released.
+  static Future<void> _released = Future.value();
+
   /// Whether the app may use the microphone; with [request], asks first.
   Future<bool> hasPermission({bool request = false}) async {
     final recorder = AudioRecorder();
@@ -42,14 +45,17 @@ class MicrophoneService {
   /// The mean square (0–1) of each 100 ms block of sound while listened
   /// to; an error when the microphone can't be used.
   Stream<ScalarSample> levels() {
-    final recorder = AudioRecorder();
+    AudioRecorder? recorder;
     final blocks = Pcm16Blocks(_sampleRate ~/ 10);
     StreamSubscription<Uint8List>? pcm;
     late final StreamController<ScalarSample> out;
     out = StreamController<ScalarSample>(
       onListen: () async {
         try {
-          final stream = await recorder.startStream(
+          await _released;
+          if (out.isClosed || !out.hasListener) return;
+          final r = recorder = AudioRecorder();
+          final stream = await r.startStream(
             const RecordConfig(
               encoder: AudioEncoder.pcm16bits,
               numChannels: 1,
@@ -76,15 +82,17 @@ class MicrophoneService {
           out.addError(e);
         }
       },
-      onCancel: () async {
+      onCancel: () => _released = () async {
         await pcm?.cancel();
+        final r = recorder;
+        if (r == null) return;
         try {
-          await recorder.stop();
+          await r.stop();
         } on Object {
           // Already stopped.
         }
-        await recorder.dispose();
-      },
+        await r.dispose();
+      }(),
     );
     return out.stream;
   }

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../../../data/repositories/orientation_repository.dart';
 import '../../../../data/repositories/settings_repository.dart';
@@ -75,6 +75,8 @@ class MetalViewModel extends SensorViewModel {
   static const _beat = Duration(milliseconds: 30);
 
   Timer? _beeper;
+  AppLifecycleListener? _lifecycle;
+  bool _visible = true;
   Duration _sinceTick = const Duration(days: 1);
 
   /// Gap between beeps for a [change] from the baseline, or null for
@@ -101,7 +103,9 @@ class MetalViewModel extends SensorViewModel {
   /// Runs a light beat while the tool is open with sound on; each beat
   /// beeps once the gap for the current change has passed.
   void _syncBeeper() {
-    final on = active && _settings.sounds;
+    // Never in the background: the sensors pause there, so the last
+    // reading would keep it beeping.
+    final on = active && _visible && _settings.sounds;
     if (on && _beeper == null) {
       _beeper = Timer.periodic(_beat, (_) => _onBeat());
     } else if (!on) {
@@ -140,11 +144,25 @@ class MetalViewModel extends SensorViewModel {
   @override
   void onActivate() {
     _baseline.clear();
+    _visible = true;
+    _lifecycle = AppLifecycleListener(
+      onHide: () => _setVisible(false),
+      onShow: () => _setVisible(true),
+    );
+    _syncBeeper();
+  }
+
+  void _setVisible(bool visible) {
+    _visible = visible;
     _syncBeeper();
   }
 
   @override
-  void onDeactivate() => _syncBeeper();
+  void onDeactivate() {
+    _lifecycle?.dispose();
+    _lifecycle = null;
+    _syncBeeper();
+  }
 
   @override
   void dispose() {

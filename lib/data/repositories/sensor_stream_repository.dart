@@ -47,6 +47,12 @@ abstract class SensorStreamRepository<S, R> extends ValueNotifier<R> {
         _subscription = null;
         onMissing();
       },
+      // A stream that ends (e.g. the microphone taken by a call) would
+      // otherwise leave a frozen reading that looks live.
+      onDone: () {
+        _subscription = null;
+        if (_wanted) onMissing();
+      },
       cancelOnError: true,
     );
   }

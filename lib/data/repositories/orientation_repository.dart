@@ -9,16 +9,34 @@ import '../services/motion_sensor_service.dart';
 
 /// Single source of truth for device orientation. Fuses the raw sensor
 /// streams and publishes an [OrientationReading] on every accelerometer
-/// sample. Sensors are released while the app is hidden to save battery.
+/// sample. The sensors run only while something listens (an open motion
+/// tool) and the app is visible, to save battery.
 class OrientationRepository extends ValueNotifier<OrientationReading>
     with WidgetsBindingObserver {
   OrientationRepository({
     this._sensors = const MotionSensorService(),
     this._display = const DisplayRotationService(),
   }) : super(const OrientationReading()) {
-    _lifecycle = AppLifecycleListener(onShow: start, onHide: stop);
+    _lifecycle = AppLifecycleListener(
+      onShow: () {
+        if (hasListeners) start();
+      },
+      onHide: stop,
+    );
     WidgetsBinding.instance.addObserver(this);
-    start();
+  }
+
+  @override
+  void addListener(VoidCallback listener) {
+    final first = !hasListeners;
+    super.addListener(listener);
+    if (first) start();
+  }
+
+  @override
+  void removeListener(VoidCallback listener) {
+    super.removeListener(listener);
+    if (!hasListeners) stop();
   }
 
   final MotionSensorService _sensors;

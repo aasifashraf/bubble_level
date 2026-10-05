@@ -84,7 +84,7 @@ class SettingsRepository extends ChangeNotifier {
   /// Follow the system, or force light / dark.
   ThemeMode get themeMode => _themeMode;
 
-  /// List (the default) or grid on the home screen.
+  /// Grid (the default) or list on the home screen.
   HomeLayout get homeLayout => _homeLayout;
 
   /// Dial (the default) or tube in the Level tool.

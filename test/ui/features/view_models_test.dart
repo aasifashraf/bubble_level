@@ -47,6 +47,18 @@ void main() {
   tearDown(() => orientation.dispose());
 
   group('OrientationRepository', () {
+    void listener() {}
+    setUp(() => orientation.addListener(listener));
+    tearDown(() => orientation.removeListener(listener));
+
+    test('sensors run only while something listens', () {
+      expect(sensors.accel.hasListener, isTrue);
+      orientation.removeListener(listener);
+      expect(sensors.accel.hasListener, isFalse);
+      orientation.addListener(listener);
+      expect(sensors.accel.hasListener, isTrue);
+    });
+
     test('waits for data, then reports gravity', () async {
       expect(orientation.value.accel, SensorState.waiting);
       sensors.sendUp(Vec3.up);
@@ -77,6 +89,23 @@ void main() {
     });
 
     tearDown(() => vm.dispose());
+
+    test(
+      'face down on a level surface reads 0°, and tilt from there',
+      () async {
+        sensors.sendUp(const Vec3(0, 0, -1));
+        await flush();
+        expect(vm.state!.mode, LevelMode.flat);
+        expect(vm.state!.angle, closeTo(0, 1e-9));
+        expect(vm.state!.isLevel, isTrue);
+        final a = 3 * math.pi / 180;
+        for (var i = 0; i < 100; i++) {
+          sensors.sendUp(Vec3(math.sin(a), 0, -math.cos(a)));
+        }
+        await flush();
+        expect(vm.state!.angle, closeTo(3, 0.05));
+      },
+    );
 
     test('flat and level: 0°, vibrates once', () async {
       sensors.sendUp(Vec3.up);
@@ -266,6 +295,26 @@ void main() {
             ..active = true,
     );
     tearDown(() => vm.dispose());
+
+    test('locked: zero and mode changes apply to the frozen reading', () async {
+      sensors.sendUp(_pitched(30));
+      await flush();
+      vm.toggleLock();
+      // Lifted off the object.
+      sensors.sendUp(_pitched(70));
+      await flush();
+      expect(vm.state!.tilt, closeTo(30, 1e-6));
+      vm.setZero();
+      expect(vm.state!.moved, closeTo(0, 1e-6));
+      vm.clearZero();
+      expect(vm.state!.tilt, closeTo(30, 1e-6), reason: 'still frozen');
+      vm.toggleLock();
+      for (var i = 0; i < 100; i++) {
+        sensors.sendUp(_pitched(70));
+      }
+      await flush();
+      expect(vm.state!.tilt, closeTo(70, 0.1), reason: 'live again');
+    });
 
     test('reports angle from level before zeroing', () async {
       sensors.sendUp(_pitched(30));

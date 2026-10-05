@@ -68,8 +68,10 @@ class RulerViewModel extends ChangeNotifier {
 
   double end(int i) => _ends[i];
 
-  /// Distance between the lines, snapped to 0.5 mm.
-  double get lengthMm => snapMm((_ends[1] - _ends[0]).abs());
+  /// Distance between the lines as drawn (kept on a ruler that got
+  /// shorter), snapped to 0.5 mm.
+  double get lengthMm =>
+      snapMm((shown(1, _rulerLengthMm) - shown(0, _rulerLengthMm)).abs());
 
   bool get locked => _locked;
 
@@ -90,7 +92,9 @@ class RulerViewModel extends ChangeNotifier {
   /// Starts dragging the line nearest [mm]; [maxMm] is the ruler's end.
   void beginDrag(double mm, double maxMm) {
     if (_locked) return;
-    _dragging = (mm - _ends[0]).abs() <= (mm - _ends[1]).abs() ? 0 : 1;
+    _dragging = (mm - shown(0, maxMm)).abs() <= (mm - shown(1, maxMm)).abs()
+        ? 0
+        : 1;
     dragTo(mm, maxMm);
   }
 
@@ -125,10 +129,6 @@ class RulerViewModel extends ChangeNotifier {
   bool get calibrating => _method != null;
 
   double _rulerLengthMm = double.infinity;
-
-  /// The ruler's length in mm as last laid out. Decides which card edge
-  /// or ruler mark fits, and whether any does.
-  double get rulerLengthMm => _rulerLengthMm;
 
   /// Called by the view during layout; a real change (rotation, resize)
   /// rebuilds the controls after this frame.

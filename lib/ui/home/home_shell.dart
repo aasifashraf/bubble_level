@@ -155,6 +155,8 @@ class _HomeShellState extends State<HomeShell> {
     super.dispose();
   }
 
+  bool _toolOpen = false;
+
   /// Tools that hold portrait unless turned with their rotate button.
   static const _rotatable = {
     HomeTool.level,
@@ -172,6 +174,10 @@ class _HomeShellState extends State<HomeShell> {
     WidgetBuilder page, {
     HomeTool? tool,
   }) async {
+    // Two quick taps would stack two tools; the second's close would
+    // then stop the first while it's still showing.
+    if (_toolOpen) return;
+    _toolOpen = true;
     final rotatable = _rotatable.contains(tool) ? tool!.name : null;
     if (rotatable != null) {
       unawaited(lockOrientation(widget.settings.toolLandscape(rotatable)));
@@ -190,6 +196,7 @@ class _HomeShellState extends State<HomeShell> {
     );
     vm?.active = false;
     if (rotatable != null) unawaited(lockOrientation(null));
+    _toolOpen = false;
   }
 
   void _openTool(HomeTool tool) {
