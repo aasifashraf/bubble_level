@@ -81,6 +81,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>The Sound meter uses the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.</string>
 	<key>NSMotionUsageDescription</key>

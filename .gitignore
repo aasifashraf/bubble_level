@@ -51,3 +51,8 @@ app.*.map.json
 .claude/
 skills-lock.json
 DESIGN.md
+
+# Signing keys, wherever they are placed
+key.properties
+*.jks
+*.keystore
