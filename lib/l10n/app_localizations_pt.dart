@@ -820,7 +820,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get soundHelp2 =>
-      'O número grande é o nível agora, com média de cerca de um segundo.';
+      'O número grande é o nível atual, com média de cerca de um segundo. Dele saem ondas, mais e mais longe quanto mais alto o som: verdes no silêncio, depois amarelas, laranja, vermelhas e carmim. As barras abaixo mostram os últimos três segundos.';
 
   @override
   String get soundHelp3 =>

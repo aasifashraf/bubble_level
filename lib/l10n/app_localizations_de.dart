@@ -823,7 +823,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get soundHelp2 =>
-      'Die große Zahl ist der aktuelle Pegel, gemittelt über etwa eine Sekunde.';
+      'Die große Zahl ist der aktuelle Pegel, gemittelt über etwa eine Sekunde. Von ihr breiten sich Wellen aus, je lauter, desto mehr und weiter: grün bei Ruhe, dann gelb, orange, rot und purpurrot. Die Balken darunter zeigen die letzten drei Sekunden.';
 
   @override
   String get soundHelp3 =>

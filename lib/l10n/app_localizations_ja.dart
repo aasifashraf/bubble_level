@@ -777,7 +777,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get soundHelp1 => 'マイク（下端）をふさがず、端末を音の方に向けます。';
 
   @override
-  String get soundHelp2 => '大きな数字は今の大きさで、約1秒間の平均です。';
+  String get soundHelp2 =>
+      '大きな数字は約1秒間で平均した現在の音量です。そこから波紋が広がり、音が大きいほど数が増えて遠くまで届きます。静かなときは緑、次に黄、オレンジ、赤、深紅。下のバーは直近3秒間を示します。';
 
   @override
   String get soundHelp3 => '平均と最大はツールを開いてから数えます。「リセット」で最初からやり直せます。';

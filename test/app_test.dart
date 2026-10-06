@@ -15,6 +15,7 @@ import 'package:bubble_level/ui/core/theme.dart';
 import 'package:bubble_level/ui/core/vial.dart';
 import 'package:bubble_level/ui/features/angle/view_models/angle_view_model.dart';
 import 'package:bubble_level/ui/features/angle/views/water_view.dart';
+import 'package:bubble_level/ui/features/sound/views/sound_ripples.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -851,7 +852,7 @@ void main() {
       expect(find.text('Quiet, like a library'), findsNothing);
     });
 
-    testWidgets('the dial goes green, orange, red like a traffic light', (
+    testWidgets('ripples in the colour of each band, frozen by the lock', (
       tester,
     ) async {
       await pumpApp(tester);
@@ -860,14 +861,26 @@ void main() {
       microphone.sendSound(ms(60), seconds: 3);
       await tester.pump();
       await tester.pump();
-      final dial = tester.widget<InstrumentDial>(find.byType(InstrumentDial));
+      SoundRipples water() =>
+          tester.widget<SoundRipples>(find.byType(SoundRipples));
       final p = Palette.light;
-      // Bands start at 0, 70 and 85 dB (3° per dB).
-      expect(dial.zones, [
+      // Green, yellow, orange, red and crimson from 0, 50, 70, 85, 100 dB.
+      expect(water().zones, [
         (from: 0.0, color: p.gaugeSafe),
-        (from: 210.0, color: p.gaugeCaution),
-        (from: 255.0, color: p.gaugeDanger),
+        (from: 50.0, color: p.gaugeModerate),
+        (from: 70.0, color: p.gaugeCaution),
+        (from: 85.0, color: p.gaugeDanger),
+        (from: 100.0, color: p.gaugeExtreme),
       ]);
+      expect(water().level, closeTo(60, 0.5));
+      expect(water().history, isNotEmpty);
+      expect(water().animate, isTrue);
+      expect(zoneColor(water().zones, 60, blend: 5, end: 120), p.gaugeModerate);
+      await tester.tap(find.byTooltip('Lock reading'));
+      await tester.pump();
+      expect(water().animate, isFalse, reason: 'the water holds still');
+      await tester.tap(find.byTooltip('Unlock'));
+      await tester.pump();
       StatusTone tone() =>
           tester.widget<StatusBanner>(find.byType(StatusBanner)).tone;
       expect(tone(), StatusTone.neutral);

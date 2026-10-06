@@ -45,6 +45,7 @@ class SoundRepository
     level: _meter.level,
     max: _meter.max,
     average: _meter.average,
+    history: _meter.history,
     state: state,
   );
 }

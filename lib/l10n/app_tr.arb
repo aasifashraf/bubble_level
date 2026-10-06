@@ -232,7 +232,7 @@
   "openSettings": "Ayarları aç",
   "tryAgain": "Tekrar dene",
   "soundHelp1": "Mikrofonu (alt kenarda) açık bırakın ve telefonu sese doğru tutun.",
-  "soundHelp2": "Büyük sayı, yaklaşık bir saniyenin ortalaması olan şu anki seviyedir.",
+  "soundHelp2": "Büyük sayı, yaklaşık bir saniyelik ortalamayla şu anki seviyedir. Ondan dalgalar yayılır; ses yükseldikçe daha çok ve daha uzağa: sessizken yeşil, sonra sarı, turuncu, kırmızı ve koyu kırmızı. Alttaki çubuklar son üç saniyeyi gösterir.",
   "soundHelp3": "Ortalama ve Maks., aracı açtığınızdan beri sayılır. Yeniden başlatmak için Sıfırla’ya dokunun.",
   "soundHelp4": "70 dB’den itibaren durum satırı sarıya, uzun süre maruz kalmanın işitmeye zarar verebileceği 85 dB’den itibaren kırmızıya döner.",
   "soundHelp5": "Telefonu hareket ettirirken bir okumayı ekranda tutmak için kilide dokunun.",

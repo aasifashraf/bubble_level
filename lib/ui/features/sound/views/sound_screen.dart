@@ -10,9 +10,10 @@ import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/sound_view_model.dart';
+import 'sound_ripples.dart';
 
-/// Sound meter: the level on a 0–120 dB dial, average and maximum, and
-/// what the level means for hearing. Asks for the microphone only after
+/// Sound meter: the level spreading like ripples on water, average and
+/// maximum, and what the level means for hearing. Asks for the microphone only after
 /// saying why, and that nothing is recorded.
 class SoundScreen extends StatelessWidget {
   const SoundScreen({super.key, required this.viewModel, required this.onBack});
@@ -32,12 +33,6 @@ class SoundScreen extends StatelessWidget {
     tip: l.soundTip,
   );
 
-  /// Every 30°, 10 dB apart.
-  static const _scale = [
-    '0', '10', '20', '30', '40', '50', //
-    '60', '70', '80', '90', '100', '110',
-  ];
-
   static String _band(AppLocalizations l, SoundBand band) => switch (band) {
     SoundBand.veryQuiet => l.soundVeryQuiet,
     SoundBand.quiet => l.soundQuiet,
@@ -47,14 +42,15 @@ class SoundScreen extends StatelessWidget {
     SoundBand.dangerous => l.soundDangerous,
   };
 
-  /// Degrees on the dial per decibel (0–120 dB around the ring).
-  static const _degPerDb = 3.0;
-
-  /// Green while fine, orange once loud, red where hearing is at risk.
+  /// The bands by level (dB): green while quiet, yellow for a
+  /// conversation, orange once loud, red where hearing is at risk, crimson
+  /// when dangerous.
   static List<DialZone> _zones(Palette p) => [
     (from: 0, color: p.gaugeSafe),
-    (from: loudDb * _degPerDb, color: p.gaugeCaution),
-    (from: harmfulDb * _degPerDb, color: p.gaugeDanger),
+    (from: moderateDb, color: p.gaugeModerate),
+    (from: loudDb, color: p.gaugeCaution),
+    (from: harmfulDb, color: p.gaugeDanger),
+    (from: dangerousDb, color: p.gaugeExtreme),
   ];
 
   @override
@@ -70,7 +66,7 @@ class SoundScreen extends StatelessWidget {
           title: l.toolSound,
           onBack: onBack,
           trailing: HelpButton(help: _help(l)),
-          bodyBottomInset: granted ? 120 : 0,
+          bodyBottomInset: granted ? 205 : 0,
           body: switch (viewModel.access) {
             MicAccess.checking => const SizedBox.shrink(),
             MicAccess.needed => _Permission(
@@ -108,15 +104,14 @@ class SoundScreen extends StatelessWidget {
               missingText: l.noMicrophone,
               child: db == null
                   ? const SizedBox.shrink()
-                  : InstrumentDial(
-                      value: formatDb(db),
-                      label: l.decibelsApprox,
-                      semanticsLabel: l.soundSemantics(formatDb(db)),
-                      scaleLabels: _scale,
-                      arcSweep: (db * _degPerDb).clamp(0.0, 359.6),
-                      ballAngle: (db * _degPerDb).clamp(0.0, 359.6),
+                  : SoundRipples(
+                      level: db,
+                      history: r.history,
                       zones: _zones(Palette.of(context)),
-                      reserved: 200,
+                      value: formatDb(db),
+                      unit: l.decibelsApprox,
+                      semanticsLabel: l.soundSemantics(formatDb(db)),
+                      animate: !viewModel.locked,
                     ),
             ),
           },
@@ -128,7 +123,7 @@ class SoundScreen extends StatelessWidget {
 
   Widget _footer(BuildContext context, SoundReading r, double db) {
     final l = context.l10n;
-    final band = SoundBand.of(db);
+    final band = viewModel.band ?? SoundBand.of(db);
     final text = _band(l, band);
     return Column(
       mainAxisSize: MainAxisSize.min,

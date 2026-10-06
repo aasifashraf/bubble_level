@@ -441,7 +441,7 @@
   "openSettings": "Open settings",
   "tryAgain": "Try again",
   "soundHelp1": "Keep the microphone (on the bottom edge) uncovered and point the phone toward the sound.",
-  "soundHelp2": "The big number is the level now, averaged over about a second.",
+  "soundHelp2": "The big number is the level now, averaged over about a second. Ripples spread from it, more and further the louder it is: green when quiet, then yellow, orange, red and crimson. The bars below show the last three seconds.",
   "soundHelp3": "Average and Max count from when you opened the tool. Tap Reset to start them again.",
   "soundHelp4": "From 70 dB the status line turns yellow; from 85 dB, where long exposure can damage hearing, it turns red.",
   "soundHelp5": "Tap the lock to keep a reading on screen while you move the phone.",

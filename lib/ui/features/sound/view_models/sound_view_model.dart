@@ -33,6 +33,7 @@ class SoundViewModel extends ActiveViewModel {
   MicAccess _access = MicAccess.checking;
   bool _refused = false;
   SoundReading? _held;
+  SoundBand? _band;
   AppLifecycleListener? _lifecycle;
 
   MicAccess get access => _access;
@@ -41,6 +42,9 @@ class SoundViewModel extends ActiveViewModel {
   SoundReading get reading => _held ?? _repository.value;
 
   bool get locked => _held != null;
+
+  /// What the level is like, steady on a boundary; null before a reading.
+  SoundBand? get band => _band;
 
   /// Shows the system prompt (the explanation has been read).
   Future<void> allow() async {
@@ -84,6 +88,7 @@ class SoundViewModel extends ActiveViewModel {
   @override
   void onActivate() {
     _held = null;
+    _band = null;
     _access = MicAccess.checking;
     _repository.clear();
     _lifecycle = AppLifecycleListener(onResume: _check);
@@ -98,5 +103,9 @@ class SoundViewModel extends ActiveViewModel {
   }
 
   @override
-  void update() => notifyListeners();
+  void update() {
+    final db = reading.level;
+    _band = db == null ? null : SoundBand.settle(_band, db);
+    notifyListeners();
+  }
 }

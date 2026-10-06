@@ -232,7 +232,7 @@
   "openSettings": "Abrir configurações",
   "tryAgain": "Tentar de novo",
   "soundHelp1": "Deixe o microfone (na borda de baixo) livre e aponte o celular para o som.",
-  "soundHelp2": "O número grande é o nível agora, com média de cerca de um segundo.",
+  "soundHelp2": "O número grande é o nível atual, com média de cerca de um segundo. Dele saem ondas, mais e mais longe quanto mais alto o som: verdes no silêncio, depois amarelas, laranja, vermelhas e carmim. As barras abaixo mostram os últimos três segundos.",
   "soundHelp3": "Média e Máx. contam desde que você abriu a ferramenta. Toque em Redefinir para recomeçar.",
   "soundHelp4": "A partir de 70 dB a linha de status fica amarela; a partir de 85 dB, quando a exposição longa pode prejudicar a audição, fica vermelha.",
   "soundHelp5": "Toque no cadeado para manter uma leitura na tela enquanto move o celular.",

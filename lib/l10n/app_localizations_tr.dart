@@ -821,7 +821,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get soundHelp2 =>
-      'Büyük sayı, yaklaşık bir saniyenin ortalaması olan şu anki seviyedir.';
+      'Büyük sayı, yaklaşık bir saniyelik ortalamayla şu anki seviyedir. Ondan dalgalar yayılır; ses yükseldikçe daha çok ve daha uzağa: sessizken yeşil, sonra sarı, turuncu, kırmızı ve koyu kırmızı. Alttaki çubuklar son üç saniyeyi gösterir.';
 
   @override
   String get soundHelp3 =>

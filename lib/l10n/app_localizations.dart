@@ -1513,7 +1513,7 @@ abstract class AppLocalizations {
   /// No description provided for @soundHelp2.
   ///
   /// In en, this message translates to:
-  /// **'The big number is the level now, averaged over about a second.'**
+  /// **'The big number is the level now, averaged over about a second. Ripples spread from it, more and further the louder it is: green when quiet, then yellow, orange, red and crimson. The bars below show the last three seconds.'**
   String get soundHelp2;
 
   /// No description provided for @soundHelp3.

@@ -50,6 +50,19 @@ void main() {
     /// Mean square for a level of [db].
     double ms(double db) => math.pow(10, (db - fullScaleDb) / 10).toDouble();
 
+    test('keeps the last three seconds of levels for the bars', () {
+      final m = SoundMeter();
+      for (var i = 0; i < 40; i++) {
+        m.add(ms(40), 0.1);
+      }
+      expect(m.history, hasLength(SoundMeter.historyLength));
+      expect(m.history.last, closeTo(40, 1e-9));
+      m.reset();
+      expect(m.history, isNotEmpty, reason: 'Reset keeps the picture');
+      m.clear();
+      expect(m.history, isEmpty);
+    });
+
     test('Slow weighting settles in about a second', () {
       final m = SoundMeter()..add(ms(40), 0.1);
       expect(m.level, closeTo(40, 1e-9));
@@ -108,5 +121,21 @@ void main() {
     expect(SoundBand.of(85), SoundBand.veryLoud);
     expect(SoundBand.of(85).harmful, isTrue);
     expect(SoundBand.of(105), SoundBand.dangerous);
+  });
+
+  test('on a boundary the band holds until clearly past it', () {
+    // Moderate, then hovering around 70 dB: still moderate.
+    var band = SoundBand.settle(null, 65);
+    for (final db in [70.4, 69.2, 71.0, 69.8, 70.9]) {
+      band = SoundBand.settle(band, db);
+      expect(band, SoundBand.moderate, reason: '$db dB');
+    }
+    band = SoundBand.settle(band, 71.6);
+    expect(band, SoundBand.loud);
+    // And back down: loud until clearly under.
+    expect(SoundBand.settle(band, 69), SoundBand.loud);
+    expect(SoundBand.settle(band, 68.4), SoundBand.moderate);
+    // A big jump goes straight there.
+    expect(SoundBand.settle(SoundBand.quiet, 95), SoundBand.veryLoud);
   });
 }

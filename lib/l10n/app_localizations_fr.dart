@@ -824,7 +824,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get soundHelp2 =>
-      'Le grand nombre est le niveau actuel, moyenné sur environ une seconde.';
+      'Le grand nombre est le niveau actuel, moyenné sur environ une seconde. Des ondes s’en éloignent, plus nombreuses et plus loin quand c’est fort : vertes au calme, puis jaunes, orange, rouges et cramoisies. Les barres en dessous montrent les trois dernières secondes.';
 
   @override
   String get soundHelp3 =>

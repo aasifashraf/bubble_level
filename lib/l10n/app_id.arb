@@ -232,7 +232,7 @@
   "openSettings": "Buka setelan",
   "tryAgain": "Coba lagi",
   "soundHelp1": "Biarkan mikrofon (di tepi bawah) terbuka dan arahkan ponsel ke sumber suara.",
-  "soundHelp2": "Angka besar adalah tingkat suara saat ini, rata-rata sekitar satu detik.",
+  "soundHelp2": "Angka besar adalah tingkat suara saat ini, dirata-rata sekitar satu detik. Riak menyebar darinya, makin banyak dan makin jauh saat makin keras: hijau saat sunyi, lalu kuning, oranye, merah, dan merah tua. Batang di bawah menunjukkan tiga detik terakhir.",
   "soundHelp3": "Rata-rata dan Maks dihitung sejak alat dibuka. Ketuk Atur ulang untuk memulai lagi.",
   "soundHelp4": "Mulai 70 dB baris status menjadi kuning; mulai 85 dB, saat paparan lama bisa merusak pendengaran, menjadi merah.",
   "soundHelp5": "Ketuk gembok untuk menahan bacaan di layar saat Anda menggerakkan ponsel.",

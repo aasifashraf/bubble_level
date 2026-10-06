@@ -232,7 +232,7 @@
   "openSettings": "Abrir ajustes",
   "tryAgain": "Reintentar",
   "soundHelp1": "Deja libre el micrófono (en el borde inferior) y apunta el teléfono hacia el sonido.",
-  "soundHelp2": "El número grande es el nivel actual, promediado durante un segundo aproximadamente.",
+  "soundHelp2": "El número grande es el nivel actual, promediado durante un segundo aproximadamente. De él salen ondas, más y más lejos cuanto más alto es el sonido: verdes en silencio, luego amarillas, naranjas, rojas y carmesí. Las barras de abajo muestran los últimos tres segundos.",
   "soundHelp3": "Promedio y Máx. cuentan desde que abriste la herramienta. Toca Restablecer para empezar de nuevo.",
   "soundHelp4": "A partir de 70 dB la línea de estado se pone amarilla; a partir de 85 dB, donde la exposición prolongada puede dañar el oído, se pone roja.",
   "soundHelp5": "Toca el candado para conservar una lectura mientras mueves el teléfono.",

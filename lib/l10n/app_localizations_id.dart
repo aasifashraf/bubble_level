@@ -820,7 +820,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get soundHelp2 =>
-      'Angka besar adalah tingkat suara saat ini, rata-rata sekitar satu detik.';
+      'Angka besar adalah tingkat suara saat ini, dirata-rata sekitar satu detik. Riak menyebar darinya, makin banyak dan makin jauh saat makin keras: hijau saat sunyi, lalu kuning, oranye, merah, dan merah tua. Batang di bawah menunjukkan tiga detik terakhir.';
 
   @override
   String get soundHelp3 =>

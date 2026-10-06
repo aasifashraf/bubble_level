@@ -817,7 +817,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soundHelp2 =>
-      'The big number is the level now, averaged over about a second.';
+      'The big number is the level now, averaged over about a second. Ripples spread from it, more and further the louder it is: green when quiet, then yellow, orange, red and crimson. The bars below show the last three seconds.';
 
   @override
   String get soundHelp3 =>
