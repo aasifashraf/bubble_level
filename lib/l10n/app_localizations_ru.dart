@@ -388,7 +388,12 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get magneticInterference => 'Магнитные помехи · отойдите от металла';
+  String get magneticInterference =>
+      'Магнитные помехи · отойдите от металла и поводите телефоном восьмёркой';
+
+  @override
+  String get compassCalibrate =>
+      'Поводите телефоном восьмёркой, чтобы откалибровать компас';
 
   @override
   String get dirN => 'С';

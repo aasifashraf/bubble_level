@@ -398,6 +398,26 @@ void main() {
       sensors.sendUp(Vec3.up);
       await flush();
       expect(vm.state!.reliable, isFalse);
+      expect(vm.state!.fieldOk, isFalse);
+    });
+
+    test('untrusted while the system asks for calibration', () async {
+      final pose = devicePose(heading: 120, pitch: 0);
+      sensors
+        ..sendUp(pose.up)
+        ..sendMagnet(pose.field)
+        ..magnetAccuracy.add(0);
+      await flush();
+      sensors.sendUp(pose.up);
+      await flush();
+      expect(vm.state!.fieldOk, isTrue);
+      expect(vm.state!.calibrated, isFalse);
+      expect(vm.state!.reliable, isFalse);
+      sensors.magnetAccuracy.add(3);
+      await flush();
+      sensors.sendUp(pose.up);
+      await flush();
+      expect(vm.state!.reliable, isTrue);
     });
   });
 }

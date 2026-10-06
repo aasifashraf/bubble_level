@@ -375,7 +375,10 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get magneticInterference => '磁気の乱れ · 金属から離れてください';
+  String get magneticInterference => '磁気の乱れ · 金属から離れ、端末を8の字に動かしてください';
+
+  @override
+  String get compassCalibrate => '端末を8の字に動かしてコンパスを補正してください';
 
   @override
   String get dirN => '北';

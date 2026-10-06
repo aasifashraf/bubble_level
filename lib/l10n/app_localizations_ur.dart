@@ -387,7 +387,12 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get magneticInterference => 'مقناطیسی مداخلت · دھات سے دور ہٹیں';
+  String get magneticInterference =>
+      'مقناطیسی مداخلت · دھات سے دور ہٹیں، پھر فون کو 8 کی شکل میں گھمائیں';
+
+  @override
+  String get compassCalibrate =>
+      'کمپاس کیلیبریٹ کرنے کے لیے فون کو 8 کی شکل میں گھمائیں';
 
   @override
   String get dirN => 'شمال';

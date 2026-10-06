@@ -387,7 +387,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get magneticInterference =>
-      'Magnetic interference · move away from metal';
+      'Magnetic interference · move away from metal, then wave the phone in a figure 8';
+
+  @override
+  String get compassCalibrate =>
+      'Wave the phone in a figure 8 to calibrate the compass';
 
   @override
   String get dirN => 'N';

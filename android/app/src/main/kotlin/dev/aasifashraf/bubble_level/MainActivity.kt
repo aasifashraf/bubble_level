@@ -101,5 +101,41 @@ class MainActivity : FlutterActivity() {
                     listener = null
                 }
             })
+
+        // The compass sensor's calibration status (SensorManager's
+        // SENSOR_STATUS_*: 0 unreliable, 1 low, 2 medium, 3 high), sent
+        // first with the first reading and then whenever it changes. A
+        // figure 8 lets the system recalibrate and raise it.
+        EventChannel(flutterEngine.dartExecutor.binaryMessenger, "bubble_level/magnetic_accuracy")
+            .setStreamHandler(object : EventChannel.StreamHandler {
+                private var listener: SensorEventListener? = null
+
+                override fun onListen(arguments: Any?, events: EventChannel.EventSink) {
+                    val manager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+                    val sensor = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+                        ?: return events.error("NO_SENSOR", "This device has no magnetometer", null)
+                    val l = object : SensorEventListener {
+                        private var last: Int? = null
+
+                        private fun send(accuracy: Int) {
+                            if (accuracy == last) return
+                            last = accuracy
+                            events.success(accuracy)
+                        }
+
+                        override fun onSensorChanged(event: SensorEvent) = send(event.accuracy)
+
+                        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = send(accuracy)
+                    }
+                    listener = l
+                    manager.registerListener(l, sensor, SensorManager.SENSOR_DELAY_UI)
+                }
+
+                override fun onCancel(arguments: Any?) {
+                    val manager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+                    listener?.let(manager::unregisterListener)
+                    listener = null
+                }
+            })
     }
 }

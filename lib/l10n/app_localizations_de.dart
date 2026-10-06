@@ -388,7 +388,12 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get magneticInterference => 'Magnetische Störung · weg von Metall';
+  String get magneticInterference =>
+      'Magnetische Störung · weg von Metall, dann das Handy in einer Acht schwenken';
+
+  @override
+  String get compassCalibrate =>
+      'Schwenk das Handy in einer Acht, um den Kompass zu kalibrieren';
 
   @override
   String get dirN => 'N';

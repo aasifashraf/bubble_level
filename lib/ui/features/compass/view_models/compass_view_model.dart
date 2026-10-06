@@ -9,7 +9,8 @@ class CompassState {
   const CompassState({
     required this.heading,
     required this.flat,
-    required this.reliable,
+    required this.fieldOk,
+    required this.calibrated,
   });
 
   /// Magnetic heading in [0, 360).
@@ -18,8 +19,15 @@ class CompassState {
   /// True: heading of the top edge (phone flat). False: of the back camera.
   final bool flat;
 
-  /// False when the magnetic field looks disturbed or uncalibrated.
-  final bool reliable;
+  /// False when the field is far from the Earth's: metal or a magnet
+  /// nearby, or a calibration thrown off by one.
+  final bool fieldOk;
+
+  /// False while the system asks for the magnetometer to be calibrated.
+  final bool calibrated;
+
+  /// Whether the heading can be trusted.
+  bool get reliable => fieldOk && calibrated;
 
   /// Compass sector 0–7 (N, NE, … NW).
   int get sector => cardinalSector(heading);
@@ -50,7 +58,8 @@ class CompassViewModel extends SensorViewModel {
     return CompassState(
       heading: heading,
       flat: flat,
-      reliable: reading.magneticReliable,
+      fieldOk: reading.magneticFieldOk,
+      calibrated: reading.magneticCalibrated,
     );
   }
 }

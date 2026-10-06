@@ -775,8 +775,14 @@ abstract class AppLocalizations {
   /// No description provided for @magneticInterference.
   ///
   /// In en, this message translates to:
-  /// **'Magnetic interference · move away from metal'**
+  /// **'Magnetic interference · move away from metal, then wave the phone in a figure 8'**
   String get magneticInterference;
+
+  /// No description provided for @compassCalibrate.
+  ///
+  /// In en, this message translates to:
+  /// **'Wave the phone in a figure 8 to calibrate the compass'**
+  String get compassCalibrate;
 
   /// Compass abbreviation: north. Also the N on the dial.
   ///

@@ -388,7 +388,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get magneticInterference =>
-      'Interferência magnética · afaste-se do metal';
+      'Interferência magnética · afaste-se do metal e mova o celular fazendo um 8';
+
+  @override
+  String get compassCalibrate =>
+      'Mova o celular fazendo um 8 para calibrar a bússola';
 
   @override
   String get dirN => 'N';

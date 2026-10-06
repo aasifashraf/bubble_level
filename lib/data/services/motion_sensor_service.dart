@@ -41,6 +41,16 @@ class MotionSensorService {
     (e) => (value: e.pressure, timestamp: e.timestamp),
   );
 
+  static const _magneticAccuracy = EventChannel(
+    'bubble_level/magnetic_accuracy',
+  );
+
+  /// The magnetometer's calibration status from the system (Android:
+  /// 0 unreliable … 3 high; see MainActivity.kt). Errors where the
+  /// platform doesn't report it (iOS).
+  Stream<int> magneticAccuracy() =>
+      _magneticAccuracy.receiveBroadcastStream().map((e) => (e as num).toInt());
+
   static const _light = EventChannel('bubble_level/light');
 
   /// Illuminance in lux, from the ambient light sensor (Android; see

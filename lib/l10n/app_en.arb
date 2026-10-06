@@ -232,7 +232,8 @@
       }
     }
   },
-  "magneticInterference": "Magnetic interference · move away from metal",
+  "magneticInterference": "Magnetic interference · move away from metal, then wave the phone in a figure 8",
+  "compassCalibrate": "Wave the phone in a figure 8 to calibrate the compass",
   "dirN": "N",
   "@dirN": {
     "description": "Compass abbreviation: north. Also the N on the dial."

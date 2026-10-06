@@ -388,7 +388,12 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get magneticInterference => 'Manyetik parazit · metalden uzaklaşın';
+  String get magneticInterference =>
+      'Manyetik parazit · metalden uzaklaşın, sonra telefonu 8 çizerek sallayın';
+
+  @override
+  String get compassCalibrate =>
+      'Pusulayı kalibre etmek için telefonu 8 çizerek sallayın';
 
   @override
   String get dirN => 'K';

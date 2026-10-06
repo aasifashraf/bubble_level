@@ -1008,6 +1008,22 @@ void main() {
       await send(tester, pose.up);
     }
     expect(find.textContaining('Magnetic interference'), findsOneWidget);
+
+    // Taken away again: the warning goes with it.
+    for (var i = 0; i < 30; i++) {
+      sensors.sendMagnet(pose.field);
+      await send(tester, pose.up);
+    }
+    expect(find.textContaining('Magnetic interference'), findsNothing);
+
+    // The system says the compass needs calibrating (as after a magnet
+    // threw it off): ask for a figure 8, until it's calibrated again.
+    sensors.magnetAccuracy.add(1);
+    await send(tester, pose.up);
+    expect(find.textContaining('figure 8 to calibrate'), findsOneWidget);
+    sensors.magnetAccuracy.add(3);
+    await send(tester, pose.up);
+    expect(find.textContaining('figure 8 to calibrate'), findsNothing);
   });
 
   testWidgets('phone landscape: readings sit beside the dial', (tester) async {

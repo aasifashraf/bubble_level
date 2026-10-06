@@ -60,14 +60,20 @@ class CompassScreen extends StatelessWidget {
                     reserved: 200,
                   ),
           ),
-          // Only when needed: a field far from the Earth's means metal or
-          // a magnet nearby, and the heading can't be trusted.
-          footer: state == null || reading.magneticReliable
+          // Only when needed. A field far from the Earth's means metal or a
+          // magnet nearby, or a calibration it threw off, which stays wrong
+          // until a figure 8; the system can also ask for one itself.
+          footer: state == null || state.reliable
               ? null
-              : StatusBanner(
+              : !state.fieldOk
+              ? StatusBanner(
                   icon: Icons.warning_amber_rounded,
                   text: context.l10n.magneticInterference,
                   tone: StatusTone.warning,
+                )
+              : StatusBanner(
+                  icon: Icons.all_inclusive_rounded,
+                  text: context.l10n.compassCalibrate,
                 ),
         );
       },

@@ -44,12 +44,13 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
   late final AppLifecycleListener _lifecycle;
   final _gravity = GravityFilter();
   final _magnetic = VectorLowPass(0.25);
-  final _subs = <StreamSubscription<SensorSample>>[];
+  final _subs = <StreamSubscription<Object?>>[];
   Timer? _rotationPoll;
   var _quarterTurns = 0;
   var _accel = SensorState.waiting,
       _gyro = SensorState.waiting,
       _magnet = SensorState.waiting;
+  int? _magneticAccuracy;
 
   static double _seconds(DateTime t) => t.microsecondsSinceEpoch / 1e6;
 
@@ -71,6 +72,12 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
         _magnet = SensorState.ok;
         _magnetic.add(s.value, _seconds(s.timestamp));
       }, () => _magnet = SensorState.missing),
+      // Not every platform reports it; then it's simply unknown.
+      _sensors.magneticAccuracy().listen(
+        (a) => _magneticAccuracy = a,
+        onError: (Object _) => _magneticAccuracy = null,
+        cancelOnError: true,
+      ),
     ]);
     // A 180° flip doesn't change the window size, so metrics callbacks can
     // miss it; a cheap poll catches every rotation.
@@ -121,6 +128,7 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
       accel: _accel,
       gyro: _gyro,
       magnet: _magnet,
+      magneticAccuracy: _magneticAccuracy,
     );
   }
 

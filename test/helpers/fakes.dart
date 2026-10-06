@@ -15,6 +15,7 @@ class FakeMotionSensorService implements MotionSensorService {
   final userAccel = StreamController<SensorSample>.broadcast();
   final baro = StreamController<ScalarSample>.broadcast();
   final lightSensor = StreamController<ScalarSample>.broadcast();
+  final magnetAccuracy = StreamController<int>.broadcast();
 
   var _t = DateTime(2026);
 
@@ -52,6 +53,8 @@ class FakeMotionSensorService implements MotionSensorService {
   Stream<ScalarSample> barometer() => baro.stream;
   @override
   Stream<ScalarSample> light() => lightSensor.stream;
+  @override
+  Stream<int> magneticAccuracy() => magnetAccuracy.stream;
 }
 
 class FakeDisplayRotationService implements DisplayRotationService {

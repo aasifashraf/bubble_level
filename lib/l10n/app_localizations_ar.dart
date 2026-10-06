@@ -386,7 +386,11 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get magneticInterference => 'تشويش مغناطيسي · ابتعد عن المعادن';
+  String get magneticInterference =>
+      'تشويش مغناطيسي · ابتعد عن المعادن، ثم حرّك الهاتف على شكل الرقم 8';
+
+  @override
+  String get compassCalibrate => 'حرّك الهاتف على شكل الرقم 8 لمعايرة البوصلة';
 
   @override
   String get dirN => 'ش';

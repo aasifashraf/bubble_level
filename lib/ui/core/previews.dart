@@ -112,7 +112,9 @@ Widget detailsPreview() => Padding(
       const SizedBox(height: 12),
       const StatusBanner(
         icon: Icons.warning_amber_rounded,
-        text: 'Magnetic interference · move away from metal',
+        text:
+            'Magnetic interference · move away from metal, then wave the phone in '
+            'a figure 8',
         tone: StatusTone.warning,
       ),
       const SizedBox(height: 16),

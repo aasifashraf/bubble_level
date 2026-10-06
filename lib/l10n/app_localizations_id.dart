@@ -387,7 +387,12 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get magneticInterference => 'Gangguan magnetis · jauhi logam';
+  String get magneticInterference =>
+      'Gangguan magnetis · jauhi logam, lalu gerakkan ponsel membentuk angka 8';
+
+  @override
+  String get compassCalibrate =>
+      'Gerakkan ponsel membentuk angka 8 untuk mengkalibrasi kompas';
 
   @override
   String get dirN => 'U';
