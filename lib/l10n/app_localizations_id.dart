@@ -747,7 +747,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Baca nilai lux dan cocok untuk apa cahayanya: 300–750 lx pas untuk membaca dan bekerja di meja.';
+      'Langit mengikuti cahaya: malam saat gelap, fajar di ruangan redup, dan matahari naik saat makin terang. Baca lux dan untuk apa cahaya itu cocok: 300–750 lx cocok untuk membaca dan bekerja di meja.';
 
   @override
   String get lightHelp4 =>

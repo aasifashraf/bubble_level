@@ -5,16 +5,17 @@ import 'package:bubble_level/data/repositories/settings_repository.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
-import 'package:bubble_level/domain/light.dart';
 import 'package:bubble_level/domain/ruler.dart';
 import 'package:bubble_level/main.dart';
 import 'package:bubble_level/ui/core/controls.dart';
 import 'package:bubble_level/ui/core/dial.dart';
 import 'package:bubble_level/ui/core/readout.dart';
 import 'package:bubble_level/ui/core/theme.dart';
+import 'package:bubble_level/ui/core/tool_frame.dart';
 import 'package:bubble_level/ui/core/vial.dart';
 import 'package:bubble_level/ui/features/angle/view_models/angle_view_model.dart';
 import 'package:bubble_level/ui/features/angle/views/water_view.dart';
+import 'package:bubble_level/ui/features/light/views/light_sky.dart';
 import 'package:bubble_level/ui/features/sound/views/sound_ripples.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -914,30 +915,27 @@ void main() {
       await tester.pump();
       await tester.pump();
       expect(find.bySemanticsLabel('Brightness 420 lux'), findsOneWidget);
-      expect(find.text('420 lx'), findsOneWidget);
+      expect(find.text('420'), findsOneWidget);
       expect(find.text('39 fc'), findsOneWidget);
       expect(find.text('Good for reading and desk work'), findsOneWidget);
       semantics.dispose();
     });
 
-    testWidgets('the dial is green where light suits reading', (tester) async {
+    testWidgets('a night sky in the dark, the title turns light', (
+      tester,
+    ) async {
       await pumpApp(tester);
       await openTool(tester, 'Light meter');
-      sensors.sendLux(420);
+      bool headerOnDark() =>
+          tester.widget<ToolFrame>(find.byType(ToolFrame)).headerOnDark;
+      sensors.sendLux(3);
       await tester.pump();
       await tester.pump();
-      final zones = tester
-          .widget<InstrumentDial>(find.byType(InstrumentDial))
-          .zones!;
-      final p = Palette.light;
-      // Red below 50 lx, orange to 300, green to 10 000, then orange.
-      expect(
-        [for (final z in zones) z.color],
-        [p.gaugeDanger, p.gaugeCaution, p.gaugeSafe, p.gaugeCaution],
-      );
-      expect(zones[1].from, closeTo(lightSweep(50), 1e-9));
-      expect(zones[2].from, closeTo(lightSweep(300), 1e-9));
-      expect(zones[3].from, closeTo(lightSweep(10000), 1e-9));
+      expect(tester.widget<LightSky>(find.byType(LightSky)).lux, 3);
+      expect(headerOnDark(), isTrue);
+      sensors.sendLux(20000);
+      await tester.pumpAndSettle();
+      expect(headerOnDark(), isFalse);
     });
 
     testWidgets('the lock holds a reading', (tester) async {
@@ -951,14 +949,14 @@ void main() {
       sensors.sendLux(12);
       await tester.pump();
       await tester.pump();
-      expect(find.text('420 lx'), findsOneWidget);
+      expect(find.text('420'), findsOneWidget);
       expect(
         find.text('Locked · Good for reading and desk work'),
         findsOneWidget,
       );
       await tester.tap(find.text('Unlock'));
       await tester.pump();
-      expect(find.text('12 lx'), findsOneWidget);
+      expect(find.text('12'), findsOneWidget);
       expect(find.text('Dim light'), findsOneWidget);
     });
 

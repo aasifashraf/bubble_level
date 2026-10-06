@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/light.dart';
 import '../../../core/controls.dart';
-import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
 import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
-import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/light_view_model.dart';
+import 'light_sky.dart';
 
-/// Light meter: lux on a logarithmic dial (each step ten times brighter),
-/// foot-candles, and what the light is good for.
+/// Light meter: a sky that follows the light (night when dark, the sun
+/// high in sunlight), lux and foot-candles, and what the light is good for.
 class LightScreen extends StatelessWidget {
   const LightScreen({super.key, required this.viewModel, required this.onBack});
 
@@ -24,21 +23,6 @@ class LightScreen extends StatelessWidget {
     steps: [l.lightHelp1, l.lightHelp2, l.lightHelp3, l.lightHelp4],
     tip: l.lightTip,
   );
-
-  /// Every 30°; the tenfold steps (60° apart) are labelled.
-  static const _scale = [
-    '1', '', '10', '', '100', '', //
-    '1k', '', '10k', '', '100k', '',
-  ];
-
-  /// Red too dark to read, orange dim, green good for reading and desk
-  /// work, orange again for glare.
-  static List<DialZone> _zones(Palette p) => [
-    (from: 0, color: p.gaugeDanger),
-    (from: lightSweep(tooDarkLux), color: p.gaugeCaution),
-    (from: lightSweep(readingLux), color: p.gaugeSafe),
-    (from: lightSweep(glareLux), color: p.gaugeCaution),
-  ];
 
   static String _band(AppLocalizations l, LightBand band) => switch (band) {
     LightBand.dark => l.lightDark,
@@ -59,48 +43,41 @@ class LightScreen extends StatelessWidget {
         final l = context.l10n;
         final r = viewModel.reading;
         final lux = r.lux;
-        final sweep = lux == null ? 0.0 : lightSweep(lux);
+        final band = lux == null ? null : _band(l, LightBand.of(lux));
         return ToolFrame(
           title: l.toolLight,
           onBack: onBack,
           trailing: HelpButton(help: _help(l)),
-          bodyBottomInset: 120,
+          // A night sky behind the header: light title and status bar.
+          headerOnDark:
+              lux != null &&
+              skyLevel(lux) < 0.45 &&
+              !ToolFrame.sideBySide(context),
           body: SensorStateGate(
             state: r.state,
             ready: lux != null,
             missingText: l.noLightSensor,
             child: lux == null
                 ? const SizedBox.shrink()
-                : InstrumentDial(
+                : LightSky(
+                    lux: lux,
                     value: formatLux(lux),
-                    label: 'lx',
+                    footCandles: '${formatLux(r.footCandles!)} fc',
                     semanticsLabel: l.lightSemantics(formatLux(lux)),
-                    scaleLabels: _scale,
-                    arcSweep: sweep,
-                    ballAngle: sweep,
-                    zones: _zones(Palette.of(context)),
-                    reserved: 200,
+                    bottomInset: ToolFrame.sideBySide(context) ? 0 : 120,
                   ),
           ),
-          footer: lux == null
+          footer: band == null
               ? null
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ValueTiles([
-                      ('${formatLux(lux)} lx', l.illuminance),
-                      ('${formatLux(r.footCandles!)} fc', l.footCandles),
-                    ]),
-                    const SizedBox(height: 16),
-                    viewModel.locked
-                        ? StatusBanner(
-                            icon: Icons.lock_rounded,
-                            text: l.locked(_band(l, LightBand.of(lux))),
-                          )
-                        : StatusBanner(
-                            icon: Icons.light_mode_rounded,
-                            text: _band(l, LightBand.of(lux)),
-                          ),
+                    StatusBanner(
+                      icon: viewModel.locked
+                          ? Icons.lock_rounded
+                          : Icons.light_mode_rounded,
+                      text: viewModel.locked ? l.locked(band) : band,
+                    ),
                     const SizedBox(height: 16),
                     LockButton(
                       locked: viewModel.locked,

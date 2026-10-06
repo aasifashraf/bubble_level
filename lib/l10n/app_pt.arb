@@ -211,7 +211,7 @@
   "lightSun": "Luz solar direta",
   "lightHelp1": "O sensor de luz fica no topo da tela, perto da câmera frontal.",
   "lightHelp2": "Segure o celular onde quer medir, com a tela voltada para a luz.",
-  "lightHelp3": "Veja os lux e para que serve essa luz: 300–750 lx é bom para ler e trabalhar na mesa.",
+  "lightHelp3": "O céu acompanha a luz: noite quando está escuro, amanhecer num ambiente com pouca luz, e o sol sobe à medida que fica mais claro. Leia os lux e para que a luz serve: 300–750 lx é bom para ler e trabalhar na mesa.",
   "lightHelp4": "Toque em Travar para manter uma leitura enquanto afasta o celular.",
   "lightTip": "Os sensores de luz variam entre celulares, então as leituras podem errar 10–20%: bom para comparar lugares, não é um luxímetro calibrado. Não cubra o topo da tela.",
   "noMicrophone": "Não é possível usar o microfone. Outro app pode estar usando: feche-o e abra o decibelímetro de novo.",

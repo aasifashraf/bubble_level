@@ -211,7 +211,7 @@
   "lightSun": "Luz solar directa",
   "lightHelp1": "El sensor de luz está en la parte superior de la pantalla, junto a la cámara frontal.",
   "lightHelp2": "Sostén el teléfono donde quieras medir, con la pantalla hacia la luz.",
-  "lightHelp3": "Lee los lux y para qué sirve esa luz: 300–750 lx es adecuado para leer y trabajar en el escritorio.",
+  "lightHelp3": "El cielo sigue a la luz: de noche cuando está oscuro, amanecer en una habitación con poca luz, y el sol sube a medida que hay más luz. Lee los lux y para qué sirve la luz: 300–750 lx es adecuado para leer y trabajar en el escritorio.",
   "lightHelp4": "Toca Bloquear para conservar una lectura mientras apartas el teléfono.",
   "lightTip": "Los sensores de luz varían entre teléfonos, así que las lecturas pueden desviarse un 10–20 %: sirven para comparar lugares, no son un luxómetro calibrado. No tapes la parte superior de la pantalla.",
   "noMicrophone": "No se puede usar el micrófono. Puede que otra app lo esté usando: ciérrala y vuelve a abrir el sonómetro.",

@@ -750,7 +750,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Lies die Lux und wofür das Licht taugt: 300–750 lx eignen sich zum Lesen und für den Schreibtisch.';
+      'Der Himmel folgt dem Licht: Nacht im Dunkeln, Morgendämmerung in einem schwach beleuchteten Raum, und die Sonne steigt, je heller es wird. Lies die Lux und wofür das Licht taugt: 300–750 lx eignen sich zum Lesen und für die Schreibtischarbeit.';
 
   @override
   String get lightHelp4 =>

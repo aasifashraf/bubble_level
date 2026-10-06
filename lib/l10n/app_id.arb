@@ -211,7 +211,7 @@
   "lightSun": "Sinar matahari langsung",
   "lightHelp1": "Sensor cahaya ada di bagian atas layar, dekat kamera depan.",
   "lightHelp2": "Pegang ponsel di tempat yang ingin diukur, dengan layar menghadap cahaya.",
-  "lightHelp3": "Baca nilai lux dan cocok untuk apa cahayanya: 300–750 lx pas untuk membaca dan bekerja di meja.",
+  "lightHelp3": "Langit mengikuti cahaya: malam saat gelap, fajar di ruangan redup, dan matahari naik saat makin terang. Baca lux dan untuk apa cahaya itu cocok: 300–750 lx cocok untuk membaca dan bekerja di meja.",
   "lightHelp4": "Ketuk Kunci untuk menyimpan bacaan saat Anda menjauhkan ponsel.",
   "lightTip": "Sensor cahaya berbeda di tiap ponsel, jadi bacaan bisa meleset 10–20%: bagus untuk membandingkan tempat, bukan pengukur lux yang terkalibrasi. Jangan tutupi bagian atas layar.",
   "noMicrophone": "Mikrofon tidak bisa dipakai. Mungkin aplikasi lain sedang memakainya: tutup aplikasi itu, lalu buka lagi pengukur suara.",

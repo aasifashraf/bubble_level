@@ -32,17 +32,11 @@ enum LightBand {
   };
 }
 
-/// How suitable light is for reading and desk work, for the dial's
-/// colours: too dark below [tooDarkLux], dim below [readingLux], good up to
-/// [glareLux], then glare.
-const tooDarkLux = 50.0, readingLux = 300.0, glareLux = 10000.0;
-
-/// Where [lux] sits on the dial: 60° per tenfold, from 1 lx at the top to
-/// 100 000 lx at 300°, so dim rooms and sunlight both fit.
-double lightSweep(double lux) {
-  final decades = math.log(math.max(lux, 1)) / math.ln10;
-  return (decades * 60).clamp(0.0, 359.9);
-}
+/// How far the sky has come for [lux], 0 (night, 1 lx or less) to 1
+/// (full sun, 100 000 lx): a fifth per tenfold, so dim rooms and sunlight
+/// both show.
+double skyLevel(double lux) =>
+    (math.log(math.max(lux, 1)) / math.ln10 / 5).clamp(0.0, 1.0);
 
 /// A snapshot of the light sensor.
 @immutable

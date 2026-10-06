@@ -16,13 +16,13 @@ void main() {
     expect(LightBand.of(100000), LightBand.sun);
   });
 
-  test('the dial is logarithmic: 60° per tenfold', () {
-    expect(lightSweep(0), 0);
-    expect(lightSweep(1), 0);
-    expect(lightSweep(10), closeTo(60, 1e-9));
-    expect(lightSweep(1000), closeTo(180, 1e-9));
-    expect(lightSweep(100000), closeTo(300, 1e-9));
-    expect(lightSweep(1e9), lessThan(360), reason: 'never wraps round');
+  test('the sky is logarithmic: a fifth per tenfold', () {
+    expect(skyLevel(0), 0);
+    expect(skyLevel(1), 0);
+    expect(skyLevel(10), closeTo(0.2, 1e-9));
+    expect(skyLevel(1000), closeTo(0.6, 1e-9));
+    expect(skyLevel(100000), closeTo(1, 1e-9));
+    expect(skyLevel(1e9), 1, reason: 'never past full sun');
   });
 
   test('foot-candles and lux formatting', () {

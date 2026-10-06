@@ -745,7 +745,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Read the lux and what the light is good for: 300–750 lx suits reading and desk work.';
+      'The sky follows the light: night when it\'s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300–750 lx suits reading and desk work.';
 
   @override
   String get lightHelp4 =>

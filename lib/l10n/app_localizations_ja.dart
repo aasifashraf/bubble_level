@@ -709,7 +709,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get lightHelp2 => '測りたい場所で、画面を光の方に向けて持ちます。';
 
   @override
-  String get lightHelp3 => 'ルクスと用途の目安を読みます。読書やデスク作業には 300–750 lx が適しています。';
+  String get lightHelp3 =>
+      '空は明るさに合わせて変わります。暗いと夜、薄暗い部屋では夜明け、明るくなるほど太陽が昇ります。ルクスと、その明るさが何に向いているかを確認してください。300〜750 lx は読書やデスクワークに適しています。';
 
   @override
   String get lightHelp4 => '「ロック」をタップすると、端末を離しても値を保持できます。';

@@ -748,7 +748,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Lüks değerini ve ışığın neye uygun olduğunu okuyun: 300–750 lx okumak ve masa başı çalışmak için uygundur.';
+      'Gökyüzü ışığı takip eder: karanlıkta gece, loş bir odada şafak; ışık arttıkça güneş yükselir. Lüksü ve ışığın neye uygun olduğunu okuyun: 300–750 lx okumaya ve masa başı işe uygundur.';
 
   @override
   String get lightHelp4 =>

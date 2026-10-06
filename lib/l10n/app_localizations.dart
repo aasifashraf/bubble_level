@@ -1387,7 +1387,7 @@ abstract class AppLocalizations {
   /// No description provided for @lightHelp3.
   ///
   /// In en, this message translates to:
-  /// **'Read the lux and what the light is good for: 300–750 lx suits reading and desk work.'**
+  /// **'The sky follows the light: night when it\'s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300–750 lx suits reading and desk work.'**
   String get lightHelp3;
 
   /// No description provided for @lightHelp4.
