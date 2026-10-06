@@ -164,6 +164,7 @@ class _HomeShellState extends State<HomeShell> {
     HomeTool.compass,
     HomeTool.protractor,
     HomeTool.ruler,
+    HomeTool.light,
   };
 
   /// Opens a tool full screen; its view model (if it uses sensors) follows
@@ -244,7 +245,11 @@ class _HomeShellState extends State<HomeShell> {
       case HomeTool.sound:
         _open(_sound, (_) => SoundScreen(viewModel: _sound, onBack: back));
       case HomeTool.light:
-        _open(_light, (_) => LightScreen(viewModel: _light, onBack: back));
+        _open(
+          _light,
+          (_) => LightScreen(viewModel: _light, onBack: back),
+          tool: tool,
+        );
       case HomeTool.altimeter:
         _open(
           _altimeter,

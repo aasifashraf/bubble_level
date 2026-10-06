@@ -123,70 +123,83 @@ void main() {
     expect(find.text('Flat · angle from the Earth'), findsOneWidget);
   });
 
-  testWidgets('level, angle, protractor, compass and ruler hold portrait until '
-      'turned; the choice is remembered per tool', (tester) async {
-    final locks = <List<Object?>>[];
-    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-      SystemChannels.platform,
-      (call) async {
-        if (call.method == 'SystemChrome.setPreferredOrientations') {
-          locks.add(call.arguments as List<Object?>);
-        }
-        return null;
-      },
-    );
-    addTearDown(
-      () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+  testWidgets(
+    'level, angle, protractor, compass, ruler and light hold portrait until '
+    'turned; the choice is remembered per tool',
+    (tester) async {
+      final locks = <List<Object?>>[];
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
         SystemChannels.platform,
-        null,
-      ),
-    );
-    const portrait = ['DeviceOrientation.portraitUp'];
-    const landscape = [
-      'DeviceOrientation.landscapeLeft',
-      'DeviceOrientation.landscapeRight',
-    ];
-    Future<void> back() async {
-      await tester.tap(find.byTooltip('Back'));
-      await tester.pumpAndSettle();
-    }
+        (call) async {
+          if (call.method == 'SystemChrome.setPreferredOrientations') {
+            locks.add(call.arguments as List<Object?>);
+          }
+          return null;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          SystemChannels.platform,
+          null,
+        ),
+      );
+      const portrait = ['DeviceOrientation.portraitUp'];
+      const landscape = [
+        'DeviceOrientation.landscapeLeft',
+        'DeviceOrientation.landscapeRight',
+      ];
+      Future<void> back() async {
+        await tester.tap(find.byTooltip('Back'));
+        await tester.pumpAndSettle();
+      }
 
-    await pumpApp(tester);
-    for (final tool in ['Level', 'Angle', 'Protractor', 'Compass', 'Ruler']) {
-      await openTool(tester, tool);
-      expect(locks.last, portrait, reason: tool);
-      expect(find.byTooltip('Turn to landscape'), findsOneWidget);
+      await pumpApp(tester);
+      for (final tool in [
+        'Level',
+        'Angle',
+        'Protractor',
+        'Compass',
+        'Ruler',
+        'Light meter',
+      ]) {
+        await openTool(tester, tool);
+        expect(locks.last, portrait, reason: tool);
+        expect(find.byTooltip('Turn to landscape'), findsOneWidget);
+        await back();
+        expect(locks.last, isEmpty, reason: 'home follows the phone');
+      }
+
+      // Turn Compass; it stays turned, and Level doesn't.
+      await openTool(tester, 'Compass');
+      await tester.tap(find.byTooltip('Turn to landscape'));
+      await tester.pump();
+      expect(locks.last, landscape);
+      expect(find.byTooltip('Turn to portrait'), findsOneWidget);
       await back();
-      expect(locks.last, isEmpty, reason: 'home follows the phone');
-    }
+      await openTool(tester, 'Compass');
+      expect(locks.last, landscape);
+      await tester.tap(find.byTooltip('Turn to portrait'));
+      await tester.pump();
+      expect(locks.last, portrait);
+      await tester.tap(find.byTooltip('Turn to landscape'));
+      await tester.pump();
+      await back();
+      await openTool(tester, 'Level');
+      expect(locks.last, portrait);
+      await back();
+      expect(
+        (await SettingsRepository.load()).toolLandscape('compass'),
+        isTrue,
+      );
 
-    // Turn Compass; it stays turned, and Level doesn't.
-    await openTool(tester, 'Compass');
-    await tester.tap(find.byTooltip('Turn to landscape'));
-    await tester.pump();
-    expect(locks.last, landscape);
-    expect(find.byTooltip('Turn to portrait'), findsOneWidget);
-    await back();
-    await openTool(tester, 'Compass');
-    expect(locks.last, landscape);
-    await tester.tap(find.byTooltip('Turn to portrait'));
-    await tester.pump();
-    expect(locks.last, portrait);
-    await tester.tap(find.byTooltip('Turn to landscape'));
-    await tester.pump();
-    await back();
-    await openTool(tester, 'Level');
-    expect(locks.last, portrait);
-    await back();
-    expect((await SettingsRepository.load()).toolLandscape('compass'), isTrue);
-
-    // The other tools follow the phone and have no rotate button.
-    final count = locks.length;
-    await openTool(tester, 'Metal detector');
-    expect(find.byTooltip('Turn to landscape'), findsNothing);
-    expect(locks.length, count);
-    await back();
-  });
+      // The other tools follow the phone and have no rotate button.
+      final count = locks.length;
+      await openTool(tester, 'Metal detector');
+      expect(find.byTooltip('Turn to landscape'), findsNothing);
+      expect(locks.length, count);
+      await back();
+    },
+  );
 
   testWidgets('a tool opens full screen and the back tab returns home', (
     tester,
