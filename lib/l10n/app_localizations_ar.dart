@@ -686,7 +686,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'يُظهر القرص ضغط الهواء بوحدة hPa، ويُقدَّر الارتفاع منه.';
+      'يتسلّق متنزّه الجبل مع ارتفاعك. تتبع السماء وقت اليوم والموسم؛ اضغط زر الطقس لتختار بنفسك.';
 
   @override
   String get altimeterHelp2 =>
@@ -694,7 +694,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'اصعد أو انزل. يُظهر المنتصف الأمتار من نقطة الصفر.';
+      'اصعد أو انزل: يمشي المتنزّه معك ويحدّد العلم أعلى نقطة بلغتها. تعرض اللوحة الأمتار من الصفر وضغط الهواء والارتفاع التقريبي.';
 
   @override
   String get altimeterHelp4 => 'اضغط مسح الصفر للعودة.';
@@ -702,6 +702,33 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get altimeterTip =>
       'يغيّر الطقس ضغط الهواء، لذا قد يخطئ الارتفاع بعشرات الأمتار. أما الارتفاع من نقطة الصفر فدقيق لفترات قصيرة. تحتاج هذه الأداة إلى هاتف به بارومتر.';
+
+  @override
+  String get weather => 'الطقس';
+
+  @override
+  String get weatherAuto => 'تلقائي (الوقت والموسم)';
+
+  @override
+  String get weatherSunny => 'مشمس';
+
+  @override
+  String get weatherCloudy => 'غائم';
+
+  @override
+  String get weatherRain => 'مطر';
+
+  @override
+  String get weatherStorm => 'عاصفة';
+
+  @override
+  String get weatherSnow => 'ثلج';
+
+  @override
+  String get fromZero => 'من الصفر';
+
+  @override
+  String get altitudeShort => 'الارتفاع';
 
   @override
   String get barometerIos =>

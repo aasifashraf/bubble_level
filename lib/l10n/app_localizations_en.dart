@@ -689,7 +689,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'The dial shows air pressure in hPa, and altitude is estimated from it.';
+      'A hiker climbs the mountain with your height. The sky follows the time of day and the season; tap the weather button to pick your own.';
 
   @override
   String get altimeterHelp2 =>
@@ -697,7 +697,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'Go up or down. The centre shows the metres from your zero.';
+      'Go up or down: the hiker walks with you and the flag marks your highest point. The panel shows metres from your zero, air pressure and approximate altitude.';
 
   @override
   String get altimeterHelp4 => 'Tap Clear zero to show air pressure again.';
@@ -705,6 +705,33 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get altimeterTip =>
       'Weather changes air pressure, so altitude can be off by tens of metres. Height from your zero is accurate over short periods. This tool needs a phone with a barometer.';
+
+  @override
+  String get weather => 'Weather';
+
+  @override
+  String get weatherAuto => 'Auto (time of day and season)';
+
+  @override
+  String get weatherSunny => 'Sunny';
+
+  @override
+  String get weatherCloudy => 'Cloudy';
+
+  @override
+  String get weatherRain => 'Rain';
+
+  @override
+  String get weatherStorm => 'Storm';
+
+  @override
+  String get weatherSnow => 'Snow';
+
+  @override
+  String get fromZero => 'From zero';
+
+  @override
+  String get altitudeShort => 'Altitude';
 
   @override
   String get barometerIos =>

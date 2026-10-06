@@ -691,7 +691,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Dial menunjukkan tekanan udara dalam hPa, dan ketinggian diperkirakan dari situ.';
+      'Seorang pendaki mendaki gunung seiring ketinggian Anda. Langit mengikuti waktu dan musim; ketuk tombol cuaca untuk memilih sendiri.';
 
   @override
   String get altimeterHelp2 =>
@@ -699,7 +699,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'Naik atau turun. Bagian tengah menunjukkan meter dari titik nol Anda.';
+      'Naik atau turun: pendaki berjalan bersama Anda dan bendera menandai titik tertinggi. Panel menunjukkan meter dari nol, tekanan udara, dan perkiraan ketinggian.';
 
   @override
   String get altimeterHelp4 => 'Ketuk Hapus nol untuk kembali.';
@@ -707,6 +707,33 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get altimeterTip =>
       'Cuaca mengubah tekanan udara, jadi ketinggian bisa meleset puluhan meter. Ketinggian dari titik nol Anda akurat untuk waktu singkat. Alat ini memerlukan ponsel dengan barometer.';
+
+  @override
+  String get weather => 'Cuaca';
+
+  @override
+  String get weatherAuto => 'Otomatis (waktu dan musim)';
+
+  @override
+  String get weatherSunny => 'Cerah';
+
+  @override
+  String get weatherCloudy => 'Berawan';
+
+  @override
+  String get weatherRain => 'Hujan';
+
+  @override
+  String get weatherStorm => 'Badai';
+
+  @override
+  String get weatherSnow => 'Salju';
+
+  @override
+  String get fromZero => 'Dari nol';
+
+  @override
+  String get altitudeShort => 'Ketinggian';
 
   @override
   String get barometerIos =>

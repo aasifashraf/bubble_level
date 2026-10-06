@@ -691,7 +691,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'O mostrador indica a pressão do ar em hPa, e a altitude é estimada a partir dela.';
+      'Um caminhante sobe a montanha com a sua altura. O céu segue a hora do dia e a estação; toque no botão do tempo para escolher.';
 
   @override
   String get altimeterHelp2 =>
@@ -699,7 +699,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'Suba ou desça. O centro mostra os metros a partir do seu zero.';
+      'Suba ou desça: o caminhante anda com você e a bandeira marca seu ponto mais alto. O painel mostra os metros desde o zero, a pressão e a altitude aproximada.';
 
   @override
   String get altimeterHelp4 => 'Toque em Limpar zero para voltar.';
@@ -707,6 +707,33 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get altimeterTip =>
       'O clima muda a pressão do ar, então a altitude pode errar em dezenas de metros. A altura a partir do seu zero é precisa por curtos períodos. Esta ferramenta precisa de um celular com barômetro.';
+
+  @override
+  String get weather => 'Tempo';
+
+  @override
+  String get weatherAuto => 'Automático (hora do dia e estação)';
+
+  @override
+  String get weatherSunny => 'Ensolarado';
+
+  @override
+  String get weatherCloudy => 'Nublado';
+
+  @override
+  String get weatherRain => 'Chuva';
+
+  @override
+  String get weatherStorm => 'Tempestade';
+
+  @override
+  String get weatherSnow => 'Neve';
+
+  @override
+  String get fromZero => 'Desde o zero';
+
+  @override
+  String get altitudeShort => 'Altitude';
 
   @override
   String get barometerIos =>

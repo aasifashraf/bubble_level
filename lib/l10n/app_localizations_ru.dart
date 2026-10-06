@@ -693,7 +693,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Шкала показывает давление воздуха в гПа, по нему оценивается высота.';
+      'Турист поднимается в гору вместе с вашей высотой. Небо следует времени суток и сезону; нажмите кнопку погоды, чтобы выбрать её самому.';
 
   @override
   String get altimeterHelp2 =>
@@ -701,7 +701,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'Поднимитесь или спуститесь. В центре — метры от вашего нуля.';
+      'Поднимайтесь или спускайтесь: турист идёт с вами, а флажок отмечает самую высокую точку. Панель показывает метры от нуля, давление и примерную высоту.';
 
   @override
   String get altimeterHelp4 => 'Нажмите «Сбросить ноль», чтобы вернуться.';
@@ -709,6 +709,33 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get altimeterTip =>
       'Погода меняет давление воздуха, поэтому высота может ошибаться на десятки метров. Высота от вашего нуля точна на коротком промежутке времени. Нужен телефон с барометром.';
+
+  @override
+  String get weather => 'Погода';
+
+  @override
+  String get weatherAuto => 'Авто (время суток и сезон)';
+
+  @override
+  String get weatherSunny => 'Солнечно';
+
+  @override
+  String get weatherCloudy => 'Облачно';
+
+  @override
+  String get weatherRain => 'Дождь';
+
+  @override
+  String get weatherStorm => 'Гроза';
+
+  @override
+  String get weatherSnow => 'Снег';
+
+  @override
+  String get fromZero => 'От нуля';
+
+  @override
+  String get altitudeShort => 'Высота';
 
   @override
   String get barometerIos =>

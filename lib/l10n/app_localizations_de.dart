@@ -693,7 +693,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Die Skala zeigt den Luftdruck in hPa, daraus wird die Höhe geschätzt.';
+      'Ein Wanderer steigt mit deiner Höhe den Berg hinauf. Der Himmel folgt Tageszeit und Jahreszeit; tippe auf die Wetter-Taste, um selbst zu wählen.';
 
   @override
   String get altimeterHelp2 =>
@@ -701,7 +701,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'Geh nach oben oder unten. Die Mitte zeigt die Meter ab deinem Nullpunkt.';
+      'Geh hinauf oder hinunter: Der Wanderer geht mit, die Fahne markiert deinen höchsten Punkt. Die Leiste zeigt Meter ab deiner Null, Luftdruck und ungefähre Höhe.';
 
   @override
   String get altimeterHelp4 =>
@@ -710,6 +710,33 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get altimeterTip =>
       'Das Wetter ändert den Luftdruck, daher kann die Höhe um einige zehn Meter abweichen. Die Höhe ab deinem Nullpunkt ist über kurze Zeit genau. Dieses Werkzeug braucht ein Handy mit Barometer.';
+
+  @override
+  String get weather => 'Wetter';
+
+  @override
+  String get weatherAuto => 'Automatisch (Tageszeit und Jahreszeit)';
+
+  @override
+  String get weatherSunny => 'Sonnig';
+
+  @override
+  String get weatherCloudy => 'Bewölkt';
+
+  @override
+  String get weatherRain => 'Regen';
+
+  @override
+  String get weatherStorm => 'Gewitter';
+
+  @override
+  String get weatherSnow => 'Schnee';
+
+  @override
+  String get fromZero => 'Ab Null';
+
+  @override
+  String get altitudeShort => 'Höhe';
 
   @override
   String get barometerIos =>

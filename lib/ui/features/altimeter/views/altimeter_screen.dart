@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../../../domain/scene_weather.dart';
 import '../../../core/controls.dart';
-import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
 import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
+import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/altimeter_view_model.dart';
+import 'mountain_scene.dart';
 
-/// Altimeter and barometer: pressure on a 950–1070 hPa gauge; after
-/// "Set zero" the centre shows the height gained or lost since.
+/// Altimeter: a hiker climbs a living mountain with your height above the
+/// zero, under a sky that follows the time of day and the season (or the
+/// weather you pick). Height, pressure and altitude sit on one panel.
 class AltimeterScreen extends StatelessWidget {
   const AltimeterScreen({
     super.key,
@@ -32,28 +35,29 @@ class AltimeterScreen extends StatelessWidget {
     tip: l.altimeterTip,
   );
 
-  static const _scaleMin = 950.0, _scaleSpan = 120.0;
-  static const _scale = [
-    '950', '960', '970', '980', '990', '1000', //
-    '1010', '1020', '1030', '1040', '1050', '1060',
-  ];
+  /// The footer's height: the meadow's life stays above it, the grass
+  /// runs on behind it to the bottom.
+  static const _footer = 150.0;
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: viewModel,
       builder: (context, _) {
+        final l = context.l10n;
         final r = viewModel.reading;
         final pressure = r.pressure;
         final relative = viewModel.relative;
-        final sweep = pressure == null
-            ? 0.0
-            : ((pressure - _scaleMin) / _scaleSpan).clamp(0.0, 0.999) * 360;
+        final landscape = ToolFrame.sideBySide(context);
         return ToolFrame(
-          title: context.l10n.toolAltimeter,
+          title: l.toolAltimeter,
           onBack: onBack,
-          trailing: HelpButton(help: _help(context.l10n)),
-          bodyBottomInset: 120,
+          trailing: HelpButton(help: _help(l)),
+          action: pressure == null
+              ? null
+              : _WeatherButton(viewModel: viewModel),
+          // The night sky is dark behind the header.
+          headerOnDark: pressure != null && viewModel.night && !landscape,
           body: SensorStateGate(
             state: r.state,
             ready: pressure != null,
@@ -61,28 +65,21 @@ class AltimeterScreen extends StatelessWidget {
             // barometer; on iPhone the usual cause is Motion & Fitness
             // access being off.
             missingText: Theme.of(context).platform == TargetPlatform.iOS
-                ? context.l10n.barometerIos
-                : context.l10n.noBarometer,
+                ? l.barometerIos
+                : l.noBarometer,
             child: pressure == null
                 ? const SizedBox.shrink()
-                : InstrumentDial(
-                    value: relative == null
-                        ? formatDecimal(pressure)
-                        : formatSignedDecimal(relative),
-                    label: relative == null
-                        ? 'hPa'
-                        : context.l10n.metresFromZero,
+                : MountainScene(
+                    height: relative ?? 0,
+                    highest: viewModel.highest,
+                    weather: viewModel.weather,
+                    night: viewModel.night,
+                    bottomInset: landscape ? 0 : _footer,
                     semanticsLabel: relative == null
-                        ? context.l10n.pressureSemantics(
-                            formatDecimal(pressure),
-                          )
-                        : context.l10n.heightSemantics(
+                        ? l.pressureSemantics(formatDecimal(pressure))
+                        : l.heightSemantics(
                             formatMeters(relative, signed: true),
                           ),
-                    scaleLabels: _scale,
-                    arcSweep: sweep,
-                    ballAngle: sweep,
-                    reserved: 200,
                   ),
           ),
           footer: pressure == null
@@ -90,28 +87,25 @@ class AltimeterScreen extends StatelessWidget {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ValueTiles([
-                      (formatPressure(pressure), context.l10n.pressure),
-                      (formatMeters(r.altitude!), context.l10n.altitudeApprox),
+                    StatPanel([
+                      (
+                        relative == null
+                            ? '—'
+                            : formatMeters(relative, signed: true),
+                        l.fromZero,
+                      ),
+                      (formatPressure(pressure), l.pressure),
+                      (formatMeters(r.altitude!), l.altitudeShort),
                     ]),
-                    const SizedBox(height: 16),
-                    StatusBanner(
-                      icon: viewModel.zeroed
-                          ? Icons.adjust_rounded
-                          : Icons.terrain_rounded,
-                      text: viewModel.zeroed
-                          ? context.l10n.measuringHeight
-                          : context.l10n.airPressureAltitude,
-                    ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 14),
                     viewModel.zeroed
                         ? SoftButton(
-                            label: context.l10n.clearZero,
+                            label: l.clearZero,
                             icon: Icons.close_rounded,
                             onPressed: viewModel.clearZero,
                           )
                         : SoftButton(
-                            label: context.l10n.setZeroHere,
+                            label: l.setZeroHere,
                             icon: Icons.adjust_rounded,
                             onPressed: viewModel.setZero,
                             emphasis: true,
@@ -120,6 +114,89 @@ class AltimeterScreen extends StatelessWidget {
                 ),
         );
       },
+    );
+  }
+}
+
+/// Picks the scene's weather: automatic (time of day and season) or one of
+/// the five. The choice is remembered.
+class _WeatherButton extends StatelessWidget {
+  const _WeatherButton({required this.viewModel});
+
+  final AltimeterViewModel viewModel;
+
+  static IconData icon(SceneWeather? w) => switch (w) {
+    null => Icons.auto_mode_rounded,
+    SceneWeather.sunny => Icons.wb_sunny_rounded,
+    SceneWeather.cloudy => Icons.cloud_rounded,
+    SceneWeather.rain => Icons.umbrella_rounded,
+    SceneWeather.storm => Icons.thunderstorm_rounded,
+    SceneWeather.snow => Icons.ac_unit_rounded,
+  };
+
+  static String label(AppLocalizations l, SceneWeather? w) => switch (w) {
+    null => l.weatherAuto,
+    SceneWeather.sunny => l.weatherSunny,
+    SceneWeather.cloudy => l.weatherCloudy,
+    SceneWeather.rain => l.weatherRain,
+    SceneWeather.storm => l.weatherStorm,
+    SceneWeather.snow => l.weatherSnow,
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    final p = Palette.of(context);
+    final picked = viewModel.pickedWeather;
+    // Indexed, since the menu never reports a null (Auto) choice.
+    const choices = <SceneWeather?>[null, ...SceneWeather.values];
+    return PopupMenuButton<int>(
+      tooltip: l.weather,
+      position: PopupMenuPosition.under,
+      color: p.dialLight,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      onSelected: (i) => viewModel.pickWeather(choices[i]),
+      itemBuilder: (context) => [
+        for (final (i, w) in choices.indexed)
+          PopupMenuItem(
+            value: i,
+            child: Row(
+              spacing: 12,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon(w),
+                  size: 20,
+                  color: w == picked ? p.ballDark : p.ink,
+                ),
+                Flexible(
+                  child: Text(
+                    label(l, w),
+                    style: TextStyle(
+                      color: p.inkStrong,
+                      fontWeight: w == picked
+                          ? FontWeight.w700
+                          : FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+      icon: Container(
+        width: 24,
+        height: 24,
+        decoration: BoxDecoration(color: p.tab, shape: BoxShape.circle),
+        child: Icon(
+          // A clear night shows the moon.
+          viewModel.night && (picked ?? viewModel.weather) == SceneWeather.sunny
+              ? Icons.nightlight_round
+              : icon(picked ?? viewModel.weather),
+          size: 15,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

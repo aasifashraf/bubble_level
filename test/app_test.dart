@@ -6,6 +6,7 @@ import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/domain/ruler.dart';
+import 'package:bubble_level/domain/scene_weather.dart';
 import 'package:bubble_level/main.dart';
 import 'package:bubble_level/ui/core/controls.dart';
 import 'package:bubble_level/ui/core/dial.dart';
@@ -13,6 +14,7 @@ import 'package:bubble_level/ui/core/readout.dart';
 import 'package:bubble_level/ui/core/theme.dart';
 import 'package:bubble_level/ui/core/tool_frame.dart';
 import 'package:bubble_level/ui/core/vial.dart';
+import 'package:bubble_level/ui/features/altimeter/views/mountain_scene.dart';
 import 'package:bubble_level/ui/features/angle/view_models/angle_view_model.dart';
 import 'package:bubble_level/ui/features/angle/views/water_view.dart';
 import 'package:bubble_level/ui/features/light/views/light_sky.dart';
@@ -193,6 +195,13 @@ void main() {
         (await SettingsRepository.load()).toolLandscape('compass'),
         isTrue,
       );
+
+      // The Altimeter always stays portrait, with no rotate button.
+      await openTool(tester, 'Altimeter');
+      expect(locks.last, portrait);
+      expect(find.byTooltip('Turn to landscape'), findsNothing);
+      await back();
+      expect(locks.last, isEmpty);
 
       // The other tools follow the phone and have no rotate button.
       final count = locks.length;
@@ -792,7 +801,31 @@ void main() {
     expect(find.text('1013.3 hPa'), findsOneWidget);
     await tester.tap(find.text('Set zero here'));
     await tester.pump();
-    expect(find.text('Measuring height from your zero'), findsOneWidget);
+    expect(find.text('Clear zero'), findsOneWidget);
+    expect(find.text('—'), findsNothing, reason: 'height from zero shown');
+
+    // The weather button picks the scene's sky, and it's remembered.
+    // (The scene never settles, so pump frames rather than settle.)
+    await tester.tap(find.byTooltip('Weather'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.tap(find.text('Snow'));
+    await tester.pump(const Duration(milliseconds: 500));
+    expect((await SettingsRepository.load()).sceneWeather, SceneWeather.snow);
+    await tester.pump();
+    expect(
+      tester.widget<MountainScene>(find.byType(MountainScene)).weather,
+      SceneWeather.snow,
+    );
+    expect(find.text('From zero'), findsOneWidget);
+
+    // Back to automatic.
+    await tester.tap(find.byTooltip('Weather'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.tap(find.text('Auto (time of day and season)'));
+    await tester.pump(const Duration(milliseconds: 500));
+    expect((await SettingsRepository.load()).sceneWeather, isNull);
   });
 
   testWidgets('altimeter: phones without a barometer are told so', (

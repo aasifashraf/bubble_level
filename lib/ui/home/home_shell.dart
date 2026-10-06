@@ -128,7 +128,10 @@ class _HomeShellState extends State<HomeShell> {
   late final _vibrationRepo = VibrationRepository(sensors: widget.sensors);
   late final _vibration = VibrationViewModel(repository: _vibrationRepo);
   late final _barometerRepo = BarometerRepository(sensors: widget.sensors);
-  late final _altimeter = AltimeterViewModel(repository: _barometerRepo);
+  late final _altimeter = AltimeterViewModel(
+    repository: _barometerRepo,
+    settings: widget.settings,
+  );
   late final _soundRepo = SoundRepository(microphone: widget.microphone);
   late final _sound = SoundViewModel(
     repository: _soundRepo,
@@ -167,6 +170,9 @@ class _HomeShellState extends State<HomeShell> {
     HomeTool.light,
   };
 
+  /// Tools that always stay portrait (their scene is drawn for it).
+  static const _portraitOnly = {HomeTool.altimeter};
+
   /// Opens a tool full screen; its view model (if it uses sensors) follows
   /// them only while the tool is showing. A [_rotatable] [tool] holds its
   /// remembered orientation; the rest, and home, follow the phone.
@@ -180,8 +186,11 @@ class _HomeShellState extends State<HomeShell> {
     if (_toolOpen) return;
     _toolOpen = true;
     final rotatable = _rotatable.contains(tool) ? tool!.name : null;
+    final portrait = _portraitOnly.contains(tool);
     if (rotatable != null) {
       unawaited(lockOrientation(widget.settings.toolLandscape(rotatable)));
+    } else if (portrait) {
+      unawaited(lockOrientation(false));
     }
     vm?.active = true;
     await Navigator.of(context).push(
@@ -196,7 +205,7 @@ class _HomeShellState extends State<HomeShell> {
       ),
     );
     vm?.active = false;
-    if (rotatable != null) unawaited(lockOrientation(null));
+    if (rotatable != null || portrait) unawaited(lockOrientation(null));
     _toolOpen = false;
   }
 
@@ -254,6 +263,7 @@ class _HomeShellState extends State<HomeShell> {
         _open(
           _altimeter,
           (_) => AltimeterScreen(viewModel: _altimeter, onBack: back),
+          tool: tool,
         );
     }
   }

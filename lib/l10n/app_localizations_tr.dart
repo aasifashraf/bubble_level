@@ -692,7 +692,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Kadran hava basıncını hPa cinsinden gösterir; yükseklik buradan tahmin edilir.';
+      'Bir yürüyüşçü yüksekliğinle birlikte dağa tırmanır. Gökyüzü günün saatine ve mevsime uyar; kendin seçmek için hava düğmesine dokun.';
 
   @override
   String get altimeterHelp2 =>
@@ -700,7 +700,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'Yukarı veya aşağı gidin. Orta kısım sıfır noktanızdan metreyi gösterir.';
+      'Çık ya da in: yürüyüşçü seninle yürür, bayrak en yüksek noktanı işaretler. Panel sıfırından metreyi, hava basıncını ve yaklaşık rakımı gösterir.';
 
   @override
   String get altimeterHelp4 => 'Geri dönmek için Sıfırı temizle\'ye dokunun.';
@@ -708,6 +708,33 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get altimeterTip =>
       'Hava durumu basıncı değiştirir, bu yüzden yükseklik onlarca metre sapabilir. Sıfır noktanızdan yükseklik kısa sürelerde doğrudur. Bu araç barometreli bir telefon gerektirir.';
+
+  @override
+  String get weather => 'Hava';
+
+  @override
+  String get weatherAuto => 'Otomatik (günün saati ve mevsim)';
+
+  @override
+  String get weatherSunny => 'Güneşli';
+
+  @override
+  String get weatherCloudy => 'Bulutlu';
+
+  @override
+  String get weatherRain => 'Yağmur';
+
+  @override
+  String get weatherStorm => 'Fırtına';
+
+  @override
+  String get weatherSnow => 'Kar';
+
+  @override
+  String get fromZero => 'Sıfırdan';
+
+  @override
+  String get altitudeShort => 'Rakım';
 
   @override
   String get barometerIos =>

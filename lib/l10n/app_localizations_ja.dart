@@ -661,13 +661,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get resetPeak => '最大をリセット';
 
   @override
-  String get altimeterHelp1 => '目盛りは気圧をhPaで示し、そこから高度を推定します。';
+  String get altimeterHelp1 =>
+      'ハイカーが高さに合わせて山を登ります。空は時刻と季節に合わせて変わります。天気ボタンで自分で選ぶこともできます。';
 
   @override
   String get altimeterHelp2 => '階段や階など高さの変化を測るには、開始地点で「ここをゼロに」をタップします。';
 
   @override
-  String get altimeterHelp3 => '上がったり下がったりすると、中央にゼロ点からのメートル数が表示されます。';
+  String get altimeterHelp3 =>
+      '上り下りすると、ハイカーも一緒に歩き、旗が最高地点を示します。パネルにはゼロからの高さ、気圧、おおよその標高が表示されます。';
 
   @override
   String get altimeterHelp4 => '「ゼロを解除」で元に戻ります。';
@@ -675,6 +677,33 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get altimeterTip =>
       '天気で気圧が変わるため、高度は数十メートルずれることがあります。ゼロ点からの高さは短時間なら正確です。このツールには気圧センサー付きの端末が必要です。';
+
+  @override
+  String get weather => '天気';
+
+  @override
+  String get weatherAuto => '自動（時刻と季節）';
+
+  @override
+  String get weatherSunny => '晴れ';
+
+  @override
+  String get weatherCloudy => 'くもり';
+
+  @override
+  String get weatherRain => '雨';
+
+  @override
+  String get weatherStorm => '嵐';
+
+  @override
+  String get weatherSnow => '雪';
+
+  @override
+  String get fromZero => 'ゼロから';
+
+  @override
+  String get altitudeShort => '標高';
 
   @override
   String get barometerIos =>

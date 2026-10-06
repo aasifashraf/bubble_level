@@ -1297,7 +1297,7 @@ abstract class AppLocalizations {
   /// No description provided for @altimeterHelp1.
   ///
   /// In en, this message translates to:
-  /// **'The dial shows air pressure in hPa, and altitude is estimated from it.'**
+  /// **'A hiker climbs the mountain with your height. The sky follows the time of day and the season; tap the weather button to pick your own.'**
   String get altimeterHelp1;
 
   /// No description provided for @altimeterHelp2.
@@ -1309,7 +1309,7 @@ abstract class AppLocalizations {
   /// No description provided for @altimeterHelp3.
   ///
   /// In en, this message translates to:
-  /// **'Go up or down. The centre shows the metres from your zero.'**
+  /// **'Go up or down: the hiker walks with you and the flag marks your highest point. The panel shows metres from your zero, air pressure and approximate altitude.'**
   String get altimeterHelp3;
 
   /// No description provided for @altimeterHelp4.
@@ -1323,6 +1323,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weather changes air pressure, so altitude can be off by tens of metres. Height from your zero is accurate over short periods. This tool needs a phone with a barometer.'**
   String get altimeterTip;
+
+  /// No description provided for @weather.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather'**
+  String get weather;
+
+  /// No description provided for @weatherAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto (time of day and season)'**
+  String get weatherAuto;
+
+  /// No description provided for @weatherSunny.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunny'**
+  String get weatherSunny;
+
+  /// No description provided for @weatherCloudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloudy'**
+  String get weatherCloudy;
+
+  /// No description provided for @weatherRain.
+  ///
+  /// In en, this message translates to:
+  /// **'Rain'**
+  String get weatherRain;
+
+  /// No description provided for @weatherStorm.
+  ///
+  /// In en, this message translates to:
+  /// **'Storm'**
+  String get weatherStorm;
+
+  /// No description provided for @weatherSnow.
+  ///
+  /// In en, this message translates to:
+  /// **'Snow'**
+  String get weatherSnow;
+
+  /// No description provided for @fromZero.
+  ///
+  /// In en, this message translates to:
+  /// **'From zero'**
+  String get fromZero;
+
+  /// No description provided for @altitudeShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Altitude'**
+  String get altitudeShort;
 
   /// No description provided for @barometerIos.
   ///

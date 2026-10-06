@@ -4,6 +4,7 @@ import 'package:bubble_level/data/repositories/settings_repository.dart';
 import 'package:bubble_level/data/repositories/vibration_repository.dart';
 import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/domain/orientation_reading.dart';
+import 'package:bubble_level/domain/scene_weather.dart';
 import 'package:bubble_level/ui/features/altimeter/view_models/altimeter_view_model.dart';
 import 'package:bubble_level/ui/features/metal/view_models/metal_view_model.dart';
 import 'package:bubble_level/ui/features/protractor/view_models/protractor_view_model.dart';
@@ -290,7 +291,13 @@ void main() {
 
     test('altimeter: pressure, altitude and height from zero', () async {
       final repo = BarometerRepository(sensors: sensors);
-      final vm = AltimeterViewModel(repository: repo)..active = true;
+      final settings = await SettingsRepository.load();
+      var now = DateTime(2026, 7, 10, 14);
+      final vm = AltimeterViewModel(
+        repository: repo,
+        settings: settings,
+        now: () => now,
+      )..active = true;
       addTearDown(() {
         vm.dispose();
         repo.dispose();
@@ -310,8 +317,40 @@ void main() {
       sensors.sendPressure(1012.25); // about 8 m higher
       await flush();
       expect(vm.relative, closeTo(8.4, 0.3));
+      expect(vm.highest, closeTo(8.4, 0.3), reason: 'the flag');
       vm.clearZero();
       expect(vm.relative, isNull);
+      expect(vm.highest, 0);
+
+      // The sky: sunny on a July afternoon, night after 7 pm, snow in
+      // January, and the user's pick wins and is remembered.
+      expect(vm.weather, SceneWeather.sunny);
+      expect(vm.night, isFalse);
+      now = DateTime(2026, 7, 10, 21);
+      expect(vm.night, isTrue);
+      now = DateTime(2026, 1, 10, 12);
+      expect(vm.weather, SceneWeather.snow);
+      await vm.pickWeather(SceneWeather.storm);
+      expect(vm.weather, SceneWeather.storm);
+      expect(
+        (await SettingsRepository.load()).sceneWeather,
+        SceneWeather.storm,
+      );
+      await vm.pickWeather(null);
+      expect(vm.weather, SceneWeather.snow);
+    });
+
+    test('seasonal snow follows the hemisphere', () {
+      expect(seasonalWeather(DateTime(2026, 1, 5)), SceneWeather.snow);
+      expect(seasonalWeather(DateTime(2026, 7, 5)), SceneWeather.sunny);
+      expect(
+        seasonalWeather(DateTime(2026, 7, 5), countryCode: 'AU'),
+        SceneWeather.snow,
+      );
+      expect(
+        seasonalWeather(DateTime(2026, 1, 5), countryCode: 'au'),
+        SceneWeather.sunny,
+      );
     });
   });
 }

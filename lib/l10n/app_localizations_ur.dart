@@ -691,7 +691,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'ڈائل ہوا کا دباؤ hPa میں دکھاتا ہے، اور اسی سے اونچائی کا اندازہ لگایا جاتا ہے۔';
+      'ایک کوہ پیما آپ کی بلندی کے ساتھ پہاڑ چڑھتا ہے۔ آسمان دن کے وقت اور موسم کے ساتھ بدلتا ہے؛ خود چننے کے لیے موسم کا بٹن دبائیں۔';
 
   @override
   String get altimeterHelp2 =>
@@ -699,7 +699,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'اوپر یا نیچے جائیں۔ درمیان میں آپ کے صفر سے میٹر نظر آتے ہیں۔';
+      'اوپر یا نیچے جائیں: کوہ پیما آپ کے ساتھ چلتا ہے اور جھنڈا آپ کا سب سے اونچا مقام دکھاتا ہے۔ پینل صفر سے میٹر، ہوا کا دباؤ اور اندازاً بلندی دکھاتا ہے۔';
 
   @override
   String get altimeterHelp4 => 'واپس جانے کے لیے صفر ہٹائیں دبائیں۔';
@@ -707,6 +707,33 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get altimeterTip =>
       'موسم ہوا کا دباؤ بدلتا ہے، اس لیے اونچائی دسیوں میٹر تک غلط ہو سکتی ہے۔ آپ کے صفر سے اونچائی کم وقت کے لیے درست رہتی ہے۔ اس ٹول کے لیے بیرومیٹر والا فون چاہیے۔';
+
+  @override
+  String get weather => 'موسم';
+
+  @override
+  String get weatherAuto => 'خودکار (دن کا وقت اور موسم)';
+
+  @override
+  String get weatherSunny => 'دھوپ';
+
+  @override
+  String get weatherCloudy => 'ابر آلود';
+
+  @override
+  String get weatherRain => 'بارش';
+
+  @override
+  String get weatherStorm => 'طوفان';
+
+  @override
+  String get weatherSnow => 'برف';
+
+  @override
+  String get fromZero => 'صفر سے';
+
+  @override
+  String get altitudeShort => 'بلندی';
 
   @override
   String get barometerIos =>

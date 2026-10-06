@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/angles.dart';
 import '../../domain/ruler.dart';
+import '../../domain/scene_weather.dart';
 
 /// How tilt is shown: degrees, slope percent, or roof pitch (rise per 12
 /// of run, as US builders say "4/12").
@@ -58,6 +59,7 @@ class SettingsRepository extends ChangeNotifier {
   static const _kLandscape = 'landscape:';
   static const _kRulerUnit = 'rulerUnit';
   static const _kAngleMode = 'angleMode';
+  static const _kSceneWeather = 'sceneWeather';
 
   final SharedPreferences _prefs;
   Vec3 _flatRef;
@@ -237,6 +239,20 @@ class SettingsRepository extends ChangeNotifier {
 
   Future<void> setAngleMode(AngleMode v) async {
     await _prefs.setString(_kAngleMode, v.name);
+    notifyListeners();
+  }
+
+  /// The Altimeter scene's weather picked by the user, or null to follow
+  /// the time of day and the season.
+  SceneWeather? get sceneWeather =>
+      SceneWeather.values.asNameMap()[_prefs.getString(_kSceneWeather)];
+
+  Future<void> setSceneWeather(SceneWeather? v) async {
+    if (v == null) {
+      await _prefs.remove(_kSceneWeather);
+    } else {
+      await _prefs.setString(_kSceneWeather, v.name);
+    }
     notifyListeners();
   }
 

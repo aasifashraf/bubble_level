@@ -689,7 +689,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'डायल हवा का दबाव hPa में दिखाता है, और उसी से ऊँचाई का अनुमान लगाया जाता है।';
+      'एक पर्वतारोही आपकी ऊँचाई के साथ पहाड़ चढ़ता है। आसमान दिन के समय और मौसम के साथ बदलता है; ख़ुद चुनने के लिए मौसम बटन दबाएँ।';
 
   @override
   String get altimeterHelp2 =>
@@ -697,7 +697,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'ऊपर या नीचे जाएँ। बीच में आपके शून्य से मीटर दिखते हैं।';
+      'ऊपर या नीचे जाएँ: पर्वतारोही साथ चलता है और झंडा आपका सबसे ऊँचा बिंदु दिखाता है। पैनल शून्य से मीटर, वायुदाब और अनुमानित ऊँचाई दिखाता है।';
 
   @override
   String get altimeterHelp4 => 'वापस जाने के लिए शून्य हटाएँ दबाएँ।';
@@ -705,6 +705,33 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get altimeterTip =>
       'मौसम हवा का दबाव बदलता है, इसलिए ऊँचाई दसियों मीटर तक गलत हो सकती है। आपके शून्य से ऊँचाई कम समय के लिए सटीक रहती है। इस टूल के लिए बैरोमीटर वाला फ़ोन चाहिए।';
+
+  @override
+  String get weather => 'मौसम';
+
+  @override
+  String get weatherAuto => 'स्वचालित (दिन का समय और मौसम)';
+
+  @override
+  String get weatherSunny => 'धूप';
+
+  @override
+  String get weatherCloudy => 'बादल';
+
+  @override
+  String get weatherRain => 'बारिश';
+
+  @override
+  String get weatherStorm => 'तूफ़ान';
+
+  @override
+  String get weatherSnow => 'बर्फ़';
+
+  @override
+  String get fromZero => 'शून्य से';
+
+  @override
+  String get altitudeShort => 'ऊँचाई';
 
   @override
   String get barometerIos =>

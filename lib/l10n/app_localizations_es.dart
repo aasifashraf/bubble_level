@@ -694,7 +694,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'La esfera muestra la presión del aire en hPa, y a partir de ella se estima la altitud.';
+      'Un excursionista sube la montaña con tu altura. El cielo sigue la hora del día y la estación; toca el botón del tiempo para elegirlo tú.';
 
   @override
   String get altimeterHelp2 =>
@@ -702,7 +702,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get altimeterHelp3 =>
-      'Sube o baja. El centro muestra los metros desde tu cero.';
+      'Sube o baja: el excursionista camina contigo y la bandera marca tu punto más alto. El panel muestra los metros desde tu cero, la presión y la altitud aproximada.';
 
   @override
   String get altimeterHelp4 => 'Toca Quitar cero para volver.';
@@ -710,6 +710,33 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get altimeterTip =>
       'El clima cambia la presión del aire, así que la altitud puede variar decenas de metros. La altura desde tu cero es precisa en periodos cortos. Esta herramienta necesita un teléfono con barómetro.';
+
+  @override
+  String get weather => 'Tiempo';
+
+  @override
+  String get weatherAuto => 'Automático (hora del día y estación)';
+
+  @override
+  String get weatherSunny => 'Soleado';
+
+  @override
+  String get weatherCloudy => 'Nublado';
+
+  @override
+  String get weatherRain => 'Lluvia';
+
+  @override
+  String get weatherStorm => 'Tormenta';
+
+  @override
+  String get weatherSnow => 'Nieve';
+
+  @override
+  String get fromZero => 'Desde cero';
+
+  @override
+  String get altitudeShort => 'Altitud';
 
   @override
   String get barometerIos =>
