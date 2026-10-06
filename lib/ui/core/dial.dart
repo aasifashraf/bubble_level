@@ -142,6 +142,37 @@ class InstrumentDial extends StatelessWidget {
   }
 }
 
+/// The colour at [at] across [zones] (each from its start), easing from
+/// one band's colour into the next within [blend] either side of a start,
+/// never more than half of either neighbouring band; the last band ends at
+/// [end].
+Color zoneColor(
+  List<DialZone> zones,
+  double at, {
+  double blend = 20,
+  double end = 360,
+}) {
+  var k = 0;
+  for (var i = 0; i < zones.length; i++) {
+    if (at >= zones[i].from) k = i;
+  }
+  for (var j = 1; j < zones.length; j++) {
+    final b = zones[j].from;
+    final before = b - zones[j - 1].from;
+    final after = (j + 1 < zones.length ? zones[j + 1].from : end) - b;
+    final w = math.min(blend, math.min(before, after) / 2);
+    if (at > b - w && at < b + w) {
+      final t = (at - (b - w)) / (2 * w);
+      return Color.lerp(
+        zones[j - 1].color,
+        zones[j].color,
+        t * t * (3 - 2 * t),
+      )!;
+    }
+  }
+  return zones[k].color;
+}
+
 /// Overrides [InstrumentDial.reserved] below it, for layouts whose box
 /// already keeps the dial clear of header and footer (tool pages in
 /// landscape), so the dial only keeps a margin.
@@ -240,31 +271,7 @@ class DialPainter extends CustomPainter {
   /// The zone colour at [angle], or null without zones.
   Color? _zoneAt(double angle) {
     final z = zones;
-    if (z == null || z.isEmpty) return null;
-    var k = 0;
-    for (var i = 0; i < z.length; i++) {
-      if (angle >= z[i].from) k = i;
-    }
-    // Near a boundary, ease from one band's colour into the next.
-    for (var j = 1; j < z.length; j++) {
-      final b = z[j].from;
-      final w = _blendHalf(j);
-      if (angle > b - w && angle < b + w) {
-        final t = (angle - (b - w)) / (2 * w);
-        final eased = t * t * (3 - 2 * t);
-        return Color.lerp(z[j - 1].color, z[j].color, eased);
-      }
-    }
-    return z[k].color;
-  }
-
-  /// How far either side of band [j]'s start the colours blend: up to 20°,
-  /// never more than half of either neighbouring band.
-  double _blendHalf(int j) {
-    final z = zones!;
-    final before = z[j].from - z[j - 1].from;
-    final after = (j + 1 < z.length ? z[j + 1].from : 360.0) - z[j].from;
-    return math.min(20, math.min(before, after) / 2);
+    return z == null || z.isEmpty ? null : zoneColor(z, angle);
   }
 
   @override

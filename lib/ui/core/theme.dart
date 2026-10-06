@@ -44,6 +44,8 @@ class Palette extends ThemeExtension<Palette> {
     required this.gaugeCaution,
     required this.gaugeDanger,
     required this.dangerTint,
+    required this.gaugeModerate,
+    required this.gaugeExtreme,
   });
 
   static const light = Palette(
@@ -83,6 +85,8 @@ class Palette extends ThemeExtension<Palette> {
     gaugeCaution: Color(0xFFFF8A1F),
     gaugeDanger: Color(0xFFE5383B),
     dangerTint: Color(0xFFFDE2E1),
+    gaugeModerate: Color(0xFFDEAA00),
+    gaugeExtreme: Color(0xFFB0124A),
   );
 
   static const dark = Palette(
@@ -122,6 +126,8 @@ class Palette extends ThemeExtension<Palette> {
     gaugeCaution: Color(0xFFFFA54E),
     gaugeDanger: Color(0xFFFF5A52),
     dangerTint: Color(0x33FF5A52),
+    gaugeModerate: Color(0xFFFFD54A),
+    gaugeExtreme: Color(0xFFFF4D8D),
   );
 
   final Color background;
@@ -163,6 +169,10 @@ class Palette extends ThemeExtension<Palette> {
   /// A meter's zones on its dial, like a traffic light: fine, take care,
   /// harmful. [dangerTint] backs a status line in the harmful zone.
   final Color gaugeSafe, gaugeCaution, gaugeDanger, dangerTint;
+
+  /// Finer steps for a meter with more bands (the sound meter): yellow
+  /// between fine and take care, crimson past harmful.
+  final Color gaugeModerate, gaugeExtreme;
 
   bool get isDark => background.computeLuminance() < 0.2;
 
