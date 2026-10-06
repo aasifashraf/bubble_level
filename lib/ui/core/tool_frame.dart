@@ -27,6 +27,7 @@ class ToolFrame extends StatelessWidget {
     this.footer,
     this.bodyBottomInset = 0,
     this.footerBelowInLandscape = false,
+    this.headerOnDark = false,
   });
 
   final String title;
@@ -49,11 +50,15 @@ class ToolFrame extends StatelessWidget {
   /// rather than beside it.
   final bool footerBelowInLandscape;
 
+  /// The body is dark behind the header (a night sky): title and status
+  /// bar turn light.
+  final bool headerOnDark;
+
   @override
   Widget build(BuildContext context) {
     final palette = Palette.of(context);
     final overlay =
-        (palette.isDark
+        (palette.isDark || headerOnDark
                 ? SystemUiOverlayStyle.light
                 : SystemUiOverlayStyle.dark)
             .copyWith(
@@ -123,7 +128,9 @@ class ToolFrame extends StatelessWidget {
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 0.5,
-                                  color: palette.inkStrong,
+                                  color: headerOnDark
+                                      ? Colors.white
+                                      : palette.inkStrong,
                                 ),
                               ),
                             ),
