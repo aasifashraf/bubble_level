@@ -554,7 +554,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '「近くに金属」は小さな変化、「金属を検出」は大きな変化です。中央がオレンジになり、振動がオンなら端末が振動します。';
+      '「近くに金属」は小さな変化、「金属を検出」は大きな変化です。「あついつめたい」遊びのように、近づくほど画面は冷たい青から赤く輝く色に変わり、バイブがオンなら見つけたときに端末が震えます。';
 
   @override
   String get metalHelp4 =>
@@ -576,6 +576,27 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get metalDetected => '金属を検出';
+
+  @override
+  String get heatCold => '冷たい';
+
+  @override
+  String get heatCool => 'ひんやり';
+
+  @override
+  String get heatWarm => 'あたたかい';
+
+  @override
+  String get heatWarmer => 'もっとあたたかい';
+
+  @override
+  String get heatHot => '熱い';
+
+  @override
+  String get heatBurning => '燃えてる';
+
+  @override
+  String get baseline => '基準値';
 
   @override
   String get field => '磁場';

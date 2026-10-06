@@ -1099,7 +1099,7 @@ abstract class AppLocalizations {
   /// No description provided for @metalHelp3.
   ///
   /// In en, this message translates to:
-  /// **'“Metal nearby” means a small change. “Metal detected” means a strong one: the centre turns orange and the phone buzzes if vibration is on.'**
+  /// **'“Metal nearby” means a small change, “Metal detected” a strong one. Like the game of hot and cold, the screen warms from cool blue to glowing red as you get closer, and the phone buzzes on a find if vibration is on.'**
   String get metalHelp3;
 
   /// No description provided for @metalHelp4.
@@ -1137,6 +1137,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Metal detected'**
   String get metalDetected;
+
+  /// No description provided for @heatCold.
+  ///
+  /// In en, this message translates to:
+  /// **'Cold'**
+  String get heatCold;
+
+  /// No description provided for @heatCool.
+  ///
+  /// In en, this message translates to:
+  /// **'Cool'**
+  String get heatCool;
+
+  /// No description provided for @heatWarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm'**
+  String get heatWarm;
+
+  /// No description provided for @heatWarmer.
+  ///
+  /// In en, this message translates to:
+  /// **'Warmer'**
+  String get heatWarmer;
+
+  /// No description provided for @heatHot.
+  ///
+  /// In en, this message translates to:
+  /// **'Hot'**
+  String get heatHot;
+
+  /// No description provided for @heatBurning.
+  ///
+  /// In en, this message translates to:
+  /// **'Burning'**
+  String get heatBurning;
+
+  /// No description provided for @baseline.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseline'**
+  String get baseline;
 
   /// Magnetic field strength.
   ///

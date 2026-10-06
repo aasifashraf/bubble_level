@@ -581,7 +581,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '«Металл рядом» — небольшое изменение, «Металл найден» — сильное: центр становится оранжевым, а телефон вибрирует, если вибрация включена.';
+      '«Металл рядом» — небольшое изменение, «Металл обнаружен» — сильное. Как в игре «холодно — горячо», экран меняется от холодного синего до раскалённого красного по мере приближения, а при находке телефон вибрирует, если вибрация включена.';
 
   @override
   String get metalHelp4 =>
@@ -604,6 +604,27 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get metalDetected => 'Металл найден';
+
+  @override
+  String get heatCold => 'Холодно';
+
+  @override
+  String get heatCool => 'Прохладно';
+
+  @override
+  String get heatWarm => 'Тепло';
+
+  @override
+  String get heatWarmer => 'Теплее';
+
+  @override
+  String get heatHot => 'Горячо';
+
+  @override
+  String get heatBurning => 'Обжигает';
+
+  @override
+  String get baseline => 'База';
 
   @override
   String get field => 'Поле';

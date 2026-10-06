@@ -578,7 +578,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '“Metal nearby” means a small change. “Metal detected” means a strong one: the centre turns orange and the phone buzzes if vibration is on.';
+      '“Metal nearby” means a small change, “Metal detected” a strong one. Like the game of hot and cold, the screen warms from cool blue to glowing red as you get closer, and the phone buzzes on a find if vibration is on.';
 
   @override
   String get metalHelp4 =>
@@ -601,6 +601,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get metalDetected => 'Metal detected';
+
+  @override
+  String get heatCold => 'Cold';
+
+  @override
+  String get heatCool => 'Cool';
+
+  @override
+  String get heatWarm => 'Warm';
+
+  @override
+  String get heatWarmer => 'Warmer';
+
+  @override
+  String get heatHot => 'Hot';
+
+  @override
+  String get heatBurning => 'Burning';
+
+  @override
+  String get baseline => 'Baseline';
 
   @override
   String get field => 'Field';

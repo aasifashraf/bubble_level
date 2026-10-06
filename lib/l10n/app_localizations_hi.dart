@@ -578,7 +578,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '\"पास में धातु\" का मतलब छोटा बदलाव और \"धातु मिली\" का मतलब बड़ा बदलाव है: बीच का हिस्सा नारंगी हो जाता है और वाइब्रेशन चालू हो तो फ़ोन वाइब्रेट होता है।';
+      '“पास में धातु” का मतलब छोटा बदलाव है, “धातु मिली” का मतलब बड़ा। ठंडा-गर्म खेल की तरह, पास आने पर स्क्रीन ठंडे नीले से दहकते लाल में बदलती है, और कंपन चालू हो तो मिलने पर फ़ोन कांपता है।';
 
   @override
   String get metalHelp4 =>
@@ -601,6 +601,27 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get metalDetected => 'धातु मिली';
+
+  @override
+  String get heatCold => 'ठंडा';
+
+  @override
+  String get heatCool => 'ठंडक';
+
+  @override
+  String get heatWarm => 'गुनगुना';
+
+  @override
+  String get heatWarmer => 'और गर्म';
+
+  @override
+  String get heatHot => 'गर्म';
+
+  @override
+  String get heatBurning => 'जल रहा';
+
+  @override
+  String get baseline => 'आधार';
 
   @override
   String get field => 'क्षेत्र';

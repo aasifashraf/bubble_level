@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/controls.dart';
-import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
 import '../../../core/l10n.dart';
@@ -9,6 +8,7 @@ import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/metal_view_model.dart';
+import 'metal_heat.dart';
 
 /// Metal detector: field strength on a 0–240 µT gauge; the button turns
 /// orange when metal is detected.
@@ -24,11 +24,21 @@ class MetalScreen extends StatelessWidget {
     tip: l.metalTip,
   );
 
-  static const _scaleMax = 240.0;
-  static const _scale = [
-    '0', '20', '40', '60', '80', '100', //
-    '120', '140', '160', '180', '200', '220',
-  ];
+  /// The game's word for a change (either sign), µT: Cold … Burning.
+  static String _word(AppLocalizations l, double change) {
+    final c = change.abs();
+    return c >= 90
+        ? l.heatBurning
+        : c >= MetalViewModel.detectedAt
+        ? l.heatHot
+        : c >= 28
+        ? l.heatWarmer
+        : c >= MetalViewModel.nearbyAt
+        ? l.heatWarm
+        : c >= 8
+        ? l.heatCool
+        : l.heatCold;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +65,18 @@ class MetalScreen extends StatelessWidget {
   }
 
   Widget _dial(BuildContext context, MetalState state) {
-    final sweep = (state.field / _scaleMax).clamp(0.0, 0.999) * 360;
-    return InstrumentDial(
-      value: '${state.field.round()}',
-      label: 'µT',
+    final p = Palette.of(context);
+    final signed = formatMicroTesla(state.change, signed: true);
+    return MetalHeat(
+      change: state.change,
+      value: signed.substring(0, signed.length - ' µT'.length),
+      word: _word(context.l10n, state.change).toUpperCase(),
+      wordColor: switch (state.level) {
+        MetalLevel.clear => p.label,
+        MetalLevel.nearby => p.gaugeCaution,
+        MetalLevel.detected => p.gaugeDanger,
+      },
       semanticsLabel: context.l10n.metalSemantics(state.field.round()),
-      scaleLabels: _scale,
-      arcSweep: sweep,
-      ballAngle: sweep,
-      locked: state.level == MetalLevel.detected,
-      reserved: 200,
     );
   }
 
@@ -81,9 +93,11 @@ class MetalScreen extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // The change is on the disc; here the field and what it's
+        // measured against.
         ValueTiles([
           (formatMicroTesla(state.field), context.l10n.field),
-          (formatMicroTesla(state.change, signed: true), context.l10n.change),
+          (formatMicroTesla(state.field - state.change), context.l10n.baseline),
         ]),
         const SizedBox(height: 16),
         StatusBanner(

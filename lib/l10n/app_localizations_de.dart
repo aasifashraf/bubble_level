@@ -581,7 +581,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '„Metall in der Nähe“ heißt kleine Änderung, „Metall gefunden“ starke Änderung: Die Mitte wird orange und das Handy vibriert, wenn Vibration an ist.';
+      '„Metall in der Nähe“ bedeutet eine kleine Änderung, „Metall erkannt“ eine starke. Wie beim Spiel „Heiß oder kalt“ wird der Bildschirm von kühlem Blau zu glühendem Rot, je näher du kommst, und bei einem Fund vibriert das Handy, wenn Vibration an ist.';
 
   @override
   String get metalHelp4 =>
@@ -604,6 +604,27 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get metalDetected => 'Metall gefunden';
+
+  @override
+  String get heatCold => 'Kalt';
+
+  @override
+  String get heatCool => 'Kühl';
+
+  @override
+  String get heatWarm => 'Warm';
+
+  @override
+  String get heatWarmer => 'Wärmer';
+
+  @override
+  String get heatHot => 'Heiß';
+
+  @override
+  String get heatBurning => 'Glühend';
+
+  @override
+  String get baseline => 'Grundwert';
 
   @override
   String get field => 'Feld';

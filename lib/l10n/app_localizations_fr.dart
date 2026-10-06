@@ -583,7 +583,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '« Métal à proximité » signale un petit changement et « Métal détecté », un fort : le centre devient orange et le téléphone vibre si les vibrations sont activées.';
+      '« Métal à proximité » signifie un petit changement, « Métal détecté » un fort. Comme au jeu du chaud et froid, l’écran passe du bleu froid au rouge ardent quand vous approchez, et le téléphone vibre à la découverte si la vibration est activée.';
 
   @override
   String get metalHelp4 =>
@@ -606,6 +606,27 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get metalDetected => 'Métal détecté';
+
+  @override
+  String get heatCold => 'Froid';
+
+  @override
+  String get heatCool => 'Frais';
+
+  @override
+  String get heatWarm => 'Tiède';
+
+  @override
+  String get heatWarmer => 'Plus chaud';
+
+  @override
+  String get heatHot => 'Chaud';
+
+  @override
+  String get heatBurning => 'Brûlant';
+
+  @override
+  String get baseline => 'Référence';
 
   @override
   String get field => 'Champ';

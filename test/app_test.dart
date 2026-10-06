@@ -16,6 +16,7 @@ import 'package:bubble_level/ui/core/vial.dart';
 import 'package:bubble_level/ui/features/angle/view_models/angle_view_model.dart';
 import 'package:bubble_level/ui/features/angle/views/water_view.dart';
 import 'package:bubble_level/ui/features/light/views/light_sky.dart';
+import 'package:bubble_level/ui/features/metal/views/metal_heat.dart';
 import 'package:bubble_level/ui/features/sound/views/sound_ripples.dart';
 import 'package:bubble_level/ui/features/vibration/views/vibration_sweep.dart';
 import 'package:flutter/foundation.dart';
@@ -737,10 +738,25 @@ void main() {
     await tester.pump();
     await send(tester, Vec3.up);
     expect(find.text('No metal nearby'), findsOneWidget);
-    expect(find.text('45 µT'), findsOneWidget);
+    // Field and baseline match before anything changes.
+    expect(find.text('45 µT'), findsNWidgets(2));
+    expect(find.text('Baseline'), findsOneWidget);
+    expect(find.text('COLD'), findsOneWidget);
     await tester.tap(find.text('Set baseline'));
     await tester.pump();
-    expect(find.text('0 µT'), findsOneWidget); // change from baseline
+    expect(tester.widget<MetalHeat>(find.byType(MetalHeat)).change, 0);
+
+    // A magnet: the change shows on the disc, and it's hot.
+    for (var i = 0; i < 30; i++) {
+      sensors.sendMagnet(const Vec3(0, 105, 0));
+      await send(tester, Vec3.up);
+    }
+    expect(
+      tester.widget<MetalHeat>(find.byType(MetalHeat)).change,
+      greaterThan(40),
+    );
+    expect(find.text('HOT'), findsOneWidget);
+    expect(find.text('Metal detected'), findsOneWidget);
   });
 
   testWidgets('vibration: live reading, status and peak reset', (tester) async {

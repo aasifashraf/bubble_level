@@ -580,7 +580,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '\"Yakında metal var\" küçük bir değişim, \"Metal bulundu\" güçlü bir değişim demektir: orta kısım turuncu olur ve titreşim açıksa telefon titrer.';
+      '“Yakında metal var” küçük bir değişiklik, “Metal bulundu” güçlü bir değişiklik demektir. Sıcak-soğuk oyunundaki gibi, yaklaştıkça ekran soğuk maviden kızgın kırmızıya döner; titreşim açıksa bulunca telefon titrer.';
 
   @override
   String get metalHelp4 =>
@@ -603,6 +603,27 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get metalDetected => 'Metal bulundu';
+
+  @override
+  String get heatCold => 'Soğuk';
+
+  @override
+  String get heatCool => 'Serin';
+
+  @override
+  String get heatWarm => 'Ilık';
+
+  @override
+  String get heatWarmer => 'Daha sıcak';
+
+  @override
+  String get heatHot => 'Sıcak';
+
+  @override
+  String get heatBurning => 'Yanıyor';
+
+  @override
+  String get baseline => 'Taban';
 
   @override
   String get field => 'Alan';

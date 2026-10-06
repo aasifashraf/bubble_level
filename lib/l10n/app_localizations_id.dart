@@ -579,7 +579,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '\"Logam di dekat\" berarti perubahan kecil, \"Logam terdeteksi\" berarti perubahan besar: bagian tengah berubah oranye dan ponsel bergetar jika getaran aktif.';
+      '“Ada logam di dekat” berarti perubahan kecil, “Logam terdeteksi” berarti perubahan kuat. Seperti permainan panas-dingin, layar berubah dari biru sejuk ke merah membara saat Anda mendekat, dan ponsel bergetar saat menemukannya jika getaran aktif.';
 
   @override
   String get metalHelp4 =>
@@ -602,6 +602,27 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get metalDetected => 'Logam terdeteksi';
+
+  @override
+  String get heatCold => 'Dingin';
+
+  @override
+  String get heatCool => 'Sejuk';
+
+  @override
+  String get heatWarm => 'Hangat';
+
+  @override
+  String get heatWarmer => 'Lebih hangat';
+
+  @override
+  String get heatHot => 'Panas';
+
+  @override
+  String get heatBurning => 'Membara';
+
+  @override
+  String get baseline => 'Acuan';
 
   @override
   String get field => 'Medan';

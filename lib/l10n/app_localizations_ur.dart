@@ -579,7 +579,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '«قریب دھات ہے» کا مطلب چھوٹی تبدیلی اور «دھات مل گئی» کا مطلب بڑی تبدیلی ہے: درمیان نارنجی ہو جاتا ہے اور وائبریشن آن ہو تو فون وائبریٹ کرتا ہے۔';
+      '“قریب دھات” کا مطلب چھوٹی تبدیلی ہے، “دھات ملی” کا مطلب بڑی۔ ٹھنڈا گرم کھیل کی طرح، قریب آنے پر اسکرین ٹھنڈے نیلے سے دہکتے سرخ میں بدلتی ہے، اور وائبریشن آن ہو تو ملنے پر فون کانپتا ہے۔';
 
   @override
   String get metalHelp4 =>
@@ -602,6 +602,27 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get metalDetected => 'دھات مل گئی';
+
+  @override
+  String get heatCold => 'ٹھنڈا';
+
+  @override
+  String get heatCool => 'خنک';
+
+  @override
+  String get heatWarm => 'نیم گرم';
+
+  @override
+  String get heatWarmer => 'اور گرم';
+
+  @override
+  String get heatHot => 'گرم';
+
+  @override
+  String get heatBurning => 'جل رہا';
+
+  @override
+  String get baseline => 'بنیاد';
 
   @override
   String get field => 'میدان';

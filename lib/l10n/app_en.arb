@@ -336,7 +336,7 @@
   },
   "metalHelp1": "Open the tool away from metal. That first reading counts as “no metal”.",
   "metalHelp2": "Move the phone slowly over the area. The sensor is usually near the top of the phone. It beeps faster the closer you get to metal; tap the speaker to mute.",
-  "metalHelp3": "“Metal nearby” means a small change. “Metal detected” means a strong one: the centre turns orange and the phone buzzes if vibration is on.",
+  "metalHelp3": "“Metal nearby” means a small change, “Metal detected” a strong one. Like the game of hot and cold, the screen warms from cool blue to glowing red as you get closer, and the phone buzzes on a find if vibration is on.",
   "metalHelp4": "Hold the phone still for a few seconds and it re-zeroes itself, so a false reading fades away. To check a spot again, move the phone away and back. Tap Set baseline to re-zero at once.",
   "metalTip": "It only senses iron, steel and magnets, not aluminium, copper, gold or silver. Magnetic phone cases affect it.",
   "metalSemantics": "Magnetic field {value} microtesla",
@@ -350,6 +350,13 @@
   "noMetal": "No metal nearby",
   "metalNearby": "Metal nearby",
   "metalDetected": "Metal detected",
+  "heatCold": "Cold",
+  "heatCool": "Cool",
+  "heatWarm": "Warm",
+  "heatWarmer": "Warmer",
+  "heatHot": "Hot",
+  "heatBurning": "Burning",
+  "baseline": "Baseline",
   "field": "Field",
   "@field": {
     "description": "Magnetic field strength."

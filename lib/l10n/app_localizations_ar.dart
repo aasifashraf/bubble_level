@@ -575,7 +575,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get metalHelp3 =>
-      '«معدن قريب» يعني تغيرًا صغيرًا و«تم اكتشاف معدن» يعني تغيرًا قويًا: يتحول المنتصف إلى البرتقالي ويهتز الهاتف إذا كان الاهتزاز مفعّلًا.';
+      '«معدن قريب» يعني تغيرًا صغيرًا، و«تم اكتشاف معدن» يعني تغيرًا قويًا. مثل لعبة الحار والبارد، تتحول الشاشة من الأزرق البارد إلى الأحمر المتوهج كلما اقتربت، ويهتز الهاتف عند العثور عليه إذا كان الاهتزاز مفعّلًا.';
 
   @override
   String get metalHelp4 =>
@@ -598,6 +598,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get metalDetected => 'تم اكتشاف معدن';
+
+  @override
+  String get heatCold => 'بارد';
+
+  @override
+  String get heatCool => 'منعش';
+
+  @override
+  String get heatWarm => 'دافئ';
+
+  @override
+  String get heatWarmer => 'أدفأ';
+
+  @override
+  String get heatHot => 'حار';
+
+  @override
+  String get heatBurning => 'يحترق';
+
+  @override
+  String get baseline => 'المرجع';
 
   @override
   String get field => 'المجال';
