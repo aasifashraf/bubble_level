@@ -16,9 +16,9 @@ enum HomeLayout { list, grid }
 /// spirit-level tube.
 enum LevelStyle { dial, tube }
 
-/// How the Angle tool decides between lying flat and standing on an edge:
-/// by how the phone is held, or held at one of them.
-enum AngleMode { auto, flat, edge }
+/// How the Angle tool is used: lying flat on a surface, or standing on an
+/// edge.
+enum AngleMode { flat, edge }
 
 /// User preferences and level calibration, persisted across launches.
 class SettingsRepository extends ChangeNotifier {
@@ -233,7 +233,7 @@ class SettingsRepository extends ChangeNotifier {
 
   AngleMode get angleMode =>
       AngleMode.values.asNameMap()[_prefs.getString(_kAngleMode)] ??
-      AngleMode.auto;
+      AngleMode.flat;
 
   Future<void> setAngleMode(AngleMode v) async {
     await _prefs.setString(_kAngleMode, v.name);

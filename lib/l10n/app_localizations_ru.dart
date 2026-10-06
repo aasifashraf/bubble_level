@@ -298,7 +298,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Положите телефон на поверхность, чтобы узнать её наклон, или поставьте на ребро к склону, перилам или трубе: крупное число — угол длинной грани, угол короткой — ниже.';
+      'Положите телефон на поверхность, чтобы узнать наклон, или поставьте его ребром к уклону, перилам или трубе: крупное число — угол края, подсвеченного оранжевым, угол нижнего края — под ним.';
 
   @override
   String get angleHelp2 =>
@@ -318,7 +318,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'Он сам переключается между «плашмя» и «на ребре». Чтобы закрепить режим, нажмите значок плашмя или ребра вверху; первый значок возвращает автоматический режим.';
+      'Выберите режим переключателем вверху: плашмя на поверхности или стоя на ребре. На ребре экран заполняется водой, которая остаётся горизонтальной, а измеряемый край, нижняя сторона, подсвечивается оранжевым.';
 
   @override
   String get angleTip =>
@@ -336,20 +336,20 @@ class AppLocalizationsRu extends AppLocalizations {
   String get angleFlatStatus => 'Плашмя · угол относительно Земли';
 
   @override
-  String get longEdgeFromLevel => 'На ребре · длинная грань от горизонта';
+  String get measuringRightEdge => 'Измеряется правый край';
 
   @override
-  String shortEdge(String value) {
-    return 'Короткая грань $value';
+  String get measuringLeftEdge => 'Измеряется левый край';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Нижний край $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Длинная грань $long от горизонта, короткая грань $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: $value от горизонтали. Нижний край $other';
   }
-
-  @override
-  String get angleModeAuto => 'Автоматически';
 
   @override
   String get angleModeFlat => 'Плашмя на поверхности';

@@ -631,7 +631,7 @@ abstract class AppLocalizations {
   /// No description provided for @angleHelp1.
   ///
   /// In en, this message translates to:
-  /// **'Lay the phone on a surface to read its tilt, or stand it on an edge against a slope, rail or pipe: the big number is the long edge’s angle, the short edge’s is below.'**
+  /// **'Lay the phone on a surface to read its tilt, or stand it on an edge against a slope, rail or pipe: the big number is the angle of the edge that glows orange, the bottom edge’s is below.'**
   String get angleHelp1;
 
   /// No description provided for @angleHelp2.
@@ -661,7 +661,7 @@ abstract class AppLocalizations {
   /// No description provided for @angleHelp6.
   ///
   /// In en, this message translates to:
-  /// **'It switches between flat and on-edge by itself. To keep one, tap the flat or edge icon at the top; the first icon goes back to automatic.'**
+  /// **'Choose the mode with the switch at the top: flat on a surface, or standing on an edge. On an edge the screen fills with water that stays level, and the edge you’re measuring, the lower side, glows orange.'**
   String get angleHelp6;
 
   /// No description provided for @angleTip.
@@ -688,29 +688,29 @@ abstract class AppLocalizations {
   /// **'Flat · angle from the Earth'**
   String get angleFlatStatus;
 
-  /// No description provided for @longEdgeFromLevel.
+  /// No description provided for @measuringRightEdge.
   ///
   /// In en, this message translates to:
-  /// **'On edge · long edge from level'**
-  String get longEdgeFromLevel;
+  /// **'Measuring the right edge'**
+  String get measuringRightEdge;
 
-  /// No description provided for @shortEdge.
+  /// No description provided for @measuringLeftEdge.
   ///
   /// In en, this message translates to:
-  /// **'Short edge {value}'**
-  String shortEdge(String value);
+  /// **'Measuring the left edge'**
+  String get measuringLeftEdge;
+
+  /// No description provided for @bottomEdge.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottom edge {value}'**
+  String bottomEdge(String value);
 
   /// No description provided for @edgeAngleSemantics.
   ///
   /// In en, this message translates to:
-  /// **'Long edge {long} from level, short edge {short}'**
-  String edgeAngleSemantics(String long, String short);
-
-  /// No description provided for @angleModeAuto.
-  ///
-  /// In en, this message translates to:
-  /// **'Automatic'**
-  String get angleModeAuto;
+  /// **'{edge}: {value} from level. Bottom edge {other}'**
+  String edgeAngleSemantics(String edge, String value, String other);
 
   /// No description provided for @angleModeFlat.
   ///

@@ -174,12 +174,12 @@
   "lockHandles": "Lock handles",
   "handlesLocked": "Handles locked · tap the lock to adjust",
   "calibrate": "Calibrate",
-  "angleHelp1": "Lay the phone on a surface to read its tilt, or stand it on an edge against a slope, rail or pipe: the big number is the long edge’s angle, the short edge’s is below.",
+  "angleHelp1": "Lay the phone on a surface to read its tilt, or stand it on an edge against a slope, rail or pipe: the big number is the angle of the edge that glows orange, the bottom edge’s is below.",
   "angleHelp2": "To measure a change, hold the phone in the starting position and tap Set zero here.",
   "angleHelp3": "Tilt or move the phone. The dial shows how many degrees it moved from your zero.",
   "angleHelp4": "Tap Clear zero to go back to the angle from flat.",
   "angleHelp5": "To read an angle you can’t see, hold the phone against the object, tap the lock, then lift it and read.",
-  "angleHelp6": "It switches between flat and on-edge by itself. To keep one, tap the flat or edge icon at the top; the first icon goes back to automatic.",
+  "angleHelp6": "Choose the mode with the switch at the top: flat on a surface, or standing on an edge. On an edge the screen fills with water that stays level, and the edge you’re measuring, the lower side, glows orange.",
   "angleTip": "Lay the phone’s long side along a ramp, stair rail or roof to read its slope, or press the screen flat against a board or door to measure its tilt.",
   "movedFromZero": "Moved from zero {value}",
   "@movedFromZero": {
@@ -191,26 +191,29 @@
   },
   "measuringFromZero": "Measuring from your zero",
   "angleFlatStatus": "Flat · angle from the Earth",
-  "longEdgeFromLevel": "On edge · long edge from level",
-  "shortEdge": "Short edge {value}",
-  "@shortEdge": {
+  "measuringRightEdge": "Measuring the right edge",
+  "measuringLeftEdge": "Measuring the left edge",
+  "bottomEdge": "Bottom edge {value}",
+  "@bottomEdge": {
     "placeholders": {
       "value": {
         "type": "String"
       }
     }
   },
-  "edgeAngleSemantics": "Long edge {long} from level, short edge {short}",
-  "angleModeAuto": "Automatic",
+  "edgeAngleSemantics": "{edge}: {value} from level. Bottom edge {other}",
   "angleModeFlat": "Flat on a surface",
   "angleModeEdge": "On an edge",
   "standOnEdge": "Stand the phone on one of its edges",
   "@edgeAngleSemantics": {
     "placeholders": {
-      "long": {
+      "edge": {
         "type": "String"
       },
-      "short": {
+      "value": {
+        "type": "String"
+      },
+      "other": {
         "type": "String"
       }
     }

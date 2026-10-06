@@ -292,7 +292,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      '面に置くと傾きを、斜面や手すり、パイプに端末を立てて当てると角度を測れます。大きな数字が長辺の角度で、短辺の角度は下に表示されます。';
+      '端末を面に置くと傾きがわかります。辺を立てて斜面・手すり・パイプに当てると、大きな数字はオレンジに光る辺の角度、その下が下の辺の角度です。';
 
   @override
   String get angleHelp2 => '変化を測るには、開始位置で端末を持ち「ここをゼロに」をタップします。';
@@ -308,7 +308,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      '平置きと立て置きは自動で切り替わります。固定したいときは上部の平置きか立て置きのアイコンを、自動に戻すには最初のアイコンをタップします。';
+      '上部のスイッチでモードを選びます：面に平らに置く、または辺で立てる。辺で立てると画面は水平を保つ水で満たされ、測定中の辺（低い側）がオレンジに光ります。';
 
   @override
   String get angleTip => 'スロープや階段の手すり、屋根に端末の長辺を当てると勾配を、板やドアに画面を平らに当てると傾きを測れます。';
@@ -325,20 +325,20 @@ class AppLocalizationsJa extends AppLocalizations {
   String get angleFlatStatus => '平置き · 地面に対する角度';
 
   @override
-  String get longEdgeFromLevel => '立て置き · 長辺の水平からの角度';
+  String get measuringRightEdge => '右の辺を測定中';
 
   @override
-  String shortEdge(String value) {
-    return '短辺 $value';
+  String get measuringLeftEdge => '左の辺を測定中';
+
+  @override
+  String bottomEdge(String value) {
+    return '下の辺 $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return '長辺は水平から $long、短辺は $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge：水平から $value。下の辺 $other';
   }
-
-  @override
-  String get angleModeAuto => '自動';
 
   @override
   String get angleModeFlat => '面に平らに置く';

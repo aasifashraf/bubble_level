@@ -13,6 +13,8 @@ import 'package:bubble_level/ui/core/dial.dart';
 import 'package:bubble_level/ui/core/readout.dart';
 import 'package:bubble_level/ui/core/theme.dart';
 import 'package:bubble_level/ui/core/vial.dart';
+import 'package:bubble_level/ui/features/angle/view_models/angle_view_model.dart';
+import 'package:bubble_level/ui/features/angle/views/water_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -250,27 +252,61 @@ void main() {
     final semantics = tester.ensureSemantics();
     await pumpApp(tester);
     await openTool(tester, 'Angle');
+    await tester.tap(find.byTooltip('On an edge'));
+    await tester.pump();
     // Long side along a 30° ramp: gravity 60° round in the screen plane.
     final a = 60 * math.pi / 180;
     for (var i = 0; i < 60; i++) {
       await send(tester, Vec3(math.sin(a), math.cos(a), 0.02));
     }
+    // The right side is up, so the left edge is the one measured.
     expect(
-      find.bySemanticsLabel('Long edge 30.0° from level, short edge 60.0°'),
+      find.bySemanticsLabel(
+        'Measuring the left edge: 30.0° from level. Bottom edge 60.0°',
+      ),
       findsOneWidget,
     );
-    expect(find.text('On edge · long edge from level'), findsOneWidget);
-    expect(find.text('Short edge 60.0°'), findsOneWidget);
+    expect(find.text('Measuring the left edge'), findsOneWidget);
+    expect(find.text('Bottom edge 60.0°'), findsOneWidget);
+    // The screen is water, its surface level with the world: 60° round on
+    // the screen against the phone.
+    expect(find.byType(InstrumentDial), findsNothing);
+    final water = tester.widget<WaterView>(find.byType(WaterView));
+    expect(water.surface, closeTo(60, 0.5));
+    expect(water.mark?.side, EdgeSide.left);
+    expect(water.mark?.degrees, closeTo(30, 0.1));
+
+    // Leaning the other way: the right edge now.
+    for (var i = 0; i < 60; i++) {
+      await send(tester, Vec3(-math.sin(a), math.cos(a), 0.02));
+    }
+    expect(find.text('Measuring the right edge'), findsOneWidget);
+    expect(find.text('Bottom edge 60.0°'), findsOneWidget);
+    expect(
+      tester.widget<WaterView>(find.byType(WaterView)).mark?.side,
+      EdgeSide.right,
+    );
 
     // Set zero still measures from there.
     await tester.tap(find.text('Set zero here'));
     await tester.pump();
     expect(find.text('Measuring from your zero'), findsOneWidget);
-    expect(find.text('Short edge 60.0°'), findsNothing);
+    expect(find.text('Bottom edge 60.0°'), findsNothing);
+    // The dial still shows it: from 0° round toward where it turned.
+    WaterView water0() => tester.widget<WaterView>(find.byType(WaterView));
+    expect(water0().mark?.degrees, closeTo(0, 0.1));
+    // Turned 20° further clockwise (as seen): 20° round to the right.
+    final b = 80 * math.pi / 180;
+    for (var i = 0; i < 60; i++) {
+      await send(tester, Vec3(-math.sin(b), math.cos(b), 0.02));
+    }
+    expect(water0().mark?.degrees, closeTo(20, 0.5));
+    expect(water0().mark?.side, EdgeSide.right);
 
-    // Back flat: the tilt from flat again.
+    // Back flat: the tilt from flat again, on the dial.
     await tester.tap(find.text('Clear zero'));
-    await tester.pump();
+    await tester.tap(find.byTooltip('Flat on a surface'));
+    await tester.pumpAndSettle();
     for (var i = 0; i < 60; i++) {
       await send(tester, Vec3.up);
     }
@@ -278,8 +314,10 @@ void main() {
     semantics.dispose();
   });
 
-  testWidgets('angle: Flat or Edge holds the mode; Edge while flat asks to '
-      'stand the phone up; the choice is remembered', (tester) async {
+  testWidgets('angle: flat by default, never switching by itself; Edge while '
+      'flat asks to stand the phone up; the choice is remembered', (
+    tester,
+  ) async {
     await pumpApp(tester);
     await openTool(tester, 'Angle');
     final a = 60 * math.pi / 180;
@@ -289,12 +327,13 @@ void main() {
       }
     }
 
-    // Held flat: standing on an edge still reads the screen's tilt.
-    await tester.tap(find.byTooltip('Flat on a surface'));
-    await tester.pump();
+    // Flat by default: standing on an edge, or tipping past upright, still
+    // reads the screen's tilt (it used to jump modes there).
+    expect((await SettingsRepository.load()).angleMode, AngleMode.flat);
     await hold(Vec3(math.sin(a), math.cos(a), 0.02));
     expect(find.text('Flat · angle from the Earth'), findsOneWidget);
-    expect((await SettingsRepository.load()).angleMode, AngleMode.flat);
+    await hold(const Vec3(0, 0.6, -0.8)); // past upright: 127° from flat
+    expect(find.text('Flat · angle from the Earth'), findsOneWidget);
 
     // Held on edge: lying flat there's no edge to read.
     await tester.tap(find.byTooltip('On an edge'));
@@ -302,7 +341,7 @@ void main() {
     await hold(Vec3.up);
     expect(find.text('Stand the phone on one of its edges'), findsOneWidget);
     await hold(Vec3(math.sin(a), math.cos(a), 0.02));
-    expect(find.text('Short edge 60.0°'), findsOneWidget);
+    expect(find.text('Bottom edge 60.0°'), findsOneWidget);
 
     // Remembered when the tool opens again.
     await tester.tap(find.byTooltip('Back'));
@@ -311,11 +350,12 @@ void main() {
     await hold(Vec3.up);
     expect(find.text('Stand the phone on one of its edges'), findsOneWidget);
 
-    // Automatic again.
-    await tester.tap(find.byTooltip('Automatic'));
-    await tester.pump();
+    // Flat again.
+    await tester.tap(find.byTooltip('Flat on a surface'));
+    await tester.pumpAndSettle();
     await hold(Vec3.up);
     expect(find.text('Flat · angle from the Earth'), findsOneWidget);
+    expect(find.byTooltip('Automatic'), findsNothing);
   });
 
   testWidgets('angle: set and clear zero', (tester) async {

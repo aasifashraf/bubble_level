@@ -297,7 +297,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Lay the phone on a surface to read its tilt, or stand it on an edge against a slope, rail or pipe: the big number is the long edge’s angle, the short edge’s is below.';
+      'Lay the phone on a surface to read its tilt, or stand it on an edge against a slope, rail or pipe: the big number is the angle of the edge that glows orange, the bottom edge’s is below.';
 
   @override
   String get angleHelp2 =>
@@ -316,7 +316,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'It switches between flat and on-edge by itself. To keep one, tap the flat or edge icon at the top; the first icon goes back to automatic.';
+      'Choose the mode with the switch at the top: flat on a surface, or standing on an edge. On an edge the screen fills with water that stays level, and the edge you’re measuring, the lower side, glows orange.';
 
   @override
   String get angleTip =>
@@ -334,20 +334,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get angleFlatStatus => 'Flat · angle from the Earth';
 
   @override
-  String get longEdgeFromLevel => 'On edge · long edge from level';
+  String get measuringRightEdge => 'Measuring the right edge';
 
   @override
-  String shortEdge(String value) {
-    return 'Short edge $value';
+  String get measuringLeftEdge => 'Measuring the left edge';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Bottom edge $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Long edge $long from level, short edge $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: $value from level. Bottom edge $other';
   }
-
-  @override
-  String get angleModeAuto => 'Automatic';
 
   @override
   String get angleModeFlat => 'Flat on a surface';

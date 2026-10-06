@@ -297,7 +297,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'جھکاؤ پڑھنے کے لیے فون کو کسی سطح پر لٹائیں، یا ڈھلوان، ریلنگ یا پائپ کے ساتھ کنارے کے بل کھڑا کریں: بڑا نمبر لمبے کنارے کا زاویہ ہے، چھوٹے کنارے کا نیچے دکھتا ہے۔';
+      'جھکاؤ پڑھنے کے لیے فون کو کسی سطح پر رکھیں، یا اسے کسی ڈھلوان، ریلنگ یا پائپ کے ساتھ کنارے پر کھڑا کریں: بڑا عدد نارنجی چمکتے کنارے کا زاویہ ہے، نچلے کنارے کا زاویہ اس کے نیچے ہے۔';
 
   @override
   String get angleHelp2 =>
@@ -317,7 +317,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'یہ خود ہی لٹائے اور کنارے والے موڈ میں بدلتا ہے۔ کسی ایک کو برقرار رکھنے کے لیے اوپر لٹائے یا کنارے والا آئیکن دبائیں؛ پہلا آئیکن دوبارہ خودکار کر دیتا ہے۔';
+      'اوپر والے سوئچ سے موڈ چنیں: سطح پر سیدھا، یا کنارے پر کھڑا۔ کنارے پر اسکرین ایسے پانی سے بھر جاتی ہے جو سطح پر رہتا ہے، اور جس کنارے کی آپ پیمائش کر رہے ہیں، یعنی نچلی طرف، نارنجی چمکتا ہے۔';
 
   @override
   String get angleTip =>
@@ -335,20 +335,20 @@ class AppLocalizationsUr extends AppLocalizations {
   String get angleFlatStatus => 'سیدھا لٹایا · زمین کے لحاظ سے زاویہ';
 
   @override
-  String get longEdgeFromLevel => 'کنارے پر · لمبا کنارہ ہموار سے';
+  String get measuringRightEdge => 'دائیں کنارے کی پیمائش';
 
   @override
-  String shortEdge(String value) {
-    return 'چھوٹا کنارہ $value';
+  String get measuringLeftEdge => 'بائیں کنارے کی پیمائش';
+
+  @override
+  String bottomEdge(String value) {
+    return 'نچلا کنارہ $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'لمبا کنارہ ہموار سے $long، چھوٹا کنارہ $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: سطح سے $value۔ نچلا کنارہ $other';
   }
-
-  @override
-  String get angleModeAuto => 'خودکار';
 
   @override
   String get angleModeFlat => 'سطح پر سیدھا لٹایا';

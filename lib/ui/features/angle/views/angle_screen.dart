@@ -11,6 +11,7 @@ import '../../../core/soft_switch.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/angle_view_model.dart';
+import 'water_view.dart';
 
 /// Angle from the Earth, or — after "Set zero" — how far the phone has
 /// moved from a starting position; the compass design with an arc.
@@ -41,12 +42,39 @@ class AngleScreen extends StatelessWidget {
         final state = viewModel.state;
         final degrees = state == null
             ? 0.0
-            : state.moved ?? state.longEdge ?? state.tilt;
+            : state.moved ?? state.edge ?? state.tilt;
         final value = formatDegrees(degrees);
         final zeroed = state?.zeroed ?? false;
         final onEdge = !zeroed && (state?.onEdge ?? false);
         final needsEdge = !zeroed && viewModel.needsEdge;
-        return ToolFrame(
+        final side = onEdge ? state!.side : null;
+        // The half dial over the water: the measured edge, or after "Set
+        // zero" how far the phone turned, toward the side it turned
+        // (clockwise, as the user sees it, is to the right).
+        final DialMark? mark = state == null || needsEdge
+            ? null
+            : zeroed
+            ? (
+                side: (state.screenRotation ?? 0) > 0
+                    ? EdgeSide.left
+                    : EdgeSide.right,
+                degrees: state.moved!,
+              )
+            : side == null
+            ? null
+            : (side: side, degrees: state.edge!);
+        final semantics = state == null
+            ? ''
+            : zeroed
+            ? context.l10n.movedFromZero(value)
+            : onEdge
+            ? context.l10n.edgeAngleSemantics(
+                _measuring(context.l10n, side!),
+                value,
+                formatDegrees(state.bottomEdge!),
+              )
+            : context.l10n.fromLevel(value);
+        final frame = ToolFrame(
           title: context.l10n.toolAngle,
           onBack: onBack,
           trailing: HelpButton(help: _help(context.l10n)),
@@ -56,16 +84,18 @@ class AngleScreen extends StatelessWidget {
               reading: viewModel.reading,
               child: state == null
                   ? const SizedBox.shrink()
-                  : InstrumentDial(
+                  // On an edge the screen fills with water that stays
+                  // level, like water in a glass.
+                  : viewModel.mode == AngleMode.edge
+                  ? WaterView(
+                      surface: state.surface,
                       value: needsEdge ? '—' : value,
-                      semanticsLabel: zeroed
-                          ? context.l10n.movedFromZero(value)
-                          : onEdge
-                          ? context.l10n.edgeAngleSemantics(
-                              value,
-                              formatDegrees(state.shortEdge!),
-                            )
-                          : context.l10n.fromLevel(value),
+                      semanticsLabel: semantics,
+                      mark: mark,
+                    )
+                  : InstrumentDial(
+                      value: value,
+                      semanticsLabel: semantics,
                       arcSweep: needsEdge ? 0 : degrees,
                       ballAngle: needsEdge ? null : degrees,
                       reserved: 300,
@@ -82,13 +112,13 @@ class AngleScreen extends StatelessWidget {
                       _modeSwitch(context),
                       const SizedBox(height: 16),
                     ],
-                    _status(context, zeroed, onEdge, needsEdge),
+                    _status(context, zeroed, side, needsEdge),
                     if (onEdge)
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: Text(
-                          context.l10n.shortEdge(
-                            formatDegrees(state.shortEdge!),
+                          context.l10n.bottomEdge(
+                            formatDegrees(state.bottomEdge!),
                           ),
                           style: TextStyle(
                             fontSize: 14,
@@ -125,9 +155,24 @@ class AngleScreen extends StatelessWidget {
                   ],
                 ),
         );
+        // The measured edge glows down its side of the screen, so it's
+        // clear which edge the reading belongs to.
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            frame,
+            for (final s in EdgeSide.values)
+              _EdgeGlow(side: s, shown: side == s),
+          ],
+        );
       },
     );
   }
+
+  static String _measuring(AppLocalizations l, EdgeSide side) => switch (side) {
+    EdgeSide.left => l.measuringLeftEdge,
+    EdgeSide.right => l.measuringRightEdge,
+  };
 
   /// Portrait: the mode switch under the header, top right (as the Level's
   /// view switch). Landscape: it moves to the controls column.
@@ -157,11 +202,6 @@ class AngleScreen extends StatelessWidget {
       onChanged: viewModel.setMode,
       options: [
         SoftSwitchOption(
-          value: AngleMode.auto,
-          icon: Icons.auto_mode_rounded,
-          tooltip: l.angleModeAuto,
-        ),
-        SoftSwitchOption(
           value: AngleMode.flat,
           glyph: (c) => _glyph(c, flat: true),
           tooltip: l.angleModeFlat,
@@ -178,9 +218,10 @@ class AngleScreen extends StatelessWidget {
   Widget _status(
     BuildContext context,
     bool zeroed,
-    bool onEdge,
+    EdgeSide? side,
     bool needsEdge,
   ) {
+    final onEdge = side != null;
     final l = context.l10n;
     if (needsEdge) {
       return StatusBanner(
@@ -192,7 +233,7 @@ class AngleScreen extends StatelessWidget {
     final text = zeroed
         ? l.measuringFromZero
         : onEdge
-        ? l.longEdgeFromLevel
+        ? _measuring(l, side)
         : l.angleFlatStatus;
     if (viewModel.locked) {
       return StatusBanner(icon: Icons.lock_rounded, text: l.locked(text));
@@ -202,6 +243,51 @@ class AngleScreen extends StatelessWidget {
       icon: zeroed ? Icons.adjust_rounded : null,
       glyph: zeroed ? null : (c) => _glyph(c, flat: !onEdge),
       text: text,
+    );
+  }
+}
+
+/// An orange glow down one side of the screen, marking the edge measured.
+/// Both sides are always built and fade in and out, so a change of side
+/// cross-fades rather than jumping.
+class _EdgeGlow extends StatelessWidget {
+  const _EdgeGlow({required this.side, required this.shown});
+
+  final EdgeSide side;
+  final bool shown;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    final left = side == EdgeSide.left;
+    return Positioned(
+      top: 0,
+      bottom: 0,
+      left: left ? 0 : null,
+      right: left ? null : 0,
+      width: 5,
+      child: IgnorePointer(
+        child: AnimatedOpacity(
+          opacity: shown ? 1 : 0,
+          duration: const Duration(milliseconds: 250),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [p.ballLight, p.ballDark, p.ballLight],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: p.ballDark.withValues(alpha: 0.45),
+                  blurRadius: 18,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

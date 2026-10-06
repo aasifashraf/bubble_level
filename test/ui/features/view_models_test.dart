@@ -316,6 +316,32 @@ void main() {
       expect(vm.state!.tilt, closeTo(70, 0.1), reason: 'live again');
     });
 
+    test(
+      'on an edge the lower side is measured, steady near upright',
+      () async {
+        await settings.setAngleMode(AngleMode.edge);
+        Future<void> hold(double deg) async {
+          for (var i = 0; i < 200; i++) {
+            sensors.sendUp(_onEdge(deg));
+          }
+          await flush();
+        }
+
+        await hold(60); // right side raised: the left edge is lower
+        expect(vm.state!.side, EdgeSide.left);
+        expect(vm.state!.edge, closeTo(30, 0.1));
+        await hold(-60);
+        expect(vm.state!.side, EdgeSide.right);
+        expect(vm.state!.edge, closeTo(30, 0.1));
+        // Upright, leaning 1° the other way: no flicker across.
+        await hold(1);
+        expect(vm.state!.side, EdgeSide.right);
+        expect(vm.state!.edge, closeTo(89, 0.1));
+        await hold(3);
+        expect(vm.state!.side, EdgeSide.left);
+      },
+    );
+
     test('reports angle from level before zeroing', () async {
       sensors.sendUp(_pitched(30));
       await flush();

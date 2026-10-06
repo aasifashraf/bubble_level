@@ -297,7 +297,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'ضع الهاتف على سطح لقراءة ميله، أو أوقفه على حافته على منحدر أو درابزين أو أنبوب: الرقم الكبير هو زاوية الحافة الطويلة، وزاوية القصيرة أسفله.';
+      'ضع الهاتف على سطح لقراءة ميله، أو أوقفه على حافته على منحدر أو درابزين أو أنبوب: الرقم الكبير هو زاوية الحافة المضيئة بالبرتقالي، وزاوية الحافة السفلية تحته.';
 
   @override
   String get angleHelp2 =>
@@ -316,7 +316,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'يتنقل تلقائيًا بين الوضع المسطح والوقوف على الحافة. لتثبيت أحدهما، اضغط أيقونة المسطح أو الحافة في الأعلى؛ والأيقونة الأولى تعيده إلى التلقائي.';
+      'اختر الوضع من المفتاح في الأعلى: مسطحًا على سطح أو واقفًا على حافة. على الحافة تمتلئ الشاشة بماء يبقى مستويًا، وتضيء الحافة التي تقيسها، أي الجانب الأدنى، باللون البرتقالي.';
 
   @override
   String get angleTip =>
@@ -334,20 +334,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get angleFlatStatus => 'مسطح · الزاوية بالنسبة إلى الأرض';
 
   @override
-  String get longEdgeFromLevel => 'على الحافة · الحافة الطويلة عن الوضع الأفقي';
+  String get measuringRightEdge => 'قياس الحافة اليمنى';
 
   @override
-  String shortEdge(String value) {
-    return 'الحافة القصيرة $value';
+  String get measuringLeftEdge => 'قياس الحافة اليسرى';
+
+  @override
+  String bottomEdge(String value) {
+    return 'الحافة السفلية $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'الحافة الطويلة $long عن الوضع الأفقي، والحافة القصيرة $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: $value عن المستوى. الحافة السفلية $other';
   }
-
-  @override
-  String get angleModeAuto => 'تلقائي';
 
   @override
   String get angleModeFlat => 'مسطح على سطح';

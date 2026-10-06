@@ -298,7 +298,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Eğimi okumak için telefonu bir yüzeye yatırın ya da bir yokuşa, korkuluğa veya boruya kenarı üstünde dayayın: büyük sayı uzun kenarın açısıdır, kısa kenarınki altta görünür.';
+      'Eğimi okumak için telefonu bir yüzeye koyun ya da bir kenarı üzerinde bir eğime, korkuluğa veya boruya dayayın: büyük sayı turuncu parlayan kenarın açısıdır, alt kenarınki altında yazar.';
 
   @override
   String get angleHelp2 =>
@@ -318,7 +318,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'Düz ve kenar üstü arasında kendiliğinden geçer. Birini sabitlemek için üstteki düz veya kenar simgesine dokunun; ilk simge otomatiğe döner.';
+      'Modu üstteki anahtarla seçin: bir yüzeyde düz ya da bir kenarı üzerinde dik. Kenarda ekran düz kalan suyla dolar ve ölçtüğünüz kenar, yani alçak taraf, turuncu parlar.';
 
   @override
   String get angleTip =>
@@ -336,20 +336,20 @@ class AppLocalizationsTr extends AppLocalizations {
   String get angleFlatStatus => 'Düz · Dünya’ya göre açı';
 
   @override
-  String get longEdgeFromLevel => 'Kenar üstünde · uzun kenarın yataydan açısı';
+  String get measuringRightEdge => 'Sağ kenar ölçülüyor';
 
   @override
-  String shortEdge(String value) {
-    return 'Kısa kenar $value';
+  String get measuringLeftEdge => 'Sol kenar ölçülüyor';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Alt kenar $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Uzun kenar yataydan $long, kısa kenar $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: yataydan $value. Alt kenar $other';
   }
-
-  @override
-  String get angleModeAuto => 'Otomatik';
 
   @override
   String get angleModeFlat => 'Bir yüzeyde düz';

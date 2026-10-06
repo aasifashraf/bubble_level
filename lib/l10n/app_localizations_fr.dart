@@ -299,7 +299,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Posez le téléphone sur une surface pour lire son inclinaison, ou mettez-le sur la tranche contre une pente, une rampe ou un tuyau : le grand nombre est l’angle du grand côté, celui du petit côté est en dessous.';
+      'Posez le téléphone sur une surface pour lire son inclinaison, ou posez-le sur la tranche contre une pente, une rampe ou un tuyau : le grand nombre est l’angle du bord qui s’allume en orange ; celui du bord inférieur est en dessous.';
 
   @override
   String get angleHelp2 =>
@@ -319,7 +319,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'Il passe seul de « à plat » à « sur la tranche ». Pour en garder un, touchez l’icône correspondante en haut ; la première icône revient en automatique.';
+      'Choisissez le mode avec le sélecteur en haut : à plat sur une surface ou debout sur une tranche. Sur la tranche, l’écran se remplit d’eau qui reste de niveau, et le bord mesuré, le côté le plus bas, s’allume en orange.';
 
   @override
   String get angleTip =>
@@ -337,21 +337,20 @@ class AppLocalizationsFr extends AppLocalizations {
   String get angleFlatStatus => 'À plat · angle par rapport à la Terre';
 
   @override
-  String get longEdgeFromLevel =>
-      'Sur la tranche · grand côté par rapport à l’horizontale';
+  String get measuringRightEdge => 'Mesure du bord droit';
 
   @override
-  String shortEdge(String value) {
-    return 'Petit côté $value';
+  String get measuringLeftEdge => 'Mesure du bord gauche';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Bord inférieur $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Grand côté $long par rapport à l’horizontale, petit côté $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge : $value par rapport à l’horizontale. Bord inférieur $other';
   }
-
-  @override
-  String get angleModeAuto => 'Automatique';
 
   @override
   String get angleModeFlat => 'À plat sur une surface';

@@ -297,7 +297,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'झुकाव पढ़ने के लिए फ़ोन को किसी सतह पर लिटाएँ, या ढलान, रेलिंग या पाइप से किनारे के बल सटाकर खड़ा करें: बड़ी संख्या लंबे किनारे का कोण है, छोटे किनारे का नीचे दिखता है।';
+      'झुकाव पढ़ने के लिए फ़ोन को किसी सतह पर रखें, या उसे किसी ढलान, रेलिंग या पाइप से सटाकर किनारे पर खड़ा करें: बड़ी संख्या नारंगी चमकते किनारे का कोण है, निचले किनारे का कोण उसके नीचे है।';
 
   @override
   String get angleHelp2 =>
@@ -317,7 +317,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'यह अपने आप लिटाए और किनारे वाले मोड में बदलता है। किसी एक को बनाए रखने के लिए ऊपर लिटाए या किनारे वाला आइकन दबाएँ; पहला आइकन फिर से अपने आप वाला मोड चालू करता है।';
+      'ऊपर के स्विच से मोड चुनें: सतह पर सपाट, या किनारे पर खड़ा। किनारे पर स्क्रीन पानी से भर जाती है जो समतल रहता है, और जो किनारा आप माप रहे हैं, यानी नीचे वाला हिस्सा, नारंगी चमकता है।';
 
   @override
   String get angleTip =>
@@ -335,20 +335,20 @@ class AppLocalizationsHi extends AppLocalizations {
   String get angleFlatStatus => 'सीधा लिटाया · पृथ्वी से कोण';
 
   @override
-  String get longEdgeFromLevel => 'किनारे पर · लंबा किनारा समतल से';
+  String get measuringRightEdge => 'दायाँ किनारा माप रहे हैं';
 
   @override
-  String shortEdge(String value) {
-    return 'छोटा किनारा $value';
+  String get measuringLeftEdge => 'बायाँ किनारा माप रहे हैं';
+
+  @override
+  String bottomEdge(String value) {
+    return 'निचला किनारा $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'लंबा किनारा समतल से $long, छोटा किनारा $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: समतल से $value। निचला किनारा $other';
   }
-
-  @override
-  String get angleModeAuto => 'अपने आप';
 
   @override
   String get angleModeFlat => 'सतह पर सीधा लिटाया';

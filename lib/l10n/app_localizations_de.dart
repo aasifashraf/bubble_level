@@ -298,7 +298,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Leg das Handy auf eine Fläche, um die Neigung zu lesen, oder stell es mit einer Kante an eine Schräge, ein Geländer oder ein Rohr: Die große Zahl ist der Winkel der langen Kante, der der kurzen steht darunter.';
+      'Leg das Handy auf eine Fläche, um die Neigung zu lesen, oder stell es mit einer Kante an eine Schräge, ein Geländer oder ein Rohr: Die große Zahl ist der Winkel der orange leuchtenden Kante, der der unteren Kante steht darunter.';
 
   @override
   String get angleHelp2 =>
@@ -318,7 +318,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'Es wechselt selbst zwischen flach und auf der Kante. Um eins festzuhalten, tippe oben auf das Flach- oder Kanten-Symbol; das erste Symbol schaltet zurück auf automatisch.';
+      'Wähle oben im Umschalter den Modus: flach auf einer Fläche oder auf einer Kante stehend. Auf der Kante füllt sich der Bildschirm mit Wasser, das waagrecht bleibt, und die gemessene Kante, die tiefere Seite, leuchtet orange.';
 
   @override
   String get angleTip =>
@@ -336,20 +336,20 @@ class AppLocalizationsDe extends AppLocalizations {
   String get angleFlatStatus => 'Flach · Winkel zur Erde';
 
   @override
-  String get longEdgeFromLevel => 'Auf der Kante · lange Kante zur Waagrechten';
+  String get measuringRightEdge => 'Misst die rechte Kante';
 
   @override
-  String shortEdge(String value) {
-    return 'Kurze Kante $value';
+  String get measuringLeftEdge => 'Misst die linke Kante';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Untere Kante $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Lange Kante $long zur Waagrechten, kurze Kante $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: $value zur Waagrechten. Untere Kante $other';
   }
-
-  @override
-  String get angleModeAuto => 'Automatisch';
 
   @override
   String get angleModeFlat => 'Flach auf einer Fläche';

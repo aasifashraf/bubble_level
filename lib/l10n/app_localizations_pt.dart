@@ -297,7 +297,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Deite o celular numa superfície para ver a inclinação, ou apoie-o de lado contra uma rampa, corrimão ou cano: o número grande é o ângulo da borda longa; o da curta aparece embaixo.';
+      'Coloque o celular sobre uma superfície para ler a inclinação, ou apoie-o em uma borda contra uma rampa, corrimão ou cano: o número grande é o ângulo da borda que brilha em laranja; o da borda inferior aparece abaixo.';
 
   @override
   String get angleHelp2 =>
@@ -317,7 +317,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'Ele alterna sozinho entre deitado e de lado. Para fixar um, toque no ícone de deitado ou de lado no topo; o primeiro ícone volta ao automático.';
+      'Escolha o modo no seletor no topo: deitado sobre uma superfície ou apoiado em uma borda. Na borda, a tela se enche de água que fica nivelada, e a borda que você mede, o lado mais baixo, brilha em laranja.';
 
   @override
   String get angleTip =>
@@ -335,20 +335,20 @@ class AppLocalizationsPt extends AppLocalizations {
   String get angleFlatStatus => 'Deitado · ângulo em relação à Terra';
 
   @override
-  String get longEdgeFromLevel => 'De lado · borda longa em relação ao nível';
+  String get measuringRightEdge => 'Medindo a borda direita';
 
   @override
-  String shortEdge(String value) {
-    return 'Borda curta $value';
+  String get measuringLeftEdge => 'Medindo a borda esquerda';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Borda inferior $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Borda longa $long em relação ao nível, borda curta $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: $value em relação ao nível. Borda inferior $other';
   }
-
-  @override
-  String get angleModeAuto => 'Automático';
 
   @override
   String get angleModeFlat => 'Deitado numa superfície';

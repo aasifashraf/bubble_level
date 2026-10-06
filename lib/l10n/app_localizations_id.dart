@@ -297,7 +297,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Letakkan ponsel di permukaan untuk membaca kemiringannya, atau berdirikan di sisinya pada lereng, pegangan tangga, atau pipa: angka besar adalah sudut sisi panjang, sudut sisi pendek ada di bawahnya.';
+      'Letakkan ponsel di permukaan untuk membaca kemiringannya, atau berdirikan pada tepinya di lereng, pegangan, atau pipa: angka besar adalah sudut tepi yang menyala oranye, sudut tepi bawah ada di bawahnya.';
 
   @override
   String get angleHelp2 =>
@@ -317,7 +317,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'Alat ini beralih sendiri antara mendatar dan di sisi. Untuk menahan salah satunya, ketuk ikon mendatar atau sisi di atas; ikon pertama kembali ke otomatis.';
+      'Pilih mode dengan sakelar di atas: datar di permukaan, atau berdiri pada tepi. Pada tepi, layar terisi air yang tetap datar, dan tepi yang Anda ukur, sisi yang lebih rendah, menyala oranye.';
 
   @override
   String get angleTip =>
@@ -335,20 +335,20 @@ class AppLocalizationsId extends AppLocalizations {
   String get angleFlatStatus => 'Mendatar · sudut terhadap Bumi';
 
   @override
-  String get longEdgeFromLevel => 'Di sisi · sisi panjang dari datar';
+  String get measuringRightEdge => 'Mengukur tepi kanan';
 
   @override
-  String shortEdge(String value) {
-    return 'Sisi pendek $value';
+  String get measuringLeftEdge => 'Mengukur tepi kiri';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Tepi bawah $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Sisi panjang $long dari datar, sisi pendek $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: $value dari datar. Tepi bawah $other';
   }
-
-  @override
-  String get angleModeAuto => 'Otomatis';
 
   @override
   String get angleModeFlat => 'Mendatar di permukaan';

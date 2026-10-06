@@ -299,7 +299,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get angleHelp1 =>
-      'Apoya el teléfono sobre una superficie para ver su inclinación, o ponlo de canto contra una pendiente, barandilla o tubo: el número grande es el ángulo del borde largo; el del corto aparece debajo.';
+      'Apoya el teléfono sobre una superficie para leer su inclinación, o ponlo de canto contra una pendiente, barandilla o tubo: el número grande es el ángulo del borde que brilla en naranja; el del borde inferior aparece debajo.';
 
   @override
   String get angleHelp2 =>
@@ -319,7 +319,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get angleHelp6 =>
-      'Cambia solo entre plano y de canto. Para fijar uno, toca el icono de plano o de canto arriba; el primer icono vuelve al modo automático.';
+      'Elige el modo con el selector de arriba: plano sobre una superficie o de canto. De canto, la pantalla se llena de agua que se mantiene nivelada, y el borde que mides, el lado más bajo, brilla en naranja.';
 
   @override
   String get angleTip =>
@@ -337,21 +337,20 @@ class AppLocalizationsEs extends AppLocalizations {
   String get angleFlatStatus => 'Plano · ángulo respecto a la Tierra';
 
   @override
-  String get longEdgeFromLevel =>
-      'De canto · borde largo respecto a la horizontal';
+  String get measuringRightEdge => 'Midiendo el borde derecho';
 
   @override
-  String shortEdge(String value) {
-    return 'Borde corto $value';
+  String get measuringLeftEdge => 'Midiendo el borde izquierdo';
+
+  @override
+  String bottomEdge(String value) {
+    return 'Borde inferior $value';
   }
 
   @override
-  String edgeAngleSemantics(String long, String short) {
-    return 'Borde largo $long respecto a la horizontal, borde corto $short';
+  String edgeAngleSemantics(String edge, String value, String other) {
+    return '$edge: $value respecto a la horizontal. Borde inferior $other';
   }
-
-  @override
-  String get angleModeAuto => 'Automático';
 
   @override
   String get angleModeFlat => 'Plano sobre una superficie';
