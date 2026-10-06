@@ -106,7 +106,7 @@
   "setZeroHere": "Sıfırı buraya al",
   "compassHelp1": "Telefonu önünüzde yatay tutun; metal, mıknatıs ve elektronik cihazlardan uzak durun.",
   "compassHelp2": "Telefonun üst kısmını öğrenmek istediğiniz yöne çevirin. Dik tutarsanız arka kameranın baktığı yönü gösterir.",
-  "compassHelp3": "Sayı derece cinsinden yönünüz, harfler ise yöndür. Turuncu top bunu halkada işaretler.",
+  "compassHelp3": "Sayı derece cinsinden yönünüz, harfler ise yöndür. Kadran, N harfi hep kuzeyi gösterecek şekilde döner; üstteki turuncu top telefonunuzun baktığı yönü işaretler.",
   "compassTip": "Manyetik kuzeyi gösterir; bu, harita kuzeyinden birkaç derece farklı olabilir. Yanlış görünüyorsa telefonu birkaç kez 8 çizerek hareket ettirin.",
   "compassSemantics": "Manyetik yön {heading} derece, {direction}",
   "magneticInterference": "Manyetik parazit · metalden uzaklaşın",

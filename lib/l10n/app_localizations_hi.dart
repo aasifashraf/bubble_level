@@ -375,7 +375,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'संख्या डिग्री में आपकी दिशा है और अक्षर दिशा का नाम हैं। नारंगी गेंद इसे रिंग पर दिखाती है।';
+      'संख्या डिग्री में आपकी दिशा है और अक्षर दिशा का नाम हैं। डायल घूमता है ताकि उसका N हमेशा उत्तर की ओर रहे; ऊपर की नारंगी गेंद दिखाती है कि आपका फ़ोन किधर है।';
 
   @override
   String get compassTip =>

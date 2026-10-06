@@ -374,7 +374,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'The number is your heading in degrees and the letters are the direction. The orange ball marks it on the ring.';
+      'The number is your heading in degrees and the letters are the direction. The dial turns so its N always points north; the orange ball at the top marks where your phone points.';
 
   @override
   String get compassTip =>

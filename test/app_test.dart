@@ -347,6 +347,22 @@ void main() {
       find.bySemanticsLabel(RegExp(r'^Magnetic heading 200 degrees')),
       findsOneWidget,
     );
+    // Like a real compass: the card turns back by the heading so its N
+    // faces north, and the ball stays at the top, where the phone points.
+    final dial = tester.widget<InstrumentDial>(find.byType(InstrumentDial));
+    expect(dial.cardTurn, closeTo(200, 1));
+    expect(dial.ballAngle, 0);
+    final turn = tester.widget<Transform>(
+      find.descendant(
+        of: find.byType(InstrumentDial),
+        matching: find.byType(Transform),
+      ),
+    );
+    // A turn of −200° about the centre puts N at 160° clockwise on screen.
+    expect(
+      turn.transform.getRotation().entry(1, 0),
+      closeTo(math.sin(-200 * math.pi / 180), 0.02),
+    );
     // Nothing but the instrument and the header on the compass.
     expect(find.byType(FilledButton), findsNothing);
     expect(find.byType(NavigationBar), findsNothing);

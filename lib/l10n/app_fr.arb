@@ -106,7 +106,7 @@
   "setZeroHere": "Zéro ici",
   "compassHelp1": "Tenez le téléphone à plat devant vous, loin des métaux, des aimants et des appareils électroniques.",
   "compassHelp2": "Pointez le haut du téléphone dans la direction que vous voulez connaître. Tenu à la verticale, elle indique la direction de la caméra arrière.",
-  "compassHelp3": "Le nombre est votre cap en degrés et les lettres indiquent la direction. La bille orange la marque sur l’anneau.",
+  "compassHelp3": "Le nombre est votre cap en degrés et les lettres indiquent la direction. Le cadran tourne pour que son N pointe toujours vers le nord ; la bille orange en haut marque la direction du téléphone.",
   "compassTip": "Elle indique le nord magnétique, qui peut différer de quelques degrés du nord de la carte. Si elle semble fausse, faites plusieurs fois un 8 avec le téléphone.",
   "compassSemantics": "Cap magnétique {heading} degrés, {direction}",
   "magneticInterference": "Perturbation magnétique · éloignez-vous du métal",

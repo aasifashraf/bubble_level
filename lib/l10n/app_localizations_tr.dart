@@ -376,7 +376,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'Sayı derece cinsinden yönünüz, harfler ise yöndür. Turuncu top bunu halkada işaretler.';
+      'Sayı derece cinsinden yönünüz, harfler ise yöndür. Kadran, N harfi hep kuzeyi gösterecek şekilde döner; üstteki turuncu top telefonunuzun baktığı yönü işaretler.';
 
   @override
   String get compassTip =>

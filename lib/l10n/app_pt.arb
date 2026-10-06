@@ -106,7 +106,7 @@
   "setZeroHere": "Zerar aqui",
   "compassHelp1": "Segure o celular nivelado à sua frente, longe de metais, ímãs e eletrônicos.",
   "compassHelp2": "Aponte a parte de cima do celular para a direção que você quer saber. Segurando-o na vertical, mostra para onde a câmera traseira aponta.",
-  "compassHelp3": "O número é o seu rumo em graus e as letras são a direção. A bola laranja marca no anel.",
+  "compassHelp3": "O número é o seu rumo em graus e as letras são a direção. O mostrador gira para que o N aponte sempre para o norte; a bola laranja no topo marca para onde o celular aponta.",
   "compassTip": "Ela aponta para o norte magnético, que pode diferir alguns graus do norte do mapa. Se parecer errada, mova o celular desenhando um 8 algumas vezes.",
   "compassSemantics": "Rumo magnético {heading} graus, {direction}",
   "magneticInterference": "Interferência magnética · afaste-se do metal",

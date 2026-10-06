@@ -61,6 +61,7 @@ class InstrumentDial extends StatelessWidget {
     this.letters,
     this.locked = false,
     this.zones,
+    this.cardTurn,
     this.reserved = 180,
   });
 
@@ -85,6 +86,11 @@ class InstrumentDial extends StatelessWidget {
 
   /// Colour bands, by their start angle; none keeps the orange.
   final List<DialZone>? zones;
+
+  /// Turns the card (ticks, labels, letters) back by this many degrees, as
+  /// a compass card turns so its N stays on north. The dial's body and its
+  /// shadows stay put, so the light still falls from the same side.
+  final double? cardTurn;
 
   /// Vertical space taken by header and footer, kept clear of the dial.
   final double reserved;
@@ -111,9 +117,13 @@ class InstrumentDial extends StatelessWidget {
       zones: zones,
       reserved: DialFit.reservedOf(context) ?? reserved,
     );
-    // The face (halo, ring, ticks, labels, well) changes only with the theme
-    // or size, so it's painted once into its own layer; each sensor sample
+    // The face (halo, ring, well) and the card (ticks, labels, letters)
+    // change only with the theme or size, so each is painted once into its
+    // own layer; a turning card is only rotated, and each sensor sample
     // repaints just the moving parts on top.
+    final card = RepaintBoundary(
+      child: CustomPaint(painter: painter(DialLayer.card)),
+    );
     return Semantics(
       label: semanticsLabel,
       excludeSemantics: true,
@@ -121,6 +131,10 @@ class InstrumentDial extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           RepaintBoundary(child: CustomPaint(painter: painter(DialLayer.face))),
+          if (cardTurn case final turn?)
+            Transform.rotate(angle: -turn * _deg, child: card)
+          else
+            card,
           CustomPaint(painter: painter(DialLayer.live)),
         ],
       ),
@@ -175,9 +189,11 @@ typedef DialZone = ({double from, Color color});
 
 /// Which part of the dial a [DialPainter] draws.
 enum DialLayer {
-  /// What depends only on the theme, size and scale: halo, ring, ticks,
-  /// labels, well.
+  /// The dial's body, with its shadows: halo, ring, well.
   face,
+
+  /// What's printed on the ring: ticks, labels, letters (it can turn).
+  card,
 
   /// What follows the reading: water, arc, arms, button, value, bubble,
   /// balls.
@@ -256,6 +272,7 @@ class DialPainter extends CustomPainter {
     final s = DialGeometry.scaleFor(size, reserved: reserved);
     final c = size.center(Offset.zero);
     if (layer == DialLayer.face) return _face(canvas, c, s);
+    if (layer == DialLayer.card) return _card(canvas, c, s);
 
     if (waterAngle != null) _water(canvas, c, s, waterAngle!);
     if (arcSweep != null && arcSweep!.abs() > 0.05) _arc(canvas, c, s);
@@ -283,10 +300,13 @@ class DialPainter extends CustomPainter {
       DialGeometry.haloR * s,
     );
     _dial(canvas, c, DialGeometry.dialR * s, s);
+    _well(canvas, c, DialGeometry.wellR * s, s);
+  }
+
+  void _card(Canvas canvas, Offset c, double s) {
     _ticks(canvas, c, s);
     if (labels) _labels(canvas, c, s);
     if (letters != null) _letters(canvas, c, s, letters!);
-    _well(canvas, c, DialGeometry.wellR * s, s);
   }
 
   Paint _linear(Rect r, Color topLeft, Color bottomRight) =>

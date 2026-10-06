@@ -219,7 +219,7 @@
   "setZeroHere": "Set zero here",
   "compassHelp1": "Hold the phone level in front of you, away from metal, magnets and electronics.",
   "compassHelp2": "Point the top of the phone in the direction you want to know. Holding it upright? It reads the direction the back camera faces.",
-  "compassHelp3": "The number is your heading in degrees and the letters are the direction. The orange ball marks it on the ring.",
+  "compassHelp3": "The number is your heading in degrees and the letters are the direction. The dial turns so its N always points north; the orange ball at the top marks where your phone points.",
   "compassTip": "It points to magnetic north, which can differ a few degrees from map north. If it seems wrong, move the phone in a figure 8 a few times.",
   "compassSemantics": "Magnetic heading {heading} degrees, {direction}",
   "@compassSemantics": {

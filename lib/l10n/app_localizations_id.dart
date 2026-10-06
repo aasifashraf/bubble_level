@@ -375,7 +375,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'Angka adalah arah Anda dalam derajat dan huruf adalah mata anginnya. Bola oranye menandainya di cincin.';
+      'Angka adalah arah Anda dalam derajat dan huruf adalah mata anginnya. Dial berputar agar N selalu menunjuk ke utara; bola oranye di atas menandai arah ponsel Anda.';
 
   @override
   String get compassTip =>

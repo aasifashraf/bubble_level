@@ -375,7 +375,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'O número é o seu rumo em graus e as letras são a direção. A bola laranja marca no anel.';
+      'O número é o seu rumo em graus e as letras são a direção. O mostrador gira para que o N aponte sempre para o norte; a bola laranja no topo marca para onde o celular aponta.';
 
   @override
   String get compassTip =>

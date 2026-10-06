@@ -375,7 +375,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'عدد درجوں میں آپ کا رخ ہے اور الفاظ سمت بتاتے ہیں۔ نارنجی گیند اسے دائرے پر دکھاتی ہے۔';
+      'عدد درجوں میں آپ کا رخ ہے اور الفاظ سمت بتاتے ہیں۔ ڈائل گھومتا ہے تاکہ اس کا N ہمیشہ شمال کی طرف رہے؛ اوپر والی نارنجی گیند بتاتی ہے کہ آپ کا فون کس طرف ہے۔';
 
   @override
   String get compassTip =>

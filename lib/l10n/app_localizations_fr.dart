@@ -378,7 +378,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'Le nombre est votre cap en degrés et les lettres indiquent la direction. La bille orange la marque sur l’anneau.';
+      'Le nombre est votre cap en degrés et les lettres indiquent la direction. Le cadran tourne pour que son N pointe toujours vers le nord ; la bille orange en haut marque la direction du téléphone.';
 
   @override
   String get compassTip =>

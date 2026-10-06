@@ -106,7 +106,7 @@
   "setZeroHere": "Poner cero aquí",
   "compassHelp1": "Sostén el teléfono nivelado frente a ti, lejos de metales, imanes y aparatos electrónicos.",
   "compassHelp2": "Apunta la parte superior del teléfono hacia la dirección que quieres conocer. Si lo sostienes en vertical, indica hacia dónde mira la cámara trasera.",
-  "compassHelp3": "El número es tu rumbo en grados y las letras son la dirección. La bola naranja la marca en el anillo.",
+  "compassHelp3": "El número es tu rumbo en grados y las letras son la dirección. La esfera gira para que su N apunte siempre al norte; la bola naranja de arriba marca hacia dónde apunta tu teléfono.",
   "compassTip": "Señala el norte magnético, que puede diferir unos grados del norte del mapa. Si parece incorrecta, mueve el teléfono dibujando un 8 varias veces.",
   "compassSemantics": "Rumbo magnético {heading} grados, {direction}",
   "magneticInterference": "Interferencia magnética · aléjate del metal",

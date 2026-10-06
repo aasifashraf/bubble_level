@@ -376,7 +376,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'Die Zahl ist deine Richtung in Grad, die Buchstaben die Himmelsrichtung. Die orange Kugel markiert sie auf dem Ring.';
+      'Die Zahl ist deine Richtung in Grad, die Buchstaben die Himmelsrichtung. Die Skala dreht sich, damit ihr N immer nach Norden zeigt; die orange Kugel oben markiert, wohin dein Handy zeigt.';
 
   @override
   String get compassTip =>

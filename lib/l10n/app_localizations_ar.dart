@@ -374,7 +374,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'الرقم هو اتجاهك بالدرجات والحروف هي الجهة. وتحددها الكرة البرتقالية على الحلقة.';
+      'الرقم هو اتجاهك بالدرجات والحروف هي الجهة. يدور القرص بحيث يشير حرف N دائمًا إلى الشمال، وتحدد الكرة البرتقالية في الأعلى الاتجاه الذي يشير إليه هاتفك.';
 
   @override
   String get compassTip =>

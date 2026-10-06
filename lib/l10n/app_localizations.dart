@@ -757,7 +757,7 @@ abstract class AppLocalizations {
   /// No description provided for @compassHelp3.
   ///
   /// In en, this message translates to:
-  /// **'The number is your heading in degrees and the letters are the direction. The orange ball marks it on the ring.'**
+  /// **'The number is your heading in degrees and the letters are the direction. The dial turns so its N always points north; the orange ball at the top marks where your phone points.'**
   String get compassHelp3;
 
   /// No description provided for @compassTip.

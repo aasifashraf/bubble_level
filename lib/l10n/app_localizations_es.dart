@@ -378,7 +378,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get compassHelp3 =>
-      'El número es tu rumbo en grados y las letras son la dirección. La bola naranja la marca en el anillo.';
+      'El número es tu rumbo en grados y las letras son la dirección. La esfera gira para que su N apunte siempre al norte; la bola naranja de arriba marca hacia dónde apunta tu teléfono.';
 
   @override
   String get compassTip =>

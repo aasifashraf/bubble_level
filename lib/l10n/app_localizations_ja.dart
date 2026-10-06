@@ -362,7 +362,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get compassHelp2 => '端末の上端を知りたい方向に向けます。立てて持つと、背面カメラが向いている方角を表示します。';
 
   @override
-  String get compassHelp3 => '数字は方位（度）、文字は方角です。オレンジの玉がリング上に示します。';
+  String get compassHelp3 =>
+      '数字は方位（度）、文字は方角です。目盛りは N が常に北を向くように回転し、上部のオレンジの玉が端末の向いている方向を示します。';
 
   @override
   String get compassTip =>

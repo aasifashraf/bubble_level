@@ -106,7 +106,7 @@
   "setZeroHere": "Hier nullen",
   "compassHelp1": "Halte das Handy waagrecht vor dich, weg von Metall, Magneten und Elektronik.",
   "compassHelp2": "Richte die Oberkante des Handys in die gesuchte Richtung. Hältst du es aufrecht, zeigt er die Richtung, in die die Rückkamera blickt.",
-  "compassHelp3": "Die Zahl ist deine Richtung in Grad, die Buchstaben die Himmelsrichtung. Die orange Kugel markiert sie auf dem Ring.",
+  "compassHelp3": "Die Zahl ist deine Richtung in Grad, die Buchstaben die Himmelsrichtung. Die Skala dreht sich, damit ihr N immer nach Norden zeigt; die orange Kugel oben markiert, wohin dein Handy zeigt.",
   "compassTip": "Er zeigt nach magnetisch Nord, das um einige Grad von Kartennord abweichen kann. Wirkt er falsch, beweg das Handy ein paar Mal in Form einer 8.",
   "compassSemantics": "Magnetische Richtung {heading} Grad, {direction}",
   "magneticInterference": "Magnetische Störung · weg von Metall",

@@ -52,7 +52,11 @@ class CompassScreen extends StatelessWidget {
                       for (final sector in const [0, 2, 4, 6])
                         context.l10n.direction(sector),
                     ],
-                    ballAngle: state.heading,
+                    // Like a real compass: the card turns so its N stays on
+                    // north, and the ball at the top marks where the phone
+                    // points.
+                    cardTurn: state.heading,
+                    ballAngle: 0,
                     reserved: 200,
                   ),
           ),
