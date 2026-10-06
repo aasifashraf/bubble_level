@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'theme.dart';
+import 'water_drop.dart';
 
 /// Geometry of the reference design, in points of its 375-wide frame,
 /// measured from it. Everything is scaled by [DialGeometry.scaleFor].
@@ -136,6 +137,8 @@ class InstrumentDial extends StatelessWidget {
           else
             card,
           CustomPaint(painter: painter(DialLayer.live)),
+          if (bubble case final at?)
+            WaterDropBubble(offset: at, locked: locked, reserved: reserved),
         ],
       ),
     );
@@ -286,7 +289,6 @@ class DialPainter extends CustomPainter {
     if (arms != null) _arms(canvas, c, size, s);
     _button(canvas, c, s);
     _reading(canvas, c, s);
-    if (bubble != null) _bubble(canvas, c, s);
     if (ballAngle != null) {
       _ball(
         canvas,
@@ -660,33 +662,6 @@ class DialPainter extends CustomPainter {
       ..scale(ks);
     sub.paint(canvas, Offset(-sub.width / 2, -sub.height / 2));
     canvas.restore();
-  }
-
-  /// Clear glass ring around the button that drifts toward the high side.
-  void _bubble(Canvas canvas, Offset c, double s) {
-    final p = palette;
-    final centre = c + bubble! * 15 * s;
-    final r = 64 * s;
-    canvas
-      ..drawCircle(
-        centre,
-        r,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2.2 * s
-          ..color = (locked ? p.ballDark : p.ink).withValues(alpha: 0.55),
-      )
-      ..drawArc(
-        Rect.fromCircle(center: centre, radius: r - 3 * s),
-        math.pi * 1.08,
-        math.pi * 0.4,
-        false,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2.5 * s
-          ..strokeCap = StrokeCap.round
-          ..color = Colors.white.withValues(alpha: p.isDark ? 0.3 : 0.95),
-      );
   }
 
   /// Protractor arms: rays from the button's edge out to the halo, fading
