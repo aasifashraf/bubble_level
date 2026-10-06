@@ -627,7 +627,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'Dial menunjukkan getaran saat ini dalam m/s². Grafik menunjukkan beberapa detik terakhir.';
+      'Angka adalah getaran saat ini dalam m/s². Sebuah jarum berputar setiap enam detik dan menggambarnya sebagai gelombang di sekitar angka: hijau saat diam, oranye untuk getaran ringan, merah untuk getaran kuat. Takik kecil menandai puncaknya.';
 
   @override
   String get vibrationHelp3 =>
@@ -667,9 +667,6 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get resetPeak => 'Reset puncak';
-
-  @override
-  String get vibrationGraph => 'Grafik getaran';
 
   @override
   String get altimeterHelp1 =>

@@ -628,7 +628,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'O mostrador indica a vibração agora em m/s². O gráfico mostra os últimos segundos.';
+      'O número é a vibração atual em m/s². Um ponteiro gira a cada seis segundos e a desenha como uma onda ao redor do número: verde parado, laranja com vibração leve, vermelho com vibração forte. O pequeno entalhe marca o pico.';
 
   @override
   String get vibrationHelp3 =>
@@ -667,9 +667,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get resetPeak => 'Zerar pico';
-
-  @override
-  String get vibrationGraph => 'Gráfico de vibração';
 
   @override
   String get altimeterHelp1 =>

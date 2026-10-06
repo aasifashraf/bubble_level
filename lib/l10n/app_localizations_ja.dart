@@ -599,7 +599,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get vibrationHelp1 => '調べたい面や機械の上に端末を平らに置き、手を離します。';
 
   @override
-  String get vibrationHelp2 => '目盛りは現在の振動をm/s²で示します。グラフは直近数秒の推移です。';
+  String get vibrationHelp2 =>
+      '数字は現在の振動（m/s²）です。針が6秒ごとに一周し、数字の周りに波として描きます。静止時は緑、軽い振動はオレンジ、強い振動は赤。小さな刻みはピークを示します。';
 
   @override
   String get vibrationHelp3 => '最大は最も強かった瞬間、平均は直近1秒の値です。';
@@ -637,9 +638,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get resetPeak => '最大をリセット';
-
-  @override
-  String get vibrationGraph => '振動グラフ';
 
   @override
   String get altimeterHelp1 => '目盛りは気圧をhPaで示し、そこから高度を推定します。';

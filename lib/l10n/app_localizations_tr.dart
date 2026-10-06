@@ -628,7 +628,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'Kadran, şu anki titreşimi m/s² cinsinden gösterir. Grafik son birkaç saniyeyi gösterir.';
+      'Sayı, şu anki titreşimdir (m/s²). Bir ibre her altı saniyede bir tur atar ve titreşimi sayının çevresinde bir dalga olarak çizer: hareketsizken yeşil, hafif titreşimde turuncu, güçlüde kırmızı. Küçük çentik en yüksek değeri gösterir.';
 
   @override
   String get vibrationHelp3 =>
@@ -668,9 +668,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get resetPeak => 'Tepeyi sıfırla';
-
-  @override
-  String get vibrationGraph => 'Titreşim grafiği';
 
   @override
   String get altimeterHelp1 =>

@@ -626,7 +626,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'डायल अभी का कंपन m/s² में दिखाता है। ग्राफ़ पिछले कुछ सेकंड दिखाता है।';
+      'संख्या अभी का कंपन है, m/s² में। एक सुई हर छह सेकंड में घूमती है और इसे संख्या के चारों ओर लहर की तरह बनाती है: स्थिर होने पर हरा, हल्के कंपन में नारंगी, तेज़ में लाल। छोटा निशान शिखर दिखाता है।';
 
   @override
   String get vibrationHelp3 =>
@@ -665,9 +665,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get resetPeak => 'अधिकतम रीसेट करें';
-
-  @override
-  String get vibrationGraph => 'कंपन का ग्राफ़';
 
   @override
   String get altimeterHelp1 =>

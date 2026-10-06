@@ -631,7 +631,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'La esfera muestra la vibración actual en m/s². La gráfica muestra los últimos segundos.';
+      'El número es la vibración actual en m/s². Una aguja gira cada seis segundos y la dibuja como una ola alrededor del número: verde en reposo, naranja con vibración leve, rojo con vibración fuerte. La pequeña muesca marca el pico.';
 
   @override
   String get vibrationHelp3 =>
@@ -670,9 +670,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get resetPeak => 'Reiniciar pico';
-
-  @override
-  String get vibrationGraph => 'Gráfica de vibración';
 
   @override
   String get altimeterHelp1 =>

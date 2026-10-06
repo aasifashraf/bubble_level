@@ -623,7 +623,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'يُظهر القرص الاهتزاز الحالي بوحدة m/s². ويُظهر الرسم البياني الثواني الأخيرة.';
+      'الرقم هو الاهتزاز الآن بوحدة م/ث². يدور مؤشر كل ست ثوانٍ ويرسمه موجةً حول الرقم: أخضر عند السكون، وبرتقالي للاهتزاز الخفيف، وأحمر للقوي. تحدد العلامة الصغيرة الذروة.';
 
   @override
   String get vibrationHelp3 =>
@@ -662,9 +662,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get resetPeak => 'إعادة ضبط الذروة';
-
-  @override
-  String get vibrationGraph => 'رسم الاهتزاز البياني';
 
   @override
   String get altimeterHelp1 =>

@@ -631,7 +631,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'Le cadran indique la vibration actuelle en m/s². Le graphique montre les dernières secondes.';
+      'Le nombre est la vibration actuelle en m/s². Une aiguille fait le tour toutes les six secondes et la dessine comme une houle autour du nombre : vert au repos, orange pour une vibration légère, rouge pour une forte. La petite encoche marque le pic.';
 
   @override
   String get vibrationHelp3 =>
@@ -671,9 +671,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetPeak => 'Remettre la crête à zéro';
-
-  @override
-  String get vibrationGraph => 'Graphique des vibrations';
 
   @override
   String get altimeterHelp1 =>

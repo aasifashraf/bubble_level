@@ -627,7 +627,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'ڈائل ابھی کا ارتعاش m/s² میں دکھاتا ہے۔ گراف پچھلے چند سیکنڈ دکھاتا ہے۔';
+      'عدد ابھی کا ارتعاش ہے، m/s² میں۔ ایک سوئی ہر چھ سیکنڈ میں گھومتی ہے اور اسے عدد کے گرد لہر کی طرح بناتی ہے: ساکن ہونے پر سبز، ہلکے ارتعاش میں نارنجی، تیز میں سرخ۔ چھوٹا نشان عروج دکھاتا ہے۔';
 
   @override
   String get vibrationHelp3 =>
@@ -667,9 +667,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get resetPeak => 'زیادہ سے زیادہ ری سیٹ کریں';
-
-  @override
-  String get vibrationGraph => 'ارتعاش کا گراف';
 
   @override
   String get altimeterHelp1 =>

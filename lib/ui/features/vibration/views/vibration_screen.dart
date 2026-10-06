@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 import '../../../core/controls.dart';
@@ -11,9 +9,10 @@ import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
 import '../view_models/vibration_view_model.dart';
+import 'vibration_sweep.dart';
 
-/// Vibration meter: live level on a 0–12 m/s² gauge, peak and average, and
-/// a graph of the last few seconds.
+/// Vibration meter: a radar-like sweep drawing the last six seconds around
+/// the live level, with peak and average.
 class VibrationScreen extends StatelessWidget {
   const VibrationScreen({
     super.key,
@@ -35,10 +34,11 @@ class VibrationScreen extends StatelessWidget {
     tip: l.vibrationTip,
   );
 
-  static const _scaleMax = 12.0;
-  static const _scale = [
-    '0', '1', '2', '3', '4', '5', //
-    '6', '7', '8', '9', '10', '11',
+  /// Green while still, orange once it's light vibration, red when strong.
+  static List<DialZone> _zones(Palette p) => [
+    (from: 0, color: p.gaugeSafe),
+    (from: VibrationViewModel.lightAt, color: p.gaugeCaution),
+    (from: VibrationViewModel.strongAt, color: p.gaugeDanger),
   ];
 
   @override
@@ -47,7 +47,6 @@ class VibrationScreen extends StatelessWidget {
       listenable: viewModel,
       builder: (context, _) {
         final r = viewModel.reading;
-        final sweep = (r.current / _scaleMax).clamp(0.0, 0.999) * 360;
         final (icon, text) = switch (viewModel.level) {
           VibrationLevel.still => (
             Icons.check_circle_rounded,
@@ -67,22 +66,20 @@ class VibrationScreen extends StatelessWidget {
           title: context.l10n.toolVibration,
           onBack: onBack,
           trailing: HelpButton(help: _help(context.l10n)),
-          bodyBottomInset: 190,
+          bodyBottomInset: 150,
           body: SensorStateGate(
             state: r.state,
             ready: ready,
             missingText: context.l10n.noAccelerometerVibration,
-            child: InstrumentDial(
+            child: VibrationSweep(
+              current: r.current,
+              peak: r.peak,
+              zones: _zones(Palette.of(context)),
               value: formatDecimal(r.current),
-              label: 'm/s²',
+              unit: 'm/s²',
               semanticsLabel: context.l10n.vibrationSemantics(
                 formatDecimal(r.current),
               ),
-              scaleLabels: _scale,
-              arcSweep: sweep,
-              ballAngle: sweep,
-              locked: viewModel.level == VibrationLevel.strong,
-              reserved: 200,
             ),
           ),
           footer: !ready
@@ -94,8 +91,6 @@ class VibrationScreen extends StatelessWidget {
                       (formatAcceleration(r.peak), context.l10n.peak),
                       (formatAcceleration(r.rms), context.l10n.average),
                     ]),
-                    const SizedBox(height: 14),
-                    _Graph(values: r.history),
                     const SizedBox(height: 14),
                     StatusBanner(
                       icon: icon,
@@ -116,77 +111,4 @@ class VibrationScreen extends StatelessWidget {
       },
     );
   }
-}
-
-/// The last few seconds of vibration as a soft orange line.
-class _Graph extends StatelessWidget {
-  const _Graph({required this.values});
-
-  final List<double> values;
-
-  @override
-  Widget build(BuildContext context) {
-    final p = Palette.of(context);
-    return Container(
-      height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      decoration: softSurface(p, radius: BorderRadius.circular(20)),
-      child: Semantics(
-        label: context.l10n.vibrationGraph,
-        child: CustomPaint(
-          size: Size.infinite,
-          painter: _GraphPainter(values: values, color: p.ballDark),
-        ),
-      ),
-    );
-  }
-}
-
-class _GraphPainter extends CustomPainter {
-  _GraphPainter({required this.values, required this.color});
-
-  final List<double> values;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (values.length < 2) return;
-    // Scale to the larger of the recent maximum and a floor, so a still
-    // phone draws a calm, low line rather than amplified noise.
-    final top = math.max(values.reduce(math.max), 1.0);
-    final dx = size.width / (values.length - 1);
-    final line = Path();
-    for (final (i, v) in values.indexed) {
-      final point = Offset(i * dx, size.height * (1 - v / top));
-      i == 0
-          ? line.moveTo(point.dx, point.dy)
-          : line.lineTo(point.dx, point.dy);
-    }
-    final fill = Path.from(line)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
-    canvas
-      ..drawPath(
-        fill,
-        Paint()
-          ..shader = LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [color.withValues(alpha: 0.3), color.withValues(alpha: 0)],
-          ).createShader(Offset.zero & size),
-      )
-      ..drawPath(
-        line,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
-          ..strokeJoin = StrokeJoin.round
-          ..color = color,
-      );
-  }
-
-  @override
-  bool shouldRepaint(_GraphPainter old) =>
-      old.values != values || old.color != color;
 }

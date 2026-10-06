@@ -629,7 +629,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'Шкала показывает текущую вибрацию в м/с². График показывает последние секунды.';
+      'Число — текущая вибрация в м/с². Стрелка делает оборот каждые шесть секунд и рисует её волной вокруг числа: зелёной в покое, оранжевой при лёгкой вибрации, красной при сильной. Небольшая метка отмечает пик.';
 
   @override
   String get vibrationHelp3 =>
@@ -669,9 +669,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get resetPeak => 'Сбросить пик';
-
-  @override
-  String get vibrationGraph => 'График вибрации';
 
   @override
   String get altimeterHelp1 =>

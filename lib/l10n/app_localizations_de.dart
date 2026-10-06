@@ -629,7 +629,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'Die Skala zeigt die aktuelle Vibration in m/s². Die Grafik zeigt die letzten Sekunden.';
+      'Die Zahl ist die aktuelle Vibration in m/s². Ein Zeiger läuft alle sechs Sekunden einmal herum und zeichnet sie als Welle um die Zahl: grün in Ruhe, orange bei leichter, rot bei starker Vibration. Die kleine Kerbe markiert die Spitze.';
 
   @override
   String get vibrationHelp3 =>
@@ -669,9 +669,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get resetPeak => 'Spitze zurücksetzen';
-
-  @override
-  String get vibrationGraph => 'Vibrationsgrafik';
 
   @override
   String get altimeterHelp1 =>

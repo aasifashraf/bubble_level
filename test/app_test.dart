@@ -17,6 +17,7 @@ import 'package:bubble_level/ui/features/angle/view_models/angle_view_model.dart
 import 'package:bubble_level/ui/features/angle/views/water_view.dart';
 import 'package:bubble_level/ui/features/light/views/light_sky.dart';
 import 'package:bubble_level/ui/features/sound/views/sound_ripples.dart';
+import 'package:bubble_level/ui/features/vibration/views/vibration_sweep.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -753,6 +754,14 @@ void main() {
     await tester.pump();
     expect(find.text('Strong vibration'), findsOneWidget);
     expect(find.text('3.0 m/s²'), findsWidgets);
+    // The sweep draws it, red for strong vibration.
+    final sweep = tester.widget<VibrationSweep>(find.byType(VibrationSweep));
+    expect(sweep.current, closeTo(3, 1e-9));
+    expect(
+      zoneColor(sweep.zones, sweep.current, blend: 0.4, end: 12),
+      Palette.light.gaugeDanger,
+    );
+    await tester.pump(const Duration(seconds: 1));
     await tester.tap(find.text('Reset peak'));
     await tester.pump();
     expect(tester.takeException(), isNull);

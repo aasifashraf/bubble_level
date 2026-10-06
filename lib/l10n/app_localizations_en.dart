@@ -626,7 +626,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vibrationHelp2 =>
-      'The dial shows vibration right now in m/s². The graph shows the last few seconds.';
+      'The number is the vibration right now in m/s². A hand sweeps round every six seconds, drawing it as a swell around the number: green when still, orange for light vibration, red for strong. The small notch marks the peak.';
 
   @override
   String get vibrationHelp3 =>
@@ -665,9 +665,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetPeak => 'Reset peak';
-
-  @override
-  String get vibrationGraph => 'Vibration graph';
 
   @override
   String get altimeterHelp1 =>

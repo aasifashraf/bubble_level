@@ -1183,7 +1183,7 @@ abstract class AppLocalizations {
   /// No description provided for @vibrationHelp2.
   ///
   /// In en, this message translates to:
-  /// **'The dial shows vibration right now in m/s². The graph shows the last few seconds.'**
+  /// **'The number is the vibration right now in m/s². A hand sweeps round every six seconds, drawing it as a swell around the number: green when still, orange for light vibration, red for strong. The small notch marks the peak.'**
   String get vibrationHelp2;
 
   /// No description provided for @vibrationHelp3.
@@ -1251,12 +1251,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset peak'**
   String get resetPeak;
-
-  /// No description provided for @vibrationGraph.
-  ///
-  /// In en, this message translates to:
-  /// **'Vibration graph'**
-  String get vibrationGraph;
 
   /// No description provided for @altimeterHelp1.
   ///
