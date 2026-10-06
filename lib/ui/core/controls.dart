@@ -179,6 +179,69 @@ class ValueTiles extends StatelessWidget {
   );
 }
 
+/// Several readings on one raised panel, split by hairlines.
+class StatPanel extends StatelessWidget {
+  const StatPanel(this.stats, {super.key});
+
+  final List<(String value, String caption)> stats;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    return Container(
+      height: 64,
+      decoration: softSurface(p, radius: BorderRadius.circular(22)),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          for (final (i, (value, caption)) in stats.indexed) ...[
+            if (i > 0)
+              Container(width: 1, color: p.dialShadow.withValues(alpha: 0.6)),
+            Expanded(
+              child: Semantics(
+                label: '$caption $value',
+                excludeSemantics: true,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          value,
+                          textDirection: TextDirection.ltr,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 18,
+                            height: 1.15,
+                            fontWeight: FontWeight.w700,
+                            fontFeatures: readoutFeatures,
+                            color: p.ink,
+                          ),
+                        ),
+                        Text(
+                          caption,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: p.label,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
 class ValueTile extends StatelessWidget {
   const ValueTile({super.key, required this.value, required this.caption});
 

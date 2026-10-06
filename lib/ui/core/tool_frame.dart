@@ -24,6 +24,7 @@ class ToolFrame extends StatelessWidget {
     this.onBack,
     this.leading,
     this.trailing,
+    this.action,
     this.footer,
     this.bodyBottomInset = 0,
     this.footerBelowInLandscape = false,
@@ -41,6 +42,9 @@ class ToolFrame extends StatelessWidget {
 
   /// The header's right corner: the theme toggle on home, help on a tool.
   final Widget? trailing;
+
+  /// An extra header button left of [trailing] (a tool's own option).
+  final Widget? action;
   final Widget? footer;
 
   /// Lifts the body off the bottom so a tall footer doesn't crowd it.
@@ -68,7 +72,10 @@ class ToolFrame extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     final landscape = onBack != null && sideBySide(context);
     // Both corners as wide as the wider one, so the title stays centred.
-    final corner = RotateButton.shown(context) ? 104.0 : 56.0;
+    final corner =
+        56.0 +
+        (RotateButton.shown(context) ? 48 : 0) +
+        (action != null ? 48 : 0);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: overlay,
       child: Scaffold(
@@ -141,6 +148,7 @@ class ToolFrame extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
+                              ?action,
                               const RotateButton(),
                               SizedBox(width: 56, child: trailing),
                             ],
