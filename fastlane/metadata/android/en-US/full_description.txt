@@ -1,4 +1,4 @@
-Turn your phone into a precise bubble level and spirit level, with ten more measuring tools built in for DIY, carpentry, building and hanging pictures.
+Turn your phone into a precise bubble level and spirit level, with eleven more measuring tools built in for DIY, carpentry, building and hanging pictures.
 
 Bubble level: lay your phone flat to level shelves, tables and appliances. X and Y show the tilt in each direction and a hint tells you which side is high. When it is level the reading turns orange, with an optional tap and chime.
 
@@ -14,7 +14,7 @@ Ruler: measure small objects on the screen in mm, cm or inches. Calibrate once w
 
 Metal detector: find iron, steel and magnets, with a beep that speeds up as you get closer.
 
-Vibration meter: measure vibration on machines and surfaces, with peak, average and a live graph.
+Vibration meter and tachometer: put the phone on a running machine to read how hard it shakes and how fast it turns, in hertz and RPM.
 
 Sound meter: measure noise in decibels, with average, maximum and a warning when it gets loud enough to harm hearing. Sound is measured on your phone and never recorded.
 
@@ -23,6 +23,8 @@ Light meter: measure brightness in lux and foot-candles, and see whether the lig
 Altimeter: read air pressure and approximate altitude, or measure height climbed from a zero.
 
 Height meter: measure the height of a tree or building and the distance to it. Aim the phone’s top edge at its base, then its top, or type the distance if you know it.
+
+Camera level: point the camera at a wall and line up tiles, shelves and pictures with a grid that always stays level. The picture is never recorded or saved.
 
 Every tool has a short how-to guide. Works in portrait and landscape, in light and dark mode, in 12 languages. No ads, no account, no internet needed.
 

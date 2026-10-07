@@ -15,10 +15,14 @@ tools, all drawn in one soft, full-screen dial design:
 - **Protractor:** drag two handles along an object's edges to read its angle.
 - **Metal detector:** magnetic field strength and change from a baseline, with
   a beep that speeds up as metal gets closer.
-- **Vibration meter:** live vibration with peak, average and a graph.
+- **Vibration meter:** how hard a machine shakes (m/s²) and how fast it
+  turns (hertz and RPM, from a spectrum of the accelerometer).
 - **Altimeter:** air pressure, approximate altitude, and height from a zero.
 - **Height:** the height of a tree or building and the distance to it, by
   aiming the phone's top edge at its base and top (or typing the distance).
+- **Camera level:** graph paper that stays level and plumb over the camera's
+  picture, for lining up tiles, shelves and frames (the camera is never
+  recorded).
 
 Every tool has a short "How to use" guide. The app supports light and dark
 themes, degrees or percent slope, a list or grid home screen, and sounds that
@@ -53,7 +57,7 @@ lib/
     core/          theme tokens, dial and tube painters, full-screen frame,
                    help sheets, formatting
     features/      level, angle, compass, protractor, metal, vibration,
-                   altimeter, height, settings (view models + views)
+                   altimeter, height, camera, settings (view models + views)
     home/          home screen (list / grid)
 test/              domain, view-model and app-flow tests
 ```

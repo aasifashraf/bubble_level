@@ -1,4 +1,4 @@
-Convierte tu teléfono en un nivel de burbuja preciso, con diez herramientas de medición más para bricolaje, carpintería, obras y colgar cuadros.
+Convierte tu teléfono en un nivel de burbuja preciso, con once herramientas de medición más para bricolaje, carpintería, obras y colgar cuadros.
 
 Nivel de burbuja: apoya el teléfono plano para nivelar estantes, mesas y electrodomésticos. X e Y muestran la inclinación en cada dirección y una indicación te dice qué lado está alto. Al nivelar, la lectura se pone naranja, con vibración y sonido opcionales.
 
@@ -14,7 +14,7 @@ Regla: mide objetos pequeños en la pantalla en mm, cm o pulgadas. Calibra una v
 
 Detector de metales: encuentra hierro, acero e imanes, con un pitido que se acelera al acercarte.
 
-Medidor de vibración: mide la vibración de máquinas y superficies, con pico, media y gráfica en vivo.
+Medidor de vibración y tacómetro: pon el teléfono sobre una máquina en marcha para ver con qué fuerza vibra y a qué velocidad gira, en hercios y RPM.
 
 Sonómetro: mide el ruido en decibelios, con promedio, máximo y un aviso cuando es tan fuerte que puede dañar el oído. El sonido se mide en tu teléfono y nunca se graba.
 
@@ -23,6 +23,8 @@ Luxómetro: mide el brillo en lux y pies-candela, y mira si esa luz sirve para l
 Altímetro: lee la presión del aire y la altitud aproximada, o mide la altura subida desde un cero.
 
 Medidor de altura: mide la altura de un árbol o edificio y la distancia hasta él. Apunta el borde superior del teléfono a la base y luego a la cima, o escribe la distancia si la conoces.
+
+Nivel con cámara: apunta la cámara a una pared y alinea azulejos, estantes y cuadros con una cuadrícula que siempre está nivelada. La imagen nunca se graba ni se guarda.
 
 Cada herramienta tiene una guía breve. Funciona en vertical y horizontal, en modo claro y oscuro, en 12 idiomas. Sin anuncios, sin cuenta y sin internet.
 

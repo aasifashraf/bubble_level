@@ -1,4 +1,4 @@
-Transforme o celular em um nível de bolha preciso, com mais dez ferramentas de medição para reformas, marcenaria, obras e pendurar quadros.
+Transforme o celular em um nível de bolha preciso, com mais onze ferramentas de medição para reformas, marcenaria, obras e pendurar quadros.
 
 Nível de bolha: deite o celular para nivelar prateleiras, mesas e eletrodomésticos. X e Y mostram a inclinação em cada direção e uma dica diz qual lado está alto. Ao nivelar, a leitura fica laranja, com vibração e som opcionais.
 
@@ -14,7 +14,7 @@ Régua: meça objetos pequenos na tela em mm, cm ou polegadas. Calibre uma vez c
 
 Detector de metais: encontre ferro, aço e ímãs, com um bipe que acelera conforme você se aproxima.
 
-Medidor de vibração: meça a vibração de máquinas e superfícies, com pico, média e gráfico ao vivo.
+Medidor de vibração e tacômetro: coloque o celular sobre uma máquina ligada para ver com que força ela vibra e a que velocidade gira, em hertz e RPM.
 
 Decibelímetro: meça o ruído em decibéis, com média, máximo e um aviso quando fica alto a ponto de prejudicar a audição. O som é medido no celular e nunca é gravado.
 
@@ -23,6 +23,8 @@ Luxímetro: meça o brilho em lux e pés-vela e veja se essa luz serve para ler 
 Altímetro: veja a pressão do ar e a altitude aproximada, ou meça a altura subida a partir de um zero.
 
 Medidor de altura: meça a altura de uma árvore ou prédio e a distância até ele. Aponte a borda superior do celular para a base e depois para o topo, ou digite a distância se souber.
+
+Nível com câmera: aponte a câmera para uma parede e alinhe azulejos, prateleiras e quadros com uma grade sempre nivelada. A imagem nunca é gravada nem salva.
 
 Cada ferramenta tem um guia rápido. Funciona na vertical e na horizontal, nos modos claro e escuro, em 12 idiomas. Sem anúncios, sem conta e sem internet.
 

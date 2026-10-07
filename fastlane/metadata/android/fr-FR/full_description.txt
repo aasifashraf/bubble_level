@@ -1,4 +1,4 @@
-Transformez votre téléphone en niveau à bulle précis, avec dix autres outils de mesure pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
+Transformez votre téléphone en niveau à bulle précis, avec onze autres outils de mesure pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
 
 Niveau à bulle : posez le téléphone à plat pour mettre de niveau étagères, tables et appareils. X et Y indiquent l’inclinaison dans chaque direction et une indication vous dit quel côté est haut. De niveau, l’affichage devient orange, avec vibration et son en option.
 
@@ -14,7 +14,7 @@ Règle : mesurez de petits objets sur l’écran en mm, cm ou pouces. Calibrez u
 
 Détecteur de métaux : trouvez le fer, l’acier et les aimants, avec un bip qui s’accélère à l’approche.
 
-Vibromètre : mesurez les vibrations des machines et des surfaces, avec crête, moyenne et graphique en direct.
+Vibromètre et compte‑tours : posez le téléphone sur une machine en marche pour voir la force de ses vibrations et sa vitesse de rotation, en hertz et en tr/min.
 
 Sonomètre : mesurez le bruit en décibels, avec moyenne, maximum et une alerte quand il devient assez fort pour abîmer l’audition. Le son est mesuré sur le téléphone et jamais enregistré.
 
@@ -23,6 +23,8 @@ Luxmètre : mesurez la luminosité en lux et pieds-bougies, et voyez si la lumi�
 Altimètre : lisez la pression de l’air et l’altitude approximative, ou mesurez le dénivelé depuis un zéro.
 
 Mesure de hauteur : mesurez la hauteur d’un arbre ou d’un bâtiment et la distance qui vous en sépare. Visez le pied puis le sommet avec le bord supérieur du téléphone, ou saisissez la distance si vous la connaissez.
+
+Niveau caméra : pointez la caméra vers un mur et alignez carrelage, étagères et tableaux sur une grille toujours de niveau. L’image n’est jamais enregistrée ni sauvegardée.
 
 Chaque outil a un mode d’emploi court. Fonctionne en portrait et en paysage, en mode clair et sombre, en 12 langues. Sans publicité, sans compte, sans internet.
 

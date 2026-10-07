@@ -1,4 +1,4 @@
-Telefonunuzu hassas bir su terazisine dönüştürün; ev işleri, marangozluk, inşaat ve tablo asmak için on ölçüm aracı daha cabası.
+Telefonunuzu hassas bir su terazisine dönüştürün; ev işleri, marangozluk, inşaat ve tablo asmak için on bir ölçüm aracı daha cabası.
 
 Kabarcıklı terazi: rafları, masaları ve cihazları düzlemek için telefonu düz yatırın. X ve Y her yöndeki eğimi gösterir, ipucu hangi tarafın yüksek olduğunu söyler. Düz olunca değer turuncu olur; isterseniz titreşim ve sesle.
 
@@ -14,7 +14,7 @@ Cetvel: küçük nesneleri ekranda mm, cm veya inç olarak ölçün. ±0,5 mm i�
 
 Metal dedektörü: demir, çelik ve mıknatısları bulun; yaklaştıkça bip sesi hızlanır.
 
-Titreşim ölçer: makinelerin ve yüzeylerin titreşimini tepe, ortalama ve canlı grafikle ölçün.
+Titreşim ölçer ve takometre: telefonu çalışan bir makinenin üzerine koyun; ne kadar sert sarsıldığını ve ne kadar hızlı döndüğünü hertz ve dev/dk olarak görün.
 
 Ses ölçer: gürültüyü desibel olarak ölçün; ortalama, maksimum ve işitmeye zarar verecek kadar yükseldiğinde uyarı ile. Ses telefonda ölçülür, asla kaydedilmez.
 
@@ -23,6 +23,8 @@ Işık ölçer: parlaklığı lüks ve foot-candle olarak ölçün, ışığın 
 Altimetre: hava basıncını ve yaklaşık yüksekliği görün ya da bir sıfırdan tırmanılan yüksekliği ölçün.
 
 Yükseklik ölçer: bir ağacın ya da binanın yüksekliğini ve ona olan mesafeyi ölçün. Telefonun üst kenarını önce dibine, sonra tepesine doğrultun ya da biliyorsanız mesafeyi yazın.
+
+Kamera terazisi: kamerayı duvara doğrultun; fayansları, rafları ve tabloları her zaman düz kalan bir ızgarayla hizalayın. Görüntü asla kaydedilmez ya da saklanmaz.
 
 Her aracın kısa bir kullanım kılavuzu var. Dikey ve yatay, açık ve koyu modda, 12 dilde çalışır. Reklam yok, hesap yok, internet gerekmez.
 

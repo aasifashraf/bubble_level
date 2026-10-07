@@ -1,4 +1,4 @@
-Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi sepuluh alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
+Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi sebelas alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
 
 Waterpass gelembung: letakkan ponsel mendatar untuk meratakan rak, meja, dan peralatan. X dan Y menunjukkan kemiringan tiap arah dan petunjuk memberi tahu sisi mana yang tinggi. Saat rata, angka berubah oranye, dengan getaran dan bunyi opsional.
 
@@ -14,7 +14,7 @@ Penggaris: ukur benda kecil di layar dalam mm, cm, atau inci. Kalibrasi sekali d
 
 Detektor logam: temukan besi, baja, dan magnet, dengan bunyi bip yang makin cepat saat mendekat.
 
-Pengukur getaran: ukur getaran mesin dan permukaan, dengan puncak, rata-rata, dan grafik langsung.
+Pengukur getaran dan takometer: letakkan ponsel di atas mesin yang menyala untuk melihat seberapa kuat getarannya dan seberapa cepat putarannya, dalam hertz dan RPM.
 
 Pengukur suara: ukur kebisingan dalam desibel, dengan rata-rata, maksimum, dan peringatan saat cukup keras untuk merusak pendengaran. Suara diukur di ponsel dan tidak pernah direkam.
 
@@ -23,6 +23,8 @@ Pengukur cahaya: ukur kecerahan dalam lux dan foot-candle, dan lihat apakah caha
 Altimeter: baca tekanan udara dan perkiraan ketinggian, atau ukur ketinggian yang didaki dari titik nol.
 
 Pengukur tinggi: ukur tinggi pohon atau gedung dan jarak ke sana. Bidik dasarnya lalu puncaknya dengan tepi atas ponsel, atau ketik jaraknya jika Anda tahu.
+
+Waterpass kamera: arahkan kamera ke dinding dan sejajarkan ubin, rak, dan pigura dengan kisi-kisi yang selalu datar. Gambar tidak pernah direkam atau disimpan.
 
 Setiap alat dilengkapi panduan singkat. Berfungsi dalam mode potret dan lanskap, terang dan gelap, dalam 12 bahasa. Tanpa iklan, tanpa akun, tanpa internet.
 

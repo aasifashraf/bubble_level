@@ -1,1 +1,1 @@
-Rilis pertama: waterpass dengan tampilan dial dan tabung, pengukur sudut, kompas, busur derajat, penggaris, detektor logam, pengukur getaran, pengukur suara, pengukur cahaya, altimeter, dan pengukur tinggi.
+Rilis pertama: waterpass dengan tampilan dial dan tabung, pengukur sudut, kompas, busur derajat, penggaris, detektor logam, pengukur getaran, pengukur suara, pengukur cahaya, altimeter, pengukur tinggi, dan waterpass kamera.
