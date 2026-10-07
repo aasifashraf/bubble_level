@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:record/record.dart';
 
 import '../../domain/sound.dart';
+import 'app_settings.dart' as app_settings;
 import 'motion_sensor_service.dart';
 
 /// The microphone, for the sound meter. Audio stays in memory: each block
@@ -13,7 +14,6 @@ class MicrophoneService {
 
   /// The record package's default rate.
   static const _sampleRate = 44100;
-  static const _app = MethodChannel('bubble_level/app');
 
   /// Completes when the last recorder has stopped and been released.
   static Future<void> _released = Future.value();
@@ -32,15 +32,7 @@ class MicrophoneService {
 
   /// Opens this app's page in the phone's Settings (to allow the
   /// microphone after it was refused).
-  Future<void> openAppSettings() async {
-    try {
-      await _app.invokeMethod<void>('openSettings');
-    } on PlatformException {
-      // Nothing to open; the message already says where to go.
-    } on MissingPluginException {
-      // Same.
-    }
-  }
+  Future<void> openAppSettings() => app_settings.openAppSettings();
 
   /// The mean square (0 to 1) of each 100 ms block of sound while listened
   /// to; an error when the microphone can't be used.

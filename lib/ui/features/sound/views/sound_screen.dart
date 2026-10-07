@@ -6,6 +6,7 @@ import '../../../core/dial.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
 import '../../../core/l10n.dart';
+import '../../../core/permission_prompt.dart';
 import '../../../core/readout.dart';
 import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
@@ -69,7 +70,8 @@ class SoundScreen extends StatelessWidget {
           bodyBottomInset: granted ? 205 : 0,
           body: switch (viewModel.access) {
             MicAccess.checking => const SizedBox.shrink(),
-            MicAccess.needed => _Permission(
+            MicAccess.needed => PermissionPrompt(
+              icon: Icons.mic_rounded,
               title: l.micTitle,
               body: l.micBody,
               actions: [
@@ -81,7 +83,8 @@ class SoundScreen extends StatelessWidget {
                 ),
               ],
             ),
-            MicAccess.denied => _Permission(
+            MicAccess.denied => PermissionPrompt(
+              icon: Icons.mic_rounded,
               title: l.micDeniedTitle,
               body: l.micDeniedBody,
               actions: [
@@ -164,75 +167,6 @@ class SoundScreen extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-/// Why the microphone is needed (and that nothing is recorded), with the
-/// way forward.
-class _Permission extends StatelessWidget {
-  const _Permission({
-    required this.title,
-    required this.body,
-    required this.actions,
-  });
-
-  final String title, body;
-  final List<Widget> actions;
-
-  @override
-  Widget build(BuildContext context) {
-    final p = Palette.of(context);
-    final top = ToolFrame.sideBySide(context)
-        ? 0.0
-        : ToolFrame.contentTop(context);
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(28, top, 28, 24),
-        child: Center(
-          child: SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 84,
-                    height: 84,
-                    decoration: softSurface(
-                      p,
-                      radius: BorderRadius.circular(42),
-                    ),
-                    child: Icon(Icons.mic_rounded, size: 40, color: p.ballDark),
-                  ),
-                  const SizedBox(height: 22),
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: p.inkStrong,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    body,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, height: 1.45, color: p.ink),
-                  ),
-                  const SizedBox(height: 24),
-                  for (final (i, a) in actions.indexed) ...[
-                    if (i > 0) const SizedBox(height: 12),
-                    a,
-                  ],
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
