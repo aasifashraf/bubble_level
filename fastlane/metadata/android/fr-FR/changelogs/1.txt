@@ -1,1 +1,1 @@
-Première version : niveau à bulle avec vue cadran et fiole, mesure d’angle, boussole, rapporteur, règle, détecteur de métaux, vibromètre, sonomètre, luxmètre et altimètre.
+Première version : niveau à bulle avec vue cadran et fiole, mesure d’angle, boussole, rapporteur, règle, détecteur de métaux, vibromètre, sonomètre, luxmètre, altimètre et mesure de hauteur.

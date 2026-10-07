@@ -1,4 +1,4 @@
-Transformez votre téléphone en niveau à bulle précis, avec neuf autres outils de mesure pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
+Transformez votre téléphone en niveau à bulle précis, avec dix autres outils de mesure pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
 
 Niveau à bulle : posez le téléphone à plat pour mettre de niveau étagères, tables et appareils. X et Y indiquent l’inclinaison dans chaque direction et une indication vous dit quel côté est haut. De niveau, l’affichage devient orange, avec vibration et son en option.
 
@@ -21,6 +21,8 @@ Sonomètre : mesurez le bruit en décibels, avec moyenne, maximum et une alerte 
 Luxmètre : mesurez la luminosité en lux et pieds-bougies, et voyez si la lumière convient pour lire ou travailler au bureau.
 
 Altimètre : lisez la pression de l’air et l’altitude approximative, ou mesurez le dénivelé depuis un zéro.
+
+Mesure de hauteur : mesurez la hauteur d’un arbre ou d’un bâtiment et la distance qui vous en sépare. Visez le pied puis le sommet avec le bord supérieur du téléphone, ou saisissez la distance si vous la connaissez.
 
 Chaque outil a un mode d’emploi court. Fonctionne en portrait et en paysage, en mode clair et sombre, en 12 langues. Sans publicité, sans compte, sans internet.
 

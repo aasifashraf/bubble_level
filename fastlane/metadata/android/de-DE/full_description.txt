@@ -1,4 +1,4 @@
-Mach dein Handy zur präzisen Wasserwaage, mit neun weiteren Messwerkzeugen für Heimwerken, Schreinern, Bauen und Bilderaufhängen.
+Mach dein Handy zur präzisen Wasserwaage, mit zehn weiteren Messwerkzeugen für Heimwerken, Schreinern, Bauen und Bilderaufhängen.
 
 Libelle: Leg das Handy flach hin, um Regale, Tische und Geräte auszurichten. X und Y zeigen die Neigung in jede Richtung, ein Hinweis sagt dir, welche Seite hoch ist. Ist alles waagrecht, wird die Anzeige orange, auf Wunsch mit Vibration und Ton.
 
@@ -21,6 +21,8 @@ Schallpegelmesser: Miss Lärm in Dezibel, mit Durchschnitt, Maximum und einer Wa
 Belichtungsmesser: Miss die Helligkeit in Lux und Foot-Candle und sieh, ob das Licht zum Lesen und für den Schreibtisch taugt.
 
 Höhenmesser: Lies Luftdruck und ungefähre Höhe ab oder miss die Höhe ab einem Nullpunkt.
+
+Höhe und Entfernung: Miss die Höhe eines Baums oder Gebäudes und die Entfernung dorthin. Peile mit der oberen Handykante erst den Fuß, dann die Spitze an, oder gib die Entfernung ein, wenn du sie kennst.
 
 Jedes Werkzeug hat eine kurze Anleitung. Funktioniert im Hoch- und Querformat, hell und dunkel, in 12 Sprachen. Ohne Werbung, ohne Konto, ohne Internet.
 

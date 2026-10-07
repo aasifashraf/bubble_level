@@ -17,6 +17,8 @@ tools, all drawn in one soft, full-screen dial design:
   a beep that speeds up as metal gets closer.
 - **Vibration meter:** live vibration with peak, average and a graph.
 - **Altimeter:** air pressure, approximate altitude, and height from a zero.
+- **Height:** the height of a tree or building and the distance to it, by
+  aiming the phone's top edge at its base and top (or typing the distance).
 
 Every tool has a short "How to use" guide. The app supports light and dark
 themes, degrees or percent slope, a list or grid home screen, and sounds that
@@ -51,7 +53,7 @@ lib/
     core/          theme tokens, dial and tube painters, full-screen frame,
                    help sheets, formatting
     features/      level, angle, compass, protractor, metal, vibration,
-                   altimeter, settings (view models + views)
+                   altimeter, height, settings (view models + views)
     home/          home screen (list / grid)
 test/              domain, view-model and app-flow tests
 ```

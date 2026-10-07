@@ -1,4 +1,4 @@
-Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi sembilan alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
+Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi sepuluh alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
 
 Waterpass gelembung: letakkan ponsel mendatar untuk meratakan rak, meja, dan peralatan. X dan Y menunjukkan kemiringan tiap arah dan petunjuk memberi tahu sisi mana yang tinggi. Saat rata, angka berubah oranye, dengan getaran dan bunyi opsional.
 
@@ -21,6 +21,8 @@ Pengukur suara: ukur kebisingan dalam desibel, dengan rata-rata, maksimum, dan p
 Pengukur cahaya: ukur kecerahan dalam lux dan foot-candle, dan lihat apakah cahayanya cocok untuk membaca atau bekerja di meja.
 
 Altimeter: baca tekanan udara dan perkiraan ketinggian, atau ukur ketinggian yang didaki dari titik nol.
+
+Pengukur tinggi: ukur tinggi pohon atau gedung dan jarak ke sana. Bidik dasarnya lalu puncaknya dengan tepi atas ponsel, atau ketik jaraknya jika Anda tahu.
 
 Setiap alat dilengkapi panduan singkat. Berfungsi dalam mode potret dan lanskap, terang dan gelap, dalam 12 bahasa. Tanpa iklan, tanpa akun, tanpa internet.
 
