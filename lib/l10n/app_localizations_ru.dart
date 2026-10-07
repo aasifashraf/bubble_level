@@ -1088,4 +1088,92 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clear => 'Очистить';
+
+  @override
+  String get toolCamera => 'Уровень с камерой';
+
+  @override
+  String get toolCameraSubtitle => 'Сетка уровня поверх камеры';
+
+  @override
+  String get cameraHelp1 =>
+      'Наведите заднюю камеру на стену, полку, плитку или картину, держа телефон вертикально.';
+
+  @override
+  String get cameraHelp2 =>
+      'Сетка следует за гравитацией, а не за экраном: её линии всегда строго горизонтальны и вертикальны. Совместите с ними края на изображении; кривой край пересекает линии.';
+
+  @override
+  String get cameraHelp3 =>
+      'Крест в центре становится оранжевым, когда телефон ровно. «Наклон» показывает, насколько он повёрнут, «Вперёд/назад» показывает, насколько он отклонён к стене или от неё.';
+
+  @override
+  String get cameraHelp4 =>
+      'Выберите мелкие, средние или крупные клетки вверху. «Заморозить» удерживает изображение и показание; подсветка помогает в тёмных углах.';
+
+  @override
+  String get cameraTip =>
+      'Для самого точного изображения держите телефон параллельно стене; у краёв экрана линии могут слегка изгибаться из‑за объектива. Используется калибровка уровня на ребре. Изображение никогда не записывается, не сохраняется и не отправляется.';
+
+  @override
+  String get cameraAllowTitle => 'Разрешите камеру';
+
+  @override
+  String get cameraAllowBody =>
+      'Уровень с камерой рисует сетку уровня поверх изображения с камеры. Изображение остаётся на вашем телефоне и никогда не записывается, не сохраняется и не отправляется.';
+
+  @override
+  String get cameraAllow => 'Разрешить камеру';
+
+  @override
+  String get cameraDeniedTitle => 'Доступ к камере выключен';
+
+  @override
+  String get cameraDeniedBody =>
+      'Включите камеру для этого приложения в настройках, чтобы пользоваться уровнем с камерой. Изображение никогда не записывается, не сохраняется и не отправляется.';
+
+  @override
+  String get noCamera =>
+      'Не удаётся использовать камеру. Возможно, её занимает другое приложение или камеры нет: закройте другие приложения камеры и снова откройте уровень с камерой.';
+
+  @override
+  String get tilt => 'Наклон';
+
+  @override
+  String get forwardBack => 'Вперёд/назад';
+
+  @override
+  String get cameraLevel => 'Ровно';
+
+  @override
+  String cameraTilted(String value) {
+    return 'Наклон $value°';
+  }
+
+  @override
+  String get cameraHoldUpright =>
+      'Держите телефон вертикально, камерой к стене';
+
+  @override
+  String get freeze => 'Заморозить';
+
+  @override
+  String get resume => 'Продолжить';
+
+  @override
+  String get torch => 'Подсветка';
+
+  @override
+  String get gridSmall => 'Мелкие клетки';
+
+  @override
+  String get gridMedium => 'Средние клетки';
+
+  @override
+  String get gridLarge => 'Крупные клетки';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Изображение с камеры с сеткой уровня, наклон $value градусов';
+  }
 }

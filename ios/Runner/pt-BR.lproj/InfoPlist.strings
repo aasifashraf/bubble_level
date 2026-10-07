@@ -2,3 +2,4 @@
 "CFBundleDisplayName" = "Nível de bolha";
 "NSMicrophoneUsageDescription" = "O decibelímetro usa o microfone para medir o barulho. O som é medido no seu celular e nunca é gravado, salvo ou enviado.";
 "NSMotionUsageDescription" = "Os sensores de movimento e o barômetro medem inclinação, ângulos, direção da bússola, vibração e altitude.";
+"NSCameraUsageDescription" = "O nível com câmera mostra uma grade nivelada sobre a imagem da câmera. A imagem nunca é gravada, salva ou enviada.";

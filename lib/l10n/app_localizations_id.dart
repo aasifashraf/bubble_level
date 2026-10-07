@@ -1087,4 +1087,91 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clear => 'Hapus';
+
+  @override
+  String get toolCamera => 'Waterpass kamera';
+
+  @override
+  String get toolCameraSubtitle => 'Kisi-kisi datar di atas kamera';
+
+  @override
+  String get cameraHelp1 =>
+      'Arahkan kamera belakang ke dinding, rak, ubin, atau pigura sambil memegang ponsel tegak.';
+
+  @override
+  String get cameraHelp2 =>
+      'Kisi-kisi mengikuti gravitasi, bukan layar: garisnya selalu tepat datar dan tegak lurus. Sejajarkan tepi di gambar dengannya; tepi yang miring memotong garis.';
+
+  @override
+  String get cameraHelp3 =>
+      'Tanda silang di tengah berubah oranye saat ponsel datar. Kemiringan menunjukkan seberapa jauh ponsel berputar, Maju/mundur seberapa jauh ponsel condong ke dinding atau ke arah Anda.';
+
+  @override
+  String get cameraHelp4 =>
+      'Pilih kotak kecil, sedang, atau besar di atas. Bekukan menahan gambar dan bacaan; lampu membantu di sudut gelap.';
+
+  @override
+  String get cameraTip =>
+      'Pegang ponsel sejajar dinding untuk gambar paling tepat; garis di dekat tepi layar bisa sedikit melengkung karena lensa. Memakai kalibrasi sisi dari waterpass. Gambar tidak pernah direkam, disimpan, atau dikirim.';
+
+  @override
+  String get cameraAllowTitle => 'Izinkan kamera';
+
+  @override
+  String get cameraAllowBody =>
+      'Waterpass kamera menggambar kisi-kisi datar di atas gambar kamera. Gambar tetap di ponsel Anda dan tidak pernah direkam, disimpan, atau dikirim.';
+
+  @override
+  String get cameraAllow => 'Izinkan kamera';
+
+  @override
+  String get cameraDeniedTitle => 'Akses kamera nonaktif';
+
+  @override
+  String get cameraDeniedBody =>
+      'Aktifkan kamera untuk aplikasi ini di Setelan agar bisa memakai waterpass kamera. Gambar tidak pernah direkam, disimpan, atau dikirim.';
+
+  @override
+  String get noCamera =>
+      'Kamera tidak bisa dipakai. Mungkin aplikasi lain sedang memakainya atau ponsel tidak punya kamera: tutup aplikasi kamera lain, lalu buka lagi waterpass kamera.';
+
+  @override
+  String get tilt => 'Kemiringan';
+
+  @override
+  String get forwardBack => 'Maju/mundur';
+
+  @override
+  String get cameraLevel => 'Datar';
+
+  @override
+  String cameraTilted(String value) {
+    return 'Miring $value°';
+  }
+
+  @override
+  String get cameraHoldUpright => 'Pegang ponsel tegak, kamera ke dinding';
+
+  @override
+  String get freeze => 'Bekukan';
+
+  @override
+  String get resume => 'Lanjutkan';
+
+  @override
+  String get torch => 'Lampu';
+
+  @override
+  String get gridSmall => 'Kotak kecil';
+
+  @override
+  String get gridMedium => 'Kotak sedang';
+
+  @override
+  String get gridLarge => 'Kotak besar';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Tampilan kamera dengan kisi-kisi datar, miring $value derajat';
+  }
 }

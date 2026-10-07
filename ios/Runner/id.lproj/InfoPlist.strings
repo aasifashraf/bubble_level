@@ -2,3 +2,4 @@
 "CFBundleDisplayName" = "Waterpass";
 "NSMicrophoneUsageDescription" = "Pengukur suara memakai mikrofon untuk mengukur seberapa keras suara. Suara diukur di ponsel Anda dan tidak pernah direkam, disimpan, atau dikirim.";
 "NSMotionUsageDescription" = "Sensor gerak dan barometer dipakai untuk mengukur kemiringan, sudut, arah kompas, getaran, dan ketinggian.";
+"NSCameraUsageDescription" = "Waterpass kamera menampilkan kisi-kisi datar di atas gambar kamera. Gambar tidak pernah direkam, disimpan, atau dikirim.";

@@ -1083,4 +1083,91 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clear => 'Clear';
+
+  @override
+  String get toolCamera => 'Camera level';
+
+  @override
+  String get toolCameraSubtitle => 'Level grid over the camera view';
+
+  @override
+  String get cameraHelp1 =>
+      'Point the back camera at a wall, shelf, tiles or picture, holding the phone upright.';
+
+  @override
+  String get cameraHelp2 =>
+      'The grid follows gravity, not the screen: its lines are always truly level and plumb. Line up edges in the picture with them; a crooked edge runs across the lines.';
+
+  @override
+  String get cameraHelp3 =>
+      'The cross in the middle turns orange when the phone is level. Tilt shows how far it\'s turned, Forward/back how far it leans towards or away from the wall.';
+
+  @override
+  String get cameraHelp4 =>
+      'Pick small, medium or large squares at the top. Freeze holds the picture and the reading; the light helps in dark corners.';
+
+  @override
+  String get cameraTip =>
+      'Hold the phone square to the wall for the truest picture; lines near the screen\'s edges can bend slightly with the lens. Uses the Level\'s on-edge calibration. The picture is never recorded, saved or sent.';
+
+  @override
+  String get cameraAllowTitle => 'Allow the camera';
+
+  @override
+  String get cameraAllowBody =>
+      'The camera level draws a level grid over the camera\'s picture. The picture stays on your phone and is never recorded, saved or sent.';
+
+  @override
+  String get cameraAllow => 'Allow camera';
+
+  @override
+  String get cameraDeniedTitle => 'Camera access is off';
+
+  @override
+  String get cameraDeniedBody =>
+      'Turn on the camera for this app in Settings to use the camera level. The picture is never recorded, saved or sent.';
+
+  @override
+  String get noCamera =>
+      'Can’t use the camera. Another app may be using it, or this phone has none: close other camera apps, then open the camera level again.';
+
+  @override
+  String get tilt => 'Tilt';
+
+  @override
+  String get forwardBack => 'Forward/back';
+
+  @override
+  String get cameraLevel => 'Level';
+
+  @override
+  String cameraTilted(String value) {
+    return 'Tilted $value°';
+  }
+
+  @override
+  String get cameraHoldUpright => 'Hold the phone upright, camera to the wall';
+
+  @override
+  String get freeze => 'Freeze';
+
+  @override
+  String get resume => 'Resume';
+
+  @override
+  String get torch => 'Light';
+
+  @override
+  String get gridSmall => 'Small squares';
+
+  @override
+  String get gridMedium => 'Medium squares';
+
+  @override
+  String get gridLarge => 'Large squares';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Camera view with a level grid, tilted $value degrees';
+  }
 }

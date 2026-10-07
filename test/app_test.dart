@@ -41,11 +41,13 @@ const _allTools = [
   'Light meter',
   'Altimeter',
   'Height',
+  'Camera level',
 ];
 
 void main() {
   late FakeMotionSensorService sensors;
   late FakeMicrophoneService microphone;
+  late FakeCameraService camera;
 
   /// Phone-sized window unless [size] says otherwise.
   Future<void> pumpApp(
@@ -62,9 +64,11 @@ void main() {
     final settings = await SettingsRepository.load();
     sensors = FakeMotionSensorService();
     microphone = FakeMicrophoneService();
+    camera = FakeCameraService();
     await tester.pumpWidget(
       BubbleLevelApp(
         microphone: microphone,
+        camera: camera,
         settings: settings,
         orientation: OrientationRepository(
           sensors: sensors,
@@ -904,6 +908,61 @@ void main() {
     expect((await SettingsRepository.load()).eyeHeight, 1.5);
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('camera level: explains, then a level grid over the picture', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Camera level');
+    expect(find.text('Allow the camera'), findsOneWidget);
+    expect(camera.opened, 0, reason: 'nothing before Allow');
+    await tester.tap(find.text('Allow camera'));
+    await tester.pump();
+    await tester.pump();
+    expect(camera.opened, 1);
+
+    // Upright, turned 1.5° counter-clockwise.
+    final r = 1.5 * math.pi / 180;
+    for (var i = 0; i < 60; i++) {
+      await send(tester, Vec3(math.sin(r), math.cos(r), 0));
+    }
+    expect(find.text('Tilted 1.5°'), findsOneWidget);
+    expect(find.text('1.5°'), findsOneWidget);
+    for (var i = 0; i < 60; i++) {
+      await send(tester, const Vec3(0, 1, 0));
+    }
+    expect(find.text('Level'), findsWidgets);
+
+    // Large squares, remembered; Freeze holds the picture.
+    await tester.tap(find.byTooltip('Large squares'));
+    await tester.pump();
+    expect((await SettingsRepository.load()).cameraGrid, 2);
+    await tester.tap(find.text('Freeze'));
+    await tester.pump();
+    expect(camera.feed!.frozen, isTrue);
+    expect(find.text('Resume'), findsOneWidget);
+    await tester.tap(find.byTooltip('Light'));
+    await tester.pump();
+    expect(camera.feed!.torchOn, isTrue);
+
+    // Leaving lets the camera go.
+    await tester.tap(find.byType(BackTab));
+    await tester.pumpAndSettle();
+    expect(camera.feed!.disposed, isTrue);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('camera level: refused, it points to Settings', (tester) async {
+    await pumpApp(tester);
+    camera.result = FakeCameraResult.denied;
+    await openTool(tester, 'Camera level');
+    await tester.tap(find.text('Allow camera'));
+    await tester.pumpAndSettle();
+    expect(find.text('Camera access is off'), findsOneWidget);
+    await tester.tap(find.text('Open settings'));
+    await tester.pump();
+    expect(camera.settingsOpened, 1);
   });
 
   testWidgets('altimeter: phones without a barometer are told so', (

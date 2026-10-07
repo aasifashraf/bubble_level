@@ -1089,4 +1089,92 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get clear => 'Apagar';
+
+  @override
+  String get toolCamera => 'Nível com câmera';
+
+  @override
+  String get toolCameraSubtitle => 'Grade nivelada sobre a câmera';
+
+  @override
+  String get cameraHelp1 =>
+      'Aponte a câmera traseira para uma parede, prateleira, azulejos ou quadro, com o celular em pé.';
+
+  @override
+  String get cameraHelp2 =>
+      'A grade segue a gravidade, não a tela: suas linhas estão sempre no nível e no prumo. Alinhe as bordas da imagem com elas; uma borda torta atravessa as linhas.';
+
+  @override
+  String get cameraHelp3 =>
+      'A cruz no meio fica laranja quando o celular está nivelado. Inclinação mostra quanto ele está girado, Frente/trás quanto se inclina para a parede ou para você.';
+
+  @override
+  String get cameraHelp4 =>
+      'Escolha quadrados pequenos, médios ou grandes no topo. Congelar segura a imagem e a leitura; a luz ajuda em cantos escuros.';
+
+  @override
+  String get cameraTip =>
+      'Segure o celular paralelo à parede para a imagem mais fiel; linhas perto das bordas podem curvar um pouco pela lente. Usa a calibração de borda do nível. A imagem nunca é gravada, salva ou enviada.';
+
+  @override
+  String get cameraAllowTitle => 'Permitir a câmera';
+
+  @override
+  String get cameraAllowBody =>
+      'O nível com câmera desenha uma grade nivelada sobre a imagem da câmera. A imagem fica no seu celular e nunca é gravada, salva ou enviada.';
+
+  @override
+  String get cameraAllow => 'Permitir câmera';
+
+  @override
+  String get cameraDeniedTitle => 'O acesso à câmera está desligado';
+
+  @override
+  String get cameraDeniedBody =>
+      'Ative a câmera para este app nos Ajustes para usar o nível com câmera. A imagem nunca é gravada, salva ou enviada.';
+
+  @override
+  String get noCamera =>
+      'Não é possível usar a câmera. Outro app pode estar usando ou o celular não tem uma: feche outros apps de câmera e abra o nível com câmera de novo.';
+
+  @override
+  String get tilt => 'Inclinação';
+
+  @override
+  String get forwardBack => 'Frente/trás';
+
+  @override
+  String get cameraLevel => 'Nivelado';
+
+  @override
+  String cameraTilted(String value) {
+    return 'Inclinado $value°';
+  }
+
+  @override
+  String get cameraHoldUpright =>
+      'Segure o celular em pé, câmera para a parede';
+
+  @override
+  String get freeze => 'Congelar';
+
+  @override
+  String get resume => 'Continuar';
+
+  @override
+  String get torch => 'Luz';
+
+  @override
+  String get gridSmall => 'Quadrados pequenos';
+
+  @override
+  String get gridMedium => 'Quadrados médios';
+
+  @override
+  String get gridLarge => 'Quadrados grandes';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Imagem da câmera com grade nivelada, inclinada $value graus';
+  }
 }

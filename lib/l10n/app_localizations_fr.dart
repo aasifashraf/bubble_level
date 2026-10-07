@@ -1091,4 +1091,92 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get clear => 'Effacer';
+
+  @override
+  String get toolCamera => 'Niveau caméra';
+
+  @override
+  String get toolCameraSubtitle => 'Grille de niveau sur la caméra';
+
+  @override
+  String get cameraHelp1 =>
+      'Pointez la caméra arrière vers un mur, une étagère, du carrelage ou un tableau, téléphone tenu droit.';
+
+  @override
+  String get cameraHelp2 =>
+      'La grille suit la gravité, pas l’écran : ses lignes sont toujours de niveau et d’aplomb. Alignez les bords de l’image dessus ; un bord de travers coupe les lignes.';
+
+  @override
+  String get cameraHelp3 =>
+      'La croix au centre devient orange quand le téléphone est de niveau. Inclinaison indique de combien il est tourné, Avant/arrière de combien il penche vers le mur ou vers vous.';
+
+  @override
+  String get cameraHelp4 =>
+      'Choisissez de petits, moyens ou grands carreaux en haut. Figer garde l’image et la mesure ; la lumière aide dans les coins sombres.';
+
+  @override
+  String get cameraTip =>
+      'Tenez le téléphone parallèle au mur pour l’image la plus juste ; près des bords, l’objectif peut légèrement courber les lignes. Utilise l’étalonnage sur la tranche du niveau. L’image n’est jamais enregistrée, sauvegardée ni envoyée.';
+
+  @override
+  String get cameraAllowTitle => 'Autoriser la caméra';
+
+  @override
+  String get cameraAllowBody =>
+      'Le niveau caméra trace une grille de niveau sur l’image de la caméra. L’image reste sur votre téléphone et n’est jamais enregistrée, sauvegardée ni envoyée.';
+
+  @override
+  String get cameraAllow => 'Autoriser la caméra';
+
+  @override
+  String get cameraDeniedTitle => 'L’accès à la caméra est désactivé';
+
+  @override
+  String get cameraDeniedBody =>
+      'Activez la caméra pour cette app dans les Réglages pour utiliser le niveau caméra. L’image n’est jamais enregistrée, sauvegardée ni envoyée.';
+
+  @override
+  String get noCamera =>
+      'Impossible d’utiliser la caméra. Une autre app l’utilise peut‑être, ou le téléphone n’en a pas : fermez les autres apps photo, puis rouvrez le niveau caméra.';
+
+  @override
+  String get tilt => 'Inclinaison';
+
+  @override
+  String get forwardBack => 'Avant/arrière';
+
+  @override
+  String get cameraLevel => 'De niveau';
+
+  @override
+  String cameraTilted(String value) {
+    return 'Incliné de $value°';
+  }
+
+  @override
+  String get cameraHoldUpright =>
+      'Tenez le téléphone droit, caméra vers le mur';
+
+  @override
+  String get freeze => 'Figer';
+
+  @override
+  String get resume => 'Reprendre';
+
+  @override
+  String get torch => 'Lumière';
+
+  @override
+  String get gridSmall => 'Petits carreaux';
+
+  @override
+  String get gridMedium => 'Carreaux moyens';
+
+  @override
+  String get gridLarge => 'Grands carreaux';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Image de la caméra avec grille de niveau, inclinée de $value degrés';
+  }
 }

@@ -1089,4 +1089,91 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get clear => 'Löschen';
+
+  @override
+  String get toolCamera => 'Kamera-Wasserwaage';
+
+  @override
+  String get toolCameraSubtitle => 'Waagrechtes Raster über dem Kamerabild';
+
+  @override
+  String get cameraHelp1 =>
+      'Richte die Rückkamera auf eine Wand, ein Regal, Fliesen oder ein Bild und halte das Handy aufrecht.';
+
+  @override
+  String get cameraHelp2 =>
+      'Das Raster folgt der Schwerkraft, nicht dem Bildschirm: Seine Linien sind immer genau waagrecht und lotrecht. Richte Kanten im Bild daran aus; eine schiefe Kante läuft quer über die Linien.';
+
+  @override
+  String get cameraHelp3 =>
+      'Das Kreuz in der Mitte wird orange, wenn das Handy gerade ist. Neigung zeigt, wie weit es verdreht ist, Vor/zurück, wie weit es zur Wand hin oder weg kippt.';
+
+  @override
+  String get cameraHelp4 =>
+      'Wähle oben kleine, mittlere oder große Kästchen. Einfrieren hält Bild und Wert fest; das Licht hilft in dunklen Ecken.';
+
+  @override
+  String get cameraTip =>
+      'Halte das Handy für das genaueste Bild parallel zur Wand; Linien am Bildrand können sich durch das Objektiv leicht biegen. Nutzt die Kantenkalibrierung der Wasserwaage. Das Bild wird nie aufgenommen, gespeichert oder gesendet.';
+
+  @override
+  String get cameraAllowTitle => 'Kamera erlauben';
+
+  @override
+  String get cameraAllowBody =>
+      'Die Kamera-Wasserwaage zeichnet ein waagrechtes Raster über das Kamerabild. Das Bild bleibt auf deinem Handy und wird nie aufgenommen, gespeichert oder gesendet.';
+
+  @override
+  String get cameraAllow => 'Kamera erlauben';
+
+  @override
+  String get cameraDeniedTitle => 'Kamerazugriff ist aus';
+
+  @override
+  String get cameraDeniedBody =>
+      'Erlaube die Kamera für diese App in den Einstellungen, um die Kamera-Wasserwaage zu nutzen. Das Bild wird nie aufgenommen, gespeichert oder gesendet.';
+
+  @override
+  String get noCamera =>
+      'Die Kamera kann nicht genutzt werden. Vielleicht verwendet sie eine andere App, oder das Handy hat keine: Schließe andere Kamera-Apps und öffne die Kamera-Wasserwaage erneut.';
+
+  @override
+  String get tilt => 'Neigung';
+
+  @override
+  String get forwardBack => 'Vor/zurück';
+
+  @override
+  String get cameraLevel => 'Gerade';
+
+  @override
+  String cameraTilted(String value) {
+    return 'Geneigt um $value°';
+  }
+
+  @override
+  String get cameraHoldUpright => 'Handy aufrecht halten, Kamera zur Wand';
+
+  @override
+  String get freeze => 'Einfrieren';
+
+  @override
+  String get resume => 'Fortsetzen';
+
+  @override
+  String get torch => 'Licht';
+
+  @override
+  String get gridSmall => 'Kleine Kästchen';
+
+  @override
+  String get gridMedium => 'Mittlere Kästchen';
+
+  @override
+  String get gridLarge => 'Große Kästchen';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Kamerabild mit waagrechtem Raster, um $value Grad geneigt';
+  }
 }

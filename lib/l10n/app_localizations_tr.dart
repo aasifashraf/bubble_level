@@ -1085,4 +1085,91 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clear => 'Temizle';
+
+  @override
+  String get toolCamera => 'Kamera terazisi';
+
+  @override
+  String get toolCameraSubtitle => 'Kamera görüntüsü üzerinde düz ızgara';
+
+  @override
+  String get cameraHelp1 =>
+      'Arka kamerayı bir duvara, rafa, fayansa ya da tabloya doğrultun; telefonu dik tutun.';
+
+  @override
+  String get cameraHelp2 =>
+      'Izgara ekranı değil yer çekimini izler: çizgileri her zaman tam yatay ve dikeydir. Görüntüdeki kenarları bunlara hizalayın; eğri bir kenar çizgileri keser.';
+
+  @override
+  String get cameraHelp3 =>
+      'Telefon düz olunca ortadaki artı turuncu olur. Eğim ne kadar döndüğünü, İleri/geri duvara ya da size doğru ne kadar yattığını gösterir.';
+
+  @override
+  String get cameraHelp4 =>
+      'Üstte küçük, orta ya da büyük kare seçin. Dondur, görüntüyü ve ölçümü tutar; ışık karanlık köşelerde yardımcı olur.';
+
+  @override
+  String get cameraTip =>
+      'En doğru görüntü için telefonu duvara paralel tutun; ekran kenarlarına yakın çizgiler mercek yüzünden biraz bükülebilir. Terazinin kenar kalibrasyonunu kullanır. Görüntü asla kaydedilmez, saklanmaz ya da gönderilmez.';
+
+  @override
+  String get cameraAllowTitle => 'Kameraya izin verin';
+
+  @override
+  String get cameraAllowBody =>
+      'Kamera terazisi, kamera görüntüsünün üzerine düz bir ızgara çizer. Görüntü telefonunuzda kalır; asla kaydedilmez, saklanmaz ya da gönderilmez.';
+
+  @override
+  String get cameraAllow => 'Kameraya izin ver';
+
+  @override
+  String get cameraDeniedTitle => 'Kamera erişimi kapalı';
+
+  @override
+  String get cameraDeniedBody =>
+      'Kamera terazisini kullanmak için Ayarlar’da bu uygulamaya kamera izni verin. Görüntü asla kaydedilmez, saklanmaz ya da gönderilmez.';
+
+  @override
+  String get noCamera =>
+      'Kamera kullanılamıyor. Başka bir uygulama kullanıyor olabilir ya da telefonda kamera yok: diğer kamera uygulamalarını kapatıp kamera terazisini yeniden açın.';
+
+  @override
+  String get tilt => 'Eğim';
+
+  @override
+  String get forwardBack => 'İleri/geri';
+
+  @override
+  String get cameraLevel => 'Düz';
+
+  @override
+  String cameraTilted(String value) {
+    return '$value° eğik';
+  }
+
+  @override
+  String get cameraHoldUpright => 'Telefonu dik tutun, kamera duvara baksın';
+
+  @override
+  String get freeze => 'Dondur';
+
+  @override
+  String get resume => 'Devam';
+
+  @override
+  String get torch => 'Işık';
+
+  @override
+  String get gridSmall => 'Küçük kareler';
+
+  @override
+  String get gridMedium => 'Orta kareler';
+
+  @override
+  String get gridLarge => 'Büyük kareler';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Düz ızgaralı kamera görüntüsü, $value derece eğik';
+  }
 }

@@ -61,6 +61,8 @@ class SettingsRepository extends ChangeNotifier {
   static const _kAngleMode = 'angleMode';
   static const _kSceneWeather = 'sceneWeather';
   static const _kEyeHeight = 'eyeHeight';
+  static const _kCameraAllowed = 'cameraAllowed';
+  static const _kGridSize = 'cameraGrid';
 
   final SharedPreferences _prefs;
   Vec3 _flatRef;
@@ -254,6 +256,21 @@ class SettingsRepository extends ChangeNotifier {
     } else {
       await _prefs.setString(_kSceneWeather, v.name);
     }
+    notifyListeners();
+  }
+
+  /// Whether the camera level has had the camera before: then it starts
+  /// the camera straight away rather than explaining first.
+  bool get cameraAllowed => _prefs.getBool(_kCameraAllowed) ?? false;
+
+  Future<void> setCameraAllowed(bool allowed) =>
+      _prefs.setBool(_kCameraAllowed, allowed);
+
+  /// The camera level's squares, 0 small to 2 large.
+  int get cameraGrid => (_prefs.getInt(_kGridSize) ?? 1).clamp(0, 2);
+
+  Future<void> setCameraGrid(int size) async {
+    await _prefs.setInt(_kGridSize, size.clamp(0, 2));
     notifyListeners();
   }
 

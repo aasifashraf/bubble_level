@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'data/repositories/orientation_repository.dart';
 import 'data/repositories/review_repository.dart';
 import 'data/repositories/settings_repository.dart';
+import 'data/services/camera_service.dart';
 import 'data/services/display_rotation_service.dart';
 import 'data/services/microphone_service.dart';
 import 'data/services/motion_sensor_service.dart';
@@ -51,6 +52,7 @@ class BubbleLevelApp extends StatefulWidget {
     this.review,
     this.display = const DisplayRotationService(),
     this.microphone = const MicrophoneService(),
+    this.camera = const CameraService(),
   });
 
   final SettingsRepository settings;
@@ -70,6 +72,9 @@ class BubbleLevelApp extends StatefulWidget {
 
   /// The sound meter's microphone (fake in tests).
   final MicrophoneService microphone;
+
+  /// The camera level's camera (fake in tests).
+  final CameraService camera;
 
   /// Sensors for the vibration meter and altimeter (fakes in tests).
   final MotionSensorService sensors;
@@ -122,6 +127,7 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         review: widget.review,
         display: widget.display,
         microphone: widget.microphone,
+        camera: widget.camera,
       ),
     );
   }

@@ -25,6 +25,7 @@ dependencies:
   # Pinned: the sound meter relies on its in-memory PCM stream and audio
   # source options; check them before moving to a newer major or minor.
   record: 7.1.1
+  camera: ^0.12.1
 
 dev_dependencies:
   flutter_test:

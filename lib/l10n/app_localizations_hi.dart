@@ -1084,4 +1084,91 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get clear => 'साफ़ करें';
+
+  @override
+  String get toolCamera => 'कैमरा लेवल';
+
+  @override
+  String get toolCameraSubtitle => 'कैमरा दृश्य पर समतल ग्रिड';
+
+  @override
+  String get cameraHelp1 =>
+      'फ़ोन को सीधा पकड़कर पीछे का कैमरा दीवार, शेल्फ़, टाइल या तस्वीर की ओर करें।';
+
+  @override
+  String get cameraHelp2 =>
+      'ग्रिड स्क्रीन नहीं, गुरुत्व के हिसाब से चलता है: इसकी रेखाएँ हमेशा ठीक समतल और सीधी खड़ी रहती हैं। तस्वीर के किनारों को इनसे मिलाएँ; टेढ़ा किनारा रेखाओं को काटता है।';
+
+  @override
+  String get cameraHelp3 =>
+      'फ़ोन समतल होने पर बीच का क्रॉस नारंगी हो जाता है। झुकाव बताता है कि फ़ोन कितना घूमा है, आगे/पीछे बताता है कि वह दीवार की ओर या आपकी ओर कितना झुका है।';
+
+  @override
+  String get cameraHelp4 =>
+      'ऊपर छोटे, मध्यम या बड़े खाने चुनें। फ़्रीज़ तस्वीर और रीडिंग रोक देता है; रोशनी अंधेरे कोनों में मदद करती है।';
+
+  @override
+  String get cameraTip =>
+      'सबसे सही तस्वीर के लिए फ़ोन को दीवार के समानांतर रखें; लेंस के कारण स्क्रीन के किनारों पर रेखाएँ थोड़ी मुड़ सकती हैं। लेवल का किनारे वाला कैलिब्रेशन इस्तेमाल होता है। तस्वीर कभी रिकॉर्ड, सेव या भेजी नहीं जाती।';
+
+  @override
+  String get cameraAllowTitle => 'कैमरा की अनुमति दें';
+
+  @override
+  String get cameraAllowBody =>
+      'कैमरा लेवल कैमरे की तस्वीर पर समतल ग्रिड बनाता है। तस्वीर आपके फ़ोन पर ही रहती है और कभी रिकॉर्ड, सेव या भेजी नहीं जाती।';
+
+  @override
+  String get cameraAllow => 'कैमरा की अनुमति दें';
+
+  @override
+  String get cameraDeniedTitle => 'कैमरा की अनुमति बंद है';
+
+  @override
+  String get cameraDeniedBody =>
+      'कैमरा लेवल इस्तेमाल करने के लिए सेटिंग्स में इस ऐप का कैमरा चालू करें। तस्वीर कभी रिकॉर्ड, सेव या भेजी नहीं जाती।';
+
+  @override
+  String get noCamera =>
+      'कैमरा इस्तेमाल नहीं हो पा रहा। शायद कोई दूसरा ऐप उसे इस्तेमाल कर रहा है या फ़ोन में कैमरा नहीं है: दूसरे कैमरा ऐप बंद करके कैमरा लेवल फिर खोलें।';
+
+  @override
+  String get tilt => 'झुकाव';
+
+  @override
+  String get forwardBack => 'आगे/पीछे';
+
+  @override
+  String get cameraLevel => 'समतल';
+
+  @override
+  String cameraTilted(String value) {
+    return '$value° झुका';
+  }
+
+  @override
+  String get cameraHoldUpright => 'फ़ोन सीधा रखें, कैमरा दीवार की ओर';
+
+  @override
+  String get freeze => 'फ़्रीज़';
+
+  @override
+  String get resume => 'जारी रखें';
+
+  @override
+  String get torch => 'रोशनी';
+
+  @override
+  String get gridSmall => 'छोटे खाने';
+
+  @override
+  String get gridMedium => 'मध्यम खाने';
+
+  @override
+  String get gridLarge => 'बड़े खाने';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'समतल ग्रिड वाला कैमरा दृश्य, $value डिग्री झुका';
+  }
 }

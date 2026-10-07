@@ -11,6 +11,7 @@ import '../../data/repositories/review_repository.dart';
 import '../../data/repositories/settings_repository.dart';
 import '../../data/repositories/sound_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
+import '../../data/services/camera_service.dart';
 import '../../data/services/display_rotation_service.dart';
 import '../../data/services/microphone_service.dart';
 import '../../data/services/motion_sensor_service.dart';
@@ -29,6 +30,8 @@ import '../features/altimeter/view_models/altimeter_view_model.dart';
 import '../features/altimeter/views/altimeter_screen.dart';
 import '../features/angle/view_models/angle_view_model.dart';
 import '../features/angle/views/angle_screen.dart';
+import '../features/camera/view_models/camera_level_view_model.dart';
+import '../features/camera/views/camera_level_screen.dart';
 import '../features/compass/view_models/compass_view_model.dart';
 import '../features/compass/views/compass_screen.dart';
 import '../features/height/view_models/height_view_model.dart';
@@ -72,6 +75,7 @@ class HomeShell extends StatefulWidget {
     this.review,
     this.display = const DisplayRotationService(),
     this.microphone = const MicrophoneService(),
+    this.camera = const CameraService(),
   });
 
   final OrientationRepository orientation;
@@ -93,6 +97,9 @@ class HomeShell extends StatefulWidget {
   /// The sound meter's microphone.
   final MicrophoneService microphone;
 
+  /// The camera level's camera.
+  final CameraService camera;
+
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
 
@@ -113,6 +120,12 @@ class _HomeShellState extends State<HomeShell> {
     settings: widget.settings,
   );
   late final _compass = CompassViewModel(orientation: widget.orientation);
+  late final _camera = CameraLevelViewModel(
+    orientation: widget.orientation,
+    settings: widget.settings,
+    camera: widget.camera,
+    onLevelReached: HapticFeedback.selectionClick,
+  );
   late final _height = HeightViewModel(
     orientation: widget.orientation,
     settings: widget.settings,
@@ -148,7 +161,7 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   void dispose() {
-    for (final vm in [_level, _angle, _compass, _height, _metal]) {
+    for (final vm in [_level, _angle, _compass, _height, _camera, _metal]) {
       vm.dispose();
     }
     _protractor.dispose();
@@ -177,7 +190,11 @@ class _HomeShellState extends State<HomeShell> {
   };
 
   /// Tools that always stay portrait (their scene is drawn for it).
-  static const _portraitOnly = {HomeTool.altimeter, HomeTool.height};
+  static const _portraitOnly = {
+    HomeTool.altimeter,
+    HomeTool.height,
+    HomeTool.camera,
+  };
 
   /// Opens a tool full screen; its view model (if it uses sensors) follows
   /// them only while the tool is showing. A [_rotatable] [tool] holds its
@@ -271,6 +288,12 @@ class _HomeShellState extends State<HomeShell> {
           (_) => AltimeterScreen(viewModel: _altimeter, onBack: back),
           tool: tool,
         );
+      case HomeTool.camera:
+        _open(
+          _camera,
+          (_) => CameraLevelScreen(viewModel: _camera, onBack: back),
+          tool: tool,
+        );
       case HomeTool.height:
         _open(
           _height,
@@ -348,6 +371,12 @@ class _HomeShellState extends State<HomeShell> {
       tool: HomeTool.height,
       title: l.toolHeight,
       subtitle: l.toolHeightSubtitle,
+      needs: [SensorKind.accelerometer],
+    ),
+    (
+      tool: HomeTool.camera,
+      title: l.toolCamera,
+      subtitle: l.toolCameraSubtitle,
       needs: [SensorKind.accelerometer],
     ),
   ];

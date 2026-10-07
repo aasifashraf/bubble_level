@@ -1090,4 +1090,92 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get clear => 'Borrar';
+
+  @override
+  String get toolCamera => 'Nivel con cámara';
+
+  @override
+  String get toolCameraSubtitle => 'Cuadrícula nivelada sobre la cámara';
+
+  @override
+  String get cameraHelp1 =>
+      'Apunta la cámara trasera a una pared, estante, azulejos o cuadro, con el teléfono vertical.';
+
+  @override
+  String get cameraHelp2 =>
+      'La cuadrícula sigue la gravedad, no la pantalla: sus líneas siempre están a nivel y a plomo. Alinea los bordes de la imagen con ellas; un borde torcido cruza las líneas.';
+
+  @override
+  String get cameraHelp3 =>
+      'La cruz central se pone naranja cuando el teléfono está nivelado. Inclinación indica cuánto está girado, Adelante/atrás cuánto se inclina hacia la pared o hacia ti.';
+
+  @override
+  String get cameraHelp4 =>
+      'Elige cuadros pequeños, medianos o grandes arriba. Congelar fija la imagen y la lectura; la luz ayuda en rincones oscuros.';
+
+  @override
+  String get cameraTip =>
+      'Sostén el teléfono paralelo a la pared para la imagen más fiel; las líneas cerca de los bordes pueden curvarse un poco por la lente. Usa la calibración de canto del nivel. La imagen nunca se graba, guarda ni envía.';
+
+  @override
+  String get cameraAllowTitle => 'Permitir la cámara';
+
+  @override
+  String get cameraAllowBody =>
+      'El nivel con cámara dibuja una cuadrícula nivelada sobre la imagen de la cámara. La imagen se queda en tu teléfono y nunca se graba, guarda ni envía.';
+
+  @override
+  String get cameraAllow => 'Permitir cámara';
+
+  @override
+  String get cameraDeniedTitle => 'El acceso a la cámara está desactivado';
+
+  @override
+  String get cameraDeniedBody =>
+      'Activa la cámara para esta app en Ajustes para usar el nivel con cámara. La imagen nunca se graba, guarda ni envía.';
+
+  @override
+  String get noCamera =>
+      'No se puede usar la cámara. Puede que otra app la esté usando o que el teléfono no tenga: cierra otras apps de cámara y vuelve a abrir el nivel con cámara.';
+
+  @override
+  String get tilt => 'Inclinación';
+
+  @override
+  String get forwardBack => 'Adelante/atrás';
+
+  @override
+  String get cameraLevel => 'Nivelado';
+
+  @override
+  String cameraTilted(String value) {
+    return 'Inclinado $value°';
+  }
+
+  @override
+  String get cameraHoldUpright =>
+      'Sostén el teléfono vertical, cámara hacia la pared';
+
+  @override
+  String get freeze => 'Congelar';
+
+  @override
+  String get resume => 'Seguir';
+
+  @override
+  String get torch => 'Luz';
+
+  @override
+  String get gridSmall => 'Cuadros pequeños';
+
+  @override
+  String get gridMedium => 'Cuadros medianos';
+
+  @override
+  String get gridLarge => 'Cuadros grandes';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'Vista de cámara con cuadrícula nivelada, inclinada $value grados';
+  }
 }

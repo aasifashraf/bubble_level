@@ -2,3 +2,4 @@
 "CFBundleDisplayName" = "Wasserwaage";
 "NSMicrophoneUsageDescription" = "Der Schallpegelmesser misst mit dem Mikrofon, wie laut es ist. Der Ton wird auf deinem Handy gemessen und nie aufgenommen, gespeichert oder gesendet.";
 "NSMotionUsageDescription" = "Bewegungssensoren und Barometer messen Neigung, Winkel, Kompassrichtung, Vibration und Höhe.";
+"NSCameraUsageDescription" = "Die Kamera-Wasserwaage zeigt ein waagrechtes Raster über dem Kamerabild. Das Bild wird nie aufgenommen, gespeichert oder gesendet.";

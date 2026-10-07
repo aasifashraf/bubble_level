@@ -1084,4 +1084,91 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get clear => 'صاف کریں';
+
+  @override
+  String get toolCamera => 'کیمرا لیول';
+
+  @override
+  String get toolCameraSubtitle => 'کیمرا منظر پر سیدھا گرڈ';
+
+  @override
+  String get cameraHelp1 =>
+      'فون کو سیدھا کھڑا پکڑ کر پچھلا کیمرا دیوار، شیلف، ٹائل یا تصویر کی طرف کریں۔';
+
+  @override
+  String get cameraHelp2 =>
+      'گرڈ اسکرین نہیں بلکہ کششِ ثقل کے ساتھ چلتا ہے: اس کی لکیریں ہمیشہ بالکل افقی اور عمودی رہتی ہیں۔ تصویر کے کناروں کو ان سے ملائیں؛ ٹیڑھا کنارہ لکیروں کو کاٹتا ہے۔';
+
+  @override
+  String get cameraHelp3 =>
+      'فون سیدھا ہونے پر بیچ کا کراس نارنجی ہو جاتا ہے۔ جھکاؤ بتاتا ہے کہ فون کتنا گھوما ہے، آگے/پیچھے بتاتا ہے کہ وہ دیوار کی طرف یا آپ کی طرف کتنا جھکا ہے۔';
+
+  @override
+  String get cameraHelp4 =>
+      'اوپر چھوٹے، درمیانے یا بڑے خانے چنیں۔ فریز تصویر اور ریڈنگ روک دیتا ہے؛ روشنی اندھیرے کونوں میں مدد کرتی ہے۔';
+
+  @override
+  String get cameraTip =>
+      'سب سے درست تصویر کے لیے فون کو دیوار کے متوازی رکھیں؛ لینز کی وجہ سے اسکرین کے کناروں پر لکیریں تھوڑی مڑ سکتی ہیں۔ لیول کی کنارے والی کیلیبریشن استعمال ہوتی ہے۔ تصویر کبھی ریکارڈ، محفوظ یا بھیجی نہیں جاتی۔';
+
+  @override
+  String get cameraAllowTitle => 'کیمرے کی اجازت دیں';
+
+  @override
+  String get cameraAllowBody =>
+      'کیمرا لیول کیمرے کی تصویر پر سیدھا گرڈ بناتا ہے۔ تصویر آپ کے فون پر ہی رہتی ہے اور کبھی ریکارڈ، محفوظ یا بھیجی نہیں جاتی۔';
+
+  @override
+  String get cameraAllow => 'کیمرے کی اجازت دیں';
+
+  @override
+  String get cameraDeniedTitle => 'کیمرے کی اجازت بند ہے';
+
+  @override
+  String get cameraDeniedBody =>
+      'کیمرا لیول استعمال کرنے کے لیے سیٹنگز میں اس ایپ کا کیمرا آن کریں۔ تصویر کبھی ریکارڈ، محفوظ یا بھیجی نہیں جاتی۔';
+
+  @override
+  String get noCamera =>
+      'کیمرا استعمال نہیں ہو پا رہا۔ شاید کوئی دوسری ایپ اسے استعمال کر رہی ہے یا فون میں کیمرا نہیں: دوسری کیمرا ایپس بند کر کے کیمرا لیول دوبارہ کھولیں۔';
+
+  @override
+  String get tilt => 'جھکاؤ';
+
+  @override
+  String get forwardBack => 'آگے/پیچھے';
+
+  @override
+  String get cameraLevel => 'سیدھا';
+
+  @override
+  String cameraTilted(String value) {
+    return '$value° جھکا';
+  }
+
+  @override
+  String get cameraHoldUpright => 'فون سیدھا رکھیں، کیمرا دیوار کی طرف';
+
+  @override
+  String get freeze => 'فریز';
+
+  @override
+  String get resume => 'جاری رکھیں';
+
+  @override
+  String get torch => 'روشنی';
+
+  @override
+  String get gridSmall => 'چھوٹے خانے';
+
+  @override
+  String get gridMedium => 'درمیانے خانے';
+
+  @override
+  String get gridLarge => 'بڑے خانے';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'سیدھے گرڈ والا کیمرا منظر، $value ڈگری جھکا';
+  }
 }

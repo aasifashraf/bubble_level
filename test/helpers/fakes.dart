@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:bubble_level/data/services/camera_service.dart';
 import 'package:bubble_level/data/services/display_rotation_service.dart';
 import 'package:bubble_level/data/services/microphone_service.dart';
 import 'package:bubble_level/data/services/motion_sensor_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
+import 'package:flutter/widgets.dart';
 
 /// Sensor streams the test drives by hand.
 class FakeMotionSensorService implements MotionSensorService {
@@ -142,4 +144,59 @@ class FakeMicrophoneService implements MicrophoneService {
 
   @override
   Stream<ScalarSample> levels() => blocks.stream;
+}
+
+/// A camera that opens (or refuses, or is missing) on request, with a
+/// plain box for its picture.
+class FakeCameraService implements CameraService {
+  FakeCameraService({this.result = FakeCameraResult.ok, this.torch = true});
+
+  FakeCameraResult result;
+  final bool torch;
+  int opened = 0, settingsOpened = 0;
+  FakeCameraFeed? feed;
+
+  @override
+  Future<CameraFeed> open() async {
+    opened++;
+    switch (result) {
+      case FakeCameraResult.denied:
+        throw const CameraDenied();
+      case FakeCameraResult.missing:
+        throw const CameraMissing();
+      case FakeCameraResult.ok:
+        return feed = FakeCameraFeed(torch: torch);
+    }
+  }
+
+  @override
+  Future<void> openAppSettings() async => settingsOpened++;
+}
+
+enum FakeCameraResult { ok, denied, missing }
+
+class FakeCameraFeed implements CameraFeed {
+  FakeCameraFeed({required this.torch});
+
+  final bool torch;
+  bool frozen = false, torchOn = false, disposed = false;
+
+  @override
+  Widget get preview => const ColoredBox(color: Color(0xFF808080));
+
+  @override
+  double get aspectRatio => 3 / 4;
+
+  @override
+  Future<void> setFrozen(bool frozen) async => this.frozen = frozen;
+
+  @override
+  Future<bool> setTorch(bool on) async {
+    if (!torch) return false;
+    torchOn = on;
+    return true;
+  }
+
+  @override
+  Future<void> dispose() async => disposed = true;
 }

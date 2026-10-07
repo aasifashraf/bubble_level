@@ -1078,4 +1078,91 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clear => 'مسح';
+
+  @override
+  String get toolCamera => 'ميزان الكاميرا';
+
+  @override
+  String get toolCameraSubtitle => 'شبكة مستوية فوق صورة الكاميرا';
+
+  @override
+  String get cameraHelp1 =>
+      'وجّه الكاميرا الخلفية إلى جدار أو رف أو بلاط أو لوحة، مع إمساك الهاتف قائمًا.';
+
+  @override
+  String get cameraHelp2 =>
+      'تتبع الشبكة الجاذبية لا الشاشة: خطوطها دائمًا أفقية وعمودية تمامًا. حاذِ حواف الصورة معها؛ فالحافة المائلة تقطع الخطوط.';
+
+  @override
+  String get cameraHelp3 =>
+      'يصبح الصليب في المنتصف برتقاليًا عندما يستوي الهاتف. يُظهر الميل مقدار دورانه، ويُظهر للأمام/للخلف مقدار ميله نحو الجدار أو نحوك.';
+
+  @override
+  String get cameraHelp4 =>
+      'اختر مربعات صغيرة أو متوسطة أو كبيرة في الأعلى. يثبّت التجميد الصورة والقراءة، والضوء يساعد في الزوايا المظلمة.';
+
+  @override
+  String get cameraTip =>
+      'أمسك الهاتف موازيًا للجدار لأدق صورة؛ قد تنحني الخطوط قليلًا قرب حواف الشاشة بسبب العدسة. يستخدم معايرة الحافة في الميزان. لا تُسجَّل الصورة ولا تُحفظ ولا تُرسل أبدًا.';
+
+  @override
+  String get cameraAllowTitle => 'اسمح بالكاميرا';
+
+  @override
+  String get cameraAllowBody =>
+      'يرسم ميزان الكاميرا شبكة مستوية فوق صورة الكاميرا. تبقى الصورة على هاتفك ولا تُسجَّل ولا تُحفظ ولا تُرسل أبدًا.';
+
+  @override
+  String get cameraAllow => 'السماح بالكاميرا';
+
+  @override
+  String get cameraDeniedTitle => 'الوصول إلى الكاميرا متوقف';
+
+  @override
+  String get cameraDeniedBody =>
+      'شغّل الكاميرا لهذا التطبيق من الإعدادات لاستخدام ميزان الكاميرا. لا تُسجَّل الصورة ولا تُحفظ ولا تُرسل أبدًا.';
+
+  @override
+  String get noCamera =>
+      'تعذّر استخدام الكاميرا. ربما يستخدمها تطبيق آخر أو لا توجد كاميرا في الهاتف: أغلق تطبيقات الكاميرا الأخرى ثم افتح ميزان الكاميرا من جديد.';
+
+  @override
+  String get tilt => 'الميل';
+
+  @override
+  String get forwardBack => 'للأمام/للخلف';
+
+  @override
+  String get cameraLevel => 'مستوٍ';
+
+  @override
+  String cameraTilted(String value) {
+    return 'مائل $value°';
+  }
+
+  @override
+  String get cameraHoldUpright => 'أمسك الهاتف قائمًا والكاميرا نحو الجدار';
+
+  @override
+  String get freeze => 'تجميد';
+
+  @override
+  String get resume => 'متابعة';
+
+  @override
+  String get torch => 'الضوء';
+
+  @override
+  String get gridSmall => 'مربعات صغيرة';
+
+  @override
+  String get gridMedium => 'مربعات متوسطة';
+
+  @override
+  String get gridLarge => 'مربعات كبيرة';
+
+  @override
+  String cameraSemantics(String value) {
+    return 'صورة الكاميرا مع شبكة مستوية، مائلة $value درجة';
+  }
 }

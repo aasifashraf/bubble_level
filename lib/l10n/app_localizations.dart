@@ -1995,6 +1995,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear'**
   String get clear;
+
+  /// No description provided for @toolCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera level'**
+  String get toolCamera;
+
+  /// No description provided for @toolCameraSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Level grid over the camera view'**
+  String get toolCameraSubtitle;
+
+  /// No description provided for @cameraHelp1.
+  ///
+  /// In en, this message translates to:
+  /// **'Point the back camera at a wall, shelf, tiles or picture, holding the phone upright.'**
+  String get cameraHelp1;
+
+  /// No description provided for @cameraHelp2.
+  ///
+  /// In en, this message translates to:
+  /// **'The grid follows gravity, not the screen: its lines are always truly level and plumb. Line up edges in the picture with them; a crooked edge runs across the lines.'**
+  String get cameraHelp2;
+
+  /// No description provided for @cameraHelp3.
+  ///
+  /// In en, this message translates to:
+  /// **'The cross in the middle turns orange when the phone is level. Tilt shows how far it\'s turned, Forward/back how far it leans towards or away from the wall.'**
+  String get cameraHelp3;
+
+  /// No description provided for @cameraHelp4.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick small, medium or large squares at the top. Freeze holds the picture and the reading; the light helps in dark corners.'**
+  String get cameraHelp4;
+
+  /// No description provided for @cameraTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the phone square to the wall for the truest picture; lines near the screen\'s edges can bend slightly with the lens. Uses the Level\'s on-edge calibration. The picture is never recorded, saved or sent.'**
+  String get cameraTip;
+
+  /// No description provided for @cameraAllowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow the camera'**
+  String get cameraAllowTitle;
+
+  /// No description provided for @cameraAllowBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera level draws a level grid over the camera\'s picture. The picture stays on your phone and is never recorded, saved or sent.'**
+  String get cameraAllowBody;
+
+  /// No description provided for @cameraAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow camera'**
+  String get cameraAllow;
+
+  /// No description provided for @cameraDeniedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera access is off'**
+  String get cameraDeniedTitle;
+
+  /// No description provided for @cameraDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on the camera for this app in Settings to use the camera level. The picture is never recorded, saved or sent.'**
+  String get cameraDeniedBody;
+
+  /// No description provided for @noCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Can’t use the camera. Another app may be using it, or this phone has none: close other camera apps, then open the camera level again.'**
+  String get noCamera;
+
+  /// No description provided for @tilt.
+  ///
+  /// In en, this message translates to:
+  /// **'Tilt'**
+  String get tilt;
+
+  /// No description provided for @forwardBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Forward/back'**
+  String get forwardBack;
+
+  /// No description provided for @cameraLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get cameraLevel;
+
+  /// No description provided for @cameraTilted.
+  ///
+  /// In en, this message translates to:
+  /// **'Tilted {value}°'**
+  String cameraTilted(String value);
+
+  /// No description provided for @cameraHoldUpright.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the phone upright, camera to the wall'**
+  String get cameraHoldUpright;
+
+  /// No description provided for @freeze.
+  ///
+  /// In en, this message translates to:
+  /// **'Freeze'**
+  String get freeze;
+
+  /// No description provided for @resume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resume;
+
+  /// No description provided for @torch.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get torch;
+
+  /// No description provided for @gridSmall.
+  ///
+  /// In en, this message translates to:
+  /// **'Small squares'**
+  String get gridSmall;
+
+  /// No description provided for @gridMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium squares'**
+  String get gridMedium;
+
+  /// No description provided for @gridLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Large squares'**
+  String get gridLarge;
+
+  /// No description provided for @cameraSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera view with a level grid, tilted {value} degrees'**
+  String cameraSemantics(String value);
 }
 
 class _AppLocalizationsDelegate

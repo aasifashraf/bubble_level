@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- Sound meter only: audio is measured in memory, never recorded,
          saved or sent (the app has no internet access). -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -6,6 +7,13 @@
          them explain when a phone lacks one. -->
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <uses-feature android:name="android.hardware.sensor.light" android:required="false" />
+    <!-- Camera level only: the picture is shown, never recorded, saved or
+         sent. Optional, so phones without a camera can still install. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false"
+        tools:replace="android:required" />
+    <!-- The camera plugin asks for these; the app records and saves nothing. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
     <!-- No backup: the Level's calibration belongs to this phone's sensor
          and would be wrong restored onto another phone. -->
     <application
