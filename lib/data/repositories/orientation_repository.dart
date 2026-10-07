@@ -51,6 +51,7 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
       _gyro = SensorState.waiting,
       _magnet = SensorState.waiting;
   int? _magneticAccuracy;
+  DateTime? _time;
 
   static double _seconds(DateTime t) => t.microsecondsSinceEpoch / 1e6;
 
@@ -61,6 +62,7 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
     _subs.addAll([
       _listen(_sensors.accelerometer(), (s) {
         _accel = SensorState.ok;
+        _time = s.timestamp;
         _gravity.addAccel(s.value, _seconds(s.timestamp));
         _publish();
       }, () => _accel = SensorState.missing),
@@ -129,6 +131,7 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
       gyro: _gyro,
       magnet: _magnet,
       magneticAccuracy: _magneticAccuracy,
+      time: _time,
     );
   }
 

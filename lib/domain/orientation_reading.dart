@@ -15,6 +15,7 @@ class OrientationReading {
     this.gyro = SensorState.waiting,
     this.magnet = SensorState.waiting,
     this.magneticAccuracy,
+    this.time,
   });
 
   /// Smoothed unit "up" vector in the device frame.
@@ -31,6 +32,9 @@ class OrientationReading {
   /// The system's calibration status for the magnetometer, 0 (unreliable)
   /// to 3 (high), or null where it isn't reported.
   final int? magneticAccuracy;
+
+  /// When the latest accelerometer sample was taken (sensor time).
+  final DateTime? time;
 
   /// Gravity on the screen's axes (x right, y up as the user sees the UI).
   Vec3? get screenGravity =>
