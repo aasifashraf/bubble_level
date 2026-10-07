@@ -980,4 +980,86 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get languageSystem => 'Bahasa ponsel';
+
+  @override
+  String get toolHeight => 'Tinggi';
+
+  @override
+  String get toolHeightSubtitle => 'Tinggi dan jarak dengan membidik';
+
+  @override
+  String get heightHelp1 =>
+      'Berdirilah di tempat Anda bisa melihat dasar dan puncak objek. Pegang ponsel dengan layar menghadap ke atas dan lihat sepanjang tepi atasnya.';
+
+  @override
+  String get heightHelp2 =>
+      'Arahkan tepi atas ke dasar objek lalu ketuk Kunci dasar: ini memberi jaraknya.';
+
+  @override
+  String get heightHelp3 =>
+      'Arahkan tepi atas ke puncak lalu ketuk Kunci puncak: tingginya muncul.';
+
+  @override
+  String get heightHelp4 =>
+      'Tahu jaraknya? Ketuk Jarak dan ketik, lalu bidik puncaknya saja. Ketuk Tinggi mata untuk mengatur milik Anda.';
+
+  @override
+  String get heightTip =>
+      'Sekitar ±5% di tanah datar dengan tinggi mata yang benar (tinggi badan dikurangi sekitar 10 cm). Mundurlah agar puncak di bawah 70° dan dasar minimal 3° di bawah datar. Di lereng, ketik jaraknya.';
+
+  @override
+  String get lockBase => 'Kunci dasar';
+
+  @override
+  String get lockTop => 'Kunci puncak';
+
+  @override
+  String get measureAgain => 'Ukur lagi';
+
+  @override
+  String get distance => 'Jarak';
+
+  @override
+  String get objectHeight => 'Tinggi';
+
+  @override
+  String get eyeHeight => 'Tinggi mata';
+
+  @override
+  String get sightAngle => 'Sudut bidik';
+
+  @override
+  String get heightAimBase => 'Arahkan tepi atas ke dasar';
+
+  @override
+  String get heightAimTop => 'Sekarang arahkan tepi atas ke puncak';
+
+  @override
+  String get heightDone => 'Selesai · ketuk Ukur lagi untuk yang lain';
+
+  @override
+  String get heightHoldFlatter =>
+      'Pegang ponsel lebih datar dan bidik sepanjang tepi atas';
+
+  @override
+  String get heightTooFar =>
+      'Dasar terlalu dekat dengan datar: mendekatlah atau ketik jaraknya';
+
+  @override
+  String get heightStepBack =>
+      'Sangat curam: mundurlah agar bacaan lebih stabil';
+
+  @override
+  String get knownDistance => 'Jarak ke dasar';
+
+  @override
+  String get knownDistanceHint =>
+      'Jarak di sepanjang tanah ke dasar objek. Hapus untuk mengukurnya dengan membidik.';
+
+  @override
+  String get eyeHeightHint =>
+      'Tinggi mata Anda dari tanah: sekitar tinggi badan dikurangi 10 cm.';
+
+  @override
+  String get clear => 'Hapus';
 }

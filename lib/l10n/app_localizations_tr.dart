@@ -980,4 +980,84 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get languageSystem => 'Telefonun dili';
+
+  @override
+  String get toolHeight => 'Yükseklik';
+
+  @override
+  String get toolHeightSubtitle => 'Nişan alarak yükseklik ve mesafe';
+
+  @override
+  String get heightHelp1 =>
+      'Nesnenin dibini ve tepesini görebileceğin bir yerde dur. Telefonu ekranı yukarı bakacak şekilde tut ve üst kenarı boyunca bak.';
+
+  @override
+  String get heightHelp2 =>
+      'Üst kenarı nesnenin dibine doğrult ve Dibi kilitle’ye dokun: bu mesafeyi verir.';
+
+  @override
+  String get heightHelp3 =>
+      'Üst kenarı tepeye doğrult ve Tepeyi kilitle’ye dokun: yükseklik görünür.';
+
+  @override
+  String get heightHelp4 =>
+      'Mesafeyi biliyor musun? Mesafe’ye dokunup yaz, sonra yalnızca tepeye nişan al. Kendi göz yüksekliğin için Göz yüksekliği’ne dokun.';
+
+  @override
+  String get heightTip =>
+      'Düz zeminde, göz yüksekliği doğru ayarlıyken (boyun eksi yaklaşık 10 cm) yaklaşık ±%5. Tepe 70°’nin altında, dip ise yatayın en az 3° altında olacak kadar geri çekil. Eğimli yerde mesafeyi yaz.';
+
+  @override
+  String get lockBase => 'Dibi kilitle';
+
+  @override
+  String get lockTop => 'Tepeyi kilitle';
+
+  @override
+  String get measureAgain => 'Yeniden ölç';
+
+  @override
+  String get distance => 'Mesafe';
+
+  @override
+  String get objectHeight => 'Yükseklik';
+
+  @override
+  String get eyeHeight => 'Göz yüksekliği';
+
+  @override
+  String get sightAngle => 'Nişan açısı';
+
+  @override
+  String get heightAimBase => 'Üst kenarı dibe doğrult';
+
+  @override
+  String get heightAimTop => 'Şimdi üst kenarı tepeye doğrult';
+
+  @override
+  String get heightDone => 'Bitti · başka biri için Yeniden ölç’e dokun';
+
+  @override
+  String get heightHoldFlatter =>
+      'Telefonu daha düz tut ve üst kenarı boyunca nişan al';
+
+  @override
+  String get heightTooFar => 'Dip yataya çok yakın: yaklaş ya da mesafeyi yaz';
+
+  @override
+  String get heightStepBack => 'Çok dik: daha sabit bir ölçüm için geri çekil';
+
+  @override
+  String get knownDistance => 'Dibe olan mesafe';
+
+  @override
+  String get knownDistanceHint =>
+      'Nesnenin dibine zemin boyunca mesafe. Nişan alarak ölçmek için temizle.';
+
+  @override
+  String get eyeHeightHint =>
+      'Gözlerinin yerden yüksekliği: yaklaşık boyun eksi 10 cm.';
+
+  @override
+  String get clear => 'Temizle';
 }

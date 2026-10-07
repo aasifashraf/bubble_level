@@ -982,4 +982,87 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get languageSystem => 'Langue du téléphone';
+
+  @override
+  String get toolHeight => 'Hauteur';
+
+  @override
+  String get toolHeightSubtitle => 'Hauteur et distance par visée';
+
+  @override
+  String get heightHelp1 =>
+      'Placez-vous là où vous voyez le pied et le sommet de l’objet. Tenez le téléphone écran vers le haut et visez le long du bord supérieur.';
+
+  @override
+  String get heightHelp2 =>
+      'Visez le pied de l’objet avec le bord supérieur et touchez Fixer le pied : cela donne la distance.';
+
+  @override
+  String get heightHelp3 =>
+      'Visez le sommet avec le bord supérieur et touchez Fixer le sommet : la hauteur s’affiche.';
+
+  @override
+  String get heightHelp4 =>
+      'Vous connaissez la distance ? Touchez Distance et saisissez-la, puis visez seulement le sommet. Touchez Hauteur des yeux pour régler la vôtre.';
+
+  @override
+  String get heightTip =>
+      'Environ ±5 % sur sol plat avec la bonne hauteur des yeux (votre taille moins 10 cm environ). Reculez pour que le sommet soit sous 70° et le pied au moins 3° sous l’horizontale. En pente, saisissez la distance.';
+
+  @override
+  String get lockBase => 'Fixer le pied';
+
+  @override
+  String get lockTop => 'Fixer le sommet';
+
+  @override
+  String get measureAgain => 'Mesurer à nouveau';
+
+  @override
+  String get distance => 'Distance';
+
+  @override
+  String get objectHeight => 'Hauteur';
+
+  @override
+  String get eyeHeight => 'Hauteur des yeux';
+
+  @override
+  String get sightAngle => 'Angle de visée';
+
+  @override
+  String get heightAimBase => 'Visez le pied avec le bord supérieur';
+
+  @override
+  String get heightAimTop =>
+      'Visez maintenant le sommet avec le bord supérieur';
+
+  @override
+  String get heightDone => 'Terminé · touchez Mesurer à nouveau pour une autre';
+
+  @override
+  String get heightHoldFlatter =>
+      'Tenez le téléphone plus à plat et visez le long du bord supérieur';
+
+  @override
+  String get heightTooFar =>
+      'Pied trop proche de l’horizontale : approchez-vous ou saisissez la distance';
+
+  @override
+  String get heightStepBack =>
+      'Très raide : reculez pour une mesure plus stable';
+
+  @override
+  String get knownDistance => 'Distance jusqu’au pied';
+
+  @override
+  String get knownDistanceHint =>
+      'La distance au sol jusqu’au pied de l’objet. Effacez-la pour la mesurer par visée.';
+
+  @override
+  String get eyeHeightHint =>
+      'La hauteur de vos yeux au-dessus du sol : votre taille moins 10 cm environ.';
+
+  @override
+  String get clear => 'Effacer';
 }

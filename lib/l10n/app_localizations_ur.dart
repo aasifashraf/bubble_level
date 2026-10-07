@@ -978,4 +978,85 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get languageSystem => 'فون کی زبان';
+
+  @override
+  String get toolHeight => 'اونچائی';
+
+  @override
+  String get toolHeightSubtitle => 'نشانہ لگا کر اونچائی اور فاصلہ';
+
+  @override
+  String get heightHelp1 =>
+      'ایسی جگہ کھڑے ہوں جہاں سے چیز کا نچلا اور اوپری سرا نظر آئے۔ فون کو اسکرین اوپر کر کے پکڑیں اور اس کے اوپری کنارے کے ساتھ دیکھیں۔';
+
+  @override
+  String get heightHelp2 =>
+      'اوپری کنارے کو چیز کے نچلے سرے پر لگائیں اور نچلا سرا لاک کریں پر ٹیپ کریں: اس سے فاصلہ ملتا ہے۔';
+
+  @override
+  String get heightHelp3 =>
+      'اوپری کنارے کو اوپری سرے پر لگائیں اور اوپری سرا لاک کریں پر ٹیپ کریں: اونچائی نظر آئے گی۔';
+
+  @override
+  String get heightHelp4 =>
+      'فاصلہ معلوم ہے؟ فاصلہ پر ٹیپ کر کے لکھیں، پھر صرف اوپری سرے پر نشانہ لگائیں۔ اپنی آنکھوں کی اونچائی سیٹ کرنے کے لیے آنکھوں کی اونچائی پر ٹیپ کریں۔';
+
+  @override
+  String get heightTip =>
+      'ہموار زمین پر درست آنکھوں کی اونچائی (آپ کا قد منفی تقریباً 10 cm) کے ساتھ تقریباً ±5%۔ اتنا پیچھے ہٹیں کہ اوپری سرا 70° سے کم اور نچلا سرا افق سے کم از کم 3° نیچے ہو۔ ڈھلوان پر فاصلہ لکھیں۔';
+
+  @override
+  String get lockBase => 'نچلا سرا لاک کریں';
+
+  @override
+  String get lockTop => 'اوپری سرا لاک کریں';
+
+  @override
+  String get measureAgain => 'دوبارہ ناپیں';
+
+  @override
+  String get distance => 'فاصلہ';
+
+  @override
+  String get objectHeight => 'اونچائی';
+
+  @override
+  String get eyeHeight => 'آنکھوں کی اونچائی';
+
+  @override
+  String get sightAngle => 'نشانے کا زاویہ';
+
+  @override
+  String get heightAimBase => 'اوپری کنارے کو نچلے سرے پر لگائیں';
+
+  @override
+  String get heightAimTop => 'اب اوپری کنارے کو اوپری سرے پر لگائیں';
+
+  @override
+  String get heightDone => 'ہو گیا · دوسری کے لیے دوبارہ ناپیں پر ٹیپ کریں';
+
+  @override
+  String get heightHoldFlatter =>
+      'فون کو مزید سیدھا لٹائیں اور اوپری کنارے کے ساتھ نشانہ لگائیں';
+
+  @override
+  String get heightTooFar =>
+      'نچلا سرا افق کے بہت قریب ہے: قریب جائیں یا فاصلہ لکھیں';
+
+  @override
+  String get heightStepBack => 'بہت ڈھلوان: مستحکم پیمائش کے لیے پیچھے ہٹیں';
+
+  @override
+  String get knownDistance => 'نچلے سرے تک فاصلہ';
+
+  @override
+  String get knownDistanceHint =>
+      'زمین کے ساتھ چیز کے نچلے سرے تک فاصلہ۔ نشانے سے ناپنے کے لیے اسے صاف کریں۔';
+
+  @override
+  String get eyeHeightHint =>
+      'زمین سے آپ کی آنکھیں کتنی اونچی ہیں: تقریباً آپ کا قد منفی 10 cm۔';
+
+  @override
+  String get clear => 'صاف کریں';
 }

@@ -937,4 +937,78 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get languageSystem => '端末の言語';
+
+  @override
+  String get toolHeight => '高さ';
+
+  @override
+  String get toolHeightSubtitle => '照準で高さと距離を測る';
+
+  @override
+  String get heightHelp1 => '対象の根元と頂上が見える場所に立ちます。画面を上にして持ち、上端に沿って見ます。';
+
+  @override
+  String get heightHelp2 => '上端を対象の根元に合わせて「根元を固定」をタップ。これで距離が出ます。';
+
+  @override
+  String get heightHelp3 => '上端を頂上に合わせて「頂上を固定」をタップ。高さが表示されます。';
+
+  @override
+  String get heightHelp4 =>
+      '距離がわかる場合は「距離」をタップして入力し、頂上だけを狙います。「目の高さ」をタップして自分の値を設定できます。';
+
+  @override
+  String get heightTip =>
+      '平らな地面で目の高さが正しければ約±5%（身長から約10 cm引いた値）。頂上が70°未満、根元が水平より3°以上下になるまで離れてください。斜面では距離を入力してください。';
+
+  @override
+  String get lockBase => '根元を固定';
+
+  @override
+  String get lockTop => '頂上を固定';
+
+  @override
+  String get measureAgain => 'もう一度測る';
+
+  @override
+  String get distance => '距離';
+
+  @override
+  String get objectHeight => '高さ';
+
+  @override
+  String get eyeHeight => '目の高さ';
+
+  @override
+  String get sightAngle => '照準角';
+
+  @override
+  String get heightAimBase => '上端を根元に合わせる';
+
+  @override
+  String get heightAimTop => '次に上端を頂上に合わせる';
+
+  @override
+  String get heightDone => '完了 · 「もう一度測る」で次へ';
+
+  @override
+  String get heightHoldFlatter => 'スマホをもっと水平にして上端に沿って狙う';
+
+  @override
+  String get heightTooFar => '根元が水平に近すぎます：近づくか距離を入力';
+
+  @override
+  String get heightStepBack => '急すぎます：離れると安定します';
+
+  @override
+  String get knownDistance => '根元までの距離';
+
+  @override
+  String get knownDistanceHint => '対象の根元までの地面に沿った距離。消去すると照準で測ります。';
+
+  @override
+  String get eyeHeightHint => '地面から目までの高さ：身長から約10 cm引いた値。';
+
+  @override
+  String get clear => '消去';
 }

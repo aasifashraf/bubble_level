@@ -14,6 +14,7 @@ enum HomeTool {
   sound,
   light,
   altimeter,
+  height,
 }
 
 /// Line icons drawn in the design's stroke style.
@@ -246,6 +247,20 @@ class ToolGlyphPainter extends CustomPainter {
             line,
           )
           ..drawCircle(const Offset(18.5, 5), 2, Paint()..color = accent);
+      case HomeTool.height:
+        // A building on the ground, sighted from the left up to its top.
+        canvas
+          ..drawLine(const Offset(1.5, 20.5), const Offset(22.5, 20.5), line)
+          ..drawRect(const Rect.fromLTRB(14, 5, 20.5, 20.5), line)
+          ..drawLine(
+            const Offset(3, 16),
+            const Offset(14, 5),
+            Paint()
+              ..strokeWidth = 1.6
+              ..strokeCap = StrokeCap.round
+              ..color = accent,
+          )
+          ..drawCircle(const Offset(14, 5), 2, Paint()..color = accent);
     }
     canvas.restore();
   }

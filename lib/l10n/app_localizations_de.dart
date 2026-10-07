@@ -982,4 +982,86 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get languageSystem => 'Sprache des Handys';
+
+  @override
+  String get toolHeight => 'Höhe';
+
+  @override
+  String get toolHeightSubtitle => 'Höhe und Entfernung durch Anpeilen';
+
+  @override
+  String get heightHelp1 =>
+      'Stell dich so hin, dass du Fuß und Spitze des Objekts siehst. Halte das Handy mit dem Display nach oben und peile über die obere Kante.';
+
+  @override
+  String get heightHelp2 =>
+      'Richte die obere Kante auf den Fuß des Objekts und tippe auf Fuß speichern: daraus ergibt sich die Entfernung.';
+
+  @override
+  String get heightHelp3 =>
+      'Richte die obere Kante auf die Spitze und tippe auf Spitze speichern: die Höhe erscheint.';
+
+  @override
+  String get heightHelp4 =>
+      'Entfernung bekannt? Tippe auf Entfernung und gib sie ein, dann peile nur die Spitze an. Tippe auf Augenhöhe, um deine einzustellen.';
+
+  @override
+  String get heightTip =>
+      'Etwa ±5 % auf ebenem Boden mit richtiger Augenhöhe (Körpergröße minus etwa 10 cm). Geh so weit zurück, dass die Spitze unter 70° und der Fuß mindestens 3° unter der Waagerechten liegt. Am Hang die Entfernung eingeben.';
+
+  @override
+  String get lockBase => 'Fuß speichern';
+
+  @override
+  String get lockTop => 'Spitze speichern';
+
+  @override
+  String get measureAgain => 'Neu messen';
+
+  @override
+  String get distance => 'Entfernung';
+
+  @override
+  String get objectHeight => 'Höhe';
+
+  @override
+  String get eyeHeight => 'Augenhöhe';
+
+  @override
+  String get sightAngle => 'Peilwinkel';
+
+  @override
+  String get heightAimBase => 'Obere Kante auf den Fuß richten';
+
+  @override
+  String get heightAimTop => 'Jetzt die obere Kante auf die Spitze richten';
+
+  @override
+  String get heightDone => 'Fertig · Neu messen für ein weiteres';
+
+  @override
+  String get heightHoldFlatter =>
+      'Handy flacher halten und über die obere Kante peilen';
+
+  @override
+  String get heightTooFar =>
+      'Fuß zu nah an der Waagerechten: näher gehen oder Entfernung eingeben';
+
+  @override
+  String get heightStepBack =>
+      'Sehr steil: zurückgehen für einen ruhigeren Wert';
+
+  @override
+  String get knownDistance => 'Entfernung zum Fuß';
+
+  @override
+  String get knownDistanceHint =>
+      'Die Entfernung am Boden bis zum Fuß des Objekts. Löschen, um sie durch Anpeilen zu messen.';
+
+  @override
+  String get eyeHeightHint =>
+      'Wie hoch deine Augen über dem Boden sind: etwa Körpergröße minus 10 cm.';
+
+  @override
+  String get clear => 'Löschen';
 }

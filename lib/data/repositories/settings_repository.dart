@@ -60,6 +60,7 @@ class SettingsRepository extends ChangeNotifier {
   static const _kRulerUnit = 'rulerUnit';
   static const _kAngleMode = 'angleMode';
   static const _kSceneWeather = 'sceneWeather';
+  static const _kEyeHeight = 'eyeHeight';
 
   final SharedPreferences _prefs;
   Vec3 _flatRef;
@@ -253,6 +254,17 @@ class SettingsRepository extends ChangeNotifier {
     } else {
       await _prefs.setString(_kSceneWeather, v.name);
     }
+    notifyListeners();
+  }
+
+  /// The user's eye height for the Height tool, metres.
+  double get eyeHeight => _prefs.getDouble(_kEyeHeight) ?? defaultEyeHeight;
+
+  /// A typical adult's eye height, metres.
+  static const defaultEyeHeight = 1.6;
+
+  Future<void> setEyeHeight(double metres) async {
+    await _prefs.setDouble(_kEyeHeight, metres);
     notifyListeners();
   }
 

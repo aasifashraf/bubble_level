@@ -972,4 +972,84 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get languageSystem => 'لغة الهاتف';
+
+  @override
+  String get toolHeight => 'الارتفاع';
+
+  @override
+  String get toolHeightSubtitle => 'الارتفاع والمسافة بالتصويب';
+
+  @override
+  String get heightHelp1 =>
+      'قف حيث ترى قاعدة الجسم وقمته. أمسك الهاتف والشاشة لأعلى وانظر على امتداد حافته العلوية.';
+
+  @override
+  String get heightHelp2 =>
+      'صوّب الحافة العلوية نحو قاعدة الجسم واضغط تثبيت القاعدة: هذا يعطي المسافة.';
+
+  @override
+  String get heightHelp3 =>
+      'صوّب الحافة العلوية نحو القمة واضغط تثبيت القمة: يظهر الارتفاع.';
+
+  @override
+  String get heightHelp4 =>
+      'تعرف المسافة؟ اضغط المسافة واكتبها، ثم صوّب نحو القمة فقط. اضغط ارتفاع العين لضبط ارتفاعك.';
+
+  @override
+  String get heightTip =>
+      'نحو ±5٪ على أرض مستوية مع ضبط ارتفاع العين بشكل صحيح (طولك ناقص نحو 10 سم). ابتعد حتى تكون القمة تحت 70° والقاعدة 3° على الأقل تحت المستوى. على المنحدر اكتب المسافة.';
+
+  @override
+  String get lockBase => 'تثبيت القاعدة';
+
+  @override
+  String get lockTop => 'تثبيت القمة';
+
+  @override
+  String get measureAgain => 'قياس من جديد';
+
+  @override
+  String get distance => 'المسافة';
+
+  @override
+  String get objectHeight => 'الارتفاع';
+
+  @override
+  String get eyeHeight => 'ارتفاع العين';
+
+  @override
+  String get sightAngle => 'زاوية التصويب';
+
+  @override
+  String get heightAimBase => 'صوّب الحافة العلوية نحو القاعدة';
+
+  @override
+  String get heightAimTop => 'الآن صوّب الحافة العلوية نحو القمة';
+
+  @override
+  String get heightDone => 'تم · اضغط قياس من جديد لقياس آخر';
+
+  @override
+  String get heightHoldFlatter =>
+      'أمسك الهاتف بشكل أكثر استواءً وصوّب على امتداد حافته العلوية';
+
+  @override
+  String get heightTooFar =>
+      'القاعدة قريبة جدًا من المستوى: اقترب أو اكتب المسافة';
+
+  @override
+  String get heightStepBack => 'شديد الانحدار: ابتعد لقراءة أثبت';
+
+  @override
+  String get knownDistance => 'المسافة إلى القاعدة';
+
+  @override
+  String get knownDistanceHint =>
+      'المسافة على الأرض حتى قاعدة الجسم. امسحها لقياسها بالتصويب.';
+
+  @override
+  String get eyeHeightHint => 'ارتفاع عينيك عن الأرض: نحو طولك ناقص 10 سم.';
+
+  @override
+  String get clear => 'مسح';
 }

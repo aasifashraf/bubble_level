@@ -40,6 +40,7 @@ const _allTools = [
   'Sound meter',
   'Light meter',
   'Altimeter',
+  'Height',
 ];
 
 void main() {
@@ -826,6 +827,62 @@ void main() {
     await tester.tap(find.text('Auto (time of day and season)'));
     await tester.pump(const Duration(milliseconds: 500));
     expect((await SettingsRepository.load()).sceneWeather, isNull);
+  });
+
+  testWidgets('height: aim at the base, then the top', (tester) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Height');
+    // Holds the phone at [deg] long enough for the readings to settle.
+    Future<void> aim(double deg) async {
+      final r = deg * math.pi / 180;
+      for (var i = 0; i < 80; i++) {
+        await send(tester, Vec3(0, math.sin(r), math.cos(r)));
+      }
+    }
+
+    // Upright, the top edge isn't a sight line yet.
+    await aim(88);
+    expect(
+      find.text('Hold the phone flatter and sight along its top edge'),
+      findsOneWidget,
+    );
+    await aim(-6);
+    expect(find.text('Aim the top edge at the base'), findsOneWidget);
+    await tester.tap(find.text('Lock base'));
+    await tester.pump();
+    expect(find.text('15.2 m'), findsOneWidget);
+
+    await aim(30);
+    expect(find.text('Now aim the top edge at the top'), findsOneWidget);
+    await tester.tap(find.text('Lock top'));
+    await tester.pump();
+    expect(find.text('10.4 m'), findsOneWidget);
+    expect(find.text('Measure again'), findsOneWidget);
+
+    // A known distance: type it, then only the top.
+    await tester.tap(find.text('Distance'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), '20');
+    await tester.pump();
+    await tester.tap(find.text('Save'));
+    await tester.pumpAndSettle();
+    expect(find.text('20.0 m'), findsOneWidget);
+    expect(find.text('Lock top'), findsOneWidget);
+    await aim(45);
+    await tester.tap(find.text('Lock top'));
+    await tester.pump();
+    expect(find.text('21.6 m'), findsOneWidget);
+
+    // Eye height is set the same way and remembered.
+    await tester.tap(find.text('Eye height'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), '1.5');
+    await tester.pump();
+    await tester.tap(find.text('Save'));
+    await tester.pumpAndSettle();
+    expect((await SettingsRepository.load()).eyeHeight, 1.5);
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('altimeter: phones without a barometer are told so', (

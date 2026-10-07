@@ -982,4 +982,86 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get languageSystem => 'Idioma del teléfono';
+
+  @override
+  String get toolHeight => 'Altura';
+
+  @override
+  String get toolHeightSubtitle => 'Altura y distancia apuntando';
+
+  @override
+  String get heightHelp1 =>
+      'Colócate donde veas la base y la cima del objeto. Sujeta el teléfono con la pantalla hacia arriba y mira a lo largo del borde superior.';
+
+  @override
+  String get heightHelp2 =>
+      'Apunta el borde superior a la base del objeto y toca Fijar base: así se obtiene la distancia.';
+
+  @override
+  String get heightHelp3 =>
+      'Apunta el borde superior a la cima y toca Fijar cima: aparece la altura.';
+
+  @override
+  String get heightHelp4 =>
+      '¿Conoces la distancia? Toca Distancia y escríbela; luego apunta solo a la cima. Toca Altura de ojos para ajustar la tuya.';
+
+  @override
+  String get heightTip =>
+      'Aprox. ±5 % en terreno llano con la altura de ojos correcta (tu estatura menos unos 10 cm). Aléjate para que la cima quede por debajo de 70° y la base al menos 3° por debajo del nivel. En pendiente, escribe la distancia.';
+
+  @override
+  String get lockBase => 'Fijar base';
+
+  @override
+  String get lockTop => 'Fijar cima';
+
+  @override
+  String get measureAgain => 'Medir de nuevo';
+
+  @override
+  String get distance => 'Distancia';
+
+  @override
+  String get objectHeight => 'Altura';
+
+  @override
+  String get eyeHeight => 'Altura de ojos';
+
+  @override
+  String get sightAngle => 'Ángulo de mira';
+
+  @override
+  String get heightAimBase => 'Apunta el borde superior a la base';
+
+  @override
+  String get heightAimTop => 'Ahora apunta el borde superior a la cima';
+
+  @override
+  String get heightDone => 'Listo · toca Medir de nuevo para otra';
+
+  @override
+  String get heightHoldFlatter =>
+      'Inclina menos el teléfono y mira a lo largo del borde superior';
+
+  @override
+  String get heightTooFar =>
+      'Base demasiado cerca del nivel: acércate o escribe la distancia';
+
+  @override
+  String get heightStepBack =>
+      'Muy empinado: aléjate para una lectura más estable';
+
+  @override
+  String get knownDistance => 'Distancia a la base';
+
+  @override
+  String get knownDistanceHint =>
+      'La distancia por el suelo hasta la base del objeto. Bórrala para medirla apuntando.';
+
+  @override
+  String get eyeHeightHint =>
+      'A qué altura están tus ojos del suelo: tu estatura menos unos 10 cm.';
+
+  @override
+  String get clear => 'Borrar';
 }

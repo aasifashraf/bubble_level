@@ -981,4 +981,86 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get languageSystem => 'Язык телефона';
+
+  @override
+  String get toolHeight => 'Высота';
+
+  @override
+  String get toolHeightSubtitle => 'Высота и расстояние визированием';
+
+  @override
+  String get heightHelp1 =>
+      'Встаньте там, откуда видно основание и верх объекта. Держите телефон экраном вверх и смотрите вдоль верхнего края.';
+
+  @override
+  String get heightHelp2 =>
+      'Наведите верхний край на основание объекта и нажмите «Основание»: так получается расстояние.';
+
+  @override
+  String get heightHelp3 =>
+      'Наведите верхний край на верх и нажмите «Верх»: появится высота.';
+
+  @override
+  String get heightHelp4 =>
+      'Знаете расстояние? Нажмите «Расстояние» и введите его, затем наводите только на верх. Нажмите «Высота глаз», чтобы указать свою.';
+
+  @override
+  String get heightTip =>
+      'Около ±5% на ровной земле при верной высоте глаз (ваш рост минус около 10 см). Отойдите так, чтобы верх был ниже 70°, а основание — хотя бы на 3° ниже горизонта. На склоне введите расстояние.';
+
+  @override
+  String get lockBase => 'Основание';
+
+  @override
+  String get lockTop => 'Верх';
+
+  @override
+  String get measureAgain => 'Измерить снова';
+
+  @override
+  String get distance => 'Расстояние';
+
+  @override
+  String get objectHeight => 'Высота';
+
+  @override
+  String get eyeHeight => 'Высота глаз';
+
+  @override
+  String get sightAngle => 'Угол визирования';
+
+  @override
+  String get heightAimBase => 'Наведите верхний край на основание';
+
+  @override
+  String get heightAimTop => 'Теперь наведите верхний край на верх';
+
+  @override
+  String get heightDone => 'Готово · «Измерить снова» для следующего';
+
+  @override
+  String get heightHoldFlatter =>
+      'Держите телефон более плоско и смотрите вдоль верхнего края';
+
+  @override
+  String get heightTooFar =>
+      'Основание слишком близко к горизонту: подойдите ближе или введите расстояние';
+
+  @override
+  String get heightStepBack =>
+      'Очень круто: отойдите для более стабильного значения';
+
+  @override
+  String get knownDistance => 'Расстояние до основания';
+
+  @override
+  String get knownDistanceHint =>
+      'Расстояние по земле до основания объекта. Очистите, чтобы измерить визированием.';
+
+  @override
+  String get eyeHeightHint =>
+      'На какой высоте ваши глаза над землёй: примерно ваш рост минус 10 см.';
+
+  @override
+  String get clear => 'Очистить';
 }

@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 
 import '../../data/repositories/settings_repository.dart';
 import '../../domain/angles.dart';
+import '../../domain/height.dart';
 import '../../domain/ruler.dart';
 
 String? _sepLocale;
@@ -99,3 +100,7 @@ String formatSignedDecimal(double v) => _sign(_fixed(v));
 
 String formatMeters(double v, {bool signed = false}) =>
     '${signed ? formatSignedDecimal(v) : _fixed(v)} m';
+
+/// [metres] in metres, or in feet when [feet]: 12.4 m, 40.7 ft.
+String formatDistance(double metres, {bool feet = false}) =>
+    feet ? '${_fixed(metres * feetPerMetre)} ft' : formatMeters(metres);

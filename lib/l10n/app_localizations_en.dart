@@ -976,4 +976,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageSystem => 'Phone language';
+
+  @override
+  String get toolHeight => 'Height';
+
+  @override
+  String get toolHeightSubtitle => 'Height and distance by sighting';
+
+  @override
+  String get heightHelp1 =>
+      'Stand where you can see the object’s base and top. Hold the phone screen up and look along its top edge.';
+
+  @override
+  String get heightHelp2 =>
+      'Aim the top edge at the base of the object and tap Lock base: this gives the distance.';
+
+  @override
+  String get heightHelp3 =>
+      'Aim the top edge at the top and tap Lock top: the height appears.';
+
+  @override
+  String get heightHelp4 =>
+      'Know the distance? Tap Distance and type it, then aim only at the top. Tap Eye height to set yours.';
+
+  @override
+  String get heightTip =>
+      'About ±5% on level ground with your eye height set right (your height minus about 10 cm). Stand back so the top is under 70° and the base at least 3° below level. On a slope, type the distance.';
+
+  @override
+  String get lockBase => 'Lock base';
+
+  @override
+  String get lockTop => 'Lock top';
+
+  @override
+  String get measureAgain => 'Measure again';
+
+  @override
+  String get distance => 'Distance';
+
+  @override
+  String get objectHeight => 'Height';
+
+  @override
+  String get eyeHeight => 'Eye height';
+
+  @override
+  String get sightAngle => 'Sight angle';
+
+  @override
+  String get heightAimBase => 'Aim the top edge at the base';
+
+  @override
+  String get heightAimTop => 'Now aim the top edge at the top';
+
+  @override
+  String get heightDone => 'Done · tap Measure again for another';
+
+  @override
+  String get heightHoldFlatter =>
+      'Hold the phone flatter and sight along its top edge';
+
+  @override
+  String get heightTooFar =>
+      'Base too near level: step closer or type the distance';
+
+  @override
+  String get heightStepBack => 'Very steep: step back for a steadier reading';
+
+  @override
+  String get knownDistance => 'Distance to the base';
+
+  @override
+  String get knownDistanceHint =>
+      'The distance along the ground to the object’s base. Clear it to measure by sighting.';
+
+  @override
+  String get eyeHeightHint =>
+      'How high your eyes are above the ground: about your height minus 10 cm.';
+
+  @override
+  String get clear => 'Clear';
 }

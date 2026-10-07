@@ -31,6 +31,8 @@ import '../features/angle/view_models/angle_view_model.dart';
 import '../features/angle/views/angle_screen.dart';
 import '../features/compass/view_models/compass_view_model.dart';
 import '../features/compass/views/compass_screen.dart';
+import '../features/height/view_models/height_view_model.dart';
+import '../features/height/views/height_screen.dart';
 import '../features/level/view_models/level_view_model.dart';
 import '../features/level/views/level_screen.dart';
 import '../features/light/view_models/light_view_model.dart';
@@ -111,6 +113,10 @@ class _HomeShellState extends State<HomeShell> {
     settings: widget.settings,
   );
   late final _compass = CompassViewModel(orientation: widget.orientation);
+  late final _height = HeightViewModel(
+    orientation: widget.orientation,
+    settings: widget.settings,
+  );
   late final _protractor = ProtractorViewModel();
   late final _ruler = RulerViewModel(
     settings: widget.settings,
@@ -142,7 +148,7 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   void dispose() {
-    for (final vm in [_level, _angle, _compass, _metal]) {
+    for (final vm in [_level, _angle, _compass, _height, _metal]) {
       vm.dispose();
     }
     _protractor.dispose();
@@ -171,7 +177,7 @@ class _HomeShellState extends State<HomeShell> {
   };
 
   /// Tools that always stay portrait (their scene is drawn for it).
-  static const _portraitOnly = {HomeTool.altimeter};
+  static const _portraitOnly = {HomeTool.altimeter, HomeTool.height};
 
   /// Opens a tool full screen; its view model (if it uses sensors) follows
   /// them only while the tool is showing. A [_rotatable] [tool] holds its
@@ -265,6 +271,12 @@ class _HomeShellState extends State<HomeShell> {
           (_) => AltimeterScreen(viewModel: _altimeter, onBack: back),
           tool: tool,
         );
+      case HomeTool.height:
+        _open(
+          _height,
+          (_) => HeightScreen(viewModel: _height, onBack: back),
+          tool: tool,
+        );
     }
   }
 
@@ -331,6 +343,12 @@ class _HomeShellState extends State<HomeShell> {
       title: l.toolAltimeter,
       subtitle: l.toolAltimeterSubtitle,
       needs: [SensorKind.barometer],
+    ),
+    (
+      tool: HomeTool.height,
+      title: l.toolHeight,
+      subtitle: l.toolHeightSubtitle,
+      needs: [SensorKind.accelerometer],
     ),
   ];
 

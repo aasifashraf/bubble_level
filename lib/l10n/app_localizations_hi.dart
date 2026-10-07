@@ -977,4 +977,85 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get languageSystem => 'फ़ोन की भाषा';
+
+  @override
+  String get toolHeight => 'ऊँचाई';
+
+  @override
+  String get toolHeightSubtitle => 'निशाना लगाकर ऊँचाई और दूरी';
+
+  @override
+  String get heightHelp1 =>
+      'ऐसी जगह खड़े हों जहाँ से चीज़ का निचला सिरा और ऊपरी सिरा दिखे। फ़ोन को स्क्रीन ऊपर करके पकड़ें और उसके ऊपरी किनारे के साथ देखें।';
+
+  @override
+  String get heightHelp2 =>
+      'ऊपरी किनारे को चीज़ के निचले सिरे पर लगाएँ और नीचा सिरा लॉक करें पर टैप करें: इससे दूरी मिलती है।';
+
+  @override
+  String get heightHelp3 =>
+      'ऊपरी किनारे को ऊपरी सिरे पर लगाएँ और ऊपरी सिरा लॉक करें पर टैप करें: ऊँचाई दिखेगी।';
+
+  @override
+  String get heightHelp4 =>
+      'दूरी पता है? दूरी पर टैप करके लिखें, फिर सिर्फ़ ऊपरी सिरे पर निशाना लगाएँ। अपनी आँखों की ऊँचाई सेट करने के लिए आँखों की ऊँचाई पर टैप करें।';
+
+  @override
+  String get heightTip =>
+      'समतल ज़मीन पर सही आँखों की ऊँचाई (आपकी लंबाई से लगभग 10 cm कम) के साथ लगभग ±5%। इतना पीछे हटें कि ऊपरी सिरा 70° से कम और निचला सिरा समतल से कम से कम 3° नीचे हो। ढलान पर दूरी लिखें।';
+
+  @override
+  String get lockBase => 'नीचा सिरा लॉक करें';
+
+  @override
+  String get lockTop => 'ऊपरी सिरा लॉक करें';
+
+  @override
+  String get measureAgain => 'फिर से मापें';
+
+  @override
+  String get distance => 'दूरी';
+
+  @override
+  String get objectHeight => 'ऊँचाई';
+
+  @override
+  String get eyeHeight => 'आँखों की ऊँचाई';
+
+  @override
+  String get sightAngle => 'निशाने का कोण';
+
+  @override
+  String get heightAimBase => 'ऊपरी किनारे को निचले सिरे पर लगाएँ';
+
+  @override
+  String get heightAimTop => 'अब ऊपरी किनारे को ऊपरी सिरे पर लगाएँ';
+
+  @override
+  String get heightDone => 'हो गया · दूसरे के लिए फिर से मापें पर टैप करें';
+
+  @override
+  String get heightHoldFlatter =>
+      'फ़ोन को और सपाट रखें और ऊपरी किनारे के साथ निशाना लगाएँ';
+
+  @override
+  String get heightTooFar =>
+      'निचला सिरा समतल के बहुत पास है: पास जाएँ या दूरी लिखें';
+
+  @override
+  String get heightStepBack => 'बहुत खड़ा: स्थिर माप के लिए पीछे हटें';
+
+  @override
+  String get knownDistance => 'निचले सिरे तक दूरी';
+
+  @override
+  String get knownDistanceHint =>
+      'ज़मीन के साथ चीज़ के निचले सिरे तक की दूरी। निशाने से मापने के लिए इसे साफ़ करें।';
+
+  @override
+  String get eyeHeightHint =>
+      'ज़मीन से आपकी आँखें कितनी ऊँची हैं: लगभग आपकी लंबाई से 10 cm कम।';
+
+  @override
+  String get clear => 'साफ़ करें';
 }

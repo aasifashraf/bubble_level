@@ -1809,6 +1809,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone language'**
   String get languageSystem;
+
+  /// No description provided for @toolHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get toolHeight;
+
+  /// No description provided for @toolHeightSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Height and distance by sighting'**
+  String get toolHeightSubtitle;
+
+  /// No description provided for @heightHelp1.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand where you can see the object’s base and top. Hold the phone screen up and look along its top edge.'**
+  String get heightHelp1;
+
+  /// No description provided for @heightHelp2.
+  ///
+  /// In en, this message translates to:
+  /// **'Aim the top edge at the base of the object and tap Lock base: this gives the distance.'**
+  String get heightHelp2;
+
+  /// No description provided for @heightHelp3.
+  ///
+  /// In en, this message translates to:
+  /// **'Aim the top edge at the top and tap Lock top: the height appears.'**
+  String get heightHelp3;
+
+  /// No description provided for @heightHelp4.
+  ///
+  /// In en, this message translates to:
+  /// **'Know the distance? Tap Distance and type it, then aim only at the top. Tap Eye height to set yours.'**
+  String get heightHelp4;
+
+  /// No description provided for @heightTip.
+  ///
+  /// In en, this message translates to:
+  /// **'About ±5% on level ground with your eye height set right (your height minus about 10 cm). Stand back so the top is under 70° and the base at least 3° below level. On a slope, type the distance.'**
+  String get heightTip;
+
+  /// No description provided for @lockBase.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock base'**
+  String get lockBase;
+
+  /// No description provided for @lockTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock top'**
+  String get lockTop;
+
+  /// No description provided for @measureAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure again'**
+  String get measureAgain;
+
+  /// No description provided for @distance.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance'**
+  String get distance;
+
+  /// No description provided for @objectHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get objectHeight;
+
+  /// No description provided for @eyeHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Eye height'**
+  String get eyeHeight;
+
+  /// No description provided for @sightAngle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sight angle'**
+  String get sightAngle;
+
+  /// No description provided for @heightAimBase.
+  ///
+  /// In en, this message translates to:
+  /// **'Aim the top edge at the base'**
+  String get heightAimBase;
+
+  /// No description provided for @heightAimTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Now aim the top edge at the top'**
+  String get heightAimTop;
+
+  /// No description provided for @heightDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done · tap Measure again for another'**
+  String get heightDone;
+
+  /// No description provided for @heightHoldFlatter.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the phone flatter and sight along its top edge'**
+  String get heightHoldFlatter;
+
+  /// No description provided for @heightTooFar.
+  ///
+  /// In en, this message translates to:
+  /// **'Base too near level: step closer or type the distance'**
+  String get heightTooFar;
+
+  /// No description provided for @heightStepBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Very steep: step back for a steadier reading'**
+  String get heightStepBack;
+
+  /// No description provided for @knownDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance to the base'**
+  String get knownDistance;
+
+  /// No description provided for @knownDistanceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The distance along the ground to the object’s base. Clear it to measure by sighting.'**
+  String get knownDistanceHint;
+
+  /// No description provided for @eyeHeightHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How high your eyes are above the ground: about your height minus 10 cm.'**
+  String get eyeHeightHint;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
 }
 
 class _AppLocalizationsDelegate
