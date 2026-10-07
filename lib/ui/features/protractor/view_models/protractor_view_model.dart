@@ -32,7 +32,7 @@ class ProtractorViewModel extends ChangeNotifier {
   /// Clockwise turn from arm 0 to arm 1, [0, 360).
   double get _turn => (_arms[1] - _arms[0]) % 360;
 
-  /// The angle between the arms, 0–180°.
+  /// The angle between the arms, 0 to 180°.
   double get angle => _turn <= 180 ? _turn : 360 - _turn;
 
   /// The other way round: 360° minus [angle].

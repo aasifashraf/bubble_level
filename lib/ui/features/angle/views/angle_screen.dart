@@ -13,7 +13,7 @@ import '../../../core/tool_frame.dart';
 import '../view_models/angle_view_model.dart';
 import 'water_view.dart';
 
-/// Angle from the Earth, or — after "Set zero" — how far the phone has
+/// Angle from the Earth, or, after "Set zero", how far the phone has
 /// moved from a starting position; the compass design with an arc.
 class AngleScreen extends StatelessWidget {
   const AngleScreen({super.key, required this.viewModel, required this.onBack});

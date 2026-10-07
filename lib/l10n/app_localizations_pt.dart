@@ -792,7 +792,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'O céu acompanha a luz: noite quando está escuro, amanhecer num ambiente com pouca luz, e o sol sobe à medida que fica mais claro. Leia os lux e para que a luz serve: 300–750 lx é bom para ler e trabalhar na mesa.';
+      'O céu acompanha a luz: noite quando está escuro, amanhecer num ambiente com pouca luz, e o sol sobe à medida que fica mais claro. Leia os lux e para que a luz serve: de 300 a 750 lx é bom para ler e trabalhar na mesa.';
 
   @override
   String get lightHelp4 =>
@@ -800,7 +800,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Os sensores de luz variam entre celulares, então as leituras podem errar 10–20%: bom para comparar lugares, não é um luxímetro calibrado. Não cubra o topo da tela.';
+      'Os sensores de luz variam entre celulares, então as leituras podem errar de 10 a 20%: bom para comparar lugares, não é um luxímetro calibrado. Não cubra o topo da tela.';
 
   @override
   String get noMicrophone =>

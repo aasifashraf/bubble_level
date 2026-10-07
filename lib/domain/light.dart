@@ -8,7 +8,7 @@ import 'orientation_reading.dart';
 const luxPerFootCandle = 10.7639;
 
 /// What a light level is like, from the usual lighting guides: under 10
-/// lx is dark, 300–500 lx suits reading and desk work, daylight is tens of
+/// lx is dark, 300 to 500 lx suits reading and desk work, daylight is tens of
 /// thousands.
 enum LightBand {
   dark,

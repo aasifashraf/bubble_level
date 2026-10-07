@@ -765,7 +765,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get lightTip =>
-      '照度センサーは端末ごとに異なるため、10–20% ずれることがあります。場所の比較には便利ですが、校正済みの照度計ではありません。画面上部を覆わないでください。';
+      '照度センサーは端末ごとに異なるため、10〜20% ずれることがあります。場所の比較には便利ですが、校正済みの照度計ではありません。画面上部を覆わないでください。';
 
   @override
   String get noMicrophone =>

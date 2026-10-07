@@ -8,7 +8,7 @@ class DisplayRotationService {
 
   static const _channel = MethodChannel('bubble_level/display');
 
-  /// 0–3 quarter turns; 0 when the platform can't tell.
+  /// 0 to 3 quarter turns; 0 when the platform can't tell.
   Future<int> quarterTurns() async {
     try {
       return await _channel.invokeMethod<int>('quarterTurns') ?? 0;

@@ -60,7 +60,7 @@ class MagneticCheck {
     _consistent = (high - low) / typical <= maxSwing;
   }
 
-  /// The widest arc of headings covered, in degrees (0–360).
+  /// The widest arc of headings covered, in degrees (0 to 360).
   double _turned() {
     if (_samples.length < 2) return 0;
     final sorted = [for (final s in _samples) (s.heading % 360 + 360) % 360]

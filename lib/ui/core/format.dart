@@ -9,7 +9,7 @@ String? _sepLocale;
 String _sep = '.';
 
 /// The current language's decimal separator ("," in German, French,
-/// Spanish …). Digits stay 0–9 in every language, as on instruments.
+/// Spanish …). Digits stay 0 to 9 in every language, as on instruments.
 String get _decimalSeparator {
   final locale = Intl.getCurrentLocale();
   if (locale != _sepLocale) {

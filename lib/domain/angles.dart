@@ -65,7 +65,7 @@ double pitchDeg(Vec3 g) => math.atan2(g.y, g.z) * _rad2deg;
 /// 0° portrait, 90° turned counter-clockwise onto its left edge.
 double edgeDeg(Vec3 g) => math.atan2(g.x, g.y) * _rad2deg;
 
-/// Angle of the phone's long edge from level, 0–90°, for a phone standing
+/// Angle of the phone's long edge from level, 0 to 90°, for a phone standing
 /// on an edge: 0° lying on its long side, 90° upright in portrait. Which
 /// way up doesn't matter. [offset] is the Level's on-edge calibration.
 /// Given a screen-frame [g], it's the screen's side edges instead.

@@ -665,7 +665,7 @@ class DialPainter extends CustomPainter {
   }
 
   /// Protractor arms: rays from the button's edge out to the halo, fading
-  /// at the end — long enough to line up with an object lying on the glass,
+  /// at the end, long enough to line up with an object lying on the glass,
   /// short enough to stay clear of the header and footer.
   void _arms(Canvas canvas, Offset c, Size size, double s) {
     final from = DialGeometry.buttonRimR * s;

@@ -1477,7 +1477,7 @@ abstract class AppLocalizations {
   /// No description provided for @lightHelp3.
   ///
   /// In en, this message translates to:
-  /// **'The sky follows the light: night when it\'s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300–750 lx suits reading and desk work.'**
+  /// **'The sky follows the light: night when it\'s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300 to 750 lx suits reading and desk work.'**
   String get lightHelp3;
 
   /// No description provided for @lightHelp4.
@@ -1489,7 +1489,7 @@ abstract class AppLocalizations {
   /// No description provided for @lightTip.
   ///
   /// In en, this message translates to:
-  /// **'Light sensors differ between phones, so readings can be 10–20% off: good for comparing places, not a calibrated lux meter. Don’t cover the top of the screen.'**
+  /// **'Light sensors differ between phones, so readings can be 10 to 20% off: good for comparing places, not a calibrated lux meter. Don’t cover the top of the screen.'**
   String get lightTip;
 
   /// No description provided for @noMicrophone.

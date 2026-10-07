@@ -226,7 +226,7 @@
   "lightSun": "Plein soleil",
   "lightHelp1": "Le capteur de lumière se trouve en haut de l’écran, près de la caméra avant.",
   "lightHelp2": "Tenez le téléphone à l’endroit à mesurer, écran tourné vers la lumière.",
-  "lightHelp3": "Le ciel suit la lumière : la nuit dans le noir, l’aube dans une pièce peu éclairée, et le soleil monte à mesure que la lumière augmente. Lisez les lux et à quoi convient la lumière : 300–750 lx conviennent à la lecture et au travail de bureau.",
+  "lightHelp3": "Le ciel suit la lumière : la nuit dans le noir, l’aube dans une pièce peu éclairée, et le soleil monte à mesure que la lumière augmente. Lisez les lux et à quoi convient la lumière : de 300 à 750 lx conviennent à la lecture et au travail de bureau.",
   "lightHelp4": "Touchez Verrouiller pour garder une mesure pendant que vous éloignez le téléphone.",
   "lightTip": "Les capteurs de lumière varient d’un téléphone à l’autre, les mesures peuvent donc différer de 10 à 20 % : utile pour comparer des lieux, pas un luxmètre étalonné. Ne couvrez pas le haut de l’écran.",
   "noMicrophone": "Impossible d’utiliser le micro. Une autre app l’utilise peut-être : fermez-la, puis rouvrez le sonomètre.",

@@ -53,7 +53,7 @@ class OrientationReading {
     return g == null || m == null ? null : headingDeg(g, m, flat: flat);
   }
 
-  /// Earth's field is 25–65 µT; far outside that the compass is disturbed
+  /// Earth's field is 25 to 65 µT; far outside that the compass is disturbed
   /// (nearby metal, magnets) or the magnetometer needs calibrating.
   bool get magneticFieldOk {
     final m = magnetic?.length;

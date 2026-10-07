@@ -44,7 +44,7 @@ class AngleState {
   /// reliable magnetometer.
   final double? turn;
 
-  /// Standing on an edge: the angle from level (0–90°) of the screen's
+  /// Standing on an edge: the angle from level (0 to 90°) of the screen's
   /// side edges, the long ones in portrait; the bottom edge's is its
   /// complement. Null lying flat.
   final double? edge;

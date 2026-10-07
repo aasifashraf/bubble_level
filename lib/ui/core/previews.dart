@@ -50,7 +50,7 @@ final class GaugePreview extends MultiPreview {
   ];
 }
 
-@GaugePreview('Level – flat, off')
+@GaugePreview('Level: flat, off')
 Widget levelOffPreview() => const InstrumentDial(
   value: '1.2°',
   semanticsLabel: 'Tilt from level 1.2°',
@@ -58,7 +58,7 @@ Widget levelOffPreview() => const InstrumentDial(
   bubble: Offset(0.45, -0.3),
 );
 
-@GaugePreview('Level – flat, level')
+@GaugePreview('Level: flat, level')
 Widget levelLockedPreview() => const InstrumentDial(
   value: '0.0°',
   semanticsLabel: 'Tilt from level 0.0°',
@@ -67,7 +67,7 @@ Widget levelLockedPreview() => const InstrumentDial(
   locked: true,
 );
 
-@GaugePreview('Level – on an edge')
+@GaugePreview('Level: on an edge')
 Widget edgePreview() => const InstrumentDial(
   value: '2.4°',
   semanticsLabel: 'From level 2.4°',

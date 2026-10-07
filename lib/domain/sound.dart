@@ -13,7 +13,7 @@ const fullScaleDb = 90.0;
 /// own noise.
 const floorDb = 20.0;
 
-/// Estimated sound level, dB, for a mean square of samples on a 0–1 scale.
+/// Estimated sound level, dB, for a mean square of samples on a 0 to 1 scale.
 double soundDb(double meanSquare) => meanSquare <= 0
     ? floorDb
     : math.max(floorDb, fullScaleDb + 10 * math.log(meanSquare) / math.ln10);

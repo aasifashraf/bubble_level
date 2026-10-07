@@ -792,7 +792,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Langit mengikuti cahaya: malam saat gelap, fajar di ruangan redup, dan matahari naik saat makin terang. Baca lux dan untuk apa cahaya itu cocok: 300–750 lx cocok untuk membaca dan bekerja di meja.';
+      'Langit mengikuti cahaya: malam saat gelap, fajar di ruangan redup, dan matahari naik saat makin terang. Baca lux dan untuk apa cahaya itu cocok: 300 sampai 750 lx cocok untuk membaca dan bekerja di meja.';
 
   @override
   String get lightHelp4 =>
@@ -800,7 +800,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Sensor cahaya berbeda di tiap ponsel, jadi bacaan bisa meleset 10–20%: bagus untuk membandingkan tempat, bukan pengukur lux yang terkalibrasi. Jangan tutupi bagian atas layar.';
+      'Sensor cahaya berbeda di tiap ponsel, jadi bacaan bisa meleset 10 sampai 20%: bagus untuk membandingkan tempat, bukan pengukur lux yang terkalibrasi. Jangan tutupi bagian atas layar.';
 
   @override
   String get noMicrophone =>

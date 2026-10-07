@@ -194,7 +194,7 @@ class _SkyPainter extends CustomPainter {
   static const _dayLight = [Color(0xFFAAD6FA), Color(0xFFECF5FE)];
   static const _dayDark = [Color(0xFF466EA0), Color(0xFF78A0C8)];
 
-  /// Stars: x across the width and y down to the horizon (0–1), and size.
+  /// Stars: x across the width and y down to the horizon (0 to 1), and size.
   static const _stars = [
     (0.05, 0.10, 1.0),
     (0.14, 0.32, 1.5),

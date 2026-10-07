@@ -795,7 +795,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Der Himmel folgt dem Licht: Nacht im Dunkeln, Morgendämmerung in einem schwach beleuchteten Raum, und die Sonne steigt, je heller es wird. Lies die Lux und wofür das Licht taugt: 300–750 lx eignen sich zum Lesen und für die Schreibtischarbeit.';
+      'Der Himmel folgt dem Licht: Nacht im Dunkeln, Morgendämmerung in einem schwach beleuchteten Raum, und die Sonne steigt, je heller es wird. Lies die Lux und wofür das Licht taugt: 300 bis 750 lx eignen sich zum Lesen und für die Schreibtischarbeit.';
 
   @override
   String get lightHelp4 =>
@@ -803,7 +803,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Lichtsensoren unterscheiden sich je nach Handy, Werte können 10–20 % abweichen: gut zum Vergleichen von Orten, aber kein geeichter Luxmeter. Verdecke den oberen Bildschirmrand nicht.';
+      'Lichtsensoren unterscheiden sich je nach Handy, Werte können 10 bis 20 % abweichen: gut zum Vergleichen von Orten, aber kein geeichter Luxmeter. Verdecke den oberen Bildschirmrand nicht.';
 
   @override
   String get noMicrophone =>

@@ -793,7 +793,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'Gökyüzü ışığı takip eder: karanlıkta gece, loş bir odada şafak; ışık arttıkça güneş yükselir. Lüksü ve ışığın neye uygun olduğunu okuyun: 300–750 lx okumaya ve masa başı işe uygundur.';
+      'Gökyüzü ışığı takip eder: karanlıkta gece, loş bir odada şafak; ışık arttıkça güneş yükselir. Lüksü ve ışığın neye uygun olduğunu okuyun: 300 ile 750 lx arası okumaya ve masa başı işe uygundur.';
 
   @override
   String get lightHelp4 =>
@@ -801,7 +801,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Işık sensörleri telefona göre değişir, bu yüzden okumalar %10–20 sapabilir: yerleri karşılaştırmak için iyidir, kalibre edilmiş bir lüksmetre değildir. Ekranın üstünü kapatmayın.';
+      'Işık sensörleri telefona göre değişir, bu yüzden okumalar %10 ile %20 arasında sapabilir: yerleri karşılaştırmak için iyidir, kalibre edilmiş bir lüksmetre değildir. Ekranın üstünü kapatmayın.';
 
   @override
   String get noMicrophone =>

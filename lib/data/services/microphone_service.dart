@@ -42,7 +42,7 @@ class MicrophoneService {
     }
   }
 
-  /// The mean square (0–1) of each 100 ms block of sound while listened
+  /// The mean square (0 to 1) of each 100 ms block of sound while listened
   /// to; an error when the microphone can't be used.
   Stream<ScalarSample> levels() {
     AudioRecorder? recorder;

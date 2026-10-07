@@ -10,7 +10,7 @@ import '../../../core/tool_frame.dart';
 import '../view_models/metal_view_model.dart';
 import 'metal_heat.dart';
 
-/// Metal detector: field strength on a 0–240 µT gauge; the button turns
+/// Metal detector: field strength on a 0 to 240 µT gauge; the button turns
 /// orange when metal is detected.
 class MetalScreen extends StatelessWidget {
   const MetalScreen({super.key, required this.viewModel, required this.onBack});

@@ -58,7 +58,7 @@ class _Swell {
   final double height;
   final Color color;
 
-  /// How loud it was when it set off (0–1): how far it travels.
+  /// How loud it was when it set off (0 to 1): how far it travels.
   final double loud;
 }
 

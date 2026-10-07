@@ -32,7 +32,7 @@ class CompassState {
   /// Whether the heading can be trusted.
   bool get reliable => fieldOk && calibrated;
 
-  /// Compass sector 0–7 (N, NE, … NW).
+  /// Compass sector 0 to 7 (N, NE, … NW).
   int get sector => cardinalSector(heading);
 }
 

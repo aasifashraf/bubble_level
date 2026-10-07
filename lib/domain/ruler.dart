@@ -68,7 +68,7 @@ ScreenScale estimatedScale(double dpr) =>
     ScreenScale(dpr * _nominalDpi / mmPerInch, ScaleSource.estimated);
 
 /// Whether [pxPerMm] is believable for a screen at [dpr]. Real phones and
-/// tablets are 3–40 px/mm (76–1016 dpi) and within about a third of their
+/// tablets are 3 to 40 px/mm (76 to 1016 dpi) and within about a third of their
 /// density bucket, which also covers a changed "display size" setting.
 bool plausibleScale(double pxPerMm, double dpr) {
   if (!pxPerMm.isFinite || pxPerMm < 3 || pxPerMm > 40) return false;
@@ -170,8 +170,8 @@ double diagonalInches(double pxPerMm, double widthPx, double heightPx) =>
 double? parseInches(String text) {
   final ascii = String.fromCharCodes(
     text.runes.map((c) {
-      if (c >= 0x0660 && c <= 0x0669) return c - 0x0660 + 0x30; // ٠–٩
-      if (c >= 0x06F0 && c <= 0x06F9) return c - 0x06F0 + 0x30; // ۰–۹
+      if (c >= 0x0660 && c <= 0x0669) return c - 0x0660 + 0x30; // ٠ to ٩
+      if (c >= 0x06F0 && c <= 0x06F9) return c - 0x06F0 + 0x30; // ۰ to ۹
       if (c == 0x066B) return 0x2E; // Arabic decimal separator
       return c;
     }),
