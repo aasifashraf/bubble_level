@@ -179,11 +179,13 @@ class ValueTiles extends StatelessWidget {
   );
 }
 
-/// Several readings on one raised panel, split by hairlines.
+/// Several readings on one raised panel, split by hairlines. A reading
+/// with an entry in [onTap] can be tapped to edit it (a pencil marks it).
 class StatPanel extends StatelessWidget {
-  const StatPanel(this.stats, {super.key});
+  const StatPanel(this.stats, {super.key, this.onTap = const []});
 
   final List<(String value, String caption)> stats;
+  final List<VoidCallback?> onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -198,38 +200,54 @@ class StatPanel extends StatelessWidget {
             if (i > 0)
               Container(width: 1, color: p.dialShadow.withValues(alpha: 0.6)),
             Expanded(
-              child: Semantics(
-                label: '$caption $value',
-                excludeSemantics: true,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          value,
-                          textDirection: TextDirection.ltr,
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 18,
-                            height: 1.15,
-                            fontWeight: FontWeight.w700,
-                            fontFeatures: readoutFeatures,
-                            color: p.ink,
+              child: _tappable(
+                i < onTap.length ? onTap[i] : null,
+                Semantics(
+                  label: '$caption $value',
+                  button: i < onTap.length && onTap[i] != null,
+                  excludeSemantics: true,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            value,
+                            textDirection: TextDirection.ltr,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: 18,
+                              height: 1.15,
+                              fontWeight: FontWeight.w700,
+                              fontFeatures: readoutFeatures,
+                              color: p.ink,
+                            ),
                           ),
-                        ),
-                        Text(
-                          caption,
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: p.label,
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 3,
+                            children: [
+                              Text(
+                                caption,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: p.label,
+                                ),
+                              ),
+                              if (i < onTap.length && onTap[i] != null)
+                                Icon(
+                                  Icons.edit_rounded,
+                                  size: 11,
+                                  color: p.label,
+                                ),
+                            ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -240,6 +258,17 @@ class StatPanel extends StatelessWidget {
       ),
     );
   }
+
+  static Widget _tappable(VoidCallback? onTap, Widget child) => onTap == null
+      ? child
+      : Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(16),
+            onTap: onTap,
+            child: child,
+          ),
+        );
 }
 
 class ValueTile extends StatelessWidget {
