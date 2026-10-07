@@ -40,7 +40,7 @@
   "@toolVibration": {
     "description": "Tool name: vibration meter."
   },
-  "toolVibrationSubtitle": "Vibration meter with live graph",
+  "toolVibrationSubtitle": "Vibration strength and speed (RPM)",
   "toolSound": "Sound meter",
   "toolSoundSubtitle": "Noise level in decibels",
   "toolAltimeter": "Altimeter",
@@ -369,11 +369,11 @@
   "setBaseline": "Set baseline",
   "muteSound": "Mute sound",
   "turnSoundOn": "Turn sound on",
-  "vibrationHelp1": "Place the phone flat on the surface or machine you want to check, and keep your hands off it.",
-  "vibrationHelp2": "The number is the vibration right now in m/s². A hand sweeps round every six seconds, drawing it as a swell around the number: green when still, orange for light vibration, red for strong. The small notch marks the peak.",
-  "vibrationHelp3": "Peak is the strongest moment. Average is the level over the last second.",
-  "vibrationHelp4": "Tap Reset peak before each new test.",
-  "vibrationTip": "“Still” is under 0.3 m/s² and “Strong vibration” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.",
+  "vibrationHelp1": "Place the phone flat on the running machine and keep your hands off it. On a small machine, hold it down firmly.",
+  "vibrationHelp2": "The needle shows the speed of the strongest vibration in RPM, with hertz under it (RPM is hertz × 60). The faint glow inside the dial is the whole spectrum; the needle points into its brightest part.",
+  "vibrationHelp3": "Strength is how hard it shakes, in m/s²: under 0.3 is still, over 2 is strong.",
+  "vibrationHelp4": "Tap Lock to hold a reading, and the reset button before measuring the next machine.",
+  "vibrationTip": "Most phones measure up to 100 Hz (6000 RPM), some less; the dial shows your phone's limit. Faster vibration can show up as a wrong, lower speed. The strongest vibration is often the shaft speed, but can be twice it. Phone sensors aren't lab instruments.",
   "still": "Still",
   "lightVibration": "Light vibration",
   "strongVibration": "Strong vibration",
@@ -381,6 +381,30 @@
   "vibrationSemantics": "Vibration {value} metres per second squared",
   "@vibrationSemantics": {
     "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "frequency": "Frequency",
+  "rpm": "RPM",
+  "strength": "Strength",
+  "vibratingAt": "Vibrating at {value} Hz",
+  "@vibratingAt": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "noClearFrequency": "No clear frequency",
+  "findingFrequency": "Finding the frequency…",
+  "vibrationSpeedSemantics": "{rpm} revolutions per minute, {value} hertz",
+  "@vibrationSpeedSemantics": {
+    "placeholders": {
+      "rpm": {
+        "type": "String"
+      },
       "value": {
         "type": "String"
       }

@@ -77,7 +77,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get toolVibrationSubtitle =>
-      'Medidor de vibración con gráfica en vivo';
+      'Intensidad y velocidad de la vibración (RPM)';
 
   @override
   String get toolSound => 'Sonómetro';
@@ -648,22 +648,23 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Pon el teléfono plano sobre la superficie o máquina que quieres revisar y no lo toques.';
+      'Coloca el teléfono plano sobre la máquina en marcha y aparta las manos. En una máquina pequeña, sujétalo con firmeza.';
 
   @override
   String get vibrationHelp2 =>
-      'El número es la vibración actual en m/s². Una aguja gira cada seis segundos y la dibuja como una ola alrededor del número: verde en reposo, naranja con vibración leve, rojo con vibración fuerte. La pequeña muesca marca el pico.';
+      'La aguja muestra la velocidad de la vibración más fuerte en RPM, con los hercios debajo (RPM son hercios × 60). El brillo suave dentro del dial es el espectro completo; la aguja apunta a su parte más brillante.';
 
   @override
   String get vibrationHelp3 =>
-      'Pico es el momento más fuerte. Media es el nivel durante el último segundo.';
+      'La intensidad es lo fuerte que vibra, en m/s²: menos de 0,3 es quieto, más de 2 es fuerte.';
 
   @override
-  String get vibrationHelp4 => 'Toca Reiniciar pico antes de cada prueba.';
+  String get vibrationHelp4 =>
+      'Toca Bloquear para fijar una lectura, y el botón de reinicio antes de medir la siguiente máquina.';
 
   @override
   String get vibrationTip =>
-      '«Quieto» es menos de 0,3 m/s² y «Vibración fuerte», más de 2 m/s². Úsalo para comparar; los sensores del teléfono no son instrumentos de laboratorio.';
+      'La mayoría de los teléfonos miden hasta 100 Hz (6000 RPM), algunos menos; el dial muestra el límite de tu teléfono. Una vibración más rápida puede aparecer como una velocidad menor y errónea. La vibración más fuerte suele ser la velocidad del eje, pero puede ser el doble. Los sensores del teléfono no son instrumentos de laboratorio.';
 
   @override
   String get still => 'Quieto';
@@ -681,6 +682,31 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Vibración $value metros por segundo al cuadrado';
+  }
+
+  @override
+  String get frequency => 'Frecuencia';
+
+  @override
+  String get rpm => 'RPM';
+
+  @override
+  String get strength => 'Intensidad';
+
+  @override
+  String vibratingAt(String value) {
+    return 'Vibra a $value Hz';
+  }
+
+  @override
+  String get noClearFrequency => 'Sin frecuencia clara';
+
+  @override
+  String get findingFrequency => 'Buscando la frecuencia…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm revoluciones por minuto, $value hercios';
   }
 
   @override

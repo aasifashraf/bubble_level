@@ -17,8 +17,12 @@ class MotionSensorService {
 
   static const _period = SensorInterval.gameInterval;
 
-  Stream<SensorSample> accelerometer() =>
-      accelerometerEventStream(samplingPeriod: _period)
+  /// As often as the phone allows (Android 12+ caps apps at 200 Hz):
+  /// for measuring vibration frequency.
+  static const _fastest = SensorInterval.fastestInterval;
+
+  Stream<SensorSample> accelerometer({bool fast = false}) =>
+      accelerometerEventStream(samplingPeriod: fast ? _fastest : _period)
           .map((e) => (value: Vec3(e.x, e.y, e.z), timestamp: e.timestamp));
 
   /// Angular rate in rad/s.
@@ -32,8 +36,8 @@ class MotionSensorService {
           .map((e) => (value: Vec3(e.x, e.y, e.z), timestamp: e.timestamp));
 
   /// Acceleration without gravity, in m/s².
-  Stream<SensorSample> userAccelerometer() =>
-      userAccelerometerEventStream(samplingPeriod: _period)
+  Stream<SensorSample> userAccelerometer({bool fast = false}) =>
+      userAccelerometerEventStream(samplingPeriod: fast ? _fastest : _period)
           .map((e) => (value: Vec3(e.x, e.y, e.z), timestamp: e.timestamp));
 
   /// Air pressure in hPa.

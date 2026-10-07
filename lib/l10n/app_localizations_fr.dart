@@ -77,7 +77,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get toolVibration => 'Vibrations';
 
   @override
-  String get toolVibrationSubtitle => 'Vibromètre avec graphique en direct';
+  String get toolVibrationSubtitle =>
+      'Intensité et vitesse des vibrations (tr/min)';
 
   @override
   String get toolSound => 'Sonomètre';
@@ -648,23 +649,23 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Posez le téléphone à plat sur la surface ou la machine à vérifier et ne le touchez plus.';
+      'Posez le téléphone à plat sur la machine en marche et retirez les mains. Sur une petite machine, maintenez‑le fermement.';
 
   @override
   String get vibrationHelp2 =>
-      'Le nombre est la vibration actuelle en m/s². Une aiguille fait le tour toutes les six secondes et la dessine comme une houle autour du nombre : vert au repos, orange pour une vibration légère, rouge pour une forte. La petite encoche marque le pic.';
+      'L’aiguille indique la vitesse de la vibration la plus forte en tr/min, avec les hertz en dessous (tr/min = hertz × 60). La lueur discrète dans le cadran est le spectre entier ; l’aiguille pointe vers sa partie la plus claire.';
 
   @override
   String get vibrationHelp3 =>
-      'Crête est le moment le plus fort. Moyenne est le niveau sur la dernière seconde.';
+      'L’intensité indique la force des secousses, en m/s² : sous 0,3 c’est immobile, au‑dessus de 2 c’est fort.';
 
   @override
   String get vibrationHelp4 =>
-      'Touchez Remettre la crête à zéro avant chaque nouveau test.';
+      'Touchez Verrouiller pour garder une mesure, et le bouton de remise à zéro avant la machine suivante.';
 
   @override
   String get vibrationTip =>
-      '« Immobile » signifie moins de 0,3 m/s² et « Vibrations fortes », plus de 2 m/s². Utilisez les mesures pour comparer ; les capteurs d’un téléphone ne sont pas des instruments de laboratoire.';
+      'La plupart des téléphones mesurent jusqu’à 100 Hz (6000 tr/min), certains moins ; le cadran indique la limite du vôtre. Une vibration plus rapide peut apparaître comme une vitesse plus basse et fausse. La vibration la plus forte est souvent la vitesse de l’arbre, mais peut en être le double. Les capteurs d’un téléphone ne sont pas des instruments de laboratoire.';
 
   @override
   String get still => 'Immobile';
@@ -682,6 +683,31 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Vibrations $value mètres par seconde carrée';
+  }
+
+  @override
+  String get frequency => 'Fréquence';
+
+  @override
+  String get rpm => 'tr/min';
+
+  @override
+  String get strength => 'Intensité';
+
+  @override
+  String vibratingAt(String value) {
+    return 'Vibre à $value Hz';
+  }
+
+  @override
+  String get noClearFrequency => 'Pas de fréquence nette';
+
+  @override
+  String get findingFrequency => 'Recherche de la fréquence…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm tours par minute, $value hertz';
   }
 
   @override

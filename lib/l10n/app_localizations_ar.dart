@@ -76,7 +76,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get toolVibration => 'الاهتزاز';
 
   @override
-  String get toolVibrationSubtitle => 'مقياس اهتزاز مع رسم بياني مباشر';
+  String get toolVibrationSubtitle => 'قوة الاهتزاز وسرعته (دورة/دقيقة)';
 
   @override
   String get toolSound => 'مقياس الصوت';
@@ -640,22 +640,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'ضع الهاتف مسطحًا على السطح أو الآلة التي تريد فحصها وارفع يديك عنه.';
+      'ضع الهاتف مسطحًا على الآلة وهي تعمل وأبعد يديك. على آلة صغيرة، اضغطه بثبات.';
 
   @override
   String get vibrationHelp2 =>
-      'الرقم هو الاهتزاز الآن بوحدة م/ث². يدور مؤشر كل ست ثوانٍ ويرسمه موجةً حول الرقم: أخضر عند السكون، وبرتقالي للاهتزاز الخفيف، وأحمر للقوي. تحدد العلامة الصغيرة الذروة.';
+      'يُظهر المؤشر سرعة أقوى اهتزاز بالدورة في الدقيقة، وتحته بالهرتز (الدورة في الدقيقة تساوي الهرتز × 60). التوهج الخافت داخل القرص هو الطيف كله، والمؤشر يشير إلى أسطع جزء فيه.';
 
   @override
   String get vibrationHelp3 =>
-      'الذروة هي أقوى لحظة، والمتوسط هو المستوى خلال الثانية الأخيرة.';
+      'القوة هي مدى شدة الاهتزاز بوحدة m/s²: أقل من 0.3 ثابت، وأكثر من 2 قوي.';
 
   @override
-  String get vibrationHelp4 => 'اضغط إعادة ضبط الذروة قبل كل اختبار جديد.';
+  String get vibrationHelp4 =>
+      'اضغط قفل لتثبيت القراءة، وزر إعادة الضبط قبل قياس الآلة التالية.';
 
   @override
   String get vibrationTip =>
-      '«ثابت» يعني أقل من 0.3 m/s² و«اهتزاز قوي» يعني أكثر من 2 m/s². استخدم القراءات للمقارنة؛ فمستشعرات الهاتف ليست أجهزة مختبر.';
+      'تقيس معظم الهواتف حتى 100 Hz (6000 دورة/دقيقة) وبعضها أقل، ويُظهر القرص حد هاتفك. قد يظهر الاهتزاز الأسرع بسرعة أقل وخاطئة. أقوى اهتزاز غالبًا هو سرعة العمود، لكنه قد يكون ضعفها. مستشعرات الهاتف ليست أجهزة مختبر.';
 
   @override
   String get still => 'ثابت';
@@ -673,6 +674,31 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'الاهتزاز $value متر لكل ثانية مربعة';
+  }
+
+  @override
+  String get frequency => 'التردد';
+
+  @override
+  String get rpm => 'دورة/دقيقة';
+
+  @override
+  String get strength => 'القوة';
+
+  @override
+  String vibratingAt(String value) {
+    return 'يهتز عند $value Hz';
+  }
+
+  @override
+  String get noClearFrequency => 'لا يوجد تردد واضح';
+
+  @override
+  String get findingFrequency => 'جارٍ البحث عن التردد…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm دورة في الدقيقة، $value هرتز';
   }
 
   @override

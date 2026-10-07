@@ -76,7 +76,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get toolVibration => 'Vibration';
 
   @override
-  String get toolVibrationSubtitle => 'Vibration meter with live graph';
+  String get toolVibrationSubtitle => 'Vibration strength and speed (RPM)';
 
   @override
   String get toolSound => 'Sound meter';
@@ -643,22 +643,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Place the phone flat on the surface or machine you want to check, and keep your hands off it.';
+      'Place the phone flat on the running machine and keep your hands off it. On a small machine, hold it down firmly.';
 
   @override
   String get vibrationHelp2 =>
-      'The number is the vibration right now in m/s². A hand sweeps round every six seconds, drawing it as a swell around the number: green when still, orange for light vibration, red for strong. The small notch marks the peak.';
+      'The needle shows the speed of the strongest vibration in RPM, with hertz under it (RPM is hertz × 60). The faint glow inside the dial is the whole spectrum; the needle points into its brightest part.';
 
   @override
   String get vibrationHelp3 =>
-      'Peak is the strongest moment. Average is the level over the last second.';
+      'Strength is how hard it shakes, in m/s²: under 0.3 is still, over 2 is strong.';
 
   @override
-  String get vibrationHelp4 => 'Tap Reset peak before each new test.';
+  String get vibrationHelp4 =>
+      'Tap Lock to hold a reading, and the reset button before measuring the next machine.';
 
   @override
   String get vibrationTip =>
-      '“Still” is under 0.3 m/s² and “Strong vibration” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.';
+      'Most phones measure up to 100 Hz (6000 RPM), some less; the dial shows your phone\'s limit. Faster vibration can show up as a wrong, lower speed. The strongest vibration is often the shaft speed, but can be twice it. Phone sensors aren\'t lab instruments.';
 
   @override
   String get still => 'Still';
@@ -676,6 +677,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Vibration $value metres per second squared';
+  }
+
+  @override
+  String get frequency => 'Frequency';
+
+  @override
+  String get rpm => 'RPM';
+
+  @override
+  String get strength => 'Strength';
+
+  @override
+  String vibratingAt(String value) {
+    return 'Vibrating at $value Hz';
+  }
+
+  @override
+  String get noClearFrequency => 'No clear frequency';
+
+  @override
+  String get findingFrequency => 'Finding the frequency…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm revolutions per minute, $value hertz';
   }
 
   @override

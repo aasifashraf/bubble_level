@@ -20,7 +20,7 @@ import 'package:bubble_level/ui/features/angle/views/water_view.dart';
 import 'package:bubble_level/ui/features/light/views/light_sky.dart';
 import 'package:bubble_level/ui/features/metal/views/metal_heat.dart';
 import 'package:bubble_level/ui/features/sound/views/sound_ripples.dart';
-import 'package:bubble_level/ui/features/vibration/views/vibration_sweep.dart';
+import 'package:bubble_level/ui/features/vibration/views/vibration_tach.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -769,27 +769,48 @@ void main() {
     expect(find.text('Metal detected'), findsOneWidget);
   });
 
-  testWidgets('vibration: live reading, status and peak reset', (tester) async {
+  testWidgets('vibration: speed, strength, lock and reset', (tester) async {
     await pumpApp(tester);
     await openTool(tester, 'Vibration');
     expect(find.text('Waiting for sensors…'), findsOneWidget);
-    for (var i = 0; i < 10; i++) {
-      sensors.sendUserAccel(const Vec3(3, 0, 0));
+    // A machine shaking at [hz] (the fake sensor reads 50 times a second).
+    var t = 0;
+    Future<void> shake(double hz, int samples) async {
+      for (var i = 0; i < samples; i++, t++) {
+        sensors.sendUserAccel(
+          Vec3(3 * math.sin(2 * math.pi * hz * t * 0.02), 0, 0),
+        );
+      }
+      await tester.pump();
+      await tester.pump();
     }
+
+    await shake(10, 20);
+    expect(find.text('Finding the frequency…'), findsOneWidget);
+    await shake(10, 130);
+    expect(find.text('10.0 Hz'), findsOneWidget);
+    expect(find.text('Vibrating at 10.0 Hz'), findsOneWidget);
+    expect(find.text('Strength'), findsOneWidget);
+    final tach = tester.widget<VibrationTach>(find.byType(VibrationTach));
+    expect(tach.spectrum!.rpm, closeTo(600, 6));
+    // The phone reads 50 times a second here, so the dial stops at 1000.
+    expect(VibrationTach.maxRpm(tach.spectrum), 1000);
+    await tester.pumpAndSettle();
+
+    // Locked, a new speed doesn't change it.
+    await tester.tap(find.text('Lock'));
+    await shake(17, 150);
+    expect(find.text('10.0 Hz'), findsOneWidget);
+    await tester.tap(find.text('Unlock'));
     await tester.pump();
+    expect(find.text('17.0 Hz'), findsOneWidget);
+
+    // Reset starts again for the next machine.
+    await tester.tap(find.byTooltip('Reset'));
     await tester.pump();
-    expect(find.text('Strong vibration'), findsOneWidget);
-    expect(find.text('3.0 m/s²'), findsWidgets);
-    // The sweep draws it, red for strong vibration.
-    final sweep = tester.widget<VibrationSweep>(find.byType(VibrationSweep));
-    expect(sweep.current, closeTo(3, 1e-9));
-    expect(
-      zoneColor(sweep.zones, sweep.current, blend: 0.4, end: 12),
-      Palette.light.gaugeDanger,
-    );
-    await tester.pump(const Duration(seconds: 1));
-    await tester.tap(find.text('Reset peak'));
-    await tester.pump();
+    await shake(17, 20);
+    expect(find.text('Finding the frequency…'), findsOneWidget);
+    await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
   });
 

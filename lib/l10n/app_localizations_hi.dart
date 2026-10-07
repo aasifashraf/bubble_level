@@ -76,7 +76,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get toolVibration => 'कंपन';
 
   @override
-  String get toolVibrationSubtitle => 'लाइव ग्राफ़ के साथ कंपन मीटर';
+  String get toolVibrationSubtitle => 'कंपन की ताकत और गति (RPM)';
 
   @override
   String get toolSound => 'साउंड मीटर';
@@ -643,22 +643,23 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'फ़ोन को जाँचने वाली सतह या मशीन पर लिटाएँ और हाथ हटा लें।';
+      'फ़ोन को चलती मशीन पर सपाट रखें और हाथ हटा लें। छोटी मशीन पर इसे मज़बूती से दबाकर रखें।';
 
   @override
   String get vibrationHelp2 =>
-      'संख्या अभी का कंपन है, m/s² में। एक सुई हर छह सेकंड में घूमती है और इसे संख्या के चारों ओर लहर की तरह बनाती है: स्थिर होने पर हरा, हल्के कंपन में नारंगी, तेज़ में लाल। छोटा निशान शिखर दिखाता है।';
+      'सुई सबसे तेज़ कंपन की गति RPM में दिखाती है, नीचे हर्ट्ज़ में (RPM, हर्ट्ज़ × 60 होता है)। डायल के अंदर की हल्की चमक पूरा स्पेक्ट्रम है; सुई उसके सबसे चमकीले हिस्से की ओर इशारा करती है।';
 
   @override
   String get vibrationHelp3 =>
-      'अधिकतम सबसे तेज़ पल है। औसत पिछले एक सेकंड का स्तर है।';
+      'ताकत बताती है कि कितना ज़ोर से हिल रहा है, m/s² में: 0.3 से कम स्थिर है, 2 से ज़्यादा तेज़ है।';
 
   @override
-  String get vibrationHelp4 => 'हर नए टेस्ट से पहले अधिकतम रीसेट करें दबाएँ।';
+  String get vibrationHelp4 =>
+      'रीडिंग रोकने के लिए लॉक दबाएँ, और अगली मशीन से पहले रीसेट बटन दबाएँ।';
 
   @override
   String get vibrationTip =>
-      '\"स्थिर\" का मतलब 0.3 m/s² से कम और \"तेज़ कंपन\" का मतलब 2 m/s² से ज़्यादा है। इन रीडिंग का इस्तेमाल तुलना के लिए करें; फ़ोन के सेंसर लैब के उपकरण नहीं हैं।';
+      'ज़्यादातर फ़ोन 100 Hz (6000 RPM) तक मापते हैं, कुछ कम; डायल आपके फ़ोन की सीमा दिखाता है। इससे तेज़ कंपन गलत, कम गति के रूप में दिख सकता है। सबसे तेज़ कंपन अक्सर शाफ़्ट की गति होता है, पर उसका दोगुना भी हो सकता है। फ़ोन के सेंसर लैब के उपकरण नहीं हैं।';
 
   @override
   String get still => 'स्थिर';
@@ -676,6 +677,31 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'कंपन $value मीटर प्रति सेकंड वर्ग';
+  }
+
+  @override
+  String get frequency => 'आवृत्ति';
+
+  @override
+  String get rpm => 'RPM';
+
+  @override
+  String get strength => 'ताकत';
+
+  @override
+  String vibratingAt(String value) {
+    return '$value Hz पर कंपन';
+  }
+
+  @override
+  String get noClearFrequency => 'कोई साफ़ आवृत्ति नहीं';
+
+  @override
+  String get findingFrequency => 'आवृत्ति ढूँढी जा रही है…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm चक्कर प्रति मिनट, $value हर्ट्ज़';
   }
 
   @override

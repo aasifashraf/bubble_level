@@ -77,7 +77,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get toolVibration => 'Vibration';
 
   @override
-  String get toolVibrationSubtitle => 'Vibrationsmesser mit Live-Grafik';
+  String get toolVibrationSubtitle => 'Vibrationsstärke und Drehzahl (U/min)';
 
   @override
   String get toolSound => 'Schallpegelmesser';
@@ -646,23 +646,23 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Leg das Handy flach auf die Fläche oder Maschine, die du prüfen willst, und nimm die Hände weg.';
+      'Leg das Handy flach auf die laufende Maschine und nimm die Hände weg. Auf einer kleinen Maschine halte es fest angedrückt.';
 
   @override
   String get vibrationHelp2 =>
-      'Die Zahl ist die aktuelle Vibration in m/s². Ein Zeiger läuft alle sechs Sekunden einmal herum und zeichnet sie als Welle um die Zahl: grün in Ruhe, orange bei leichter, rot bei starker Vibration. Die kleine Kerbe markiert die Spitze.';
+      'Die Nadel zeigt die Drehzahl der stärksten Vibration in U/min, darunter in Hertz (U/min ist Hertz × 60). Das schwache Leuchten im Zifferblatt ist das ganze Spektrum; die Nadel zeigt in seinen hellsten Teil.';
 
   @override
   String get vibrationHelp3 =>
-      'Spitze ist der stärkste Moment, Mittel der Wert über die letzte Sekunde.';
+      'Stärke ist, wie heftig es rüttelt, in m/s²: unter 0,3 ist ruhig, über 2 ist stark.';
 
   @override
   String get vibrationHelp4 =>
-      'Tippe vor jeder neuen Messung auf Spitze zurücksetzen.';
+      'Tippe auf Sperren, um einen Wert zu halten, und vor der nächsten Maschine auf Zurücksetzen.';
 
   @override
   String get vibrationTip =>
-      '„Ruhig“ heißt unter 0,3 m/s², „Starke Vibration“ über 2 m/s². Nutze die Werte zum Vergleichen; Handysensoren sind keine Laborgeräte.';
+      'Die meisten Handys messen bis 100 Hz (6000 U/min), manche weniger; das Zifferblatt zeigt die Grenze deines Handys. Schnellere Vibration kann als falsche, niedrigere Drehzahl erscheinen. Die stärkste Vibration ist oft die Wellendrehzahl, kann aber das Doppelte sein. Handysensoren sind keine Laborgeräte.';
 
   @override
   String get still => 'Ruhig';
@@ -680,6 +680,31 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Vibration $value Meter pro Sekunde zum Quadrat';
+  }
+
+  @override
+  String get frequency => 'Frequenz';
+
+  @override
+  String get rpm => 'U/min';
+
+  @override
+  String get strength => 'Stärke';
+
+  @override
+  String vibratingAt(String value) {
+    return 'Vibriert mit $value Hz';
+  }
+
+  @override
+  String get noClearFrequency => 'Keine klare Frequenz';
+
+  @override
+  String get findingFrequency => 'Frequenz wird gesucht…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm Umdrehungen pro Minute, $value Hertz';
   }
 
   @override

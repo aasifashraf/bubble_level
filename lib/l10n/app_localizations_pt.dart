@@ -76,7 +76,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get toolVibration => 'Vibração';
 
   @override
-  String get toolVibrationSubtitle => 'Medidor de vibração com gráfico ao vivo';
+  String get toolVibrationSubtitle =>
+      'Intensidade e velocidade da vibração (RPM)';
 
   @override
   String get toolSound => 'Decibelímetro';
@@ -645,22 +646,23 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Deite o celular sobre a superfície ou máquina que você quer verificar e tire as mãos.';
+      'Coloque o celular deitado sobre a máquina ligada e tire as mãos. Numa máquina pequena, segure firme.';
 
   @override
   String get vibrationHelp2 =>
-      'O número é a vibração atual em m/s². Um ponteiro gira a cada seis segundos e a desenha como uma onda ao redor do número: verde parado, laranja com vibração leve, vermelho com vibração forte. O pequeno entalhe marca o pico.';
+      'O ponteiro mostra a velocidade da vibração mais forte em RPM, com os hertz embaixo (RPM é hertz × 60). O brilho suave dentro do mostrador é o espectro inteiro; o ponteiro aponta para a parte mais clara.';
 
   @override
   String get vibrationHelp3 =>
-      'Pico é o momento mais forte. Média é o nível no último segundo.';
+      'Intensidade é o quanto treme, em m/s²: abaixo de 0,3 é parado, acima de 2 é forte.';
 
   @override
-  String get vibrationHelp4 => 'Toque em Zerar pico antes de cada novo teste.';
+  String get vibrationHelp4 =>
+      'Toque em Travar para segurar uma leitura, e no botão de reiniciar antes de medir a próxima máquina.';
 
   @override
   String get vibrationTip =>
-      '\"Parado\" é abaixo de 0,3 m/s² e \"Vibração forte\", acima de 2 m/s². Use as leituras para comparar; sensores de celular não são instrumentos de laboratório.';
+      'A maioria dos celulares mede até 100 Hz (6000 RPM), alguns menos; o mostrador indica o limite do seu. Vibração mais rápida pode aparecer como uma velocidade menor e errada. A vibração mais forte costuma ser a velocidade do eixo, mas pode ser o dobro. Sensores de celular não são instrumentos de laboratório.';
 
   @override
   String get still => 'Parado';
@@ -678,6 +680,31 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Vibração $value metros por segundo ao quadrado';
+  }
+
+  @override
+  String get frequency => 'Frequência';
+
+  @override
+  String get rpm => 'RPM';
+
+  @override
+  String get strength => 'Intensidade';
+
+  @override
+  String vibratingAt(String value) {
+    return 'Vibrando a $value Hz';
+  }
+
+  @override
+  String get noClearFrequency => 'Sem frequência clara';
+
+  @override
+  String get findingFrequency => 'Procurando a frequência…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm rotações por minuto, $value hertz';
   }
 
   @override

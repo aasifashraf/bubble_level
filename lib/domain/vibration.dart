@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import 'angles.dart';
 import 'orientation_reading.dart';
+import 'vibration_frequency.dart';
 
 /// A snapshot of the vibration meter.
 @immutable
@@ -14,6 +15,7 @@ class VibrationReading {
     this.peak = 0,
     this.rms = 0,
     this.history = const [],
+    this.spectrum,
     this.state = SensorState.waiting,
   });
 
@@ -26,8 +28,11 @@ class VibrationReading {
   /// Root mean square over about the last second, m/s².
   final double rms;
 
-  /// Recent magnitudes, oldest first, for the live graph.
+  /// Recent magnitudes, oldest first.
   final List<double> history;
+
+  /// The frequencies in the last few seconds, null until there are enough.
+  final Spectrum? spectrum;
 
   final SensorState state;
 }

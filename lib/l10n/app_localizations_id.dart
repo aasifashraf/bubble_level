@@ -76,7 +76,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get toolVibration => 'Getaran';
 
   @override
-  String get toolVibrationSubtitle => 'Pengukur getaran dengan grafik langsung';
+  String get toolVibrationSubtitle => 'Kekuatan dan kecepatan getaran (RPM)';
 
   @override
   String get toolSound => 'Pengukur suara';
@@ -644,23 +644,23 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Letakkan ponsel mendatar di permukaan atau mesin yang ingin diperiksa, lalu lepaskan tangan.';
+      'Letakkan ponsel mendatar di atas mesin yang menyala dan lepaskan tangan. Pada mesin kecil, tekan dengan kuat.';
 
   @override
   String get vibrationHelp2 =>
-      'Angka adalah getaran saat ini dalam m/s². Sebuah jarum berputar setiap enam detik dan menggambarnya sebagai gelombang di sekitar angka: hijau saat diam, oranye untuk getaran ringan, merah untuk getaran kuat. Takik kecil menandai puncaknya.';
+      'Jarum menunjukkan kecepatan getaran terkuat dalam RPM, dengan hertz di bawahnya (RPM adalah hertz × 60). Cahaya samar di dalam dial adalah seluruh spektrum; jarum menunjuk ke bagian paling terangnya.';
 
   @override
   String get vibrationHelp3 =>
-      'Puncak adalah momen terkuat. Rata-rata adalah tingkat selama satu detik terakhir.';
+      'Kekuatan adalah seberapa keras guncangannya, dalam m/s²: di bawah 0,3 berarti diam, di atas 2 berarti kuat.';
 
   @override
   String get vibrationHelp4 =>
-      'Ketuk Reset puncak sebelum setiap pengujian baru.';
+      'Ketuk Kunci untuk menahan bacaan, dan tombol reset sebelum mengukur mesin berikutnya.';
 
   @override
   String get vibrationTip =>
-      '\"Diam\" berarti di bawah 0,3 m/s² dan \"Getaran kuat\" di atas 2 m/s². Gunakan angka ini untuk membandingkan; sensor ponsel bukan alat laboratorium.';
+      'Sebagian besar ponsel mengukur hingga 100 Hz (6000 RPM), sebagian kurang; dial menunjukkan batas ponsel Anda. Getaran yang lebih cepat bisa tampil sebagai kecepatan yang salah dan lebih rendah. Getaran terkuat sering kali kecepatan poros, tetapi bisa dua kalinya. Sensor ponsel bukan alat laboratorium.';
 
   @override
   String get still => 'Diam';
@@ -678,6 +678,31 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Getaran $value meter per detik kuadrat';
+  }
+
+  @override
+  String get frequency => 'Frekuensi';
+
+  @override
+  String get rpm => 'RPM';
+
+  @override
+  String get strength => 'Kekuatan';
+
+  @override
+  String vibratingAt(String value) {
+    return 'Bergetar pada $value Hz';
+  }
+
+  @override
+  String get noClearFrequency => 'Tidak ada frekuensi yang jelas';
+
+  @override
+  String get findingFrequency => 'Mencari frekuensi…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm putaran per menit, $value hertz';
   }
 
   @override

@@ -76,7 +76,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get toolVibration => 'ارتعاش';
 
   @override
-  String get toolVibrationSubtitle => 'لائیو گراف کے ساتھ ارتعاش میٹر';
+  String get toolVibrationSubtitle => 'ارتعاش کی طاقت اور رفتار (RPM)';
 
   @override
   String get toolSound => 'ساؤنڈ میٹر';
@@ -644,23 +644,23 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'فون کو جانچنے والی سطح یا مشین پر لٹائیں اور ہاتھ ہٹا لیں۔';
+      'فون کو چلتی مشین پر سیدھا رکھیں اور ہاتھ ہٹا لیں۔ چھوٹی مشین پر اسے مضبوطی سے دبا کر رکھیں۔';
 
   @override
   String get vibrationHelp2 =>
-      'عدد ابھی کا ارتعاش ہے، m/s² میں۔ ایک سوئی ہر چھ سیکنڈ میں گھومتی ہے اور اسے عدد کے گرد لہر کی طرح بناتی ہے: ساکن ہونے پر سبز، ہلکے ارتعاش میں نارنجی، تیز میں سرخ۔ چھوٹا نشان عروج دکھاتا ہے۔';
+      'سوئی سب سے تیز ارتعاش کی رفتار RPM میں دکھاتی ہے، نیچے ہرٹز میں (RPM، ہرٹز × 60 ہوتا ہے)۔ ڈائل کے اندر ہلکی چمک پورا اسپیکٹرم ہے؛ سوئی اس کے سب سے روشن حصے کی طرف اشارہ کرتی ہے۔';
 
   @override
   String get vibrationHelp3 =>
-      'زیادہ سے زیادہ سب سے تیز لمحہ ہے۔ اوسط پچھلے ایک سیکنڈ کی سطح ہے۔';
+      'طاقت بتاتی ہے کہ کتنا زور سے ہل رہا ہے، m/s² میں: 0.3 سے کم ساکن ہے، 2 سے زیادہ تیز ہے۔';
 
   @override
   String get vibrationHelp4 =>
-      'ہر نئے ٹیسٹ سے پہلے زیادہ سے زیادہ ری سیٹ کریں دبائیں۔';
+      'ریڈنگ روکنے کے لیے لاک دبائیں، اور اگلی مشین سے پہلے ری سیٹ بٹن دبائیں۔';
 
   @override
   String get vibrationTip =>
-      '«ساکن» کا مطلب 0.3 m/s² سے کم اور «تیز ارتعاش» کا مطلب 2 m/s² سے زیادہ ہے۔ ریڈنگز کو موازنے کے لیے استعمال کریں؛ فون کے سینسر لیبارٹری کے آلات نہیں۔';
+      'زیادہ تر فون 100 Hz (6000 RPM) تک ناپتے ہیں، کچھ کم؛ ڈائل آپ کے فون کی حد دکھاتا ہے۔ اس سے تیز ارتعاش غلط، کم رفتار کے طور پر دکھ سکتا ہے۔ سب سے تیز ارتعاش اکثر شافٹ کی رفتار ہوتا ہے، مگر اس کا دگنا بھی ہو سکتا ہے۔ فون کے سینسر لیب کے آلات نہیں ہیں۔';
 
   @override
   String get still => 'ساکن';
@@ -678,6 +678,31 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'ارتعاش $value میٹر فی سیکنڈ مربع';
+  }
+
+  @override
+  String get frequency => 'فریکوئنسی';
+
+  @override
+  String get rpm => 'RPM';
+
+  @override
+  String get strength => 'طاقت';
+
+  @override
+  String vibratingAt(String value) {
+    return '$value Hz پر ارتعاش';
+  }
+
+  @override
+  String get noClearFrequency => 'کوئی واضح فریکوئنسی نہیں';
+
+  @override
+  String get findingFrequency => 'فریکوئنسی تلاش ہو رہی ہے…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm چکر فی منٹ، $value ہرٹز';
   }
 
   @override

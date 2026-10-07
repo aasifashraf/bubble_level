@@ -76,7 +76,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get toolVibration => 'Вибрация';
 
   @override
-  String get toolVibrationSubtitle => 'Виброметр с графиком в реальном времени';
+  String get toolVibrationSubtitle => 'Сила и скорость вибрации (об/мин)';
 
   @override
   String get toolSound => 'Шумомер';
@@ -646,23 +646,23 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Положите телефон на поверхность или механизм, который хотите проверить, и уберите руки.';
+      'Положите телефон на работающий механизм и уберите руки. На небольшом механизме прижмите его покрепче.';
 
   @override
   String get vibrationHelp2 =>
-      'Число показывает текущую вибрацию в м/с². Стрелка делает оборот каждые шесть секунд и рисует её волной вокруг числа: зелёной в покое, оранжевой при лёгкой вибрации, красной при сильной. Небольшая метка отмечает пик.';
+      'Стрелка показывает скорость самой сильной вибрации в об/мин, под ней указаны герцы (об/мин равны герцам × 60). Слабое свечение внутри шкалы показывает весь спектр; стрелка указывает на его самую яркую часть.';
 
   @override
   String get vibrationHelp3 =>
-      'Пик показывает самый сильный момент. Среднее показывает уровень за последнюю секунду.';
+      'Сила показывает, насколько сильно трясёт, в м/с²: меньше 0,3 означает покой, больше 2 означает сильную вибрацию.';
 
   @override
   String get vibrationHelp4 =>
-      'Нажимайте «Сбросить пик» перед каждым новым измерением.';
+      'Нажмите «Заблокировать», чтобы удержать показание, и кнопку сброса перед следующим механизмом.';
 
   @override
   String get vibrationTip =>
-      '«Неподвижно» означает меньше 0,3 м/с², «Сильная вибрация» означает больше 2 м/с². Используйте показания для сравнения: датчики телефона не являются лабораторными приборами.';
+      'Большинство телефонов измеряют до 100 Гц (6000 об/мин), некоторые меньше; шкала показывает предел вашего телефона. Более быстрая вибрация может отображаться как неверная, более низкая скорость. Самая сильная вибрация часто совпадает со скоростью вала, но может быть вдвое выше. Датчики телефона не являются лабораторными приборами.';
 
   @override
   String get still => 'Неподвижно';
@@ -680,6 +680,31 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Вибрация $value метров в секунду в квадрате';
+  }
+
+  @override
+  String get frequency => 'Частота';
+
+  @override
+  String get rpm => 'об/мин';
+
+  @override
+  String get strength => 'Сила';
+
+  @override
+  String vibratingAt(String value) {
+    return 'Вибрация $value Гц';
+  }
+
+  @override
+  String get noClearFrequency => 'Нет чёткой частоты';
+
+  @override
+  String get findingFrequency => 'Поиск частоты…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '$rpm оборотов в минуту, $value герц';
   }
 
   @override

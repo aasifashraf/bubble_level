@@ -42,13 +42,14 @@ class FakeMotionSensorService implements MotionSensorService {
   void sendUp(Vec3 up) => sendAccel(up.normalized() * 9.81);
 
   @override
-  Stream<SensorSample> accelerometer() => accel.stream;
+  Stream<SensorSample> accelerometer({bool fast = false}) => accel.stream;
   @override
   Stream<SensorSample> gyroscope() => gyro.stream;
   @override
   Stream<SensorSample> magnetometer() => magnet.stream;
   @override
-  Stream<SensorSample> userAccelerometer() => userAccel.stream;
+  Stream<SensorSample> userAccelerometer({bool fast = false}) =>
+      userAccel.stream;
   @override
   Stream<ScalarSample> barometer() => baro.stream;
   @override

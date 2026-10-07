@@ -76,7 +76,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get toolVibration => '振動計';
 
   @override
-  String get toolVibrationSubtitle => 'リアルタイムグラフ付き振動計';
+  String get toolVibrationSubtitle => '振動の強さと回転数（rpm）';
 
   @override
   String get toolSound => '騒音計';
@@ -617,21 +617,23 @@ class AppLocalizationsJa extends AppLocalizations {
   String get turnSoundOn => '音を出す';
 
   @override
-  String get vibrationHelp1 => '調べたい面や機械の上に端末を平らに置き、手を離します。';
+  String get vibrationHelp1 =>
+      '動いている機械の上にスマホを平らに置き、手を離します。小さな機械ではしっかり押さえてください。';
 
   @override
   String get vibrationHelp2 =>
-      '数字は現在の振動（m/s²）です。針が6秒ごとに一周し、数字の周りに波として描きます。静止時は緑、軽い振動はオレンジ、強い振動は赤。小さな刻みはピークを示します。';
+      '針はいちばん強い振動の速さを rpm で示し、その下にヘルツを表示します（rpm はヘルツ × 60）。目盛りの内側のかすかな光はスペクトル全体で、針はその最も明るい部分を指します。';
 
   @override
-  String get vibrationHelp3 => '最大は最も強かった瞬間、平均は直近1秒の値です。';
+  String get vibrationHelp3 =>
+      '強さは揺れの大きさで、単位は m/s² です。0.3 未満は静止、2 を超えると強い振動です。';
 
   @override
-  String get vibrationHelp4 => '新しく測る前に「最大をリセット」をタップします。';
+  String get vibrationHelp4 => 'ロックで値を保持し、次の機械を測る前にリセットボタンを押します。';
 
   @override
   String get vibrationTip =>
-      '「静止」は0.3 m/s²未満、「強い振動」は2 m/s²超です。比較の目安としてお使いください。端末のセンサーは計測機器ではありません。';
+      '多くのスマホは 100 Hz（6000 rpm）まで測れますが、それより低い機種もあり、目盛りはお使いの機種の上限を示します。それより速い振動は、誤った低い速さとして表示されることがあります。最も強い振動は軸の回転数であることが多いですが、その2倍のこともあります。スマホのセンサーは計測機器ではありません。';
 
   @override
   String get still => '静止';
@@ -649,6 +651,31 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return '振動 毎秒毎秒$valueメートル';
+  }
+
+  @override
+  String get frequency => '周波数';
+
+  @override
+  String get rpm => 'rpm';
+
+  @override
+  String get strength => '強さ';
+
+  @override
+  String vibratingAt(String value) {
+    return '$value Hz で振動';
+  }
+
+  @override
+  String get noClearFrequency => 'はっきりした周波数なし';
+
+  @override
+  String get findingFrequency => '周波数を検出中…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return '毎分 $rpm 回転、$value ヘルツ';
   }
 
   @override

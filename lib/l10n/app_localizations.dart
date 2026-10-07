@@ -253,7 +253,7 @@ abstract class AppLocalizations {
   /// No description provided for @toolVibrationSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Vibration meter with live graph'**
+  /// **'Vibration strength and speed (RPM)'**
   String get toolVibrationSubtitle;
 
   /// No description provided for @toolSound.
@@ -1219,31 +1219,31 @@ abstract class AppLocalizations {
   /// No description provided for @vibrationHelp1.
   ///
   /// In en, this message translates to:
-  /// **'Place the phone flat on the surface or machine you want to check, and keep your hands off it.'**
+  /// **'Place the phone flat on the running machine and keep your hands off it. On a small machine, hold it down firmly.'**
   String get vibrationHelp1;
 
   /// No description provided for @vibrationHelp2.
   ///
   /// In en, this message translates to:
-  /// **'The number is the vibration right now in m/s². A hand sweeps round every six seconds, drawing it as a swell around the number: green when still, orange for light vibration, red for strong. The small notch marks the peak.'**
+  /// **'The needle shows the speed of the strongest vibration in RPM, with hertz under it (RPM is hertz × 60). The faint glow inside the dial is the whole spectrum; the needle points into its brightest part.'**
   String get vibrationHelp2;
 
   /// No description provided for @vibrationHelp3.
   ///
   /// In en, this message translates to:
-  /// **'Peak is the strongest moment. Average is the level over the last second.'**
+  /// **'Strength is how hard it shakes, in m/s²: under 0.3 is still, over 2 is strong.'**
   String get vibrationHelp3;
 
   /// No description provided for @vibrationHelp4.
   ///
   /// In en, this message translates to:
-  /// **'Tap Reset peak before each new test.'**
+  /// **'Tap Lock to hold a reading, and the reset button before measuring the next machine.'**
   String get vibrationHelp4;
 
   /// No description provided for @vibrationTip.
   ///
   /// In en, this message translates to:
-  /// **'“Still” is under 0.3 m/s² and “Strong vibration” is over 2 m/s². Use the readings to compare; phone sensors aren’t lab instruments.'**
+  /// **'Most phones measure up to 100 Hz (6000 RPM), some less; the dial shows your phone\'s limit. Faster vibration can show up as a wrong, lower speed. The strongest vibration is often the shaft speed, but can be twice it. Phone sensors aren\'t lab instruments.'**
   String get vibrationTip;
 
   /// No description provided for @still.
@@ -1275,6 +1275,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Vibration {value} metres per second squared'**
   String vibrationSemantics(String value);
+
+  /// No description provided for @frequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequency'**
+  String get frequency;
+
+  /// No description provided for @rpm.
+  ///
+  /// In en, this message translates to:
+  /// **'RPM'**
+  String get rpm;
+
+  /// No description provided for @strength.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength'**
+  String get strength;
+
+  /// No description provided for @vibratingAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibrating at {value} Hz'**
+  String vibratingAt(String value);
+
+  /// No description provided for @noClearFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'No clear frequency'**
+  String get noClearFrequency;
+
+  /// No description provided for @findingFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding the frequency…'**
+  String get findingFrequency;
+
+  /// No description provided for @vibrationSpeedSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{rpm} revolutions per minute, {value} hertz'**
+  String vibrationSpeedSemantics(String rpm, String value);
 
   /// No description provided for @peak.
   ///

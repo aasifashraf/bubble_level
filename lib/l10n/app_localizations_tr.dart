@@ -76,7 +76,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get toolVibration => 'Titreşim';
 
   @override
-  String get toolVibrationSubtitle => 'Canlı grafikli titreşim ölçer';
+  String get toolVibrationSubtitle => 'Titreşim gücü ve hızı (dev/dk)';
 
   @override
   String get toolSound => 'Ses ölçer';
@@ -645,23 +645,23 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get vibrationHelp1 =>
-      'Telefonu kontrol etmek istediğiniz yüzeye veya makineye düz koyun ve elinizi çekin.';
+      'Telefonu çalışan makinenin üzerine düz koyun ve elinizi çekin. Küçük bir makinede sıkıca bastırın.';
 
   @override
   String get vibrationHelp2 =>
-      'Sayı, şu anki titreşimdir (m/s²). Bir ibre her altı saniyede bir tur atar ve titreşimi sayının çevresinde bir dalga olarak çizer: hareketsizken yeşil, hafif titreşimde turuncu, güçlüde kırmızı. Küçük çentik en yüksek değeri gösterir.';
+      'İbre en güçlü titreşimin hızını dev/dk olarak, altında hertz olarak gösterir (dev/dk, hertz × 60’tır). Kadranın içindeki hafif parıltı spektrumun tamamıdır; ibre en parlak kısmını gösterir.';
 
   @override
   String get vibrationHelp3 =>
-      'Tepe en güçlü andır. Ortalama, son bir saniyedeki seviyedir.';
+      'Güç, ne kadar sert sarsıldığıdır, m/s² cinsinden: 0,3’ün altı durgun, 2’nin üstü güçlüdür.';
 
   @override
   String get vibrationHelp4 =>
-      'Her yeni testten önce Tepeyi sıfırla\'ya dokunun.';
+      'Bir ölçümü tutmak için Kilitle’ye, sonraki makineden önce sıfırlama düğmesine dokunun.';
 
   @override
   String get vibrationTip =>
-      '\"Sabit\" 0,3 m/s² altı, \"Güçlü titreşim\" 2 m/s² üstüdür. Değerleri karşılaştırma için kullanın; telefon sensörleri laboratuvar cihazı değildir.';
+      'Çoğu telefon 100 Hz’e (6000 dev/dk) kadar ölçer, bazıları daha az; kadran telefonunuzun sınırını gösterir. Daha hızlı titreşim yanlış, daha düşük bir hız olarak görünebilir. En güçlü titreşim çoğu zaman mil hızıdır ama iki katı da olabilir. Telefon sensörleri laboratuvar cihazı değildir.';
 
   @override
   String get still => 'Sabit';
@@ -679,6 +679,31 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String vibrationSemantics(String value) {
     return 'Titreşim saniye kare başına $value metre';
+  }
+
+  @override
+  String get frequency => 'Frekans';
+
+  @override
+  String get rpm => 'dev/dk';
+
+  @override
+  String get strength => 'Güç';
+
+  @override
+  String vibratingAt(String value) {
+    return '$value Hz ile titreşiyor';
+  }
+
+  @override
+  String get noClearFrequency => 'Belirgin frekans yok';
+
+  @override
+  String get findingFrequency => 'Frekans aranıyor…';
+
+  @override
+  String vibrationSpeedSemantics(String rpm, String value) {
+    return 'Dakikada $rpm devir, $value hertz';
   }
 
   @override
