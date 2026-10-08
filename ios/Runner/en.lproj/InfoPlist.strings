@@ -2,4 +2,4 @@
 "CFBundleDisplayName" = "Bubble Level";
 "NSMicrophoneUsageDescription" = "The Sound meter uses the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.";
 "NSMotionUsageDescription" = "Motion sensors and the barometer are used to measure tilt, angles, compass heading, vibration and altitude.";
-"NSCameraUsageDescription" = "The Camera level shows a level grid over the camera’s picture. The picture is never recorded, saved or sent.";
+"NSCameraUsageDescription" = "The Camera level shows level lines over the camera’s picture to measure edges. The picture is never recorded, saved or sent.";

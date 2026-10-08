@@ -1096,34 +1096,35 @@ class AppLocalizationsFr extends AppLocalizations {
   String get toolCamera => 'Niveau caméra';
 
   @override
-  String get toolCameraSubtitle => 'Grille de niveau sur la caméra';
+  String get toolCameraSubtitle =>
+      'Lignes de niveau sur la caméra, mesurez n’importe quel bord';
 
   @override
   String get cameraHelp1 =>
-      'Pointez la caméra arrière vers un mur, une étagère, du carrelage ou un tableau, téléphone tenu droit.';
+      'Pointez la caméra arrière vers un mur, un tableau, une étagère ou une porte. Tenez le téléphone droit, bien face au mur.';
 
   @override
   String get cameraHelp2 =>
-      'La grille suit la gravité, pas l’écran : ses lignes sont toujours de niveau et d’aplomb. Alignez les bords de l’image dessus ; un bord de travers coupe les lignes.';
+      'Les lignes pleines suivent la gravité : elles sont toujours de niveau et d’aplomb. Les lignes pointillées sont fixées au téléphone, et le petit arc entre elles montre de combien il est incliné. Les vraies lignes deviennent orange quand le téléphone est de niveau.';
 
   @override
   String get cameraHelp3 =>
-      'La croix au centre devient orange quand le téléphone est de niveau. Inclinaison indique de combien il est tourné, Avant/arrière de combien il penche vers le mur ou vers vous.';
+      'Pour vérifier un objet, touchez Figer, puis faites glisser les deux poignées orange sur l’un de ses bords, comme le haut d’un cadre. Vous voyez de combien ce bord est de travers et quel côté relever, même si votre main n’était pas de niveau. Mettez la ligne debout pour vérifier un bord d’aplomb.';
 
   @override
   String get cameraHelp4 =>
-      'Choisissez de petits, moyens ou grands carreaux en haut. Figer garde l’image et la mesure ; la lumière aide dans les coins sombres.';
+      'Les deux boutons en haut affichent ou masquent les lignes du téléphone et les vraies lignes. La lumière aide dans les coins sombres ; Reprendre revient à l’image en direct.';
 
   @override
   String get cameraTip =>
-      'Tenez le téléphone parallèle au mur pour l’image la plus juste ; près des bords, l’objectif peut légèrement courber les lignes. Utilise l’étalonnage sur la tranche du niveau. L’image n’est jamais enregistrée, sauvegardée ni envoyée.';
+      'Pour mesurer un bord avec précision, tenez‑vous bien face au mur (Avant/arrière sous 5°) et mesurez près du centre de l’image, où l’objectif courbe le moins les lignes. Utilise l’étalonnage sur la tranche du niveau. L’image n’est jamais enregistrée, sauvegardée ni envoyée.';
 
   @override
   String get cameraAllowTitle => 'Autoriser la caméra';
 
   @override
   String get cameraAllowBody =>
-      'Le niveau caméra trace une grille de niveau sur l’image de la caméra. L’image reste sur votre téléphone et n’est jamais enregistrée, sauvegardée ni envoyée.';
+      'Le niveau caméra trace des lignes de niveau sur l’image de la caméra et y mesure les bords. L’image reste sur votre téléphone et n’est jamais enregistrée, sauvegardée ni envoyée.';
 
   @override
   String get cameraAllow => 'Autoriser la caméra';
@@ -1167,16 +1168,46 @@ class AppLocalizationsFr extends AppLocalizations {
   String get torch => 'Lumière';
 
   @override
-  String get gridSmall => 'Petits carreaux';
-
-  @override
-  String get gridMedium => 'Carreaux moyens';
-
-  @override
-  String get gridLarge => 'Grands carreaux';
-
-  @override
   String cameraSemantics(String value) {
-    return 'Image de la caméra avec grille de niveau, inclinée de $value degrés';
+    return 'Image de la caméra avec lignes de niveau, inclinée de $value degrés';
   }
+
+  @override
+  String get cameraPhoneLines => 'Lignes du téléphone';
+
+  @override
+  String get cameraTrueLines => 'Vraies lignes';
+
+  @override
+  String get cameraFrozen => 'Figé';
+
+  @override
+  String get cameraDragHandles => 'Faites glisser les poignées sur un bord';
+
+  @override
+  String get cameraFaceWall => 'Placez-vous bien face au mur';
+
+  @override
+  String get edgeLevel => 'Ce bord est de niveau';
+
+  @override
+  String get edgePlumb => 'Ce bord est d’aplomb';
+
+  @override
+  String edgeLiftRight(String value) {
+    return 'Bord de travers de $value°, relevez la droite';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return 'Bord de travers de $value°, relevez la gauche';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return 'Bord à $value° de l’aplomb';
+  }
+
+  @override
+  String get cameraHandle => 'Poignée du bord';
 }

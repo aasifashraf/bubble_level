@@ -1088,34 +1088,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get toolCamera => 'Camera level';
 
   @override
-  String get toolCameraSubtitle => 'Level grid over the camera view';
+  String get toolCameraSubtitle =>
+      'Level lines over the camera, measure any edge';
 
   @override
   String get cameraHelp1 =>
-      'Point the back camera at a wall, shelf, tiles or picture, holding the phone upright.';
+      'Point the back camera at a wall, a picture, a shelf or a door. Hold the phone upright, facing the wall squarely.';
 
   @override
   String get cameraHelp2 =>
-      'The grid follows gravity, not the screen: its lines are always truly level and plumb. Line up edges in the picture with them; a crooked edge runs across the lines.';
+      'Solid lines follow gravity: they are always truly level and plumb. Dashed lines are fixed to your phone, and the small arc between them shows how far it is tilted. The true lines turn orange when the phone is level.';
 
   @override
   String get cameraHelp3 =>
-      'The cross in the middle turns orange when the phone is level. Tilt shows how far it\'s turned, Forward/back how far it leans towards or away from the wall.';
+      'To check an object, tap Freeze, then drag the two orange handles onto one of its edges, like the top of a frame. It shows how far that edge is off level and which side to lift, even if your hand wasn’t level. Drag the line upright to check a plumb edge.';
 
   @override
   String get cameraHelp4 =>
-      'Pick small, medium or large squares at the top. Freeze holds the picture and the reading; the light helps in dark corners.';
+      'The two buttons at the top show or hide the phone lines and the true lines. The light helps in dark corners; Resume goes back to the live picture.';
 
   @override
   String get cameraTip =>
-      'Hold the phone square to the wall for the truest picture; lines near the screen\'s edges can bend slightly with the lens. Uses the Level\'s on-edge calibration. The picture is never recorded, saved or sent.';
+      'For an exact edge reading, face the wall squarely (Forward/back under 5°) and measure near the middle of the picture, where the lens bends lines least. Uses the Level’s on-edge calibration. The picture is never recorded, saved or sent.';
 
   @override
   String get cameraAllowTitle => 'Allow the camera';
 
   @override
   String get cameraAllowBody =>
-      'The camera level draws a level grid over the camera\'s picture. The picture stays on your phone and is never recorded, saved or sent.';
+      'The camera level draws level lines over the camera’s picture and measures edges in it. The picture stays on your phone and is never recorded, saved or sent.';
 
   @override
   String get cameraAllow => 'Allow camera';
@@ -1158,16 +1159,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get torch => 'Light';
 
   @override
-  String get gridSmall => 'Small squares';
-
-  @override
-  String get gridMedium => 'Medium squares';
-
-  @override
-  String get gridLarge => 'Large squares';
-
-  @override
   String cameraSemantics(String value) {
-    return 'Camera view with a level grid, tilted $value degrees';
+    return 'Camera view with level lines, tilted $value degrees';
   }
+
+  @override
+  String get cameraPhoneLines => 'Phone lines';
+
+  @override
+  String get cameraTrueLines => 'True lines';
+
+  @override
+  String get cameraFrozen => 'Frozen';
+
+  @override
+  String get cameraDragHandles => 'Drag the handles onto an edge';
+
+  @override
+  String get cameraFaceWall => 'Face the wall squarely';
+
+  @override
+  String get edgeLevel => 'This edge is level';
+
+  @override
+  String get edgePlumb => 'This edge is plumb';
+
+  @override
+  String edgeLiftRight(String value) {
+    return 'Edge $value° off, lift the right';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return 'Edge $value° off, lift the left';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return 'Edge $value° off plumb';
+  }
+
+  @override
+  String get cameraHandle => 'Edge handle';
 }

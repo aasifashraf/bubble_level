@@ -2,4 +2,4 @@
 "CFBundleDisplayName" = "水平器";
 "NSMicrophoneUsageDescription" = "騒音計はマイクで音の大きさを測ります。音は端末内で測るだけで、録音・保存・送信は一切しません。";
 "NSMotionUsageDescription" = "モーションセンサーと気圧計で、傾き、角度、方位、振動、高度を測ります。";
-"NSCameraUsageDescription" = "カメラ水平器はカメラ映像の上に水平グリッドを表示します。映像が録画・保存・送信されることはありません。";
+"NSCameraUsageDescription" = "カメラ水平器は縁を測るため、カメラ映像の上に水平線を表示します。映像が録画・保存・送信されることはありません。";

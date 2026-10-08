@@ -4,6 +4,7 @@ import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
 import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/ui/features/camera/view_models/camera_level_view_model.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -131,11 +132,42 @@ void main() {
     expect(vm.torchAvailable, isFalse);
   });
 
-  test('square size is remembered', () async {
-    await setUpWith({});
-    expect(vm.gridSize, 1);
-    vm.setGridSize(2);
+  test('lines can be hidden; frozen, the handles read an edge', () async {
+    await setUpWith({'cameraAllowed': true});
+    vm
+      ..active = true
+      ..area = const Size(400, 600);
     await flush();
-    expect((await SettingsRepository.load()).cameraGrid, 2);
+    vm.togglePhoneLines();
+    expect(vm.showPhone, isFalse);
+    vm.toggleTrueLines();
+    expect(vm.showTrue, isFalse);
+
+    // The phone turned 3° counter-clockwise: true level runs at +3°.
+    await hold(3);
+    expect(vm.edge, isNull);
+    await vm.toggleFreeze();
+    final h = vm.handles!;
+    expect(h[0].dy, h[1].dy, reason: 'starts across the screen');
+    // Level on the screen, so 3° off true level, the left end low.
+    expect(vm.edge!.offset, closeTo(-3, 0.1));
+    // Laid along true level, it reads level.
+    final r = 3 * math.pi / 180;
+    vm.moveHandle(1, h[0] + Offset(math.cos(r), math.sin(r)) * 180);
+    expect(vm.edge!.offset, closeTo(0, 0.1));
+    expect(vm.edge!.plumb, isFalse);
+    // Upright: measured against plumb.
+    vm.moveHandle(
+      1,
+      h[0] + Offset(-math.sin(r), math.cos(r)) * 180 + const Offset(-6.3, 0),
+    );
+    expect(vm.edge!.plumb, isTrue);
+    expect(vm.edge!.offset.abs(), closeTo(2, 0.1));
+    // Handles stay inside the picture; Resume forgets them.
+    vm.moveHandle(0, const Offset(-50, 900));
+    expect(vm.handles![0], const Offset(0, 600));
+    await vm.toggleFreeze();
+    expect(vm.handles, isNull);
+    expect(vm.edge, isNull);
   });
 }

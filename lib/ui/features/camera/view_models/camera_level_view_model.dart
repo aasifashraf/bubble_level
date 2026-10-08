@@ -25,9 +25,10 @@ enum CameraAccess {
   granted,
 }
 
-/// Camera level: a grid that follows gravity over the back camera's
-/// picture. The camera runs only while the tool is open and in front;
-/// Freeze holds the picture and the reading together.
+/// Camera level: true level and plumb lines (following gravity) and the
+/// phone's own lines over the back camera's picture. Freeze holds the
+/// picture and the pose; two handles then mark an edge in it, read against
+/// true level. The camera runs only while the tool is open and in front.
 class CameraLevelViewModel extends SensorViewModel {
   CameraLevelViewModel({
     required OrientationRepository orientation,
@@ -63,9 +64,51 @@ class CameraLevelViewModel extends SensorViewModel {
 
   bool get level => pose != null && _wasLevel;
 
-  /// 0 small, 1 medium, 2 large squares.
-  int get gridSize => _settings.cameraGrid;
-  void setGridSize(int size) => unawaited(_settings.setCameraGrid(size));
+  bool _showPhone = true, _showTrue = true;
+  List<Offset>? _handles;
+
+  /// Where the overlay is drawn, logical pixels: set by the view, used to
+  /// place the handles when the picture is frozen.
+  Size area = Size.zero;
+
+  /// The lines fixed to the screen, and the lines that follow gravity.
+  bool get showPhone => _showPhone;
+  bool get showTrue => _showTrue;
+
+  void togglePhoneLines() {
+    _showPhone = !_showPhone;
+    notifyListeners();
+  }
+
+  void toggleTrueLines() {
+    _showTrue = !_showTrue;
+    notifyListeners();
+  }
+
+  /// Frozen: the two ends of the edge line, in the overlay.
+  List<Offset>? get handles => _handles;
+
+  void moveHandle(int i, Offset to) {
+    final h = _handles;
+    if (h == null) return;
+    _handles = [...h]
+      ..[i] = Offset(
+        to.dx.clamp(0.0, area.width),
+        to.dy.clamp(0.0, area.height),
+      );
+    notifyListeners();
+  }
+
+  /// The marked edge against true level or plumb; null unless frozen.
+  EdgeReading? get edge {
+    final h = _handles, pose = _held;
+    if (!_frozen || h == null || pose == null) return null;
+    return edgeReading(h[0].dx, h[0].dy, h[1].dx, h[1].dy, pose.rotation);
+  }
+
+  /// Leaning towards or away from the wall more than this, an edge in the
+  /// picture is skewed by perspective.
+  static const squareWithin = 5.0;
 
   /// Starts the camera after the explanation (the system asks first).
   Future<void> allow() => _start();
@@ -75,6 +118,11 @@ class CameraLevelViewModel extends SensorViewModel {
   Future<void> toggleFreeze() async {
     _frozen = !_frozen;
     _held = _frozen ? _pose : null;
+    // The edge line starts level across the middle, a little above it.
+    final c = area.center(Offset.zero) - const Offset(0, 80);
+    _handles = _frozen && _held != null
+        ? [c - const Offset(90, 0), c + const Offset(90, 0)]
+        : null;
     notifyListeners();
     await _feed?.setFrozen(_frozen);
   }
@@ -122,6 +170,7 @@ class CameraLevelViewModel extends SensorViewModel {
     _torch = false;
     _frozen = false;
     _held = null;
+    _handles = null;
     if (feed != null) unawaited(feed.dispose());
   }
 

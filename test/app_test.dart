@@ -934,14 +934,29 @@ void main() {
     }
     expect(find.text('Level'), findsWidgets);
 
-    // Large squares, remembered; Freeze holds the picture.
-    await tester.tap(find.byTooltip('Large squares'));
+    // Either pair of lines can be hidden.
+    await tester.tap(find.text('True lines'));
     await tester.pump();
-    expect((await SettingsRepository.load()).cameraGrid, 2);
+    await tester.tap(find.text('True lines'));
+    await tester.pump();
+
+    // Freeze holds the picture; the handles measure an edge in it: the
+    // right end 6.3 px lower over 180 px is 2° off.
     await tester.tap(find.text('Freeze'));
     await tester.pump();
     expect(camera.feed!.frozen, isTrue);
     expect(find.text('Resume'), findsOneWidget);
+    expect(find.text('Frozen'), findsOneWidget);
+    expect(find.text('This edge is level'), findsOneWidget);
+    await tester.drag(
+      find.byKey(const ValueKey('edgeHandle1')),
+      const Offset(0, 6.29),
+    );
+    await tester.pump();
+    expect(find.text('Edge 2.0° off, lift the right'), findsOneWidget);
+    // Live sensor changes don't move a frozen reading.
+    await send(tester, Vec3(math.sin(r), math.cos(r), 0));
+    expect(find.text('Edge 2.0° off, lift the right'), findsOneWidget);
     await tester.tap(find.byTooltip('Light'));
     await tester.pump();
     expect(camera.feed!.torchOn, isTrue);

@@ -1092,34 +1092,35 @@ class AppLocalizationsId extends AppLocalizations {
   String get toolCamera => 'Waterpass kamera';
 
   @override
-  String get toolCameraSubtitle => 'Kisi-kisi datar di atas kamera';
+  String get toolCameraSubtitle =>
+      'Garis datar di atas kamera, ukur tepi apa pun';
 
   @override
   String get cameraHelp1 =>
-      'Arahkan kamera belakang ke dinding, rak, ubin, atau pigura sambil memegang ponsel tegak.';
+      'Arahkan kamera belakang ke dinding, pigura, rak, atau pintu. Pegang ponsel tegak dan menghadap lurus ke dinding.';
 
   @override
   String get cameraHelp2 =>
-      'Kisi-kisi mengikuti gravitasi, bukan layar: garisnya selalu tepat datar dan tegak lurus. Sejajarkan tepi di gambar dengannya; tepi yang miring memotong garis.';
+      'Garis utuh mengikuti gravitasi: selalu tepat datar dan tegak lurus. Garis putus-putus menempel pada ponsel, dan busur kecil di antaranya menunjukkan seberapa miring ponsel. Garis sebenarnya berubah oranye saat ponsel datar.';
 
   @override
   String get cameraHelp3 =>
-      'Tanda silang di tengah berubah oranye saat ponsel datar. Kemiringan menunjukkan seberapa jauh ponsel berputar, Maju/mundur seberapa jauh ponsel condong ke dinding atau ke arah Anda.';
+      'Untuk memeriksa benda, ketuk Bekukan, lalu seret dua pegangan oranye ke salah satu tepinya, misalnya bagian atas pigura. Anda akan melihat seberapa miring tepi itu dan sisi mana yang perlu diangkat, meski tangan Anda tidak datar. Tegakkan garis untuk memeriksa tepi tegak lurus.';
 
   @override
   String get cameraHelp4 =>
-      'Pilih kotak kecil, sedang, atau besar di atas. Bekukan menahan gambar dan bacaan; lampu membantu di sudut gelap.';
+      'Dua tombol di atas menampilkan atau menyembunyikan garis ponsel dan garis sebenarnya. Lampu membantu di sudut gelap; Lanjutkan kembali ke gambar langsung.';
 
   @override
   String get cameraTip =>
-      'Pegang ponsel sejajar dinding untuk gambar paling tepat; garis di dekat tepi layar bisa sedikit melengkung karena lensa. Memakai kalibrasi sisi dari waterpass. Gambar tidak pernah direkam, disimpan, atau dikirim.';
+      'Agar tepi terukur tepat, hadapkan ponsel lurus ke dinding (Maju/mundur di bawah 5°) dan ukur di dekat tengah gambar, tempat lensa paling sedikit membengkokkan garis. Memakai kalibrasi sisi dari waterpass. Gambar tidak pernah direkam, disimpan, atau dikirim.';
 
   @override
   String get cameraAllowTitle => 'Izinkan kamera';
 
   @override
   String get cameraAllowBody =>
-      'Waterpass kamera menggambar kisi-kisi datar di atas gambar kamera. Gambar tetap di ponsel Anda dan tidak pernah direkam, disimpan, atau dikirim.';
+      'Waterpass kamera menggambar garis datar di atas gambar kamera dan mengukur tepi di dalamnya. Gambar tetap di ponsel Anda dan tidak pernah direkam, disimpan, atau dikirim.';
 
   @override
   String get cameraAllow => 'Izinkan kamera';
@@ -1162,16 +1163,46 @@ class AppLocalizationsId extends AppLocalizations {
   String get torch => 'Lampu';
 
   @override
-  String get gridSmall => 'Kotak kecil';
-
-  @override
-  String get gridMedium => 'Kotak sedang';
-
-  @override
-  String get gridLarge => 'Kotak besar';
-
-  @override
   String cameraSemantics(String value) {
-    return 'Tampilan kamera dengan kisi-kisi datar, miring $value derajat';
+    return 'Tampilan kamera dengan garis datar, miring $value derajat';
   }
+
+  @override
+  String get cameraPhoneLines => 'Garis ponsel';
+
+  @override
+  String get cameraTrueLines => 'Garis sebenarnya';
+
+  @override
+  String get cameraFrozen => 'Dibekukan';
+
+  @override
+  String get cameraDragHandles => 'Seret pegangan ke sebuah tepi';
+
+  @override
+  String get cameraFaceWall => 'Hadapkan ponsel lurus ke dinding';
+
+  @override
+  String get edgeLevel => 'Tepi ini datar';
+
+  @override
+  String get edgePlumb => 'Tepi ini tegak lurus';
+
+  @override
+  String edgeLiftRight(String value) {
+    return 'Tepi miring $value°, angkat kanan';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return 'Tepi miring $value°, angkat kiri';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return 'Tepi $value° dari tegak lurus';
+  }
+
+  @override
+  String get cameraHandle => 'Pegangan tepi';
 }

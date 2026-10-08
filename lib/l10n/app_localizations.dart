@@ -2005,37 +2005,37 @@ abstract class AppLocalizations {
   /// No description provided for @toolCameraSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Level grid over the camera view'**
+  /// **'Level lines over the camera, measure any edge'**
   String get toolCameraSubtitle;
 
   /// No description provided for @cameraHelp1.
   ///
   /// In en, this message translates to:
-  /// **'Point the back camera at a wall, shelf, tiles or picture, holding the phone upright.'**
+  /// **'Point the back camera at a wall, a picture, a shelf or a door. Hold the phone upright, facing the wall squarely.'**
   String get cameraHelp1;
 
   /// No description provided for @cameraHelp2.
   ///
   /// In en, this message translates to:
-  /// **'The grid follows gravity, not the screen: its lines are always truly level and plumb. Line up edges in the picture with them; a crooked edge runs across the lines.'**
+  /// **'Solid lines follow gravity: they are always truly level and plumb. Dashed lines are fixed to your phone, and the small arc between them shows how far it is tilted. The true lines turn orange when the phone is level.'**
   String get cameraHelp2;
 
   /// No description provided for @cameraHelp3.
   ///
   /// In en, this message translates to:
-  /// **'The cross in the middle turns orange when the phone is level. Tilt shows how far it\'s turned, Forward/back how far it leans towards or away from the wall.'**
+  /// **'To check an object, tap Freeze, then drag the two orange handles onto one of its edges, like the top of a frame. It shows how far that edge is off level and which side to lift, even if your hand wasn’t level. Drag the line upright to check a plumb edge.'**
   String get cameraHelp3;
 
   /// No description provided for @cameraHelp4.
   ///
   /// In en, this message translates to:
-  /// **'Pick small, medium or large squares at the top. Freeze holds the picture and the reading; the light helps in dark corners.'**
+  /// **'The two buttons at the top show or hide the phone lines and the true lines. The light helps in dark corners; Resume goes back to the live picture.'**
   String get cameraHelp4;
 
   /// No description provided for @cameraTip.
   ///
   /// In en, this message translates to:
-  /// **'Hold the phone square to the wall for the truest picture; lines near the screen\'s edges can bend slightly with the lens. Uses the Level\'s on-edge calibration. The picture is never recorded, saved or sent.'**
+  /// **'For an exact edge reading, face the wall squarely (Forward/back under 5°) and measure near the middle of the picture, where the lens bends lines least. Uses the Level’s on-edge calibration. The picture is never recorded, saved or sent.'**
   String get cameraTip;
 
   /// No description provided for @cameraAllowTitle.
@@ -2047,7 +2047,7 @@ abstract class AppLocalizations {
   /// No description provided for @cameraAllowBody.
   ///
   /// In en, this message translates to:
-  /// **'The camera level draws a level grid over the camera\'s picture. The picture stays on your phone and is never recorded, saved or sent.'**
+  /// **'The camera level draws level lines over the camera’s picture and measures edges in it. The picture stays on your phone and is never recorded, saved or sent.'**
   String get cameraAllowBody;
 
   /// No description provided for @cameraAllow.
@@ -2122,29 +2122,77 @@ abstract class AppLocalizations {
   /// **'Light'**
   String get torch;
 
-  /// No description provided for @gridSmall.
-  ///
-  /// In en, this message translates to:
-  /// **'Small squares'**
-  String get gridSmall;
-
-  /// No description provided for @gridMedium.
-  ///
-  /// In en, this message translates to:
-  /// **'Medium squares'**
-  String get gridMedium;
-
-  /// No description provided for @gridLarge.
-  ///
-  /// In en, this message translates to:
-  /// **'Large squares'**
-  String get gridLarge;
-
   /// No description provided for @cameraSemantics.
   ///
   /// In en, this message translates to:
-  /// **'Camera view with a level grid, tilted {value} degrees'**
+  /// **'Camera view with level lines, tilted {value} degrees'**
   String cameraSemantics(String value);
+
+  /// No description provided for @cameraPhoneLines.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone lines'**
+  String get cameraPhoneLines;
+
+  /// No description provided for @cameraTrueLines.
+  ///
+  /// In en, this message translates to:
+  /// **'True lines'**
+  String get cameraTrueLines;
+
+  /// No description provided for @cameraFrozen.
+  ///
+  /// In en, this message translates to:
+  /// **'Frozen'**
+  String get cameraFrozen;
+
+  /// No description provided for @cameraDragHandles.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag the handles onto an edge'**
+  String get cameraDragHandles;
+
+  /// No description provided for @cameraFaceWall.
+  ///
+  /// In en, this message translates to:
+  /// **'Face the wall squarely'**
+  String get cameraFaceWall;
+
+  /// No description provided for @edgeLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'This edge is level'**
+  String get edgeLevel;
+
+  /// No description provided for @edgePlumb.
+  ///
+  /// In en, this message translates to:
+  /// **'This edge is plumb'**
+  String get edgePlumb;
+
+  /// No description provided for @edgeLiftRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Edge {value}° off, lift the right'**
+  String edgeLiftRight(String value);
+
+  /// No description provided for @edgeLiftLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Edge {value}° off, lift the left'**
+  String edgeLiftLeft(String value);
+
+  /// No description provided for @edgeOffPlumb.
+  ///
+  /// In en, this message translates to:
+  /// **'Edge {value}° off plumb'**
+  String edgeOffPlumb(String value);
+
+  /// No description provided for @cameraHandle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edge handle'**
+  String get cameraHandle;
 }
 
 class _AppLocalizationsDelegate

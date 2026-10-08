@@ -1043,33 +1043,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get toolCamera => 'カメラ水平器';
 
   @override
-  String get toolCameraSubtitle => 'カメラ映像に水平グリッド';
+  String get toolCameraSubtitle => 'カメラ映像に水平線、どんな縁も測定';
 
   @override
-  String get cameraHelp1 => 'スマホを立てて持ち、背面カメラを壁や棚、タイル、額縁に向けます。';
+  String get cameraHelp1 => '背面カメラを壁や額縁、棚、ドアに向けます。スマホを立て、壁にまっすぐ向けて持ってください。';
 
   @override
   String get cameraHelp2 =>
-      'グリッドは画面ではなく重力に従うので、線は常に正確に水平・垂直です。映像の縁を線に合わせてください。傾いた縁は線を横切ります。';
+      '実線は重力に従うので、常に正確に水平・垂直です。破線はスマホに固定された線で、その間の小さな弧がスマホの傾きを示します。スマホが水平になると実線がオレンジになります。';
 
   @override
   String get cameraHelp3 =>
-      'スマホが水平になると中央の十字がオレンジになります。「傾き」は回転の量、「前後」は壁に向かって、または手前に倒れている量です。';
+      '物を調べるには「停止」をタップし、2つのオレンジのハンドルを額縁の上辺など物の縁にドラッグします。手が水平でなくても、その縁の傾きと、どちらを上げればよいかが表示されます。垂直な縁を調べるときは線を縦にします。';
 
   @override
   String get cameraHelp4 =>
-      '上部でマスの大きさ（小・中・大）を選べます。「停止」で映像と値を保持し、ライトは暗い場所で役立ちます。';
+      '上の2つのボタンで、スマホの線と実際の線の表示を切り替えます。ライトは暗い場所で役立ち、「再開」でライブ映像に戻ります。';
 
   @override
   String get cameraTip =>
-      '最も正確に見るには、スマホを壁と平行に持ってください。画面の端ではレンズのため線がわずかに曲がることがあります。水平器の側面キャリブレーションを使います。映像が録画・保存・送信されることはありません。';
+      '縁を正確に測るには、壁にまっすぐ向け（前後 5° 未満）、レンズによる線の曲がりが最も少ない映像の中央付近で測ってください。水平器の側面キャリブレーションを使います。映像が録画・保存・送信されることはありません。';
 
   @override
   String get cameraAllowTitle => 'カメラを許可';
 
   @override
   String get cameraAllowBody =>
-      'カメラ水平器はカメラ映像の上に水平グリッドを描きます。映像はスマホ内にとどまり、録画・保存・送信されることはありません。';
+      'カメラ水平器はカメラ映像の上に水平線を描き、映像内の縁を測ります。映像はスマホ内にとどまり、録画・保存・送信されることはありません。';
 
   @override
   String get cameraAllow => 'カメラを許可';
@@ -1112,16 +1112,46 @@ class AppLocalizationsJa extends AppLocalizations {
   String get torch => 'ライト';
 
   @override
-  String get gridSmall => '小さいマス';
-
-  @override
-  String get gridMedium => '中くらいのマス';
-
-  @override
-  String get gridLarge => '大きいマス';
-
-  @override
   String cameraSemantics(String value) {
-    return '水平グリッド付きのカメラ映像、$value 度の傾き';
+    return '水平線付きのカメラ映像、$value 度の傾き';
   }
+
+  @override
+  String get cameraPhoneLines => 'スマホの線';
+
+  @override
+  String get cameraTrueLines => '実際の線';
+
+  @override
+  String get cameraFrozen => '停止中';
+
+  @override
+  String get cameraDragHandles => 'ハンドルを縁にドラッグ';
+
+  @override
+  String get cameraFaceWall => '壁にまっすぐ向けてください';
+
+  @override
+  String get edgeLevel => 'この縁は水平です';
+
+  @override
+  String get edgePlumb => 'この縁は垂直です';
+
+  @override
+  String edgeLiftRight(String value) {
+    return '縁が $value° 傾き、右を上げる';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return '縁が $value° 傾き、左を上げる';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return '縁が垂直から $value° ずれ';
+  }
+
+  @override
+  String get cameraHandle => '縁のハンドル';
 }

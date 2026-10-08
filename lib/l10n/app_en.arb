@@ -557,14 +557,14 @@
   "eyeHeightHint": "How high your eyes are above the ground: about your height minus 10 cm.",
   "clear": "Clear",
   "toolCamera": "Camera level",
-  "toolCameraSubtitle": "Level grid over the camera view",
-  "cameraHelp1": "Point the back camera at a wall, shelf, tiles or picture, holding the phone upright.",
-  "cameraHelp2": "The grid follows gravity, not the screen: its lines are always truly level and plumb. Line up edges in the picture with them; a crooked edge runs across the lines.",
-  "cameraHelp3": "The cross in the middle turns orange when the phone is level. Tilt shows how far it's turned, Forward/back how far it leans towards or away from the wall.",
-  "cameraHelp4": "Pick small, medium or large squares at the top. Freeze holds the picture and the reading; the light helps in dark corners.",
-  "cameraTip": "Hold the phone square to the wall for the truest picture; lines near the screen's edges can bend slightly with the lens. Uses the Level's on-edge calibration. The picture is never recorded, saved or sent.",
+  "toolCameraSubtitle": "Level lines over the camera, measure any edge",
+  "cameraHelp1": "Point the back camera at a wall, a picture, a shelf or a door. Hold the phone upright, facing the wall squarely.",
+  "cameraHelp2": "Solid lines follow gravity: they are always truly level and plumb. Dashed lines are fixed to your phone, and the small arc between them shows how far it is tilted. The true lines turn orange when the phone is level.",
+  "cameraHelp3": "To check an object, tap Freeze, then drag the two orange handles onto one of its edges, like the top of a frame. It shows how far that edge is off level and which side to lift, even if your hand wasn’t level. Drag the line upright to check a plumb edge.",
+  "cameraHelp4": "The two buttons at the top show or hide the phone lines and the true lines. The light helps in dark corners; Resume goes back to the live picture.",
+  "cameraTip": "For an exact edge reading, face the wall squarely (Forward/back under 5°) and measure near the middle of the picture, where the lens bends lines least. Uses the Level’s on-edge calibration. The picture is never recorded, saved or sent.",
   "cameraAllowTitle": "Allow the camera",
-  "cameraAllowBody": "The camera level draws a level grid over the camera's picture. The picture stays on your phone and is never recorded, saved or sent.",
+  "cameraAllowBody": "The camera level draws level lines over the camera’s picture and measures edges in it. The picture stays on your phone and is never recorded, saved or sent.",
   "cameraAllow": "Allow camera",
   "cameraDeniedTitle": "Camera access is off",
   "cameraDeniedBody": "Turn on the camera for this app in Settings to use the camera level. The picture is never recorded, saved or sent.",
@@ -584,15 +584,44 @@
   "freeze": "Freeze",
   "resume": "Resume",
   "torch": "Light",
-  "gridSmall": "Small squares",
-  "gridMedium": "Medium squares",
-  "gridLarge": "Large squares",
-  "cameraSemantics": "Camera view with a level grid, tilted {value} degrees",
+  "cameraSemantics": "Camera view with level lines, tilted {value} degrees",
   "@cameraSemantics": {
     "placeholders": {
       "value": {
         "type": "String"
       }
     }
-  }
+  },
+  "cameraPhoneLines": "Phone lines",
+  "cameraTrueLines": "True lines",
+  "cameraFrozen": "Frozen",
+  "cameraDragHandles": "Drag the handles onto an edge",
+  "cameraFaceWall": "Face the wall squarely",
+  "edgeLevel": "This edge is level",
+  "edgePlumb": "This edge is plumb",
+  "edgeLiftRight": "Edge {value}° off, lift the right",
+  "@edgeLiftRight": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "edgeLiftLeft": "Edge {value}° off, lift the left",
+  "@edgeLiftLeft": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "edgeOffPlumb": "Edge {value}° off plumb",
+  "@edgeOffPlumb": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "cameraHandle": "Edge handle"
 }

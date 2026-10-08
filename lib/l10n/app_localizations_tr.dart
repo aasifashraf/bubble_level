@@ -1090,34 +1090,35 @@ class AppLocalizationsTr extends AppLocalizations {
   String get toolCamera => 'Kamera terazisi';
 
   @override
-  String get toolCameraSubtitle => 'Kamera görüntüsü üzerinde düz ızgara';
+  String get toolCameraSubtitle =>
+      'Kamera üzerinde düz çizgiler, her kenarı ölçün';
 
   @override
   String get cameraHelp1 =>
-      'Arka kamerayı bir duvara, rafa, fayansa ya da tabloya doğrultun; telefonu dik tutun.';
+      'Arka kamerayı bir duvara, tabloya, rafa ya da kapıya doğrultun. Telefonu dik ve duvara tam karşıdan tutun.';
 
   @override
   String get cameraHelp2 =>
-      'Izgara ekranı değil yer çekimini izler: çizgileri her zaman tam yatay ve dikeydir. Görüntüdeki kenarları bunlara hizalayın; eğri bir kenar çizgileri keser.';
+      'Düz çizgiler yer çekimini izler: her zaman tam yatay ve dikeydir. Kesikli çizgiler telefona sabittir ve aradaki küçük yay telefonun ne kadar eğik olduğunu gösterir. Telefon düz olunca gerçek çizgiler turuncu olur.';
 
   @override
   String get cameraHelp3 =>
-      'Telefon düz olunca ortadaki artı turuncu olur. Eğim ne kadar döndüğünü, İleri/geri duvara ya da size doğru ne kadar yattığını gösterir.';
+      'Bir nesneyi kontrol etmek için Dondur’a dokunun, sonra iki turuncu tutamacı nesnenin bir kenarına, örneğin bir çerçevenin üstüne sürükleyin. Eliniz düz olmasa bile o kenarın ne kadar eğik olduğunu ve hangi tarafın kaldırılacağını görürsünüz. Dikey bir kenarı kontrol etmek için çizgiyi dik tutun.';
 
   @override
   String get cameraHelp4 =>
-      'Üstte küçük, orta ya da büyük kare seçin. Dondur, görüntüyü ve ölçümü tutar; ışık karanlık köşelerde yardımcı olur.';
+      'Üstteki iki düğme telefon çizgilerini ve gerçek çizgileri gösterir ya da gizler. Işık karanlık köşelerde yardımcı olur; Devam canlı görüntüye döner.';
 
   @override
   String get cameraTip =>
-      'En doğru görüntü için telefonu duvara paralel tutun; ekran kenarlarına yakın çizgiler mercek yüzünden biraz bükülebilir. Terazinin kenar kalibrasyonunu kullanır. Görüntü asla kaydedilmez, saklanmaz ya da gönderilmez.';
+      'Kenarı tam ölçmek için duvara tam karşıdan bakın (İleri/geri 5°’nin altında) ve merceğin çizgileri en az büktüğü görüntünün ortasına yakın ölçün. Terazinin kenar kalibrasyonunu kullanır. Görüntü asla kaydedilmez, saklanmaz ya da gönderilmez.';
 
   @override
   String get cameraAllowTitle => 'Kameraya izin verin';
 
   @override
   String get cameraAllowBody =>
-      'Kamera terazisi, kamera görüntüsünün üzerine düz bir ızgara çizer. Görüntü telefonunuzda kalır; asla kaydedilmez, saklanmaz ya da gönderilmez.';
+      'Kamera terazisi, kamera görüntüsünün üzerine düz çizgiler çizer ve içindeki kenarları ölçer. Görüntü telefonunuzda kalır; asla kaydedilmez, saklanmaz ya da gönderilmez.';
 
   @override
   String get cameraAllow => 'Kameraya izin ver';
@@ -1160,16 +1161,46 @@ class AppLocalizationsTr extends AppLocalizations {
   String get torch => 'Işık';
 
   @override
-  String get gridSmall => 'Küçük kareler';
-
-  @override
-  String get gridMedium => 'Orta kareler';
-
-  @override
-  String get gridLarge => 'Büyük kareler';
-
-  @override
   String cameraSemantics(String value) {
-    return 'Düz ızgaralı kamera görüntüsü, $value derece eğik';
+    return 'Düz çizgili kamera görüntüsü, $value derece eğik';
   }
+
+  @override
+  String get cameraPhoneLines => 'Telefon çizgileri';
+
+  @override
+  String get cameraTrueLines => 'Gerçek çizgiler';
+
+  @override
+  String get cameraFrozen => 'Donduruldu';
+
+  @override
+  String get cameraDragHandles => 'Tutamaçları bir kenara sürükleyin';
+
+  @override
+  String get cameraFaceWall => 'Duvara tam karşıdan tutun';
+
+  @override
+  String get edgeLevel => 'Bu kenar düz';
+
+  @override
+  String get edgePlumb => 'Bu kenar dikey';
+
+  @override
+  String edgeLiftRight(String value) {
+    return 'Kenar $value° eğik, sağı kaldırın';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return 'Kenar $value° eğik, solu kaldırın';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return 'Kenar dikeyden $value° sapmış';
+  }
+
+  @override
+  String get cameraHandle => 'Kenar tutamacı';
 }

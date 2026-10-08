@@ -1094,34 +1094,35 @@ class AppLocalizationsPt extends AppLocalizations {
   String get toolCamera => 'Nível com câmera';
 
   @override
-  String get toolCameraSubtitle => 'Grade nivelada sobre a câmera';
+  String get toolCameraSubtitle =>
+      'Linhas niveladas sobre a câmera, meça qualquer borda';
 
   @override
   String get cameraHelp1 =>
-      'Aponte a câmera traseira para uma parede, prateleira, azulejos ou quadro, com o celular em pé.';
+      'Aponte a câmera traseira para uma parede, quadro, prateleira ou porta. Segure o celular em pé, de frente para a parede.';
 
   @override
   String get cameraHelp2 =>
-      'A grade segue a gravidade, não a tela: suas linhas estão sempre no nível e no prumo. Alinhe as bordas da imagem com elas; uma borda torta atravessa as linhas.';
+      'As linhas contínuas seguem a gravidade: estão sempre no nível e no prumo. As tracejadas são fixas ao celular, e o pequeno arco entre elas mostra quanto ele está inclinado. As linhas reais ficam laranja quando o celular está nivelado.';
 
   @override
   String get cameraHelp3 =>
-      'A cruz no meio fica laranja quando o celular está nivelado. Inclinação mostra quanto ele está girado, Frente/trás quanto se inclina para a parede ou para você.';
+      'Para conferir um objeto, toque em Congelar e arraste as duas alças laranja para uma das bordas dele, como o topo de um quadro. Você vê quanto essa borda está torta e qual lado levantar, mesmo que sua mão não estivesse nivelada. Deixe a linha em pé para conferir uma borda no prumo.';
 
   @override
   String get cameraHelp4 =>
-      'Escolha quadrados pequenos, médios ou grandes no topo. Congelar segura a imagem e a leitura; a luz ajuda em cantos escuros.';
+      'Os dois botões no topo mostram ou escondem as linhas do celular e as linhas reais. A luz ajuda em cantos escuros; Continuar volta à imagem ao vivo.';
 
   @override
   String get cameraTip =>
-      'Segure o celular paralelo à parede para a imagem mais fiel; linhas perto das bordas podem curvar um pouco pela lente. Usa a calibração de borda do nível. A imagem nunca é gravada, salva ou enviada.';
+      'Para medir uma borda com precisão, fique de frente para a parede (Frente/trás abaixo de 5°) e meça perto do centro da imagem, onde a lente curva menos as linhas. Usa a calibração de borda do nível. A imagem nunca é gravada, salva ou enviada.';
 
   @override
   String get cameraAllowTitle => 'Permitir a câmera';
 
   @override
   String get cameraAllowBody =>
-      'O nível com câmera desenha uma grade nivelada sobre a imagem da câmera. A imagem fica no seu celular e nunca é gravada, salva ou enviada.';
+      'O nível com câmera desenha linhas niveladas sobre a imagem da câmera e mede bordas nela. A imagem fica no seu celular e nunca é gravada, salva ou enviada.';
 
   @override
   String get cameraAllow => 'Permitir câmera';
@@ -1165,16 +1166,46 @@ class AppLocalizationsPt extends AppLocalizations {
   String get torch => 'Luz';
 
   @override
-  String get gridSmall => 'Quadrados pequenos';
-
-  @override
-  String get gridMedium => 'Quadrados médios';
-
-  @override
-  String get gridLarge => 'Quadrados grandes';
-
-  @override
   String cameraSemantics(String value) {
-    return 'Imagem da câmera com grade nivelada, inclinada $value graus';
+    return 'Imagem da câmera com linhas niveladas, inclinada $value graus';
   }
+
+  @override
+  String get cameraPhoneLines => 'Linhas do celular';
+
+  @override
+  String get cameraTrueLines => 'Linhas reais';
+
+  @override
+  String get cameraFrozen => 'Congelado';
+
+  @override
+  String get cameraDragHandles => 'Arraste as alças até uma borda';
+
+  @override
+  String get cameraFaceWall => 'Fique de frente para a parede';
+
+  @override
+  String get edgeLevel => 'Esta borda está nivelada';
+
+  @override
+  String get edgePlumb => 'Esta borda está no prumo';
+
+  @override
+  String edgeLiftRight(String value) {
+    return 'Borda $value° torta, levante a direita';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return 'Borda $value° torta, levante a esquerda';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return 'Borda $value° fora do prumo';
+  }
+
+  @override
+  String get cameraHandle => 'Alça da borda';
 }

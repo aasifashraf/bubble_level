@@ -49,4 +49,27 @@ void main() {
     expect(cameraPose(_up(0, lean: -65)), isNull);
     expect(cameraPose(_up(0, lean: 55)), isNotNull);
   });
+
+  test('an edge against true level, with the side that is low', () {
+    // Phone level: true level is flat on the screen.
+    expect(edgeReading(0, 0, 100, 0, 0)!.offset, closeTo(0, 1e-9));
+    final right = edgeReading(0, 0, 100, 3.49, 0)!;
+    expect(right.offset, closeTo(2, 0.01));
+    expect(right.plumb, isFalse);
+    expect(edgeReading(0, 3.49, 100, 0, 0)!.offset, closeTo(-2, 0.01));
+    // Which point is which doesn't matter.
+    expect(edgeReading(100, 3.49, 0, 0, 0)!.offset, closeTo(2, 0.01));
+    // The phone turned 3°: true level runs at 3° on the screen.
+    expect(edgeReading(0, 0, 100, 5.24, 3)!.offset, closeTo(0, 0.01));
+    expect(edgeReading(0, 0, 100, 0, 3)!.offset, closeTo(-3, 1e-9));
+  });
+
+  test('an upright edge is read against plumb', () {
+    final e = edgeReading(0, 0, 3.49, 100, 0)!;
+    expect(e.plumb, isTrue);
+    expect(e.offset.abs(), closeTo(2, 0.01));
+    // Held sideways, an edge flat on the screen is a plumb edge.
+    expect(edgeReading(0, 0, 100, 0, 90)!.plumb, isTrue);
+    expect(edgeReading(0, 0, 0.5, 0, 0), isNull);
+  });
 }

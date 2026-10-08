@@ -2,4 +2,4 @@
 "CFBundleDisplayName" = "Nivel de burbuja";
 "NSMicrophoneUsageDescription" = "El sonómetro usa el micrófono para medir cuánto ruido hay. El sonido se mide en tu teléfono y nunca se graba, guarda ni envía.";
 "NSMotionUsageDescription" = "Los sensores de movimiento y el barómetro miden inclinación, ángulos, rumbo de la brújula, vibración y altitud.";
-"NSCameraUsageDescription" = "El nivel con cámara muestra una cuadrícula nivelada sobre la imagen de la cámara. La imagen nunca se graba, guarda ni envía.";
+"NSCameraUsageDescription" = "El nivel con cámara muestra líneas niveladas sobre la imagen de la cámara para medir bordes. La imagen nunca se graba, guarda ni envía.";

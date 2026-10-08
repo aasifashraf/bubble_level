@@ -1094,34 +1094,35 @@ class AppLocalizationsDe extends AppLocalizations {
   String get toolCamera => 'Kamera-Wasserwaage';
 
   @override
-  String get toolCameraSubtitle => 'Waagrechtes Raster über dem Kamerabild';
+  String get toolCameraSubtitle =>
+      'Waagrechte Linien über dem Kamerabild, jede Kante messen';
 
   @override
   String get cameraHelp1 =>
-      'Richte die Rückkamera auf eine Wand, ein Regal, Fliesen oder ein Bild und halte das Handy aufrecht.';
+      'Richte die Rückkamera auf eine Wand, ein Bild, ein Regal oder eine Tür. Halte das Handy aufrecht und genau zur Wand.';
 
   @override
   String get cameraHelp2 =>
-      'Das Raster folgt der Schwerkraft, nicht dem Bildschirm: Seine Linien sind immer genau waagrecht und lotrecht. Richte Kanten im Bild daran aus; eine schiefe Kante läuft quer über die Linien.';
+      'Durchgezogene Linien folgen der Schwerkraft: Sie sind immer genau waagrecht und lotrecht. Gestrichelte Linien sind fest am Handy, und der kleine Bogen dazwischen zeigt, wie weit es geneigt ist. Die echten Linien werden orange, wenn das Handy gerade ist.';
 
   @override
   String get cameraHelp3 =>
-      'Das Kreuz in der Mitte wird orange, wenn das Handy gerade ist. Neigung zeigt, wie weit es verdreht ist, Vor/zurück, wie weit es zur Wand hin oder weg kippt.';
+      'Um ein Objekt zu prüfen, tippe auf Einfrieren und zieh die zwei orangen Griffe auf eine seiner Kanten, etwa die Oberkante eines Rahmens. Du siehst, wie weit die Kante schief ist und welche Seite höher muss, auch wenn deine Hand nicht gerade war. Zieh die Linie senkrecht, um eine lotrechte Kante zu prüfen.';
 
   @override
   String get cameraHelp4 =>
-      'Wähle oben kleine, mittlere oder große Kästchen. Einfrieren hält Bild und Wert fest; das Licht hilft in dunklen Ecken.';
+      'Die zwei Schalter oben blenden die Handylinien und die echten Linien ein oder aus. Das Licht hilft in dunklen Ecken; Fortsetzen zeigt wieder das Live-Bild.';
 
   @override
   String get cameraTip =>
-      'Halte das Handy für das genaueste Bild parallel zur Wand; Linien am Bildrand können sich durch das Objektiv leicht biegen. Nutzt die Kantenkalibrierung der Wasserwaage. Das Bild wird nie aufgenommen, gespeichert oder gesendet.';
+      'Für eine genaue Kantenmessung halte das Handy gerade zur Wand (Vor/zurück unter 5°) und miss nahe der Bildmitte, wo das Objektiv Linien am wenigsten biegt. Nutzt die Kantenkalibrierung der Wasserwaage. Das Bild wird nie aufgenommen, gespeichert oder gesendet.';
 
   @override
   String get cameraAllowTitle => 'Kamera erlauben';
 
   @override
   String get cameraAllowBody =>
-      'Die Kamera-Wasserwaage zeichnet ein waagrechtes Raster über das Kamerabild. Das Bild bleibt auf deinem Handy und wird nie aufgenommen, gespeichert oder gesendet.';
+      'Die Kamera-Wasserwaage zeichnet waagrechte Linien über das Kamerabild und misst Kanten darin. Das Bild bleibt auf deinem Handy und wird nie aufgenommen, gespeichert oder gesendet.';
 
   @override
   String get cameraAllow => 'Kamera erlauben';
@@ -1164,16 +1165,46 @@ class AppLocalizationsDe extends AppLocalizations {
   String get torch => 'Licht';
 
   @override
-  String get gridSmall => 'Kleine Kästchen';
-
-  @override
-  String get gridMedium => 'Mittlere Kästchen';
-
-  @override
-  String get gridLarge => 'Große Kästchen';
-
-  @override
   String cameraSemantics(String value) {
-    return 'Kamerabild mit waagrechtem Raster, um $value Grad geneigt';
+    return 'Kamerabild mit waagrechten Linien, um $value Grad geneigt';
   }
+
+  @override
+  String get cameraPhoneLines => 'Handylinien';
+
+  @override
+  String get cameraTrueLines => 'Echte Linien';
+
+  @override
+  String get cameraFrozen => 'Eingefroren';
+
+  @override
+  String get cameraDragHandles => 'Zieh die Griffe auf eine Kante';
+
+  @override
+  String get cameraFaceWall => 'Halte das Handy gerade zur Wand';
+
+  @override
+  String get edgeLevel => 'Diese Kante ist waagrecht';
+
+  @override
+  String get edgePlumb => 'Diese Kante ist lotrecht';
+
+  @override
+  String edgeLiftRight(String value) {
+    return 'Kante $value° schief, rechts anheben';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return 'Kante $value° schief, links anheben';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return 'Kante $value° aus dem Lot';
+  }
+
+  @override
+  String get cameraHandle => 'Kantengriff';
 }

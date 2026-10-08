@@ -1083,34 +1083,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String get toolCamera => 'ميزان الكاميرا';
 
   @override
-  String get toolCameraSubtitle => 'شبكة مستوية فوق صورة الكاميرا';
+  String get toolCameraSubtitle => 'خطوط مستوية فوق الكاميرا، وقياس أي حافة';
 
   @override
   String get cameraHelp1 =>
-      'وجّه الكاميرا الخلفية إلى جدار أو رف أو بلاط أو لوحة، مع إمساك الهاتف قائمًا.';
+      'وجّه الكاميرا الخلفية إلى جدار أو لوحة أو رف أو باب. أمسك الهاتف قائمًا ومقابلًا للجدار تمامًا.';
 
   @override
   String get cameraHelp2 =>
-      'تتبع الشبكة الجاذبية لا الشاشة: خطوطها دائمًا أفقية وعمودية تمامًا. حاذِ حواف الصورة معها؛ فالحافة المائلة تقطع الخطوط.';
+      'الخطوط المتصلة تتبع الجاذبية: فهي دائمًا أفقية وعمودية تمامًا. الخطوط المتقطعة مثبتة على الهاتف، والقوس الصغير بينها يُظهر مقدار ميله. تصبح الخطوط الحقيقية برتقالية عندما يستوي الهاتف.';
 
   @override
   String get cameraHelp3 =>
-      'يصبح الصليب في المنتصف برتقاليًا عندما يستوي الهاتف. يُظهر الميل مقدار دورانه، ويُظهر للأمام/للخلف مقدار ميله نحو الجدار أو نحوك.';
+      'لفحص شيء ما، اضغط تجميد ثم اسحب المقبضين البرتقاليين إلى إحدى حوافه، مثل أعلى إطار. سترى مقدار ميل تلك الحافة وأي جانب ترفع، حتى لو لم تكن يدك مستوية. اجعل الخط قائمًا لفحص حافة عمودية.';
 
   @override
   String get cameraHelp4 =>
-      'اختر مربعات صغيرة أو متوسطة أو كبيرة في الأعلى. يثبّت التجميد الصورة والقراءة، والضوء يساعد في الزوايا المظلمة.';
+      'يُظهر الزران في الأعلى خطوط الهاتف والخطوط الحقيقية أو يخفيانها. يساعد الضوء في الزوايا المظلمة، ويعيدك متابعة إلى الصورة المباشرة.';
 
   @override
   String get cameraTip =>
-      'أمسك الهاتف موازيًا للجدار لأدق صورة؛ قد تنحني الخطوط قليلًا قرب حواف الشاشة بسبب العدسة. يستخدم معايرة الحافة في الميزان. لا تُسجَّل الصورة ولا تُحفظ ولا تُرسل أبدًا.';
+      'لقياس الحافة بدقة، اجعل الهاتف مقابلًا للجدار تمامًا (للأمام/للخلف أقل من 5°) وقِس قرب منتصف الصورة حيث تحني العدسة الخطوط أقل. يستخدم معايرة الحافة في الميزان. لا تُسجَّل الصورة ولا تُحفظ ولا تُرسل أبدًا.';
 
   @override
   String get cameraAllowTitle => 'اسمح بالكاميرا';
 
   @override
   String get cameraAllowBody =>
-      'يرسم ميزان الكاميرا شبكة مستوية فوق صورة الكاميرا. تبقى الصورة على هاتفك ولا تُسجَّل ولا تُحفظ ولا تُرسل أبدًا.';
+      'يرسم ميزان الكاميرا خطوطًا مستوية فوق صورة الكاميرا ويقيس الحواف فيها. تبقى الصورة على هاتفك ولا تُسجَّل ولا تُحفظ ولا تُرسل أبدًا.';
 
   @override
   String get cameraAllow => 'السماح بالكاميرا';
@@ -1153,16 +1153,46 @@ class AppLocalizationsAr extends AppLocalizations {
   String get torch => 'الضوء';
 
   @override
-  String get gridSmall => 'مربعات صغيرة';
-
-  @override
-  String get gridMedium => 'مربعات متوسطة';
-
-  @override
-  String get gridLarge => 'مربعات كبيرة';
-
-  @override
   String cameraSemantics(String value) {
-    return 'صورة الكاميرا مع شبكة مستوية، مائلة $value درجة';
+    return 'صورة الكاميرا مع خطوط مستوية، مائلة $value درجة';
   }
+
+  @override
+  String get cameraPhoneLines => 'خطوط الهاتف';
+
+  @override
+  String get cameraTrueLines => 'الخطوط الحقيقية';
+
+  @override
+  String get cameraFrozen => 'مجمّد';
+
+  @override
+  String get cameraDragHandles => 'اسحب المقبضين إلى حافة';
+
+  @override
+  String get cameraFaceWall => 'اجعل الهاتف مقابلًا للجدار تمامًا';
+
+  @override
+  String get edgeLevel => 'هذه الحافة مستوية';
+
+  @override
+  String get edgePlumb => 'هذه الحافة عمودية';
+
+  @override
+  String edgeLiftRight(String value) {
+    return 'الحافة مائلة $value°، ارفع اليمين';
+  }
+
+  @override
+  String edgeLiftLeft(String value) {
+    return 'الحافة مائلة $value°، ارفع اليسار';
+  }
+
+  @override
+  String edgeOffPlumb(String value) {
+    return 'الحافة منحرفة $value° عن العمودي';
+  }
+
+  @override
+  String get cameraHandle => 'مقبض الحافة';
 }

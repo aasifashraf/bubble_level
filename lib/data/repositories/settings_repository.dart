@@ -62,7 +62,6 @@ class SettingsRepository extends ChangeNotifier {
   static const _kSceneWeather = 'sceneWeather';
   static const _kEyeHeight = 'eyeHeight';
   static const _kCameraAllowed = 'cameraAllowed';
-  static const _kGridSize = 'cameraGrid';
 
   final SharedPreferences _prefs;
   Vec3 _flatRef;
@@ -265,14 +264,6 @@ class SettingsRepository extends ChangeNotifier {
 
   Future<void> setCameraAllowed(bool allowed) =>
       _prefs.setBool(_kCameraAllowed, allowed);
-
-  /// The camera level's squares, 0 small to 2 large.
-  int get cameraGrid => (_prefs.getInt(_kGridSize) ?? 1).clamp(0, 2);
-
-  Future<void> setCameraGrid(int size) async {
-    await _prefs.setInt(_kGridSize, size.clamp(0, 2));
-    notifyListeners();
-  }
 
   /// The user's eye height for the Height tool, metres.
   double get eyeHeight => _prefs.getDouble(_kEyeHeight) ?? defaultEyeHeight;
