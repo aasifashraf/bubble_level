@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/scene_weather.dart';
 import '../../../core/controls.dart';
 import '../../../core/format.dart';
 import '../../../core/help.dart';
 import '../../../core/l10n.dart';
 import '../../../core/readout.dart';
-import '../../../core/theme.dart';
 import '../../../core/tool_frame.dart';
+import '../../../core/weather_button.dart';
 import '../view_models/altimeter_view_model.dart';
 import 'mountain_scene.dart';
 
@@ -55,7 +54,12 @@ class AltimeterScreen extends StatelessWidget {
           trailing: HelpButton(help: _help(l)),
           action: pressure == null
               ? null
-              : _WeatherButton(viewModel: viewModel),
+              : WeatherButton(
+                  picked: viewModel.pickedWeather,
+                  shown: viewModel.weather,
+                  night: viewModel.night,
+                  onPick: viewModel.pickWeather,
+                ),
           // The night sky is dark behind the header.
           headerOnDark: pressure != null && viewModel.night && !landscape,
           body: SensorStateGate(
@@ -114,89 +118,6 @@ class AltimeterScreen extends StatelessWidget {
                 ),
         );
       },
-    );
-  }
-}
-
-/// Picks the scene's weather: automatic (time of day and season) or one of
-/// the five. The choice is remembered.
-class _WeatherButton extends StatelessWidget {
-  const _WeatherButton({required this.viewModel});
-
-  final AltimeterViewModel viewModel;
-
-  static IconData icon(SceneWeather? w) => switch (w) {
-    null => Icons.auto_mode_rounded,
-    SceneWeather.sunny => Icons.wb_sunny_rounded,
-    SceneWeather.cloudy => Icons.cloud_rounded,
-    SceneWeather.rain => Icons.umbrella_rounded,
-    SceneWeather.storm => Icons.thunderstorm_rounded,
-    SceneWeather.snow => Icons.ac_unit_rounded,
-  };
-
-  static String label(AppLocalizations l, SceneWeather? w) => switch (w) {
-    null => l.weatherAuto,
-    SceneWeather.sunny => l.weatherSunny,
-    SceneWeather.cloudy => l.weatherCloudy,
-    SceneWeather.rain => l.weatherRain,
-    SceneWeather.storm => l.weatherStorm,
-    SceneWeather.snow => l.weatherSnow,
-  };
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    final p = Palette.of(context);
-    final picked = viewModel.pickedWeather;
-    // Indexed, since the menu never reports a null (Auto) choice.
-    const choices = <SceneWeather?>[null, ...SceneWeather.values];
-    return PopupMenuButton<int>(
-      tooltip: l.weather,
-      position: PopupMenuPosition.under,
-      color: p.dialLight,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      onSelected: (i) => viewModel.pickWeather(choices[i]),
-      itemBuilder: (context) => [
-        for (final (i, w) in choices.indexed)
-          PopupMenuItem(
-            value: i,
-            child: Row(
-              spacing: 12,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  icon(w),
-                  size: 20,
-                  color: w == picked ? p.ballDark : p.ink,
-                ),
-                Flexible(
-                  child: Text(
-                    label(l, w),
-                    style: TextStyle(
-                      color: p.inkStrong,
-                      fontWeight: w == picked
-                          ? FontWeight.w700
-                          : FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-      ],
-      icon: Container(
-        width: 24,
-        height: 24,
-        decoration: BoxDecoration(color: p.tab, shape: BoxShape.circle),
-        child: Icon(
-          // A clear night shows the moon.
-          viewModel.night && (picked ?? viewModel.weather) == SceneWeather.sunny
-              ? Icons.nightlight_round
-              : icon(picked ?? viewModel.weather),
-          size: 15,
-          color: Colors.white,
-        ),
-      ),
     );
   }
 }
