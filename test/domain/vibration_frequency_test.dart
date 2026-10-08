@@ -99,4 +99,16 @@ void main() {
         .analyze()!;
     expect(s.peakHz, isNull);
   });
+
+  test('the dial\'s limit is the phone\'s own, not the resampled grid', () {
+    // 120 samples a second: 300 samples become a 512 point grid, but only
+    // up to 54 Hz (0.45 of 120) can be measured.
+    final s = _record(
+      (t) => Vec3(0, 0.5 * math.sin(2 * math.pi * 20 * t), 0),
+      rate: 120,
+      seconds: 2.5,
+    ).analyze()!;
+    expect(s.maxHz, closeTo(54, 1));
+    expect(s.peakHz, closeTo(20, 0.5));
+  });
 }

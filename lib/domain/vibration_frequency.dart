@@ -105,7 +105,10 @@ class FrequencyAnalyzer {
     }
 
     final step = rate / n;
-    final maxHz = math.min(rate * 0.45, ceiling);
+    // The phone's own sampling sets the limit, not the finer grid: above
+    // half its rate the grid holds only interpolation.
+    final sampled = (list.length - 1) / (t1 - t0);
+    final maxHz = math.min(sampled * 0.45, ceiling);
     final last = math.min(power.length - 2, (maxHz / step).floor());
     final first = math.max(1, (floor / step).ceil());
     if (last <= first + 2) return null;

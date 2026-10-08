@@ -51,8 +51,19 @@ class VibrationRepository
       _analyzedAt = t;
       _spectrum = _frequency.analyze();
     }
-    _publish(SensorState.ok);
+    // The sensor runs as fast as it can (up to 200 a second) for the
+    // analysis; the screen needs far fewer updates.
+    if (_publishedAt == null ||
+        t - _publishedAt! >= _redraw ||
+        t < _publishedAt!) {
+      _publishedAt = t;
+      _publish(SensorState.ok);
+    }
   }
+
+  /// Seconds between screen updates (30 a second).
+  static const _redraw = 1 / 30;
+  double? _publishedAt;
 
   @override
   void onMissing() {
@@ -68,6 +79,7 @@ class VibrationRepository
     _frequency.clear();
     _spectrum = null;
     _analyzedAt = null;
+    _publishedAt = null;
     value = VibrationReading(state: value.state);
   }
 
