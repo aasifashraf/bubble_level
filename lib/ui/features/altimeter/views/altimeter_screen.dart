@@ -99,7 +99,9 @@ class AltimeterScreen extends StatelessWidget {
                         l.fromZero,
                       ),
                       (formatPressure(pressure), l.pressure),
-                      (formatMeters(r.altitude!), l.altitudeShort),
+                      // Whole metres, marked approximate: without a known
+                      // reference the weather alone moves it by many metres.
+                      ('≈ ${r.altitude!.round()} m', l.altitudeShort),
                     ]),
                     const SizedBox(height: 14),
                     viewModel.zeroed

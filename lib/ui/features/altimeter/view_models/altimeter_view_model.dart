@@ -21,6 +21,11 @@ class AltimeterViewModel extends ActiveViewModel {
   final DateTime Function() _now;
   double? _zeroAltitude;
   double _highest = 0;
+  DateTime? _closedAt;
+
+  /// A zero older than this (the tool closed in between) is forgotten: the
+  /// weather moves the pressure by then, which would read as height.
+  static const zeroKeptFor = Duration(minutes: 30);
 
   /// The highest point above the zero so far, metres (0 before zeroing).
   double get highest => _highest;
@@ -66,10 +71,20 @@ class AltimeterViewModel extends ActiveViewModel {
   }
 
   @override
-  void onActivate() => _repository.start();
+  void onActivate() {
+    final closed = _closedAt;
+    if (closed != null && _now().difference(closed) > zeroKeptFor) {
+      _zeroAltitude = null;
+      _highest = 0;
+    }
+    _repository.start();
+  }
 
   @override
-  void onDeactivate() => _repository.stop();
+  void onDeactivate() {
+    _closedAt = _now();
+    _repository.stop();
+  }
 
   @override
   void update() {

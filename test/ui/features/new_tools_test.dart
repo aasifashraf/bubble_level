@@ -289,6 +289,34 @@ void main() {
       expect(vm.reading.state, SensorState.missing);
     });
 
+    test('altimeter: a zero left for long is forgotten', () async {
+      final repo = BarometerRepository(sensors: sensors);
+      final settings = await SettingsRepository.load();
+      var now = DateTime(2026, 7, 10, 14);
+      final vm = AltimeterViewModel(
+        repository: repo,
+        settings: settings,
+        now: () => now,
+      )..active = true;
+      addTearDown(() {
+        vm.dispose();
+        repo.dispose();
+      });
+      sensors.sendPressure(1013.25);
+      await flush();
+      vm.setZero();
+      // Closed briefly: the zero holds.
+      vm.active = false;
+      now = now.add(const Duration(minutes: 5));
+      vm.active = true;
+      expect(vm.zeroed, isTrue);
+      // Closed for an hour: the weather has moved the pressure since.
+      vm.active = false;
+      now = now.add(const Duration(hours: 1));
+      vm.active = true;
+      expect(vm.zeroed, isFalse);
+    });
+
     test('altimeter: pressure, altitude and height from zero', () async {
       final repo = BarometerRepository(sensors: sensors);
       final settings = await SettingsRepository.load();
