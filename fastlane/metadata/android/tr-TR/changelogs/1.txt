@@ -1,1 +1,1 @@
-İlk sürüm: kadran ve tüp görünümlü su terazisi, açı ölçer, pusula, iletki, cetvel, metal dedektörü, titreşim ölçer, ses ölçer, ışık ölçer, altimetre, yükseklik ölçer ve kamera terazisi.
+İlk sürüm: kadran ve tüp görünümlü su terazisi, açı ölçer, pusula, iletki, cetvel, metal dedektörü, titreşim ölçer, ses ölçer, ışık ölçer, altimetre, yükseklik ölçer, kamera terazisi, G kuvveti ölçer, hız göstergesi ve AR şerit metre.

@@ -1,4 +1,4 @@
-Telefonunuzu hassas bir su terazisine dönüştürün; ev işleri, marangozluk, inşaat ve tablo asmak için on bir ölçüm aracı daha cabası.
+Telefonunuzu hassas bir su terazisine dönüştürün; ev işleri, marangozluk, inşaat ve tablo asmak için on dört ölçüm aracı daha cabası.
 
 Kabarcıklı terazi: rafları, masaları ve cihazları düzlemek için telefonu düz yatırın. X ve Y her yöndeki eğimi gösterir, ipucu hangi tarafın yüksek olduğunu söyler. Düz olunca değer turuncu olur; isterseniz titreşim ve sesle.
 
@@ -24,7 +24,13 @@ Altimetre: hava basıncını ve yaklaşık yüksekliği görün ya da bir sıfı
 
 Yükseklik ölçer: bir ağacın ya da binanın yüksekliğini ve ona olan mesafeyi ölçün. Telefonun üst kenarını önce dibine, sonra tepesine doğrultun ya da biliyorsanız mesafeyi yazın.
 
-Kamera terazisi: kamerayı duvara doğrultun; fayansları, rafları ve tabloları her zaman düz kalan bir ızgarayla hizalayın. Görüntü asla kaydedilmez ya da saklanmaz.
+Kamera terazisi: kamerayı duvara doğrultun, görüntünün üzerinde gerçek yatay ve dikey çizgileri görün. Dondurun, bir çerçevenin ya da rafın kenarına bir çizgi sürükleyin; kaç derece eğik olduğunu ve hangi tarafın kaldırılacağını söyler. Görüntü asla kaydedilmez ya da saklanmaz.
+
+G kuvveti ölçer: telefonu bir araç tutucusuna takın; ne kadar sert fren yaptığınızı, hızlandığınızı ve viraj aldığınızı g cinsinden görün. Aracın itildiğiniz tarafı parlar, tepe değerler sürüşten sonrası için saklanır.
+
+Hız göstergesi: GPS’ten hızınızı, yolun akıp gittiği bir gösterge panelinde görün; yolculuk mesafesi, en yüksek ve ortalama hız, rakım ve koordinatlarınızla birlikte. Konum yalnızca araç açıkken kullanılır ve telefonunuzdan asla çıkmaz.
+
+AR şerit metre: arka kamerayı bir masaya, zemine ya da duvara doğrultun ve yüzey bulunana kadar yavaşça hareket ettirin. Uzunlukları ve toplamı ölçmek için her köşeye dokunun, ardından alanı ve çevreyi görmek için şekli kapatın; cm veya inç olarak. Değerler yaklaşıktır, çoğu zaman metre başına 1 ile 3 cm arası sapma olur. Google Play Services for AR destekleyen bir telefon gerekir. Görüntü asla kaydedilmez ya da saklanmaz.
 
 Her aracın kısa bir kullanım kılavuzu var. Dikey ve yatay, açık ve koyu modda, 12 dilde çalışır. Reklam yok, hesap yok, internet gerekmez.
 

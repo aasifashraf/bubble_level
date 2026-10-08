@@ -1,7 +1,8 @@
 # Bubble Level & Angle Finder
 
-A Flutter app for Android and iOS that turns the phone's sensors into seven
-tools, all drawn in one soft, full-screen dial design:
+A Flutter app for Android and iOS that turns the phone's sensors into fifteen
+tools (thirteen on iPhone, which has no Light meter and no Tape measure yet),
+all drawn in one soft, full-screen dial design:
 
 - **Level:** a bubble level when the phone lies flat, and a spirit level with
   a tilting water line when it stands on an edge. It shows the X
@@ -13,16 +14,31 @@ tools, all drawn in one soft, full-screen dial design:
 - **Compass:** tilt-compensated magnetic heading, with N/E/S/W, the direction
   under the number and a warning when nearby metal disturbs it.
 - **Protractor:** drag two handles along an object's edges to read its angle.
+- **Ruler:** measure small objects on the screen in mm, cm or inches, after a
+  one-time calibration with a bank card, a ruler or the screen size.
 - **Metal detector:** magnetic field strength and change from a baseline, with
   a beep that speeds up as metal gets closer.
 - **Vibration meter:** how hard a machine shakes (m/s²) and how fast it
   turns (hertz and RPM, from a spectrum of the accelerometer).
+- **Sound meter:** noise in decibels (approx.), with average, maximum and a
+  hearing warning; sound is measured, never recorded.
+- **Light meter** (Android): brightness in lux and foot-candles.
 - **Altimeter:** air pressure, approximate altitude, and height from a zero.
 - **Height:** the height of a tree or building and the distance to it, by
   aiming the phone's top edge at its base and top (or typing the distance).
-- **Camera level:** graph paper that stays level and plumb over the camera's
-  picture, for lining up tiles, shelves and frames (the camera is never
-  recorded).
+- **Camera level:** true level and plumb lines and the phone's own lines over
+  the camera's picture; freeze it and drag a line onto an edge to read how
+  far that edge is off level (the camera is never recorded).
+- **G-force:** braking, speeding up and cornering in g for a phone in a car
+  mount, with peaks.
+- **Speedometer:** GPS speed on a dashboard view, trip distance, top and
+  average speed, altitude and coordinates (location only while open).
+- **Tape measure** (Android only, Google ARCore): aim the back camera at a
+  table, floor or wall, tap "Add point" at each corner and read each length
+  and the total; "Close shape" gives the area and perimeter, in cm or inches.
+  Approximate (often within 1 to 3 cm over a metre). Phones without ARCore
+  support are told so, and a missing "Google Play Services for AR" can be
+  installed from the Play Store. The camera is never recorded.
 
 Every tool has a short "How to use" guide. The app supports light and dark
 themes, degrees or percent slope, a list or grid home screen, and sounds that
@@ -56,8 +72,9 @@ lib/
   ui/
     core/          theme tokens, dial and tube painters, full-screen frame,
                    help sheets, formatting
-    features/      level, angle, compass, protractor, metal, vibration,
-                   altimeter, height, camera, settings (view models + views)
+    features/      level, angle, compass, protractor, ruler, metal,
+                   vibration, sound, light, altimeter, height, camera,
+                   g_force, speed, tape, settings (view models + views)
     home/          home screen (list / grid)
 test/              domain, view-model and app-flow tests
 ```

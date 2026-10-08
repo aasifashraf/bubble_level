@@ -1,4 +1,4 @@
-Convierte tu teléfono en un nivel de burbuja preciso, con once herramientas de medición más para bricolaje, carpintería, obras y colgar cuadros.
+Convierte tu teléfono en un nivel de burbuja preciso, con catorce herramientas de medición más para bricolaje, carpintería, obras y colgar cuadros.
 
 Nivel de burbuja: apoya el teléfono plano para nivelar estantes, mesas y electrodomésticos. X e Y muestran la inclinación en cada dirección y una indicación te dice qué lado está alto. Al nivelar, la lectura se pone naranja, con vibración y sonido opcionales.
 
@@ -24,7 +24,13 @@ Altímetro: lee la presión del aire y la altitud aproximada, o mide la altura s
 
 Medidor de altura: mide la altura de un árbol o edificio y la distancia hasta él. Apunta el borde superior del teléfono a la base y luego a la cima, o escribe la distancia si la conoces.
 
-Nivel con cámara: apunta la cámara a una pared y alinea azulejos, estantes y cuadros con una cuadrícula que siempre está nivelada. La imagen nunca se graba ni se guarda.
+Nivel con cámara: apunta la cámara a una pared y verás líneas a nivel y a plomo sobre la imagen. Congélala, arrastra una línea al borde de un cuadro o estante y te dirá cuántos grados se desvía y qué lado subir. La imagen nunca se graba ni se guarda.
+
+Medidor de fuerza G: pon el teléfono en un soporte para vehículo y mira con qué fuerza frenas, aceleras y tomas las curvas, en g. Se ilumina el lado del vehículo hacia el que te ves empujado, y los picos se guardan para después del trayecto.
+
+Velocímetro: mira tu velocidad por GPS en un tablero con la carretera pasando a toda prisa, con la distancia del trayecto, la velocidad máxima y media, la altitud y tus coordenadas. La ubicación solo se usa mientras está abierto y nunca sale de tu teléfono.
+
+Cinta métrica AR: apunta la cámara trasera a una mesa, el suelo o una pared y muévela despacio hasta que encuentre la superficie. Toca en cada esquina para medir las longitudes y el total, y cierra la forma para ver su área y perímetro, en cm o pulgadas. Las medidas son aproximadas, a menudo con un margen de 1 a 3 cm por metro. Requiere un teléfono compatible con Google Play Services for AR. La imagen nunca se graba ni se guarda.
 
 Cada herramienta tiene una guía breve. Funciona en vertical y horizontal, en modo claro y oscuro, en 12 idiomas. Sin anuncios, sin cuenta y sin internet.
 

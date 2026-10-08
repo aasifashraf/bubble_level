@@ -1,4 +1,4 @@
-Transformez votre téléphone en niveau à bulle précis, avec onze autres outils de mesure pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
+Transformez votre téléphone en niveau à bulle précis, avec quatorze autres outils de mesure pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
 
 Niveau à bulle : posez le téléphone à plat pour mettre de niveau étagères, tables et appareils. X et Y indiquent l’inclinaison dans chaque direction et une indication vous dit quel côté est haut. De niveau, l’affichage devient orange, avec vibration et son en option.
 
@@ -24,7 +24,13 @@ Altimètre : lisez la pression de l’air et l’altitude approximative, ou mesu
 
 Mesure de hauteur : mesurez la hauteur d’un arbre ou d’un bâtiment et la distance qui vous en sépare. Visez le pied puis le sommet avec le bord supérieur du téléphone, ou saisissez la distance si vous la connaissez.
 
-Niveau caméra : pointez la caméra vers un mur et alignez carrelage, étagères et tableaux sur une grille toujours de niveau. L’image n’est jamais enregistrée ni sauvegardée.
+Niveau caméra : pointez la caméra vers un mur pour voir de vraies lignes de niveau et d’aplomb sur l’image. Figez‑la, faites glisser une ligne sur le bord d’un cadre ou d’une étagère, et il vous dit de combien de degrés il est de travers et quel côté relever. L’image n’est jamais enregistrée ni sauvegardée.
+
+Mesure de force G : placez le téléphone sur un support voiture et voyez la force de vos freinages, accélérations et virages, en g. Le côté de la voiture vers lequel vous êtes poussé s’allume, et les crêtes sont gardées pour après le trajet.
+
+Compteur de vitesse : voyez votre vitesse GPS sur un tableau de bord où défile la route, avec la distance du trajet, les vitesses maximale et moyenne, l’altitude et vos coordonnées. La localisation n’est utilisée que lorsqu’il est ouvert et ne quitte jamais votre téléphone.
+
+Mètre ruban AR : pointez la caméra arrière vers une table, le sol ou un mur et bougez lentement jusqu’à ce qu’une surface soit trouvée. Touchez chaque coin pour mesurer les longueurs et le total, puis fermez la forme pour obtenir l’aire et le périmètre, en cm ou en pouces. Les mesures sont approximatives, souvent avec un écart de 1 à 3 cm par mètre. Nécessite un téléphone compatible avec Google Play Services for AR. L’image n’est jamais enregistrée ni sauvegardée.
 
 Chaque outil a un mode d’emploi court. Fonctionne en portrait et en paysage, en mode clair et sombre, en 12 langues. Sans publicité, sans compte, sans internet.
 

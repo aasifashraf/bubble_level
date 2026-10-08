@@ -1,4 +1,4 @@
-Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi sebelas alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
+Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi empat belas alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
 
 Waterpass gelembung: letakkan ponsel mendatar untuk meratakan rak, meja, dan peralatan. X dan Y menunjukkan kemiringan tiap arah dan petunjuk memberi tahu sisi mana yang tinggi. Saat rata, angka berubah oranye, dengan getaran dan bunyi opsional.
 
@@ -24,7 +24,13 @@ Altimeter: baca tekanan udara dan perkiraan ketinggian, atau ukur ketinggian yan
 
 Pengukur tinggi: ukur tinggi pohon atau gedung dan jarak ke sana. Bidik dasarnya lalu puncaknya dengan tepi atas ponsel, atau ketik jaraknya jika Anda tahu.
 
-Waterpass kamera: arahkan kamera ke dinding dan sejajarkan ubin, rak, dan pigura dengan kisi-kisi yang selalu datar. Gambar tidak pernah direkam atau disimpan.
+Waterpass kamera: arahkan kamera ke dinding untuk melihat garis datar dan tegak lurus yang sebenarnya di atas gambar. Bekukan, seret garis ke tepi pigura atau rak, dan Anda akan tahu berapa derajat kemiringannya dan sisi mana yang perlu diangkat. Gambar tidak pernah direkam atau disimpan.
+
+Pengukur gaya G: pasang ponsel di dudukan mobil dan lihat seberapa keras Anda mengerem, berakselerasi, dan menikung, dalam g. Sisi mobil ke arah Anda terdorong akan menyala, dan nilai puncak disimpan untuk dilihat setelah perjalanan.
+
+Speedometer: lihat kecepatan Anda dari GPS di dasbor dengan jalan yang melaju di depan, lengkap dengan jarak perjalanan, kecepatan tertinggi dan rata-rata, ketinggian, serta koordinat Anda. Lokasi hanya dipakai selama alat ini terbuka dan tidak pernah keluar dari ponsel Anda.
+
+Meteran AR: arahkan kamera belakang ke meja, lantai, atau dinding dan gerakkan perlahan sampai permukaannya ditemukan. Ketuk di setiap sudut untuk mengukur panjang dan totalnya, lalu tutup bentuknya untuk melihat luas dan kelilingnya, dalam cm atau inci. Hasilnya perkiraan, sering kali selisih 1 sampai 3 cm per meter. Memerlukan ponsel yang mendukung Google Play Services for AR. Gambar tidak pernah direkam atau disimpan.
 
 Setiap alat dilengkapi panduan singkat. Berfungsi dalam mode potret dan lanskap, terang dan gelap, dalam 12 bahasa. Tanpa iklan, tanpa akun, tanpa internet.
 

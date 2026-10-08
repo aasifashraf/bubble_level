@@ -1,4 +1,4 @@
-Turn your phone into a precise bubble level and spirit level, with eleven more measuring tools built in for DIY, carpentry, building and hanging pictures.
+Turn your phone into a precise bubble level and spirit level, with fourteen more measuring tools built in for DIY, carpentry, building and hanging pictures.
 
 Bubble level: lay your phone flat to level shelves, tables and appliances. X and Y show the tilt in each direction and a hint tells you which side is high. When it is level the reading turns orange, with an optional tap and chime.
 
@@ -24,7 +24,13 @@ Altimeter: read air pressure and approximate altitude, or measure height climbed
 
 Height meter: measure the height of a tree or building and the distance to it. Aim the phone’s top edge at its base, then its top, or type the distance if you know it.
 
-Camera level: point the camera at a wall and line up tiles, shelves and pictures with a grid that always stays level. The picture is never recorded or saved.
+Camera level: point the camera at a wall to see true level and plumb lines over the picture. Freeze it, drag a line onto the edge of a frame or shelf, and it tells you how many degrees it is off and which side to lift. The picture is never recorded or saved.
+
+G-force meter: put the phone in a car mount and see how hard you brake, speed up and corner, in g. The side of the car you’re pushed towards glows, and the peaks are kept for after the drive.
+
+Speedometer: see your speed from GPS on a dashboard with the road rushing past, with trip distance, top and average speed, altitude and your coordinates. Location is used only while it's open and never leaves your phone.
+
+AR tape measure: point the back camera at a table, floor or wall and move slowly until it finds the surface. Tap at each corner to measure lengths and the total, then close the shape for its area and perimeter, in cm or inches. Readings are approximate, often within 1 to 3 cm over a metre. Needs a phone that supports Google Play Services for AR. The picture is never recorded or saved.
 
 Every tool has a short how-to guide. Works in portrait and landscape, in light and dark mode, in 12 languages. No ads, no account, no internet needed.
 
