@@ -34,6 +34,9 @@ class ProtractorScreen extends StatelessWidget {
     ],
   );
 
+  /// Touches closer than this to the centre, logical pixels, move no arm.
+  static const _deadZone = 40.0;
+
   /// Degrees clockwise from 12 o'clock of [position] around the centre of
   /// a box of [size].
   static double _angleAt(Offset position, Size size) {
@@ -56,11 +59,18 @@ class ProtractorScreen extends StatelessWidget {
             builder: (context, constraints) {
               final size = constraints.biggest;
               double at(Offset p) => _angleAt(p, size);
+              // Near the centre a touch's direction is arbitrary, and it's
+              // where the object's corner and the reading sit.
+              bool central(Offset p) =>
+                  (p - size.center(Offset.zero)).distance < _deadZone;
+              void begin(Offset p) => central(p)
+                  ? viewModel.ignoreDrag()
+                  : viewModel.beginDrag(at(p));
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onPanStart: (d) => viewModel.beginDrag(at(d.localPosition)),
+                onPanStart: (d) => begin(d.localPosition),
                 onPanUpdate: (d) => viewModel.dragTo(at(d.localPosition)),
-                onTapUp: (d) => viewModel.beginDrag(at(d.localPosition)),
+                onTapUp: (d) => begin(d.localPosition),
                 child: InstrumentDial(
                   value: formatDegrees(angle),
                   semanticsLabel: context.l10n.armsSemantics(

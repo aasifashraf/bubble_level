@@ -11,7 +11,9 @@ class ProtractorViewModel extends ChangeNotifier {
   final _arms = [..._defaultArms];
 
   /// The arm being dragged.
-  int _dragging = 0;
+  /// The arm being dragged; null when the touch began where no arm can be
+  /// aimed (the very centre).
+  int? _dragging = 0;
 
   bool _locked = false;
 
@@ -60,11 +62,18 @@ class ProtractorViewModel extends ChangeNotifier {
   void beginDrag(double degrees) {
     if (_locked) return;
     _dragging = nearestArm(degrees);
-    setArm(_dragging, degrees);
+    setArm(_dragging!, degrees);
   }
 
+  /// A touch at the centre, where its direction means nothing: it moves no
+  /// arm, and neither does the drag that follows.
+  void ignoreDrag() => _dragging = null;
+
   /// Moves the arm being dragged to [degrees].
-  void dragTo(double degrees) => setArm(_dragging, degrees);
+  void dragTo(double degrees) {
+    final arm = _dragging;
+    if (arm != null) setArm(arm, degrees);
+  }
 
   void reset() {
     if (_locked) return;
