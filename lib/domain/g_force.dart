@@ -92,6 +92,12 @@ class GMeter {
   /// Whether there's enough to take a Zero from.
   bool get canZero => _recent.length >= 5;
 
+  /// Whether nearly all of [zeroWindow] has been seen, so a Zero taken on
+  /// its own (when the tool opens) isn't thrown off by the tap that
+  /// opened it.
+  bool get canAutoZero =>
+      canZero && _recent.last.$1 - _recent.first.$1 >= zeroWindow * 0.9;
+
   /// How much of sector [i]'s peak is still shown, 0 to 1.
   double _fade(int i) {
     if (_peaks[i] <= 0) return 0;

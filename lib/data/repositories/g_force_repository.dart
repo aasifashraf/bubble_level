@@ -19,7 +19,7 @@ class GForceRepository extends SensorStreamRepository<SensorSample, GReading> {
   @override
   void onSample(SensorSample sample) {
     _meter.add(sample.value, sample.timestamp.microsecondsSinceEpoch / 1e6);
-    if (!_meter.zeroed) _meter.zero();
+    if (!_meter.zeroed && _meter.canAutoZero) _meter.zero();
     value = _meter.reading(SensorState.ok);
   }
 

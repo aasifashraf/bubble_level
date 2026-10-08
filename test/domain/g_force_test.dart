@@ -337,4 +337,14 @@ void main() {
       expect(m.reading(SensorState.missing).zeroed, isFalse);
     });
   });
+
+  group('GMeter auto zero', () {
+    test('waits for most of half a second before zeroing on its own', () {
+      final d = Drive(portrait)..hold(0.2);
+      expect(d.meter.canZero, isTrue, reason: 'a tap on Zero would work');
+      expect(d.meter.canAutoZero, isFalse);
+      d.hold(0.3);
+      expect(d.meter.canAutoZero, isTrue);
+    });
+  });
 }
