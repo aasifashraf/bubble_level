@@ -1207,4 +1207,80 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get cameraHandle => 'Ручка края';
+
+  @override
+  String get toolGForce => 'Перегрузка';
+
+  @override
+  String get toolGForceSubtitle => 'Торможение, разгон и повороты в g';
+
+  @override
+  String get gHelp1 =>
+      'Закрепите телефон в автодержателе экраном к себе. Пока машина стоит, нажмите «Ноль»: прибор запомнит, где низ и где перёд.';
+
+  @override
+  String get gHelp2 =>
+      'Поезжайте: светится та сторона машины, к которой вас прижимает. При торможении светится перёд, при разгоне задняя часть, в повороте внешняя сторона. Зелёный значит мягко, оранжевый ощутимо, красный резко.';
+
+  @override
+  String get gHelp3 =>
+      'На панели хранятся самые сильные разгон, торможение и поворот с момента обнуления, а точки на ободе хранят самый сильный толчок в каждом направлении. Кнопка сброса их очищает.';
+
+  @override
+  String get gHelp4 =>
+      'Следите за дорогой: пусть показания читает пассажир, или посмотрите пики после остановки.';
+
+  @override
+  String get gTip =>
+      'Показания берутся с акселерометра: они близки к бортовому регистратору, но на неровной дороге чуть более шумные. Если держатель сдвинулся, остановитесь и снова нажмите «Ноль». Больше 0,5 g для обычной машины означает резкое торможение или быстрый поворот.';
+
+  @override
+  String get gZero => 'Ноль';
+
+  @override
+  String get gResetPeaks => 'Сбросить пики';
+
+  @override
+  String get gSpeedUp => 'Разгон';
+
+  @override
+  String get gBrake => 'Торможение';
+
+  @override
+  String get gCorner => 'Поворот';
+
+  @override
+  String get gSteady => 'Ровно';
+
+  @override
+  String gBraking(String value) {
+    return 'Торможение $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'Разгон $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'Левый поворот $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'Правый поворот $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'Перегрузка $value g';
+  }
+
+  @override
+  String get gZeroed => 'Обнулено: низ и перёд запомнены';
+
+  @override
+  String get noAccelerometerG =>
+      'В этом телефоне нет акселерометра, поэтому перегрузку здесь не измерить. Другие инструменты работают.';
 }

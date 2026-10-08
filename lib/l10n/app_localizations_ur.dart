@@ -1202,4 +1202,80 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get cameraHandle => 'کنارے کا ہینڈل';
+
+  @override
+  String get toolGForce => 'G فورس';
+
+  @override
+  String get toolGForceSubtitle => 'بریک، رفتار بڑھانا اور موڑ، g میں';
+
+  @override
+  String get gHelp1 =>
+      'فون کو کار ماؤنٹ میں لگائیں، اسکرین آپ کی طرف۔ گاڑی کھڑی ہو تو صفر دبائیں: میٹر سیکھ لیتا ہے کہ نیچے اور آگے کس طرف ہے۔';
+
+  @override
+  String get gHelp2 =>
+      'گاڑی چلائیں: گاڑی کی وہ طرف چمکتی ہے جدھر آپ دھکیلے جاتے ہیں۔ بریک لگانے پر آگے، رفتار بڑھانے پر پیچھے اور موڑ پر باہر کی طرف۔ سبز ہلکا، نارنجی زوردار، سرخ سخت۔';
+
+  @override
+  String get gHelp3 =>
+      'پینل صفر کے بعد سب سے زیادہ رفتار بڑھانا، بریک اور موڑ یاد رکھتا ہے، اور کنارے کے نقطے ہر سمت کا سب سے زوردار دھکا یاد رکھتے ہیں۔ ری سیٹ بٹن انہیں مٹا دیتا ہے۔';
+
+  @override
+  String get gHelp4 =>
+      'نظر سڑک پر رکھیں: کسی مسافر سے پڑھوائیں، یا رکنے کے بعد زیادہ سے زیادہ قدریں دیکھیں۔';
+
+  @override
+  String get gTip =>
+      'ریڈنگ ایکسلرومیٹر سے آتی ہے: ڈیش لاگر کے قریب، خراب سڑک پر تھوڑی زیادہ غیر مستحکم۔ اگر ماؤنٹ ہل جائے تو رکیں اور دوبارہ صفر دبائیں۔ عام گاڑی کے لیے 0.5 g سے زیادہ کا مطلب زور کی بریک یا تیز موڑ ہے۔';
+
+  @override
+  String get gZero => 'صفر';
+
+  @override
+  String get gResetPeaks => 'زیادہ سے زیادہ ری سیٹ کریں';
+
+  @override
+  String get gSpeedUp => 'رفتار بڑھانا';
+
+  @override
+  String get gBrake => 'بریک';
+
+  @override
+  String get gCorner => 'موڑ';
+
+  @override
+  String get gSteady => 'مستحکم';
+
+  @override
+  String gBraking(String value) {
+    return 'بریک $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'رفتار بڑھ رہی ہے $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'بایاں موڑ $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'دایاں موڑ $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'G فورس $value g';
+  }
+
+  @override
+  String get gZeroed => 'صفر ہو گیا: آگے اور نیچے کی سمت سیکھ لی';
+
+  @override
+  String get noAccelerometerG =>
+      'اس فون میں ایکسلرومیٹر نہیں ہے، اس لیے یہاں G فورس نہیں ناپی جا سکتی۔ باقی ٹولز کام کرتے رہیں گے۔';
 }

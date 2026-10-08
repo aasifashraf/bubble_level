@@ -2193,6 +2193,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edge handle'**
   String get cameraHandle;
+
+  /// No description provided for @toolGForce.
+  ///
+  /// In en, this message translates to:
+  /// **'G-force'**
+  String get toolGForce;
+
+  /// No description provided for @toolGForceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Braking, speeding up and cornering in g'**
+  String get toolGForceSubtitle;
+
+  /// No description provided for @gHelp1.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix the phone in a car mount, screen facing you. While the car stands still, tap Zero: the meter learns which way is down and which way is forward.'**
+  String get gHelp1;
+
+  /// No description provided for @gHelp2.
+  ///
+  /// In en, this message translates to:
+  /// **'Drive: the side of the car you\'re pushed towards glows. Braking lights the front, speeding up the back, a bend the outside. Green is gentle, orange firm, red hard.'**
+  String get gHelp2;
+
+  /// No description provided for @gHelp3.
+  ///
+  /// In en, this message translates to:
+  /// **'The panel holds the strongest speed up, brake and corner since Zero, and the dots on the rim hold the strongest push in each direction. The reset button clears them.'**
+  String get gHelp3;
+
+  /// No description provided for @gHelp4.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your eyes on the road: let a passenger read it, or check the peaks once you\'ve stopped.'**
+  String get gHelp4;
+
+  /// No description provided for @gTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Readings come from the accelerometer: close to a dash logger, a little noisier on rough roads. If the mount moves, stop and tap Zero again. Over 0.5 g is a hard stop or a fast bend for an everyday car.'**
+  String get gTip;
+
+  /// No description provided for @gZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Zero'**
+  String get gZero;
+
+  /// No description provided for @gResetPeaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset peaks'**
+  String get gResetPeaks;
+
+  /// No description provided for @gSpeedUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed up'**
+  String get gSpeedUp;
+
+  /// No description provided for @gBrake.
+  ///
+  /// In en, this message translates to:
+  /// **'Brake'**
+  String get gBrake;
+
+  /// No description provided for @gCorner.
+  ///
+  /// In en, this message translates to:
+  /// **'Corner'**
+  String get gCorner;
+
+  /// No description provided for @gSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady'**
+  String get gSteady;
+
+  /// No description provided for @gBraking.
+  ///
+  /// In en, this message translates to:
+  /// **'Braking {value} g'**
+  String gBraking(String value);
+
+  /// No description provided for @gSpeedingUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Speeding up {value} g'**
+  String gSpeedingUp(String value);
+
+  /// No description provided for @gLeftBend.
+  ///
+  /// In en, this message translates to:
+  /// **'Left bend {value} g'**
+  String gLeftBend(String value);
+
+  /// No description provided for @gRightBend.
+  ///
+  /// In en, this message translates to:
+  /// **'Right bend {value} g'**
+  String gRightBend(String value);
+
+  /// No description provided for @gSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'G-force {value} g'**
+  String gSemantics(String value);
+
+  /// No description provided for @gZeroed.
+  ///
+  /// In en, this message translates to:
+  /// **'Zeroed: forward and down learned'**
+  String get gZeroed;
+
+  /// No description provided for @noAccelerometerG.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone has no accelerometer, so g-force can’t be measured here. Other tools still work.'**
+  String get noAccelerometerG;
 }
 
 class _AppLocalizationsDelegate

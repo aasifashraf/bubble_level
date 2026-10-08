@@ -16,6 +16,7 @@ enum HomeTool {
   altimeter,
   height,
   camera,
+  gforce,
 }
 
 /// Line icons drawn in the design's stroke style.
@@ -262,6 +263,26 @@ class ToolGlyphPainter extends CustomPainter {
               ..color = accent,
           )
           ..drawCircle(const Offset(14, 5), 2, Paint()..color = accent);
+      case HomeTool.gforce:
+        // A car from above in a ring, an orange glow off its nose.
+        canvas
+          ..drawCircle(const Offset(12, 12), 10.5, line)
+          ..drawRRect(
+            RRect.fromLTRBR(9, 8.5, 15, 19, const Radius.circular(2.5)),
+            line,
+          )
+          ..drawArc(
+            Rect.fromCircle(center: const Offset(12, 12), radius: 10.5),
+            -math.pi / 2 - 0.6,
+            1.2,
+            false,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 2.6
+              ..strokeCap = StrokeCap.round
+              ..color = accent,
+          )
+          ..drawCircle(const Offset(12, 5.5), 1.6, Paint()..color = accent);
       case HomeTool.camera:
         // A camera with a level line through its lens.
         canvas

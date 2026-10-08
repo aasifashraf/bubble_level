@@ -1201,4 +1201,80 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cameraHandle => 'Edge handle';
+
+  @override
+  String get toolGForce => 'G-force';
+
+  @override
+  String get toolGForceSubtitle => 'Braking, speeding up and cornering in g';
+
+  @override
+  String get gHelp1 =>
+      'Fix the phone in a car mount, screen facing you. While the car stands still, tap Zero: the meter learns which way is down and which way is forward.';
+
+  @override
+  String get gHelp2 =>
+      'Drive: the side of the car you\'re pushed towards glows. Braking lights the front, speeding up the back, a bend the outside. Green is gentle, orange firm, red hard.';
+
+  @override
+  String get gHelp3 =>
+      'The panel holds the strongest speed up, brake and corner since Zero, and the dots on the rim hold the strongest push in each direction. The reset button clears them.';
+
+  @override
+  String get gHelp4 =>
+      'Keep your eyes on the road: let a passenger read it, or check the peaks once you\'ve stopped.';
+
+  @override
+  String get gTip =>
+      'Readings come from the accelerometer: close to a dash logger, a little noisier on rough roads. If the mount moves, stop and tap Zero again. Over 0.5 g is a hard stop or a fast bend for an everyday car.';
+
+  @override
+  String get gZero => 'Zero';
+
+  @override
+  String get gResetPeaks => 'Reset peaks';
+
+  @override
+  String get gSpeedUp => 'Speed up';
+
+  @override
+  String get gBrake => 'Brake';
+
+  @override
+  String get gCorner => 'Corner';
+
+  @override
+  String get gSteady => 'Steady';
+
+  @override
+  String gBraking(String value) {
+    return 'Braking $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'Speeding up $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'Left bend $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'Right bend $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'G-force $value g';
+  }
+
+  @override
+  String get gZeroed => 'Zeroed: forward and down learned';
+
+  @override
+  String get noAccelerometerG =>
+      'This phone has no accelerometer, so g-force can’t be measured here. Other tools still work.';
 }

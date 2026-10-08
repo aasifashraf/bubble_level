@@ -1201,4 +1201,80 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get cameraHandle => 'किनारे का हैंडल';
+
+  @override
+  String get toolGForce => 'G-फ़ोर्स';
+
+  @override
+  String get toolGForceSubtitle => 'ब्रेक, रफ़्तार बढ़ाना और मोड़, g में';
+
+  @override
+  String get gHelp1 =>
+      'फ़ोन को कार माउंट में लगाएँ, स्क्रीन आपकी ओर। कार खड़ी हो तब शून्य दबाएँ: मीटर सीख लेता है कि नीचे और आगे किस ओर है।';
+
+  @override
+  String get gHelp2 =>
+      'गाड़ी चलाएँ: कार का वह हिस्सा चमकता है जिधर आप धकेले जाते हैं। ब्रेक लगाने पर आगे का, रफ़्तार बढ़ाने पर पीछे का और मोड़ पर बाहर का हिस्सा। हरा हल्का, नारंगी ज़ोरदार, लाल तेज़।';
+
+  @override
+  String get gHelp3 =>
+      'पैनल शून्य के बाद की सबसे तेज़ रफ़्तार बढ़त, ब्रेक और मोड़ याद रखता है, और किनारे के बिंदु हर दिशा का सबसे ज़ोरदार धक्का याद रखते हैं। रीसेट बटन इन्हें मिटा देता है।';
+
+  @override
+  String get gHelp4 =>
+      'नज़र सड़क पर रखें: किसी सवारी से पढ़वाएँ, या रुकने के बाद अधिकतम मान देखें।';
+
+  @override
+  String get gTip =>
+      'रीडिंग एक्सेलेरोमीटर से आती है: डैश लॉगर के करीब, खराब सड़क पर थोड़ी ज़्यादा अस्थिर। अगर माउंट हिल जाए, तो रुकें और फिर से शून्य दबाएँ। आम कार के लिए 0.5 g से ज़्यादा का मतलब ज़ोर का ब्रेक या तेज़ मोड़ है।';
+
+  @override
+  String get gZero => 'शून्य';
+
+  @override
+  String get gResetPeaks => 'अधिकतम रीसेट करें';
+
+  @override
+  String get gSpeedUp => 'रफ़्तार बढ़ाना';
+
+  @override
+  String get gBrake => 'ब्रेक';
+
+  @override
+  String get gCorner => 'मोड़';
+
+  @override
+  String get gSteady => 'स्थिर';
+
+  @override
+  String gBraking(String value) {
+    return 'ब्रेक $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'रफ़्तार बढ़ रही $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'बायाँ मोड़ $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'दायाँ मोड़ $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'G-फ़ोर्स $value g';
+  }
+
+  @override
+  String get gZeroed => 'शून्य हो गया: आगे और नीचे की दिशा सीख ली';
+
+  @override
+  String get noAccelerometerG =>
+      'इस फ़ोन में एक्सेलेरोमीटर नहीं है, इसलिए यहाँ G-फ़ोर्स नहीं मापा जा सकता। बाकी टूल काम करते रहेंगे।';
 }

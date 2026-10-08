@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../data/repositories/barometer_repository.dart';
+import '../../data/repositories/g_force_repository.dart';
 import '../../data/repositories/light_repository.dart';
 import '../../data/repositories/orientation_repository.dart';
 import '../../data/repositories/review_repository.dart';
@@ -34,6 +35,8 @@ import '../features/camera/view_models/camera_level_view_model.dart';
 import '../features/camera/views/camera_level_screen.dart';
 import '../features/compass/view_models/compass_view_model.dart';
 import '../features/compass/views/compass_screen.dart';
+import '../features/g_force/view_models/g_force_view_model.dart';
+import '../features/g_force/views/g_force_screen.dart';
 import '../features/height/view_models/height_view_model.dart';
 import '../features/height/views/height_screen.dart';
 import '../features/level/view_models/level_view_model.dart';
@@ -146,6 +149,8 @@ class _HomeShellState extends State<HomeShell> {
   void _recordSuccess() => unawaited(widget.review?.recordSuccess());
   late final _vibrationRepo = VibrationRepository(sensors: widget.sensors);
   late final _vibration = VibrationViewModel(repository: _vibrationRepo);
+  late final _gForceRepo = GForceRepository(sensors: widget.sensors);
+  late final _gForce = GForceViewModel(repository: _gForceRepo);
   late final _barometerRepo = BarometerRepository(sensors: widget.sensors);
   late final _altimeter = AltimeterViewModel(
     repository: _barometerRepo,
@@ -167,6 +172,8 @@ class _HomeShellState extends State<HomeShell> {
     _protractor.dispose();
     _ruler.dispose();
     _vibration.dispose();
+    _gForce.dispose();
+    _gForceRepo.dispose();
     _altimeter.dispose();
     _light.dispose();
     _lightRepo.dispose();
@@ -187,6 +194,7 @@ class _HomeShellState extends State<HomeShell> {
     HomeTool.protractor,
     HomeTool.ruler,
     HomeTool.light,
+    HomeTool.gforce,
   };
 
   /// Tools that always stay portrait (their scene is drawn for it).
@@ -294,6 +302,12 @@ class _HomeShellState extends State<HomeShell> {
           (_) => CameraLevelScreen(viewModel: _camera, onBack: back),
           tool: tool,
         );
+      case HomeTool.gforce:
+        _open(
+          _gForce,
+          (_) => GForceScreen(viewModel: _gForce, onBack: back),
+          tool: tool,
+        );
       case HomeTool.height:
         _open(
           _height,
@@ -377,6 +391,12 @@ class _HomeShellState extends State<HomeShell> {
       tool: HomeTool.camera,
       title: l.toolCamera,
       subtitle: l.toolCameraSubtitle,
+      needs: [SensorKind.accelerometer],
+    ),
+    (
+      tool: HomeTool.gforce,
+      title: l.toolGForce,
+      subtitle: l.toolGForceSubtitle,
       needs: [SensorKind.accelerometer],
     ),
   ];

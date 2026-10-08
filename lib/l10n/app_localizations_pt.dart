@@ -1208,4 +1208,80 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get cameraHandle => 'Alça da borda';
+
+  @override
+  String get toolGForce => 'Força G';
+
+  @override
+  String get toolGForceSubtitle => 'Frenagem, aceleração e curvas em g';
+
+  @override
+  String get gHelp1 =>
+      'Prenda o celular num suporte veicular, com a tela virada para você. Com o carro parado, toque em Zerar: o medidor aprende onde é para baixo e onde é para frente.';
+
+  @override
+  String get gHelp2 =>
+      'Dirija: o lado do carro para onde você é empurrado se acende. Frear acende a frente, acelerar a traseira e uma curva o lado de fora. Verde é suave, laranja firme e vermelho forte.';
+
+  @override
+  String get gHelp3 =>
+      'O painel guarda a aceleração, a frenagem e a curva mais fortes desde que você zerou, e os pontos na borda guardam o maior empurrão em cada direção. O botão de redefinir apaga tudo.';
+
+  @override
+  String get gHelp4 =>
+      'Mantenha os olhos na estrada: deixe um passageiro ler ou confira os picos depois de parar.';
+
+  @override
+  String get gTip =>
+      'As leituras vêm do acelerômetro: próximas às de um registrador veicular, um pouco mais instáveis em vias esburacadas. Se o suporte se mexer, pare e toque em Zerar de novo. Acima de 0,5 g é uma freada forte ou uma curva rápida para um carro comum.';
+
+  @override
+  String get gZero => 'Zerar';
+
+  @override
+  String get gResetPeaks => 'Redefinir picos';
+
+  @override
+  String get gSpeedUp => 'Acelerar';
+
+  @override
+  String get gBrake => 'Frear';
+
+  @override
+  String get gCorner => 'Curva';
+
+  @override
+  String get gSteady => 'Estável';
+
+  @override
+  String gBraking(String value) {
+    return 'Freando $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'Acelerando $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'Curva à esquerda $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'Curva à direita $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'Força G $value g';
+  }
+
+  @override
+  String get gZeroed => 'Zerado: frente e baixo aprendidos';
+
+  @override
+  String get noAccelerometerG =>
+      'Este celular não tem acelerômetro, então não dá para medir força G aqui. As outras ferramentas continuam funcionando.';
 }

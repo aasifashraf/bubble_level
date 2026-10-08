@@ -1154,4 +1154,78 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get cameraHandle => '縁のハンドル';
+
+  @override
+  String get toolGForce => 'Gメーター';
+
+  @override
+  String get toolGForceSubtitle => 'ブレーキ、加速、コーナリングをgで表示';
+
+  @override
+  String get gHelp1 =>
+      'スマホを車載ホルダーに、画面を自分に向けて固定します。停車中に「ゼロ」をタップすると、下と前の向きを覚えます。';
+
+  @override
+  String get gHelp2 =>
+      '走行中は、体が押される側の車の部分が光ります。ブレーキで前、加速で後ろ、カーブで外側が光ります。緑は穏やか、オレンジはやや強め、赤は強めです。';
+
+  @override
+  String get gHelp3 =>
+      'パネルには「ゼロ」以降で最も強い加速、ブレーキ、コーナリングが残り、縁の点は各方向で最も強い力を残します。リセットボタンで消去できます。';
+
+  @override
+  String get gHelp4 => '視線は道路から離さないでください。同乗者に読んでもらうか、停車してから最大値を確認しましょう。';
+
+  @override
+  String get gTip =>
+      '値は加速度センサーによるもので、車載データロガーに近い精度ですが、荒れた路面では少しぶれます。ホルダーが動いたら停車して、もう一度「ゼロ」をタップしてください。一般的な乗用車では、0.5 g を超えると急ブレーキや速いコーナリングです。';
+
+  @override
+  String get gZero => 'ゼロ';
+
+  @override
+  String get gResetPeaks => '最大値をリセット';
+
+  @override
+  String get gSpeedUp => '加速';
+
+  @override
+  String get gBrake => 'ブレーキ';
+
+  @override
+  String get gCorner => 'コーナー';
+
+  @override
+  String get gSteady => '一定';
+
+  @override
+  String gBraking(String value) {
+    return 'ブレーキ $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return '加速 $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return '左カーブ $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return '右カーブ $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'Gフォース $value g';
+  }
+
+  @override
+  String get gZeroed => 'ゼロ設定完了：下と前の向きを覚えました';
+
+  @override
+  String get noAccelerometerG => 'この端末には加速度センサーがないため、Gを測定できません。ほかのツールは使えます。';
 }

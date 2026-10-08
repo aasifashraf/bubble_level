@@ -1207,4 +1207,80 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get cameraHandle => 'Kantengriff';
+
+  @override
+  String get toolGForce => 'G-Kraft';
+
+  @override
+  String get toolGForceSubtitle => 'Bremsen, Beschleunigen und Kurven in g';
+
+  @override
+  String get gHelp1 =>
+      'Befestige das Handy in einer Autohalterung, den Bildschirm zu dir. Tippe bei stehendem Auto auf Nullen: Das Messgerät lernt, wo unten und wo vorne ist.';
+
+  @override
+  String get gHelp2 =>
+      'Fahr los: Die Seite des Autos, zu der du gedrückt wirst, leuchtet. Beim Bremsen leuchtet vorne, beim Beschleunigen hinten, in einer Kurve außen. Grün ist sanft, Orange kräftig, Rot hart.';
+
+  @override
+  String get gHelp3 =>
+      'Die Tafel hält das stärkste Beschleunigen, Bremsen und die stärkste Kurve seit dem Nullen fest, und die Punkte am Rand halten den stärksten Druck in jede Richtung fest. Die Taste zum Zurücksetzen löscht sie.';
+
+  @override
+  String get gHelp4 =>
+      'Behalte die Straße im Blick: Lass einen Beifahrer ablesen oder sieh dir die Spitzen an, wenn du angehalten hast.';
+
+  @override
+  String get gTip =>
+      'Die Werte kommen vom Beschleunigungssensor: nah an einem Fahrdatenlogger, auf holprigen Straßen etwas unruhiger. Verrutscht die Halterung, halte an und tippe erneut auf Nullen. Über 0,5 g ist für ein normales Auto eine Vollbremsung oder eine schnelle Kurve.';
+
+  @override
+  String get gZero => 'Nullen';
+
+  @override
+  String get gResetPeaks => 'Spitzen zurücksetzen';
+
+  @override
+  String get gSpeedUp => 'Beschleunigen';
+
+  @override
+  String get gBrake => 'Bremsen';
+
+  @override
+  String get gCorner => 'Kurve';
+
+  @override
+  String get gSteady => 'Gleichmäßig';
+
+  @override
+  String gBraking(String value) {
+    return 'Bremsen $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'Beschleunigen $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'Linkskurve $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'Rechtskurve $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'G-Kraft $value g';
+  }
+
+  @override
+  String get gZeroed => 'Genullt: vorne und unten gelernt';
+
+  @override
+  String get noAccelerometerG =>
+      'Dieses Handy hat keinen Beschleunigungssensor, daher lässt sich hier keine G-Kraft messen. Andere Werkzeuge funktionieren weiter.';
 }

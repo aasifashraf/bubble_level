@@ -1203,4 +1203,80 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get cameraHandle => 'Kenar tutamacı';
+
+  @override
+  String get toolGForce => 'G kuvveti';
+
+  @override
+  String get toolGForceSubtitle => 'Fren, hızlanma ve virajlar g cinsinden';
+
+  @override
+  String get gHelp1 =>
+      'Telefonu ekranı size dönük şekilde bir araç tutucusuna sabitleyin. Araç dururken Sıfırla’ya dokunun: ölçer aşağının ve ilerinin hangi yönde olduğunu öğrenir.';
+
+  @override
+  String get gHelp2 =>
+      'Sürün: aracın, itildiğiniz tarafı parlar. Fren önü, hızlanma arkayı, viraj dış tarafı yakar. Yeşil yumuşak, turuncu belirgin, kırmızı sert demektir.';
+
+  @override
+  String get gHelp3 =>
+      'Panel, Sıfırla’dan bu yana en güçlü hızlanmayı, freni ve virajı tutar; kenardaki noktalar da her yöndeki en güçlü itmeyi tutar. Tepeleri temizle düğmesi bunları siler.';
+
+  @override
+  String get gHelp4 =>
+      'Gözünüz yolda olsun: bir yolcu okusun ya da durduktan sonra tepelere bakın.';
+
+  @override
+  String get gTip =>
+      'Değerler ivmeölçerden gelir: bir araç veri kaydedicisine yakındır, bozuk yollarda biraz daha oynaktır. Tutucu kayarsa durun ve yeniden Sıfırla’ya dokunun. Sıradan bir araç için 0,5 g üzeri sert bir fren ya da hızlı bir viraj demektir.';
+
+  @override
+  String get gZero => 'Sıfırla';
+
+  @override
+  String get gResetPeaks => 'Tepeleri temizle';
+
+  @override
+  String get gSpeedUp => 'Hızlanma';
+
+  @override
+  String get gBrake => 'Fren';
+
+  @override
+  String get gCorner => 'Viraj';
+
+  @override
+  String get gSteady => 'Sabit';
+
+  @override
+  String gBraking(String value) {
+    return 'Fren $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'Hızlanma $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'Sol viraj $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'Sağ viraj $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'G kuvveti $value g';
+  }
+
+  @override
+  String get gZeroed => 'Sıfırlandı: ileri ve aşağı öğrenildi';
+
+  @override
+  String get noAccelerometerG =>
+      'Bu telefonda ivmeölçer yok, bu yüzden burada g kuvveti ölçülemez. Diğer araçlar çalışmaya devam eder.';
 }

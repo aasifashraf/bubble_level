@@ -1205,4 +1205,81 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get cameraHandle => 'Pegangan tepi';
+
+  @override
+  String get toolGForce => 'Gaya G';
+
+  @override
+  String get toolGForceSubtitle =>
+      'Pengereman, akselerasi, dan tikungan dalam g';
+
+  @override
+  String get gHelp1 =>
+      'Pasang ponsel di dudukan mobil dengan layar menghadap Anda. Saat mobil diam, ketuk Nol: alat ini mempelajari arah bawah dan arah depan.';
+
+  @override
+  String get gHelp2 =>
+      'Berkendaralah: sisi mobil ke arah Anda terdorong akan menyala. Mengerem menyalakan bagian depan, akselerasi bagian belakang, dan tikungan sisi luar. Hijau berarti ringan, oranye kuat, merah keras.';
+
+  @override
+  String get gHelp3 =>
+      'Panel menyimpan akselerasi, pengereman, dan tikungan terkuat sejak Nol, dan titik di tepi menyimpan dorongan terkuat ke setiap arah. Tombol reset menghapusnya.';
+
+  @override
+  String get gHelp4 =>
+      'Tetap fokus ke jalan: biarkan penumpang yang membaca, atau periksa puncaknya setelah Anda berhenti.';
+
+  @override
+  String get gTip =>
+      'Nilai berasal dari akselerometer: mendekati perekam data mobil, sedikit lebih bergejolak di jalan rusak. Jika dudukan bergeser, berhentilah dan ketuk Nol lagi. Di atas 0,5 g berarti pengereman keras atau tikungan cepat untuk mobil biasa.';
+
+  @override
+  String get gZero => 'Nol';
+
+  @override
+  String get gResetPeaks => 'Reset puncak';
+
+  @override
+  String get gSpeedUp => 'Akselerasi';
+
+  @override
+  String get gBrake => 'Rem';
+
+  @override
+  String get gCorner => 'Tikungan';
+
+  @override
+  String get gSteady => 'Stabil';
+
+  @override
+  String gBraking(String value) {
+    return 'Mengerem $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'Berakselerasi $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'Tikungan kiri $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'Tikungan kanan $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'Gaya G $value g';
+  }
+
+  @override
+  String get gZeroed => 'Nol diatur: arah depan dan bawah dipelajari';
+
+  @override
+  String get noAccelerometerG =>
+      'Ponsel ini tidak punya akselerometer, jadi gaya G tidak bisa diukur di sini. Alat lain tetap berfungsi.';
 }

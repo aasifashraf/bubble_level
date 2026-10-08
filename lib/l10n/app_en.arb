@@ -623,5 +623,60 @@
       }
     }
   },
-  "cameraHandle": "Edge handle"
+  "cameraHandle": "Edge handle",
+  "toolGForce": "G-force",
+  "toolGForceSubtitle": "Braking, speeding up and cornering in g",
+  "gHelp1": "Fix the phone in a car mount, screen facing you. While the car stands still, tap Zero: the meter learns which way is down and which way is forward.",
+  "gHelp2": "Drive: the side of the car you're pushed towards glows. Braking lights the front, speeding up the back, a bend the outside. Green is gentle, orange firm, red hard.",
+  "gHelp3": "The panel holds the strongest speed up, brake and corner since Zero, and the dots on the rim hold the strongest push in each direction. The reset button clears them.",
+  "gHelp4": "Keep your eyes on the road: let a passenger read it, or check the peaks once you've stopped.",
+  "gTip": "Readings come from the accelerometer: close to a dash logger, a little noisier on rough roads. If the mount moves, stop and tap Zero again. Over 0.5 g is a hard stop or a fast bend for an everyday car.",
+  "gZero": "Zero",
+  "gResetPeaks": "Reset peaks",
+  "gSpeedUp": "Speed up",
+  "gBrake": "Brake",
+  "gCorner": "Corner",
+  "gSteady": "Steady",
+  "gBraking": "Braking {value} g",
+  "@gBraking": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "gSpeedingUp": "Speeding up {value} g",
+  "@gSpeedingUp": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "gLeftBend": "Left bend {value} g",
+  "@gLeftBend": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "gRightBend": "Right bend {value} g",
+  "@gRightBend": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "gSemantics": "G-force {value} g",
+  "@gSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "gZeroed": "Zeroed: forward and down learned",
+  "noAccelerometerG": "This phone has no accelerometer, so g-force can’t be measured here. Other tools still work."
 }

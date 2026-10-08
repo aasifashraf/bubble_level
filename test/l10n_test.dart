@@ -107,6 +107,7 @@ void main() {
           l.toolAltimeter,
           l.toolHeight,
           l.toolCamera,
+          l.toolGForce,
         ]) {
           final tile = find.text(tool).first;
           await tester.ensureVisible(tile);

@@ -5,6 +5,7 @@ import 'package:bubble_level/data/repositories/settings_repository.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
+import 'package:bubble_level/domain/g_force.dart';
 import 'package:bubble_level/domain/ruler.dart';
 import 'package:bubble_level/domain/scene_weather.dart';
 import 'package:bubble_level/main.dart';
@@ -42,6 +43,7 @@ const _allTools = [
   'Altimeter',
   'Height',
   'Camera level',
+  'G-force',
 ];
 
 void main() {
@@ -978,6 +980,38 @@ void main() {
     await tester.tap(find.text('Open settings'));
     await tester.pump();
     expect(camera.settingsOpened, 1);
+  });
+
+  testWidgets('g-force: zeroes itself, then reads braking and bends', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTool(tester, 'G-force');
+    // Upright in a mount facing the driver: forward is out of its back.
+    Future<void> feel(Vec3 extra) async {
+      for (var i = 0; i < 100; i++) {
+        sensors.sendAccel(const Vec3(0, 9.81, 0) + extra);
+      }
+      await tester.pump();
+      await tester.pump();
+    }
+
+    await feel(const Vec3(0, 0, 0));
+    expect(find.text('Steady'), findsOneWidget);
+    // Braking at half a g: the car slows, so the phone is pushed back.
+    await feel(const Vec3(0, 0, 0.5 * standardGravity));
+    expect(find.text('Braking 0.50 g'), findsOneWidget);
+    expect(find.text('0.50 g'), findsWidgets);
+    // A left bend: the car accelerates to its left (the phone's -x).
+    await feel(const Vec3(-0.4 * standardGravity, 0, 0));
+    expect(find.text('Left bend 0.40 g'), findsOneWidget);
+    await tester.tap(find.byTooltip('Reset peaks'));
+    await tester.pump();
+    await tester.tap(find.text('Zero'));
+    await tester.pump();
+    expect(find.text('Zeroed: forward and down learned'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('altimeter: phones without a barometer are told so', (

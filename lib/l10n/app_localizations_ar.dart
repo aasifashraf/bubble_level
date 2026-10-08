@@ -1195,4 +1195,80 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cameraHandle => 'مقبض الحافة';
+
+  @override
+  String get toolGForce => 'قوة G';
+
+  @override
+  String get toolGForceSubtitle => 'الكبح والتسارع والانعطاف بوحدة g';
+
+  @override
+  String get gHelp1 =>
+      'ثبّت الهاتف في حامل السيارة والشاشة مواجهة لك. والسيارة متوقفة، اضغط صفر: يتعلّم المقياس اتجاه الأسفل واتجاه الأمام.';
+
+  @override
+  String get gHelp2 =>
+      'انطلق بالسيارة: يضيء جانب السيارة الذي تُدفع نحوه. الكبح يضيء الأمام، والتسارع الخلف، والمنعطف الجانب الخارجي. الأخضر خفيف، والبرتقالي قوي، والأحمر شديد.';
+
+  @override
+  String get gHelp3 =>
+      'تحتفظ اللوحة بأقوى تسارع وكبح وانعطاف منذ الضغط على صفر، وتحتفظ النقاط على الحافة بأقوى دفعة في كل اتجاه. زر إعادة الضبط يمسحها.';
+
+  @override
+  String get gHelp4 =>
+      'أبقِ عينيك على الطريق: دع راكبًا يقرؤها، أو راجع القيم القصوى بعد التوقف.';
+
+  @override
+  String get gTip =>
+      'القراءات من مقياس التسارع: قريبة من مسجّل بيانات السيارة، وأكثر تذبذبًا قليلًا على الطرق الوعرة. إذا تحرّك الحامل، فتوقف واضغط صفر مرة أخرى. ما فوق 0.5 g يعني كبحًا قويًا أو منعطفًا سريعًا لسيارة عادية.';
+
+  @override
+  String get gZero => 'صفر';
+
+  @override
+  String get gResetPeaks => 'إعادة ضبط القيم القصوى';
+
+  @override
+  String get gSpeedUp => 'تسارع';
+
+  @override
+  String get gBrake => 'كبح';
+
+  @override
+  String get gCorner => 'انعطاف';
+
+  @override
+  String get gSteady => 'ثابت';
+
+  @override
+  String gBraking(String value) {
+    return 'كبح $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'تسارع $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'انعطاف لليسار $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'انعطاف لليمين $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'قوة G $value g';
+  }
+
+  @override
+  String get gZeroed => 'تم التصفير: تم تعلّم الأمام والأسفل';
+
+  @override
+  String get noAccelerometerG =>
+      'لا يحتوي هذا الهاتف على مقياس تسارع، لذا لا يمكن قياس قوة G هنا. الأدوات الأخرى تعمل كالمعتاد.';
 }

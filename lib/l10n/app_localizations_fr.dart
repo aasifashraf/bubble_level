@@ -1210,4 +1210,80 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get cameraHandle => 'Poignée du bord';
+
+  @override
+  String get toolGForce => 'Force G';
+
+  @override
+  String get toolGForceSubtitle => 'Freinage, accélération et virages en g';
+
+  @override
+  String get gHelp1 =>
+      'Fixez le téléphone sur un support voiture, écran face à vous. Voiture à l’arrêt, touchez Zéro : l’appareil apprend où sont le bas et l’avant.';
+
+  @override
+  String get gHelp2 =>
+      'Roulez : le côté de la voiture vers lequel vous êtes poussé s’allume. Un freinage allume l’avant, une accélération l’arrière, un virage l’extérieur. Vert, c’est doux, orange ferme, rouge fort.';
+
+  @override
+  String get gHelp3 =>
+      'Le panneau garde l’accélération, le freinage et le virage les plus forts depuis le Zéro, et les points sur le bord gardent la poussée la plus forte dans chaque direction. Le bouton de réinitialisation les efface.';
+
+  @override
+  String get gHelp4 =>
+      'Gardez les yeux sur la route : laissez un passager lire, ou consultez les crêtes une fois arrêté.';
+
+  @override
+  String get gTip =>
+      'Les mesures viennent de l’accéléromètre : proches d’un enregistreur de conduite, un peu plus agitées sur route abîmée. Si le support bouge, arrêtez-vous et touchez de nouveau Zéro. Au-delà de 0,5 g, c’est un freinage appuyé ou un virage rapide pour une voiture ordinaire.';
+
+  @override
+  String get gZero => 'Zéro';
+
+  @override
+  String get gResetPeaks => 'Remettre les crêtes à zéro';
+
+  @override
+  String get gSpeedUp => 'Accélération';
+
+  @override
+  String get gBrake => 'Freinage';
+
+  @override
+  String get gCorner => 'Virage';
+
+  @override
+  String get gSteady => 'Stable';
+
+  @override
+  String gBraking(String value) {
+    return 'Freinage $value g';
+  }
+
+  @override
+  String gSpeedingUp(String value) {
+    return 'Accélération $value g';
+  }
+
+  @override
+  String gLeftBend(String value) {
+    return 'Virage à gauche $value g';
+  }
+
+  @override
+  String gRightBend(String value) {
+    return 'Virage à droite $value g';
+  }
+
+  @override
+  String gSemantics(String value) {
+    return 'Force G $value g';
+  }
+
+  @override
+  String get gZeroed => 'Zéro réglé : l’avant et le bas sont appris';
+
+  @override
+  String get noAccelerometerG =>
+      'Ce téléphone n’a pas d’accéléromètre : la force G ne peut pas être mesurée ici. Les autres outils fonctionnent toujours.';
 }
