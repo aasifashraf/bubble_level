@@ -149,6 +149,9 @@ class CameraLevelViewModel extends SensorViewModel {
         await feed.dispose();
         return;
       }
+      // Never two cameras: let go of one left from an earlier start.
+      final old = _feed;
+      if (old != null) unawaited(old.dispose());
       _feed = feed;
       _access = CameraAccess.granted;
       unawaited(_settings.setCameraAllowed(true));
@@ -158,6 +161,9 @@ class CameraLevelViewModel extends SensorViewModel {
     } on CameraMissing {
       if (session != _session) return;
       _access = CameraAccess.missing;
+    } on CameraBusy {
+      // The start already under way decides.
+      return;
     }
     if (active) notifyListeners();
   }
@@ -184,9 +190,12 @@ class CameraLevelViewModel extends SensorViewModel {
           unawaited(_start());
         }
       },
+      // Always stop, also while a start is still under way, so its camera
+      // is let go when it arrives instead of running in the background.
       onHide: () {
-        if (_feed != null) {
-          _stop();
+        final had = _feed != null;
+        _stop();
+        if (had) {
           _access = CameraAccess.checking;
           notifyListeners();
         }

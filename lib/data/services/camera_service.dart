@@ -13,6 +13,11 @@ class CameraMissing implements Exception {
   const CameraMissing();
 }
 
+/// A start is already asking for the camera; this one gives way to it.
+class CameraBusy implements Exception {
+  const CameraBusy();
+}
+
 /// A running back camera: its live picture and light.
 abstract class CameraFeed {
   /// The live picture, upright as the user sees it.
@@ -59,6 +64,10 @@ class CameraService {
     } on CameraException catch (e) {
       await controller.dispose();
       if (e.code.startsWith('CameraAccess')) throw const CameraDenied();
+      // Another start is already asking: not a missing camera.
+      if (e.code == 'CameraPermissionsRequestOngoing') {
+        throw const CameraBusy();
+      }
       throw const CameraMissing();
     } on Object {
       await controller.dispose();
