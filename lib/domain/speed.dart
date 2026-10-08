@@ -89,7 +89,13 @@ class TripMeter {
         : fix.time.difference(last.time).inMicroseconds / 1e6;
     final step = last == null ? 0.0 : distanceBetween(last, fix);
     var v = fix.speed;
-    if (v < 0) v = dt > 0 ? step / dt : 0;
+    // No satellite speed: work it out from the move, but only a move
+    // larger than the two fixes' uncertainty, so position jitter while
+    // standing still doesn't read as speed.
+    if (v < 0) {
+      final moved = last != null && step > last.accuracy + fix.accuracy;
+      v = moved && dt > 0 ? step / dt : 0;
+    }
     if (v < stillBelow) v = 0;
     _speed = v;
     if (fix.accuracy > weakOver) return;
@@ -102,6 +108,13 @@ class TripMeter {
 
   void reset() {
     _distance = _top = _moving = 0;
+  }
+
+  /// After a pause (tool closed, app hidden): the last fix is old, so the
+  /// speed is unknown until a new one arrives. The trip is kept.
+  void pause() {
+    _last = null;
+    _speed = null;
   }
 
   SpeedReading reading(SensorState state) => SpeedReading(

@@ -56,6 +56,29 @@ void main() {
     expect(location.listening, isFalse);
   });
 
+  test('approximate location is flagged: too coarse for a speed', () async {
+    location
+      ..checkResult = LocationAccess.granted
+      ..preciseResult = false;
+    vm.active = true;
+    await flush();
+    expect(vm.access, LocationAccess.granted);
+    expect(vm.approximate, isTrue);
+  });
+
+  test('a stale speed is not shown after reopening', () async {
+    location.checkResult = LocationAccess.granted;
+    vm.active = true;
+    await flush();
+    await drive(20, 5);
+    expect(vm.reading.speed, closeTo(20, 1e-9));
+    vm.active = false;
+    vm.active = true;
+    await flush();
+    expect(vm.reading.speed, isNull, reason: 'until a new fix arrives');
+    expect(vm.reading.distance, greaterThan(90), reason: 'the trip is kept');
+  });
+
   test('allowed: starts listening and fixes flow into the reading', () async {
     vm.active = true;
     await flush();

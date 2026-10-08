@@ -239,4 +239,39 @@ void main() {
     expect(dayPartOf(at(19)), DayPart.night);
     expect(dayPartOf(at(3)), DayPart.night);
   });
+
+  group('speed without a satellite speed', () {
+    test('position jitter while standing still reads as still', () {
+      final trip = TripMeter();
+      // Fixes wandering 8 m apart a second apart, each within 10 m.
+      for (var i = 0; i < 6; i++) {
+        trip.add(
+          _fix(
+            lat: (i.isEven ? 0 : 8) / _mPerDeg,
+            accuracy: 10,
+            seconds: i.toDouble(),
+          ),
+        );
+      }
+      expect(trip.speed, 0);
+      expect(trip.reading(SensorState.ok).distance, 0);
+    });
+
+    test('a real move, larger than the uncertainty, gives its speed', () {
+      final trip = TripMeter()
+        ..add(_fix())
+        ..add(_fix(lat: 30 / _mPerDeg, seconds: 1));
+      expect(trip.speed, closeTo(30, 0.01));
+    });
+
+    test('after a pause the speed is unknown until a new fix', () {
+      final trip = TripMeter();
+      _drive(trip, 20, 10);
+      trip.pause();
+      expect(trip.speed, isNull);
+      final r = trip.reading(SensorState.waiting);
+      expect(r.hasFix, isFalse);
+      expect(r.distance, greaterThan(150), reason: 'the trip is kept');
+    });
+  });
 }

@@ -249,6 +249,12 @@ class FakeLocationService implements LocationService {
   @override
   Future<void> openLocationSettings() async => locationSettingsOpened++;
 
+  /// Whether location is allowed as precise (not just approximate).
+  bool preciseResult = true;
+
+  @override
+  Future<bool> precise() async => preciseResult;
+
   @override
   Stream<LocationFix> fixes() => fixesController.stream;
 }

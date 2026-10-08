@@ -184,6 +184,13 @@ class SpeedScreen extends StatelessWidget {
         text: l.speedFinding,
       );
     }
+    if (viewModel.approximate) {
+      return StatusBanner(
+        icon: Icons.location_searching_rounded,
+        text: l.speedApproximate,
+        tone: StatusTone.warning,
+      );
+    }
     if (r.weak) {
       return StatusBanner(
         icon: Icons.warning_amber_rounded,

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import '../../../../data/repositories/settings_repository.dart';
 import '../../../../data/repositories/speed_repository.dart';
 import '../../../../data/services/location_service.dart';
+import '../../../../domain/orientation_reading.dart';
 import '../../../../domain/scene_weather.dart';
 import '../../../../domain/speed.dart';
 import '../../../core/sensor_view_model.dart';
@@ -30,11 +31,14 @@ class SpeedViewModel extends ActiveViewModel {
   final LocationService _location;
 
   LocationAccess? _access;
-  bool _asked = false;
+  bool _asked = false, _approximate = false, _checkedLoss = false;
   AppLifecycleListener? _lifecycle;
 
   /// Null while finding out.
   LocationAccess? get access => _access;
+
+  /// Location is allowed only as "approximate": too coarse for a speed.
+  bool get approximate => _approximate;
 
   SpeedReading get reading => _repository.value;
 
@@ -68,7 +72,7 @@ class SpeedViewModel extends ActiveViewModel {
     _asked = true;
     final a = await _location.request();
     // Refused: point to Settings rather than explain again.
-    _set(a == LocationAccess.needed ? LocationAccess.denied : a);
+    await _set(a == LocationAccess.needed ? LocationAccess.denied : a);
   }
 
   Future<void> openSettings() => _access == LocationAccess.serviceOff
@@ -80,14 +84,18 @@ class SpeedViewModel extends ActiveViewModel {
   Future<void> _check() async {
     final a = await _location.check();
     // Asked and still not allowed: point to Settings rather than ask again.
-    _set(a == LocationAccess.needed && _asked ? LocationAccess.denied : a);
+    await _set(
+      a == LocationAccess.needed && _asked ? LocationAccess.denied : a,
+    );
   }
 
-  void _set(LocationAccess a) {
+  Future<void> _set(LocationAccess a) async {
     if (!active) return;
     _access = a;
     if (a == LocationAccess.granted) {
       _repository.start();
+      _approximate = !await _location.precise();
+      if (!active) return;
     } else {
       _repository.stop();
     }
@@ -112,5 +120,17 @@ class SpeedViewModel extends ActiveViewModel {
   }
 
   @override
-  void update() => notifyListeners();
+  void update() {
+    // The fixes stopped: location may have been switched off while open,
+    // which isn't the same as having no GPS. Check once.
+    if (reading.state == SensorState.missing) {
+      if (!_checkedLoss) {
+        _checkedLoss = true;
+        unawaited(_check());
+      }
+    } else {
+      _checkedLoss = false;
+    }
+    notifyListeners();
+  }
 }

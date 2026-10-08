@@ -16,6 +16,13 @@ class SpeedRepository
   @override
   Stream<LocationFix> open() => _location.fixes();
 
+  /// Never shows the speed from before a pause as live.
+  @override
+  void onResume() {
+    _trip.pause();
+    value = _trip.reading(SensorState.waiting);
+  }
+
   @override
   void onSample(LocationFix fix) {
     _trip.add(fix);
