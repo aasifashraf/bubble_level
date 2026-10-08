@@ -724,5 +724,47 @@
   },
   "speedCoordinates": "Coordinates, tap to copy",
   "noGps": "This phone has no GPS, so speed can’t be measured here. Other tools still work.",
-  "speedSceneHelp": "The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It's scenery, not a forecast."
+  "speedSceneHelp": "The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It's scenery, not a forecast.",
+  "toolTape": "Tape measure",
+  "toolTapeSubtitle": "Lengths and areas in AR",
+  "tapeAllowBody": "The tape measure follows the camera’s picture in 3D to place points on surfaces. The picture stays on your phone and is never recorded, saved or sent.",
+  "tapeDeniedBody": "Turn on the camera for this app in Settings to use the tape measure. The picture is never recorded, saved or sent.",
+  "tapeInstallTitle": "Install AR support",
+  "tapeInstallBody": "The tape measure uses Google Play Services for AR (ARCore) to follow the phone in 3D. Install or update it from the Play Store, then come back.",
+  "tapeInstall": "Install",
+  "tapeUnsupported": "This phone doesn’t support AR (ARCore), which the tape measure needs to follow the phone in 3D.",
+  "tapeFailed": "AR couldn’t start. Another app may be using the camera: close it, then try again.",
+  "tapeLength": "Length",
+  "tapePerimeter": "Perimeter",
+  "tapeArea": "Area",
+  "tapePieces": "Pieces",
+  "tapeAdd": "Add point",
+  "tapeClose": "Close shape",
+  "tapeUndo": "Undo",
+  "tapeUnit": "Units: centimetres or inches",
+  "tapeStarting": "Move the phone slowly to start AR",
+  "tapeFind": "Move the phone slowly over a surface to find it",
+  "tapeNoSurface": "No surface under the aim yet: move slowly",
+  "tapeMissed": "No surface there yet. Move slowly, then tap again",
+  "tapeFirst": "Aim at the first corner and tap Add point",
+  "tapeNext": "Aim at the next corner and tap Add point",
+  "tapeSnap": "On the first point: tap Close shape for the area",
+  "tapeDone": "Approx. AR can be 1 to 3 cm off",
+  "tapeDark": "Too dark to track: add light",
+  "tapeFast": "Moving too fast: slow down",
+  "tapePlain": "Too plain to track: aim at something with texture",
+  "tapeLost": "Tracking lost: point back where you were and hold still",
+  "tapeSemantics": "Camera picture with the measured points. Total {total}",
+  "@tapeSemantics": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "tapeHelp1": "Allow the camera, then move the phone slowly over a table, floor or wall until white dots appear and the aim sits on the surface.",
+  "tapeHelp2": "Aim the crosshair at a corner and tap Add point. Move to the next corner: the length follows the aim.",
+  "tapeHelp3": "Keep tapping corners to chain pieces; the panel adds them up. Aim back at the first point and tap Close shape for the area and perimeter.",
+  "tapeHelp4": "Undo takes the last point away (or opens a closed shape); Clear starts again. The button at the top switches between centimetres and inches.",
+  "tapeTip": "AR measuring is approximate: often within 1 to 3 cm over a metre, but worse on plain or shiny surfaces, in dim light, far away (over 3 m) or when the phone moves fast. Move slowly and keep the corners in good light. The picture is never recorded, saved or sent."
 }

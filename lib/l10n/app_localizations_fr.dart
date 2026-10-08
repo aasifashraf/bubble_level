@@ -1396,4 +1396,127 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Le ciel suit l’heure de la journée. Le bouton météo choisit la scène : Auto suit la saison, ou choisissez soleil, nuages, pluie, orage ou neige. C’est un décor, pas une prévision.';
+
+  @override
+  String get toolTape => 'Mètre ruban';
+
+  @override
+  String get toolTapeSubtitle => 'Longueurs et surfaces en AR';
+
+  @override
+  String get tapeAllowBody =>
+      'Le mètre ruban suit l’image de la caméra en 3D pour placer des points sur les surfaces. L’image reste sur votre téléphone et n’est jamais enregistrée, sauvegardée ni envoyée.';
+
+  @override
+  String get tapeDeniedBody =>
+      'Activez la caméra pour cette app dans les Réglages pour utiliser le mètre ruban. L’image n’est jamais enregistrée, sauvegardée ni envoyée.';
+
+  @override
+  String get tapeInstallTitle => 'Installer la prise en charge de l’AR';
+
+  @override
+  String get tapeInstallBody =>
+      'Le mètre ruban utilise Google Play Services for AR (ARCore) pour suivre le téléphone en 3D. Installez‑le ou mettez‑le à jour depuis le Play Store, puis revenez.';
+
+  @override
+  String get tapeInstall => 'Installer';
+
+  @override
+  String get tapeUnsupported =>
+      'Ce téléphone ne prend pas en charge l’AR (ARCore), dont le mètre ruban a besoin pour suivre le téléphone en 3D.';
+
+  @override
+  String get tapeFailed =>
+      'Impossible de démarrer l’AR. Une autre app utilise peut‑être la caméra : fermez‑la, puis réessayez.';
+
+  @override
+  String get tapeLength => 'Longueur';
+
+  @override
+  String get tapePerimeter => 'Périmètre';
+
+  @override
+  String get tapeArea => 'Surface';
+
+  @override
+  String get tapePieces => 'Segments';
+
+  @override
+  String get tapeAdd => 'Ajouter un point';
+
+  @override
+  String get tapeClose => 'Fermer la forme';
+
+  @override
+  String get tapeUndo => 'Annuler';
+
+  @override
+  String get tapeUnit => 'Unités : centimètres ou pouces';
+
+  @override
+  String get tapeStarting => 'Bougez lentement le téléphone pour démarrer l’AR';
+
+  @override
+  String get tapeFind =>
+      'Passez lentement le téléphone au‑dessus d’une surface pour la trouver';
+
+  @override
+  String get tapeNoSurface =>
+      'Pas encore de surface sous le viseur : bougez lentement';
+
+  @override
+  String get tapeMissed =>
+      'Pas encore de surface ici. Bougez lentement, puis touchez de nouveau';
+
+  @override
+  String get tapeFirst => 'Visez le premier coin et touchez Ajouter un point';
+
+  @override
+  String get tapeNext => 'Visez le coin suivant et touchez Ajouter un point';
+
+  @override
+  String get tapeSnap =>
+      'Sur le premier point : touchez Fermer la forme pour la surface';
+
+  @override
+  String get tapeDone => 'Env. L’AR peut se tromper de 1 à 3 cm';
+
+  @override
+  String get tapeDark => 'Trop sombre pour le suivi : ajoutez de la lumière';
+
+  @override
+  String get tapeFast => 'Mouvement trop rapide : ralentissez';
+
+  @override
+  String get tapePlain =>
+      'Trop uni pour le suivi : visez quelque chose de texturé';
+
+  @override
+  String get tapeLost =>
+      'Suivi perdu : visez de nouveau l’endroit d’avant et ne bougez plus';
+
+  @override
+  String tapeSemantics(String total) {
+    return 'Image de la caméra avec les points mesurés. Total $total';
+  }
+
+  @override
+  String get tapeHelp1 =>
+      'Autorisez la caméra, puis passez lentement le téléphone au‑dessus d’une table, du sol ou d’un mur jusqu’à ce que des points blancs apparaissent et que le viseur se pose sur la surface.';
+
+  @override
+  String get tapeHelp2 =>
+      'Placez le viseur sur un coin et touchez Ajouter un point. Passez au coin suivant : la longueur suit le viseur.';
+
+  @override
+  String get tapeHelp3 =>
+      'Continuez à toucher les coins pour enchaîner les segments ; le panneau les additionne. Visez de nouveau le premier point et touchez Fermer la forme pour la surface et le périmètre.';
+
+  @override
+  String get tapeHelp4 =>
+      'Annuler retire le dernier point (ou rouvre une forme fermée) ; Effacer recommence. Le bouton en haut bascule entre centimètres et pouces.';
+
+  @override
+  String get tapeTip =>
+      'La mesure en AR est approximative : l’écart est souvent de 1 à 3 cm par mètre, mais il augmente sur les surfaces unies ou brillantes, en faible lumière, de loin (plus de 3 m) ou si le téléphone bouge vite. Bougez lentement et gardez les coins bien éclairés. L’image n’est jamais enregistrée, sauvegardée ni envoyée.';
 }

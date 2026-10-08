@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
+import 'package:bubble_level/data/services/ar_service.dart';
 import 'package:bubble_level/data/services/location_service.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
@@ -46,6 +47,7 @@ const _allTools = [
   'Camera level',
   'G-force',
   'Speedometer',
+  'Tape measure',
 ];
 
 void main() {
@@ -53,6 +55,7 @@ void main() {
   late FakeMicrophoneService microphone;
   late FakeCameraService camera;
   late FakeLocationService location;
+  late FakeArService ar;
 
   /// Phone-sized window unless [size] says otherwise.
   Future<void> pumpApp(
@@ -71,11 +74,13 @@ void main() {
     microphone = FakeMicrophoneService();
     camera = FakeCameraService();
     location = FakeLocationService();
+    ar = FakeArService();
     await tester.pumpWidget(
       BubbleLevelApp(
         microphone: microphone,
         camera: camera,
         location: location,
+        ar: ar,
         settings: settings,
         orientation: OrientationRepository(
           sensors: sensors,
@@ -1017,6 +1022,78 @@ void main() {
     expect(find.text('Zeroed: forward and down learned'), findsOneWidget);
     await tester.pump(const Duration(seconds: 1));
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('tape measure: points chain into a shape with its area', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Tape measure');
+    expect(ar.started, 1);
+    expect(ar.listening, isTrue);
+
+    // Corners two metres ahead (see FakeArService.send): each tap adds the
+    // point under the aim.
+    Future<void> aimAt(Vec3 v) async {
+      ar.send(aim: v);
+      await tester.pump();
+      await tester.pump();
+    }
+
+    Future<void> tapButton(String label) async {
+      await tester.tap(find.widgetWithText(SoftButton, label));
+      await tester.pump();
+      await tester.pump();
+    }
+
+    await aimAt(const Vec3(0, 0, -2));
+    expect(find.text('Aim at the first corner and tap Add point'), findsOne);
+    await tapButton('Add point');
+    await aimAt(const Vec3(1, 0, -2));
+    expect(find.text('1.00 m'), findsOne, reason: 'the live piece, totalled');
+    await tapButton('Add point');
+    await aimAt(const Vec3(1, 1, -2));
+    await tapButton('Add point');
+
+    // Back near the first corner it snaps and closes.
+    await aimAt(const Vec3(0.03, 0.03, -2));
+    expect(
+      find.text('On the first point: tap Close shape for the area'),
+      findsOne,
+    );
+    await tapButton('Close shape');
+    await aimAt(const Vec3(0.5, 0.5, -2));
+    expect(find.text('Perimeter'), findsOne);
+    expect(find.text('≈ 0.50 m²'), findsOne);
+    expect(find.text('3.41 m'), findsOne);
+    expect(ar.points, hasLength(3));
+
+    // Inches, shared with the ruler.
+    await tester.tap(find.byTooltip('Units: centimetres or inches'));
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('≈ 5.4 ft²'), findsOne);
+
+    // Undo opens the shape again.
+    await tester.tap(find.byTooltip('Undo'));
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('Perimeter'), findsNothing);
+    expect(tester.takeException(), isNull);
+
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    expect(ar.stopped, 1, reason: 'AR stops with the tool');
+  });
+
+  testWidgets('tape measure: a phone without ARCore is told so', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    ar.supportResult = ArSupport.unsupported;
+    await openTool(tester, 'Tape measure');
+    expect(find.textContaining('doesn’t support AR (ARCore)'), findsOne);
+    expect(ar.started, 0);
   });
 
   testWidgets('speedometer: explains, then speed and trip from GPS', (

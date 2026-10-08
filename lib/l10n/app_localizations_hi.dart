@@ -1387,4 +1387,124 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'आसमान दिन के समय के साथ बदलता है। मौसम बटन दृश्य चुनता है: ऑटो मौसम के हिसाब से चलता है, या धूप, बादल, बारिश, तूफ़ान या बर्फ़ चुनें। यह सिर्फ़ दृश्य है, मौसम का पूर्वानुमान नहीं।';
+
+  @override
+  String get toolTape => 'मेज़रिंग टेप';
+
+  @override
+  String get toolTapeSubtitle => 'AR में लंबाई और क्षेत्रफल';
+
+  @override
+  String get tapeAllowBody =>
+      'मेज़रिंग टेप सतहों पर पॉइंट लगाने के लिए कैमरे की तस्वीर को 3D में फ़ॉलो करता है। तस्वीर आपके फ़ोन पर ही रहती है और कभी रिकॉर्ड, सेव या भेजी नहीं जाती।';
+
+  @override
+  String get tapeDeniedBody =>
+      'मेज़रिंग टेप इस्तेमाल करने के लिए सेटिंग्स में इस ऐप का कैमरा चालू करें। तस्वीर कभी रिकॉर्ड, सेव या भेजी नहीं जाती।';
+
+  @override
+  String get tapeInstallTitle => 'AR सपोर्ट इंस्टॉल करें';
+
+  @override
+  String get tapeInstallBody =>
+      'मेज़रिंग टेप फ़ोन को 3D में फ़ॉलो करने के लिए Google Play Services for AR (ARCore) इस्तेमाल करता है। इसे Play Store से इंस्टॉल या अपडेट करें, फिर वापस आएँ।';
+
+  @override
+  String get tapeInstall => 'इंस्टॉल करें';
+
+  @override
+  String get tapeUnsupported =>
+      'यह फ़ोन AR (ARCore) सपोर्ट नहीं करता, जिसकी मेज़रिंग टेप को फ़ोन को 3D में फ़ॉलो करने के लिए ज़रूरत है।';
+
+  @override
+  String get tapeFailed =>
+      'AR शुरू नहीं हो सका। शायद कोई दूसरा ऐप कैमरा इस्तेमाल कर रहा है: उसे बंद करके फिर कोशिश करें।';
+
+  @override
+  String get tapeLength => 'लंबाई';
+
+  @override
+  String get tapePerimeter => 'परिमाप';
+
+  @override
+  String get tapeArea => 'क्षेत्रफल';
+
+  @override
+  String get tapePieces => 'हिस्से';
+
+  @override
+  String get tapeAdd => 'पॉइंट जोड़ें';
+
+  @override
+  String get tapeClose => 'आकार बंद करें';
+
+  @override
+  String get tapeUndo => 'वापस लें';
+
+  @override
+  String get tapeUnit => 'इकाई: सेंटीमीटर या इंच';
+
+  @override
+  String get tapeStarting => 'AR शुरू करने के लिए फ़ोन धीरे से घुमाएँ';
+
+  @override
+  String get tapeFind => 'सतह ढूँढने के लिए फ़ोन को उसके ऊपर धीरे से घुमाएँ';
+
+  @override
+  String get tapeNoSurface => 'निशाने के नीचे अभी कोई सतह नहीं: धीरे घुमाएँ';
+
+  @override
+  String get tapeMissed =>
+      'वहाँ अभी कोई सतह नहीं। धीरे घुमाएँ, फिर दोबारा टैप करें';
+
+  @override
+  String get tapeFirst => 'पहले कोने पर निशाना लगाएँ और पॉइंट जोड़ें दबाएँ';
+
+  @override
+  String get tapeNext => 'अगले कोने पर निशाना लगाएँ और पॉइंट जोड़ें दबाएँ';
+
+  @override
+  String get tapeSnap => 'पहले पॉइंट पर: क्षेत्रफल के लिए आकार बंद करें दबाएँ';
+
+  @override
+  String get tapeDone => 'लगभग। AR में 1 से 3 cm का फ़र्क हो सकता है';
+
+  @override
+  String get tapeDark => 'ट्रैक करने के लिए बहुत अँधेरा: रोशनी बढ़ाएँ';
+
+  @override
+  String get tapeFast => 'फ़ोन बहुत तेज़ हिल रहा है: धीरे करें';
+
+  @override
+  String get tapePlain =>
+      'ट्रैक करने के लिए बहुत सादा: किसी बनावट वाली चीज़ पर निशाना लगाएँ';
+
+  @override
+  String get tapeLost =>
+      'ट्रैकिंग खो गई: जहाँ थे वहीं वापस निशाना लगाएँ और फ़ोन स्थिर रखें';
+
+  @override
+  String tapeSemantics(String total) {
+    return 'मापे गए पॉइंट वाली कैमरे की तस्वीर। कुल $total';
+  }
+
+  @override
+  String get tapeHelp1 =>
+      'कैमरा की अनुमति दें, फिर फ़ोन को मेज़, फ़र्श या दीवार के ऊपर धीरे से घुमाएँ जब तक सफ़ेद बिंदु न दिखें और निशाना सतह पर न टिक जाए।';
+
+  @override
+  String get tapeHelp2 =>
+      'निशाने को किसी कोने पर रखें और पॉइंट जोड़ें दबाएँ। अगले कोने पर जाएँ: लंबाई निशाने के साथ चलती है।';
+
+  @override
+  String get tapeHelp3 =>
+      'हिस्से जोड़ते जाने के लिए कोनों पर टैप करते रहें; पैनल उन्हें जोड़ देता है। पहले पॉइंट पर वापस निशाना लगाएँ और क्षेत्रफल व परिमाप के लिए आकार बंद करें दबाएँ।';
+
+  @override
+  String get tapeHelp4 =>
+      'वापस लें आखिरी पॉइंट हटाता है (या बंद आकार को खोलता है); साफ़ करें फिर से शुरू करता है। ऊपर का बटन सेंटीमीटर और इंच के बीच बदलता है।';
+
+  @override
+  String get tapeTip =>
+      'AR से मापना लगभग होता है: अक्सर एक मीटर पर 1 से 3 cm के अंदर, पर सादी या चमकदार सतहों पर, कम रोशनी में, दूर से (3 m से ज़्यादा) या फ़ोन के तेज़ हिलने पर कम सही। धीरे हिलाएँ और कोनों पर अच्छी रोशनी रखें। तस्वीर कभी रिकॉर्ड, सेव या भेजी नहीं जाती।';
 }

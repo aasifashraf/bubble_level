@@ -1393,4 +1393,128 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Der Himmel folgt der Tageszeit. Der Wetter-Knopf wählt die Szene: Auto folgt der Jahreszeit, oder wähle Sonne, Wolken, Regen, Gewitter oder Schnee. Das ist Kulisse, keine Vorhersage.';
+
+  @override
+  String get toolTape => 'Maßband';
+
+  @override
+  String get toolTapeSubtitle => 'Längen und Flächen in AR';
+
+  @override
+  String get tapeAllowBody =>
+      'Das Maßband verfolgt das Kamerabild in 3D, um Punkte auf Flächen zu setzen. Das Bild bleibt auf deinem Handy und wird nie aufgenommen, gespeichert oder gesendet.';
+
+  @override
+  String get tapeDeniedBody =>
+      'Erlaube die Kamera für diese App in den Einstellungen, um das Maßband zu nutzen. Das Bild wird nie aufgenommen, gespeichert oder gesendet.';
+
+  @override
+  String get tapeInstallTitle => 'AR-Unterstützung installieren';
+
+  @override
+  String get tapeInstallBody =>
+      'Das Maßband nutzt Google Play Services for AR (ARCore), um das Handy in 3D zu verfolgen. Installiere oder aktualisiere es im Play Store und komm dann zurück.';
+
+  @override
+  String get tapeInstall => 'Installieren';
+
+  @override
+  String get tapeUnsupported =>
+      'Dieses Handy unterstützt kein AR (ARCore), das das Maßband braucht, um das Handy in 3D zu verfolgen.';
+
+  @override
+  String get tapeFailed =>
+      'AR konnte nicht starten. Vielleicht verwendet eine andere App die Kamera: Schließe sie und versuche es erneut.';
+
+  @override
+  String get tapeLength => 'Länge';
+
+  @override
+  String get tapePerimeter => 'Umfang';
+
+  @override
+  String get tapeArea => 'Fläche';
+
+  @override
+  String get tapePieces => 'Abschnitte';
+
+  @override
+  String get tapeAdd => 'Punkt setzen';
+
+  @override
+  String get tapeClose => 'Form schließen';
+
+  @override
+  String get tapeUndo => 'Rückgängig';
+
+  @override
+  String get tapeUnit => 'Einheiten: Zentimeter oder Zoll';
+
+  @override
+  String get tapeStarting => 'Bewege das Handy langsam, um AR zu starten';
+
+  @override
+  String get tapeFind =>
+      'Bewege das Handy langsam über eine Fläche, um sie zu finden';
+
+  @override
+  String get tapeNoSurface =>
+      'Noch keine Fläche unter dem Fadenkreuz: langsam bewegen';
+
+  @override
+  String get tapeMissed =>
+      'Dort ist noch keine Fläche. Langsam bewegen, dann erneut tippen';
+
+  @override
+  String get tapeFirst => 'Ziele auf die erste Ecke und tippe auf Punkt setzen';
+
+  @override
+  String get tapeNext =>
+      'Ziele auf die nächste Ecke und tippe auf Punkt setzen';
+
+  @override
+  String get tapeSnap =>
+      'Auf dem ersten Punkt: Tippe auf Form schließen für die Fläche';
+
+  @override
+  String get tapeDone => 'Ca. Werte: AR kann 1 bis 3 cm danebenliegen';
+
+  @override
+  String get tapeDark => 'Zu dunkel zum Verfolgen: mehr Licht';
+
+  @override
+  String get tapeFast => 'Zu schnell bewegt: langsamer';
+
+  @override
+  String get tapePlain =>
+      'Zu einfarbig zum Verfolgen: ziele auf etwas mit Struktur';
+
+  @override
+  String get tapeLost =>
+      'Verfolgung verloren: zurück auf die letzte Stelle zielen und still halten';
+
+  @override
+  String tapeSemantics(String total) {
+    return 'Kamerabild mit den gemessenen Punkten. Gesamt $total';
+  }
+
+  @override
+  String get tapeHelp1 =>
+      'Erlaube die Kamera und bewege das Handy dann langsam über einen Tisch, Boden oder eine Wand, bis weiße Punkte erscheinen und das Fadenkreuz auf der Fläche liegt.';
+
+  @override
+  String get tapeHelp2 =>
+      'Richte das Fadenkreuz auf eine Ecke und tippe auf Punkt setzen. Geh zur nächsten Ecke: Die Länge folgt dem Fadenkreuz.';
+
+  @override
+  String get tapeHelp3 =>
+      'Tippe weitere Ecken an, um Abschnitte aneinanderzureihen; das Feld zählt sie zusammen. Ziele zurück auf den ersten Punkt und tippe auf Form schließen für Fläche und Umfang.';
+
+  @override
+  String get tapeHelp4 =>
+      'Rückgängig entfernt den letzten Punkt (oder öffnet eine geschlossene Form); Löschen fängt neu an. Der Knopf oben wechselt zwischen Zentimetern und Zoll.';
+
+  @override
+  String get tapeTip =>
+      'AR misst nur ungefähr: oft auf 1 bis 3 cm pro Meter genau, aber schlechter auf einfarbigen oder glänzenden Flächen, bei schwachem Licht, aus großer Entfernung (über 3 m) oder wenn sich das Handy schnell bewegt. Bewege es langsam und halte die Ecken gut beleuchtet. Das Bild wird nie aufgenommen, gespeichert oder gesendet.';
 }

@@ -1335,4 +1335,119 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       '空は時刻に合わせて変わります。天気ボタンで景色を選べます。「自動」は季節に合わせ、晴れ、くもり、雨、嵐、雪も選べます。景色であって、天気予報ではありません。';
+
+  @override
+  String get toolTape => 'メジャー';
+
+  @override
+  String get toolTapeSubtitle => 'ARで長さと面積を測定';
+
+  @override
+  String get tapeAllowBody =>
+      'メジャーはカメラ映像を3Dで追跡し、面の上に点を置きます。映像はスマホ内にとどまり、録画・保存・送信されることはありません。';
+
+  @override
+  String get tapeDeniedBody =>
+      'メジャーを使うには、設定でこのアプリのカメラをオンにしてください。映像が録画・保存・送信されることはありません。';
+
+  @override
+  String get tapeInstallTitle => 'ARサポートをインストール';
+
+  @override
+  String get tapeInstallBody =>
+      'メジャーはスマホを3Dで追跡するために Google Play Services for AR（ARCore）を使います。Play Store でインストールまたは更新してから、戻ってきてください。';
+
+  @override
+  String get tapeInstall => 'インストール';
+
+  @override
+  String get tapeUnsupported =>
+      'このスマホはAR（ARCore）に対応していません。メジャーがスマホを3Dで追跡するにはARCoreが必要です。';
+
+  @override
+  String get tapeFailed =>
+      'ARを開始できませんでした。別のアプリがカメラを使用中かもしれません。そのアプリを閉じてから、もう一度試してください。';
+
+  @override
+  String get tapeLength => '長さ';
+
+  @override
+  String get tapePerimeter => '周囲長';
+
+  @override
+  String get tapeArea => '面積';
+
+  @override
+  String get tapePieces => '区間';
+
+  @override
+  String get tapeAdd => '点を追加';
+
+  @override
+  String get tapeClose => '図形を閉じる';
+
+  @override
+  String get tapeUndo => '元に戻す';
+
+  @override
+  String get tapeUnit => '単位：センチメートルまたはインチ';
+
+  @override
+  String get tapeStarting => 'スマホをゆっくり動かしてARを開始します';
+
+  @override
+  String get tapeFind => '面の上でスマホをゆっくり動かして、面を見つけてください';
+
+  @override
+  String get tapeNoSurface => '照準の下にまだ面がありません。ゆっくり動かしてください';
+
+  @override
+  String get tapeMissed => 'そこにはまだ面がありません。ゆっくり動かしてから、もう一度タップしてください';
+
+  @override
+  String get tapeFirst => '最初の角に照準を合わせて「点を追加」をタップ';
+
+  @override
+  String get tapeNext => '次の角に照準を合わせて「点を追加」をタップ';
+
+  @override
+  String get tapeSnap => '最初の点に重なりました。「図形を閉じる」をタップすると面積が出ます';
+
+  @override
+  String get tapeDone => '目安です。ARは1〜3 cmずれることがあります';
+
+  @override
+  String get tapeDark => '暗すぎて追跡できません。明るくしてください';
+
+  @override
+  String get tapeFast => '動きが速すぎます。ゆっくり動かしてください';
+
+  @override
+  String get tapePlain => '模様が少なく追跡できません。模様のある所に向けてください';
+
+  @override
+  String get tapeLost => '追跡が途切れました。元の場所に向け直して静止してください';
+
+  @override
+  String tapeSemantics(String total) {
+    return '測定した点を表示したカメラ映像。合計 $total';
+  }
+
+  @override
+  String get tapeHelp1 => 'カメラを許可し、白い点が現れて照準が面に乗るまで、テーブル、床、壁の上でスマホをゆっくり動かします。';
+
+  @override
+  String get tapeHelp2 => '照準を角に合わせて「点を追加」をタップします。次の角へ動かすと、長さが照準に合わせて伸びます。';
+
+  @override
+  String get tapeHelp3 =>
+      '続けて角をタップすると区間がつながり、パネルが合計します。最初の点に照準を戻して「図形を閉じる」をタップすると、面積と周囲長が出ます。';
+
+  @override
+  String get tapeHelp4 =>
+      '「元に戻す」で最後の点を取り消します（閉じた図形は開きます）。「消去」で最初からやり直します。上のボタンでセンチメートルとインチを切り替えます。';
+
+  @override
+  String get tapeTip =>
+      'ARでの測定は目安です。誤差は1 mあたり1〜3 cm以内のことが多いですが、模様のない面や光る面、暗い場所、遠く（3 m超）、スマホを速く動かしたときは大きくなります。ゆっくり動かし、角を明るく保ってください。映像が録画・保存・送信されることはありません。';
 }

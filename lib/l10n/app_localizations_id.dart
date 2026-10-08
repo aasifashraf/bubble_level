@@ -1392,4 +1392,127 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Langit mengikuti waktu. Tombol cuaca memilih pemandangan: Otomatis mengikuti musim, atau pilih cerah, berawan, hujan, badai, atau salju. Ini hanya pemandangan, bukan prakiraan cuaca.';
+
+  @override
+  String get toolTape => 'Meteran';
+
+  @override
+  String get toolTapeSubtitle => 'Panjang dan luas dengan AR';
+
+  @override
+  String get tapeAllowBody =>
+      'Meteran mengikuti gambar kamera dalam 3D untuk menaruh titik di permukaan. Gambar tetap di ponsel Anda dan tidak pernah direkam, disimpan, atau dikirim.';
+
+  @override
+  String get tapeDeniedBody =>
+      'Aktifkan kamera untuk aplikasi ini di Setelan agar bisa memakai meteran. Gambar tidak pernah direkam, disimpan, atau dikirim.';
+
+  @override
+  String get tapeInstallTitle => 'Instal dukungan AR';
+
+  @override
+  String get tapeInstallBody =>
+      'Meteran memakai Google Play Services for AR (ARCore) untuk mengikuti ponsel dalam 3D. Instal atau perbarui dari Play Store, lalu kembali ke sini.';
+
+  @override
+  String get tapeInstall => 'Instal';
+
+  @override
+  String get tapeUnsupported =>
+      'Ponsel ini tidak mendukung AR (ARCore), yang dibutuhkan meteran untuk mengikuti ponsel dalam 3D.';
+
+  @override
+  String get tapeFailed =>
+      'AR tidak bisa dimulai. Mungkin aplikasi lain sedang memakai kamera: tutup aplikasi itu, lalu coba lagi.';
+
+  @override
+  String get tapeLength => 'Panjang';
+
+  @override
+  String get tapePerimeter => 'Keliling';
+
+  @override
+  String get tapeArea => 'Luas';
+
+  @override
+  String get tapePieces => 'Ruas';
+
+  @override
+  String get tapeAdd => 'Tambah titik';
+
+  @override
+  String get tapeClose => 'Tutup bentuk';
+
+  @override
+  String get tapeUndo => 'Urungkan';
+
+  @override
+  String get tapeUnit => 'Satuan: sentimeter atau inci';
+
+  @override
+  String get tapeStarting => 'Gerakkan ponsel perlahan untuk memulai AR';
+
+  @override
+  String get tapeFind =>
+      'Gerakkan ponsel perlahan di atas permukaan untuk menemukannya';
+
+  @override
+  String get tapeNoSurface =>
+      'Belum ada permukaan di bawah bidikan: gerakkan perlahan';
+
+  @override
+  String get tapeMissed =>
+      'Belum ada permukaan di sana. Gerakkan perlahan, lalu ketuk lagi';
+
+  @override
+  String get tapeFirst => 'Bidik sudut pertama dan ketuk Tambah titik';
+
+  @override
+  String get tapeNext => 'Bidik sudut berikutnya dan ketuk Tambah titik';
+
+  @override
+  String get tapeSnap =>
+      'Di titik pertama: ketuk Tutup bentuk untuk melihat luas';
+
+  @override
+  String get tapeDone => 'Perkiraan. AR bisa meleset 1 sampai 3 cm';
+
+  @override
+  String get tapeDark => 'Terlalu gelap untuk dilacak: tambah cahaya';
+
+  @override
+  String get tapeFast => 'Gerakan terlalu cepat: pelankan';
+
+  @override
+  String get tapePlain =>
+      'Terlalu polos untuk dilacak: bidik sesuatu yang bertekstur';
+
+  @override
+  String get tapeLost =>
+      'Pelacakan hilang: arahkan kembali ke posisi tadi dan tahan diam';
+
+  @override
+  String tapeSemantics(String total) {
+    return 'Gambar kamera dengan titik yang diukur. Total $total';
+  }
+
+  @override
+  String get tapeHelp1 =>
+      'Izinkan kamera, lalu gerakkan ponsel perlahan di atas meja, lantai, atau dinding sampai muncul titik putih dan bidikan menempel di permukaan.';
+
+  @override
+  String get tapeHelp2 =>
+      'Arahkan bidikan ke sebuah sudut dan ketuk Tambah titik. Pindah ke sudut berikutnya: panjang mengikuti bidikan.';
+
+  @override
+  String get tapeHelp3 =>
+      'Terus ketuk sudut untuk menyambung ruas; panel menjumlahkannya. Bidik kembali titik pertama dan ketuk Tutup bentuk untuk melihat luas dan keliling.';
+
+  @override
+  String get tapeHelp4 =>
+      'Urungkan menghapus titik terakhir (atau membuka bentuk yang tertutup); Hapus memulai dari awal. Tombol di atas beralih antara sentimeter dan inci.';
+
+  @override
+  String get tapeTip =>
+      'Pengukuran AR bersifat perkiraan: sering hanya meleset 1 sampai 3 cm per meter, tetapi lebih buruk di permukaan polos atau mengilap, di cahaya redup, dari jauh (lebih dari 3 m), atau saat ponsel bergerak cepat. Gerakkan perlahan dan jaga sudut tetap terang. Gambar tidak pernah direkam, disimpan, atau dikirim.';
 }

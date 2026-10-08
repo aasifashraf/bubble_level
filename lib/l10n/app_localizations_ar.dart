@@ -1381,4 +1381,121 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'تتبع السماء وقت اليوم. يختار زر الطقس المشهد: تلقائي يتبع الموسم، أو اختر الشمس أو الغيوم أو المطر أو العاصفة أو الثلج. إنه مشهد فقط، وليس توقعًا للطقس.';
+
+  @override
+  String get toolTape => 'شريط القياس';
+
+  @override
+  String get toolTapeSubtitle => 'الأطوال والمساحات بتقنية AR';
+
+  @override
+  String get tapeAllowBody =>
+      'يتتبّع شريط القياس صورة الكاميرا في ثلاثة أبعاد لوضع نقاط على الأسطح. تبقى الصورة على هاتفك ولا تُسجَّل ولا تُحفظ ولا تُرسل أبدًا.';
+
+  @override
+  String get tapeDeniedBody =>
+      'شغّل الكاميرا لهذا التطبيق من الإعدادات لاستخدام شريط القياس. لا تُسجَّل الصورة ولا تُحفظ ولا تُرسل أبدًا.';
+
+  @override
+  String get tapeInstallTitle => 'ثبّت دعم AR';
+
+  @override
+  String get tapeInstallBody =>
+      'يستخدم شريط القياس Google Play Services for AR (ARCore) لتتبّع الهاتف في ثلاثة أبعاد. ثبّته أو حدّثه من Play Store، ثم عُد إلى هنا.';
+
+  @override
+  String get tapeInstall => 'تثبيت';
+
+  @override
+  String get tapeUnsupported =>
+      'هذا الهاتف لا يدعم AR (ARCore)، الذي يحتاجه شريط القياس لتتبّع الهاتف في ثلاثة أبعاد.';
+
+  @override
+  String get tapeFailed =>
+      'تعذّر تشغيل AR. ربما يستخدم تطبيق آخر الكاميرا: أغلقه ثم حاول مرة أخرى.';
+
+  @override
+  String get tapeLength => 'الطول';
+
+  @override
+  String get tapePerimeter => 'المحيط';
+
+  @override
+  String get tapeArea => 'المساحة';
+
+  @override
+  String get tapePieces => 'الأجزاء';
+
+  @override
+  String get tapeAdd => 'إضافة نقطة';
+
+  @override
+  String get tapeClose => 'إغلاق الشكل';
+
+  @override
+  String get tapeUndo => 'تراجع';
+
+  @override
+  String get tapeUnit => 'الوحدات: سنتيمترات أو بوصات';
+
+  @override
+  String get tapeStarting => 'حرّك الهاتف ببطء لبدء AR';
+
+  @override
+  String get tapeFind => 'حرّك الهاتف ببطء فوق سطح للعثور عليه';
+
+  @override
+  String get tapeNoSurface => 'لا يوجد سطح تحت علامة التصويب بعد: تحرّك ببطء';
+
+  @override
+  String get tapeMissed => 'لا يوجد سطح هناك بعد. تحرّك ببطء ثم اضغط مرة أخرى';
+
+  @override
+  String get tapeFirst => 'صوّب نحو الزاوية الأولى واضغط إضافة نقطة';
+
+  @override
+  String get tapeNext => 'صوّب نحو الزاوية التالية واضغط إضافة نقطة';
+
+  @override
+  String get tapeSnap => 'على النقطة الأولى: اضغط إغلاق الشكل لمعرفة المساحة';
+
+  @override
+  String get tapeDone => 'تقريبي. قد يخطئ AR بما بين 1 و3 cm';
+
+  @override
+  String get tapeDark => 'الإضاءة خافتة جدًا للتتبّع: زِد الإضاءة';
+
+  @override
+  String get tapeFast => 'الحركة سريعة جدًا: أبطئ';
+
+  @override
+  String get tapePlain => 'السطح سادة جدًا للتتبّع: صوّب نحو شيء فيه تفاصيل';
+
+  @override
+  String get tapeLost => 'فُقد التتبّع: وجّه الهاتف إلى حيث كنت وثبّته';
+
+  @override
+  String tapeSemantics(String total) {
+    return 'صورة الكاميرا مع النقاط المقيسة. المجموع $total';
+  }
+
+  @override
+  String get tapeHelp1 =>
+      'اسمح بالكاميرا، ثم حرّك الهاتف ببطء فوق طاولة أو أرضية أو جدار حتى تظهر نقاط بيضاء وتستقر علامة التصويب على السطح.';
+
+  @override
+  String get tapeHelp2 =>
+      'وجّه علامة التصويب إلى زاوية واضغط إضافة نقطة. انتقل إلى الزاوية التالية: يتبع الطول علامة التصويب.';
+
+  @override
+  String get tapeHelp3 =>
+      'واصل الضغط على الزوايا لوصل الأجزاء؛ وتجمعها اللوحة. صوّب مجددًا نحو النقطة الأولى واضغط إغلاق الشكل لمعرفة المساحة والمحيط.';
+
+  @override
+  String get tapeHelp4 =>
+      'تراجع يزيل آخر نقطة (أو يفتح شكلًا مغلقًا)؛ ومسح يبدأ من جديد. الزر في الأعلى يبدّل بين السنتيمترات والبوصات.';
+
+  @override
+  String get tapeTip =>
+      'القياس بتقنية AR تقريبي: غالبًا ضمن 1 إلى 3 cm لكل متر، لكنه أسوأ على الأسطح السادة أو اللامعة، وفي الضوء الخافت، ومن بعيد (أكثر من 3 m)، أو عندما يتحرك الهاتف بسرعة. تحرّك ببطء وأبقِ الزوايا في إضاءة جيدة. لا تُسجَّل الصورة ولا تُحفظ ولا تُرسل أبدًا.';
 }
