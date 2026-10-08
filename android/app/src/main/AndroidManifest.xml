@@ -20,6 +20,8 @@
     <uses-feature android:name="android.hardware.location.gps" android:required="false" />
     <!-- The camera plugin asks for these; the app records and saves nothing. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
+    <!-- Implied by the one above on old Android; not needed either. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
     <!-- No backup: the Level's calibration belongs to this phone's sensor
          and would be wrong restored onto another phone. -->
     <application
