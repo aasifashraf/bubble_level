@@ -22,7 +22,7 @@ enum AngleMode { flat, edge }
 class SettingsRepository extends ChangeNotifier {
   SettingsRepository._(this._prefs)
     : _flatRef = _readVec(_prefs) ?? Vec3.up,
-      _edgeOffset = _prefs.getDouble(_kEdgeOffset) ?? 0,
+      _edgeOffset = _readEdgeOffset(_prefs),
       _haptics = _prefs.getBool(_kHaptics) ?? true,
       _sounds = _prefs.getBool(_kSounds) ?? true,
       _unit =
@@ -100,10 +100,23 @@ class SettingsRepository extends ChangeNotifier {
   bool get hasAnyCalibration =>
       isLevelCalibrated || _prefs.getKeys().any((k) => k.startsWith(_kRuler));
 
+  /// The saved flat calibration, or null if missing or damaged: it must
+  /// be a real direction close to straight up, as calibration only
+  /// accepts a nearly level phone.
   static Vec3? _readVec(SharedPreferences p) {
     final v = p.getStringList(_kFlatRef)?.map(double.tryParse).toList();
-    if (v == null || v.length != 3 || v.contains(null)) return null;
-    return Vec3(v[0]!, v[1]!, v[2]!);
+    if (v == null || v.length != 3 || v.any((x) => x == null || !x.isFinite)) {
+      return null;
+    }
+    final ref = Vec3(v[0]!, v[1]!, v[2]!);
+    if (ref.length < 0.5 || tiltDeg(ref) > 10) return null;
+    return ref.normalized();
+  }
+
+  /// The saved edge calibration, 0 if missing or out of reach.
+  static double _readEdgeOffset(SharedPreferences p) {
+    final v = p.getDouble(_kEdgeOffset) ?? 0;
+    return v.isFinite && v.abs() <= 10 ? v : 0;
   }
 
   Future<void> calibrateFlat(Vec3 gravity) async {

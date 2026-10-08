@@ -144,6 +144,8 @@ class MetalViewModel extends SensorViewModel {
   @override
   void onActivate() {
     _baseline.clear();
+    _previous = MetalLevel.clear;
+    orientation.useMagnetometer(true);
     _visible = true;
     _lifecycle = AppLifecycleListener(
       onHide: () => _setVisible(false),
@@ -159,6 +161,7 @@ class MetalViewModel extends SensorViewModel {
 
   @override
   void onDeactivate() {
+    orientation.useMagnetometer(false);
     _lifecycle?.dispose();
     _lifecycle = null;
     _syncBeeper();

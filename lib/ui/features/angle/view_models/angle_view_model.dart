@@ -134,7 +134,14 @@ class AngleViewModel extends SensorViewModel {
   }
 
   @override
-  void onActivate() => _frozen = null;
+  void onActivate() {
+    _frozen = null;
+    // The turn from "Set zero" reads the compass sensor.
+    orientation.useMagnetometer(true);
+  }
+
+  @override
+  void onDeactivate() => orientation.useMagnetometer(false);
 
   /// Heading of a device-fixed axis, so the turn doesn't jump when the UI
   /// rotates. Null without a trustworthy magnetometer.

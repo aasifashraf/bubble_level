@@ -11,13 +11,18 @@ class BarometerRepository
     : super(const BarometerReading());
 
   final MotionSensorService _sensors;
-  final _filter = ScalarLowPass(0.6);
+  var _filter = ScalarLowPass(0.6);
 
   @override
   Stream<ScalarSample> open() => _sensors.barometer();
 
+  /// Starts afresh, so the last pressure (maybe hours old) isn't shown as
+  /// live or smoothed into the new one.
   @override
-  void onResume() => _filter.resetTiming();
+  void onResume() {
+    _filter = ScalarLowPass(0.6);
+    value = const BarometerReading();
+  }
 
   @override
   void onSample(ScalarSample sample) {

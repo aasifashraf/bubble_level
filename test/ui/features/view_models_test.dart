@@ -46,6 +46,27 @@ void main() {
 
   tearDown(() => orientation.dispose());
 
+  group('saved calibration', () {
+    test('a damaged or far off-level flat calibration is ignored', () async {
+      for (final saved in [
+        ['NaN', '0', '1'],
+        ['0', '0', '0'],
+        ['0', '1', '0'], // 90° from level: never accepted when calibrating
+      ]) {
+        SharedPreferences.setMockInitialValues({'flatRef': saved});
+        final s = await SettingsRepository.load();
+        expect(s.isLevelCalibrated, isFalse, reason: '$saved');
+      }
+      SharedPreferences.setMockInitialValues({
+        'flatRef': ['0.02', '0', '1'],
+        'edgeOffset': 40.0,
+      });
+      final s = await SettingsRepository.load();
+      expect(s.flatRef.z, closeTo(1, 1e-3), reason: 'a real calibration');
+      expect(s.edgeOffset, 0, reason: 'out of reach');
+    });
+  });
+
   group('OrientationRepository', () {
     void listener() {}
     setUp(() => orientation.addListener(listener));
@@ -67,7 +88,26 @@ void main() {
       expect(orientation.value.gravity!.z, closeTo(1, 1e-9));
     });
 
+    test('the magnetometer runs only while a tool asks for it', () {
+      expect(sensors.magnet.hasListener, isFalse);
+      orientation.useMagnetometer(true);
+      expect(sensors.magnet.hasListener, isTrue);
+      orientation.useMagnetometer(false);
+      expect(sensors.magnet.hasListener, isFalse);
+      expect(sensors.accel.hasListener, isTrue);
+    });
+
+    test('stopping forgets the last reading', () async {
+      sensors.sendUp(Vec3.up);
+      await flush();
+      expect(orientation.value.gravity, isNotNull);
+      orientation.stop();
+      expect(orientation.value.gravity, isNull);
+      expect(orientation.value.accel, SensorState.waiting);
+    });
+
     test('marks a sensor missing when its stream errors', () async {
+      orientation.useMagnetometer(true);
       sensors.magnet.addError(Exception('NO_SENSOR'));
       await flush();
       expect(orientation.value.magnet, SensorState.missing);

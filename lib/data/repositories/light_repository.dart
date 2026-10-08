@@ -16,6 +16,11 @@ class LightRepository
   @override
   Stream<ScalarSample> open() => _sensors.light();
 
+  /// Waits for a fresh reading (the sensor sends one when it starts)
+  /// rather than showing the last one as live.
+  @override
+  void onResume() => value = const LightReading();
+
   @override
   void onSample(ScalarSample sample) =>
       value = LightReading(lux: sample.value, state: SensorState.ok);

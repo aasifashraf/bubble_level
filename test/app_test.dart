@@ -1768,6 +1768,9 @@ void main() {
       await tester.tap(find.byTooltip('Back'));
       await tester.pumpAndSettle();
       await openTool(tester, 'Angle');
+      // A fresh reading, never the one from before closing.
+      expect(find.bySemanticsLabel('From level 45.0°'), findsNothing);
+      await send(tester, Vec3.up);
       expect(find.byTooltip('Lock reading'), findsOneWidget);
       semantics.dispose();
     });

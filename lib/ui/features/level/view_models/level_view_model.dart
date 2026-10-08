@@ -126,14 +126,18 @@ class LevelViewModel extends SensorViewModel {
   @override
   void update() {
     if (!_locked) _state = _compute();
-    final level = _state?.isLevel ?? false;
-    // Once per arrival at level (with hysteresis), never while locked.
-    if (level && !_wasLevel && !_locked) {
-      if (_settings.haptics) _onLevelReached();
-      if (_settings.sounds) _onChime();
-      _onSuccess();
+    final state = _state;
+    // No reading (the sensors paused) isn't "off level": keep the last.
+    if (state != null) {
+      final level = state.isLevel;
+      // Once per arrival at level (with hysteresis), never while locked.
+      if (level && !_wasLevel && !_locked) {
+        if (_settings.haptics) _onLevelReached();
+        if (_settings.sounds) _onChime();
+        _onSuccess();
+      }
+      _wasLevel = level;
     }
-    _wasLevel = level;
     notifyListeners();
   }
 
@@ -150,8 +154,10 @@ class LevelViewModel extends SensorViewModel {
     _mode = nextMode(_mode, tiltDeg(g));
 
     if (_mode == LevelMode.flat) {
+      // The calibration is taken face up; face down the sensor's own
+      // offset reads the other way, so applying it would double the error.
       final s = deviceToScreen(
-        rotateFromTo(g, _settings.flatRef, Vec3.up),
+        g.z < 0 ? g : rotateFromTo(g, _settings.flatRef, Vec3.up),
         reading.quarterTurns,
       );
       // Face down on a surface reads like face up (0° when level, so the

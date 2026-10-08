@@ -58,7 +58,13 @@ class CompassViewModel extends SensorViewModel {
 
   /// A fresh judgement each time the compass opens.
   @override
-  void onActivate() => _check.clear();
+  void onActivate() {
+    _check.clear();
+    orientation.useMagnetometer(true);
+  }
+
+  @override
+  void onDeactivate() => orientation.useMagnetometer(false);
 
   @override
   void update() {

@@ -52,4 +52,8 @@ abstract class SensorViewModel extends ActiveViewModel {
   final OrientationRepository _orientation;
 
   OrientationReading get reading => _orientation.value;
+
+  /// The shared orientation sensors, e.g. to ask for the magnetometer.
+  @protected
+  OrientationRepository get orientation => _orientation;
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../domain/orientation_reading.dart';
@@ -10,7 +11,8 @@ import '../services/motion_sensor_service.dart';
 /// Single source of truth for device orientation. Fuses the raw sensor
 /// streams and publishes an [OrientationReading] on every accelerometer
 /// sample. The sensors run only while something listens (an open motion
-/// tool) and the app is visible, to save battery.
+/// tool) and the app is visible, to save battery; the magnetometer only
+/// while a tool that needs it ([useMagnetometer]) is open.
 class OrientationRepository extends ValueNotifier<OrientationReading>
     with WidgetsBindingObserver {
   OrientationRepository({
@@ -42,9 +44,11 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
   final MotionSensorService _sensors;
   final DisplayRotationService _display;
   late final AppLifecycleListener _lifecycle;
-  final _gravity = GravityFilter();
-  final _magnetic = VectorLowPass(0.25);
+  var _gravity = GravityFilter();
+  var _magnetic = VectorLowPass(0.25);
   final _subs = <StreamSubscription<Object?>>[];
+  final _magneticSubs = <StreamSubscription<Object?>>[];
+  var _magneticUsers = 0;
   Timer? _rotationPoll;
   var _quarterTurns = 0;
   var _accel = SensorState.waiting,
@@ -55,10 +59,21 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
 
   static double _seconds(DateTime t) => t.microsecondsSinceEpoch / 1e6;
 
+  /// A tool that reads the magnetic field (the compass, the metal
+  /// detector) asks for it while it is open; the others leave it off.
+  void useMagnetometer(bool on) {
+    _magneticUsers = (_magneticUsers + (on ? 1 : -1)).clamp(0, 1 << 20);
+    if (_subs.isEmpty) return;
+    if (_magneticUsers > 0) {
+      _startMagnetic();
+    } else {
+      _stopMagnetic();
+      _publish();
+    }
+  }
+
   void start() {
     if (_subs.isNotEmpty) return;
-    _gravity.resetTiming();
-    _magnetic.resetTiming();
     _subs.addAll([
       _listen(_sensors.accelerometer(), (s) {
         _accel = SensorState.ok;
@@ -70,17 +85,8 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
         _gyro = SensorState.ok;
         _gravity.addGyro(s.value, _seconds(s.timestamp));
       }, () => _gyro = SensorState.missing),
-      _listen(_sensors.magnetometer(), (s) {
-        _magnet = SensorState.ok;
-        _magnetic.add(s.value, _seconds(s.timestamp));
-      }, () => _magnet = SensorState.missing),
-      // Not every platform reports it; then it's simply unknown.
-      _sensors.magneticAccuracy().listen(
-        (a) => _magneticAccuracy = a,
-        onError: (Object _) => _magneticAccuracy = null,
-        cancelOnError: true,
-      ),
     ]);
+    if (_magneticUsers > 0) _startMagnetic();
     // A 180° flip doesn't change the window size, so metrics callbacks can
     // miss it; a cheap poll catches every rotation.
     _rotationPoll = Timer.periodic(
@@ -103,13 +109,50 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
     cancelOnError: true,
   );
 
+  void _startMagnetic() {
+    if (_magneticSubs.isNotEmpty) return;
+    _magneticSubs.add(
+      _listen(_sensors.magnetometer(), (s) {
+        _magnet = SensorState.ok;
+        _magnetic.add(s.value, _seconds(s.timestamp));
+      }, () => _magnet = SensorState.missing),
+    );
+    // Only Android reports it (MainActivity.kt); elsewhere it's unknown.
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      _magneticSubs.add(
+        _sensors.magneticAccuracy().listen(
+          (a) => _magneticAccuracy = a,
+          onError: (Object _) => _magneticAccuracy = null,
+          cancelOnError: true,
+        ),
+      );
+    }
+  }
+
+  void _stopMagnetic() {
+    for (final s in _magneticSubs) {
+      s.cancel();
+    }
+    _magneticSubs.clear();
+    _magnetic = VectorLowPass(0.25);
+    _magnet = SensorState.waiting;
+    _magneticAccuracy = null;
+  }
+
+  /// Stops the sensors and forgets the last readings, so a tool opened
+  /// later (or the app shown again) never starts from an old value.
   void stop() {
     for (final s in _subs) {
       s.cancel();
     }
     _subs.clear();
+    _stopMagnetic();
     _rotationPoll?.cancel();
     _rotationPoll = null;
+    _gravity = GravityFilter();
+    _accel = _gyro = SensorState.waiting;
+    _time = null;
+    _publish();
   }
 
   @override
