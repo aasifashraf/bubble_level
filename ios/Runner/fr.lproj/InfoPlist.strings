@@ -3,3 +3,4 @@
 "NSMicrophoneUsageDescription" = "Le sonomètre utilise le micro pour mesurer le niveau sonore. Le son est mesuré sur votre téléphone et n’est jamais enregistré, conservé ni envoyé.";
 "NSMotionUsageDescription" = "Les capteurs de mouvement et le baromètre mesurent l’inclinaison, les angles, le cap de la boussole, les vibrations et l’altitude.";
 "NSCameraUsageDescription" = "Le niveau caméra affiche des lignes de niveau sur l’image de la caméra pour mesurer les bords. L’image n’est jamais enregistrée, sauvegardée ni envoyée.";
+"NSLocationWhenInUseUsageDescription" = "Le compteur de vitesse utilise votre position uniquement lorsqu’il est ouvert, pour afficher votre vitesse, votre distance et votre altitude. Votre position ne quitte jamais votre téléphone.";

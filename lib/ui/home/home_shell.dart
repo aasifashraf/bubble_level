@@ -11,9 +11,11 @@ import '../../data/repositories/orientation_repository.dart';
 import '../../data/repositories/review_repository.dart';
 import '../../data/repositories/settings_repository.dart';
 import '../../data/repositories/sound_repository.dart';
+import '../../data/repositories/speed_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
 import '../../data/services/camera_service.dart';
 import '../../data/services/display_rotation_service.dart';
+import '../../data/services/location_service.dart';
 import '../../data/services/microphone_service.dart';
 import '../../data/services/motion_sensor_service.dart';
 import '../../data/services/sensor_availability_service.dart';
@@ -52,6 +54,8 @@ import '../features/ruler/views/ruler_screen.dart';
 import '../features/settings/views/settings_sheet.dart';
 import '../features/sound/view_models/sound_view_model.dart';
 import '../features/sound/views/sound_screen.dart';
+import '../features/speed/view_models/speed_view_model.dart';
+import '../features/speed/views/speed_screen.dart';
 import '../features/vibration/view_models/vibration_view_model.dart';
 import '../features/vibration/views/vibration_screen.dart';
 import 'tool_glyphs.dart';
@@ -79,6 +83,7 @@ class HomeShell extends StatefulWidget {
     this.display = const DisplayRotationService(),
     this.microphone = const MicrophoneService(),
     this.camera = const CameraService(),
+    this.location = const LocationService(),
   });
 
   final OrientationRepository orientation;
@@ -102,6 +107,9 @@ class HomeShell extends StatefulWidget {
 
   /// The camera level's camera.
   final CameraService camera;
+
+  /// The speedometer's GPS.
+  final LocationService location;
 
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
@@ -151,6 +159,12 @@ class _HomeShellState extends State<HomeShell> {
   late final _vibration = VibrationViewModel(repository: _vibrationRepo);
   late final _gForceRepo = GForceRepository(sensors: widget.sensors);
   late final _gForce = GForceViewModel(repository: _gForceRepo);
+  late final _speedRepo = SpeedRepository(location: widget.location);
+  late final _speed = SpeedViewModel(
+    repository: _speedRepo,
+    settings: widget.settings,
+    location: widget.location,
+  );
   late final _barometerRepo = BarometerRepository(sensors: widget.sensors);
   late final _altimeter = AltimeterViewModel(
     repository: _barometerRepo,
@@ -174,6 +188,8 @@ class _HomeShellState extends State<HomeShell> {
     _vibration.dispose();
     _gForce.dispose();
     _gForceRepo.dispose();
+    _speed.dispose();
+    _speedRepo.dispose();
     _altimeter.dispose();
     _light.dispose();
     _lightRepo.dispose();
@@ -202,6 +218,7 @@ class _HomeShellState extends State<HomeShell> {
     HomeTool.altimeter,
     HomeTool.height,
     HomeTool.camera,
+    HomeTool.speed,
   };
 
   /// Opens a tool full screen; its view model (if it uses sensors) follows
@@ -302,6 +319,12 @@ class _HomeShellState extends State<HomeShell> {
           (_) => CameraLevelScreen(viewModel: _camera, onBack: back),
           tool: tool,
         );
+      case HomeTool.speed:
+        _open(
+          _speed,
+          (_) => SpeedScreen(viewModel: _speed, onBack: back),
+          tool: tool,
+        );
       case HomeTool.gforce:
         _open(
           _gForce,
@@ -398,6 +421,12 @@ class _HomeShellState extends State<HomeShell> {
       title: l.toolGForce,
       subtitle: l.toolGForceSubtitle,
       needs: [SensorKind.accelerometer],
+    ),
+    (
+      tool: HomeTool.speed,
+      title: l.toolSpeed,
+      subtitle: l.toolSpeedSubtitle,
+      needs: [],
     ),
   ];
 

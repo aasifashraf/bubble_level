@@ -1228,4 +1228,111 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get noAccelerometerG => 'この端末には加速度センサーがないため、Gを測定できません。ほかのツールは使えます。';
+
+  @override
+  String get toolSpeed => 'スピードメーター';
+
+  @override
+  String get toolSpeedSubtitle => '速度、走行距離、GPS高度';
+
+  @override
+  String get speedHelp1 =>
+      '位置情報を許可し、ダッシュボードの上やフロントガラスのホルダーなど、空が見える場所にスマホを置きます。屋外では、最初の測位に数秒かかります。';
+
+  @override
+  String get speedHelp2 =>
+      'ダッシュボード上のメーターがGPSによる速度を表示し、その両側に走行距離と高度を表示します。パネルには、最後にリセットしてからの距離、最高速度、平均速度が残ります。';
+
+  @override
+  String get speedHelp3 =>
+      '座標をタップするとコピーできます。単位ボタンで km/h と mph を切り替え、「トリップをリセット」で距離、最高、平均を最初からやり直します。';
+
+  @override
+  String get speedHelp4 => '視線は道路から離さないでください。同乗者に読んでもらうか、停車してから走行記録を確認しましょう。';
+
+  @override
+  String get speedTip =>
+      '速度は衛星から得るもので、開けた道路ではふつう誤差約 1 km/h 以内です。トンネル内、高いビルの間、屋内では遅れたり途切れたりすることがあります。GPSの高度は10から50 mほどずれることがあるので、高さの変化には高度計を使ってください。位置情報はこのツールを開いている間だけ使われ、スマホの外に出ることはありません。';
+
+  @override
+  String get speedAllowTitle => '位置情報を許可';
+
+  @override
+  String get speedAllowBody =>
+      'スピードメーターはGPSで速度、距離、高度を測ります。位置情報はこのツールを画面に開いている間だけ使われ、バックグラウンドでは使われず、スマホの外に出ることはありません。';
+
+  @override
+  String get speedAllow => '位置情報を許可';
+
+  @override
+  String get speedDeniedTitle => '位置情報へのアクセスがオフです';
+
+  @override
+  String get speedDeniedBody =>
+      'スピードメーターを使うには、設定でこのアプリの位置情報をオンにしてください。位置情報はツールを開いている間だけ使われ、スマホの外に出ることはありません。';
+
+  @override
+  String get speedServiceOffTitle => '位置情報がオフです';
+
+  @override
+  String get speedServiceOffBody => 'スピードメーターを使うには、スマホの設定で位置情報をオンにしてください。';
+
+  @override
+  String get speedDistance => '距離';
+
+  @override
+  String get speedTop => '最高';
+
+  @override
+  String get speedAverage => '平均';
+
+  @override
+  String get speedTrip => 'トリップ';
+
+  @override
+  String get speedAltitude => '高度';
+
+  @override
+  String get speedResetTrip => 'トリップをリセット';
+
+  @override
+  String get speedFinding => '衛星を探しています…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'GPSが弱いため、速度が遅れることがあります';
+
+  @override
+  String get speedStill => '停止中';
+
+  @override
+  String get speedCopied => '座標をコピーしました';
+
+  @override
+  String get speedUnitTooltip => 'km/h と mph を切り替え';
+
+  @override
+  String get speedKmh => 'km/h';
+
+  @override
+  String get speedMph => 'mph';
+
+  @override
+  String speedSemantics(String value) {
+    return '速度 $value';
+  }
+
+  @override
+  String get speedCoordinates => '座標（タップでコピー）';
+
+  @override
+  String get noGps => 'この端末にはGPSがないため、速度を測れません。ほかのツールは使えます。';
+
+  @override
+  String get speedSceneHelp =>
+      '空は時刻に合わせて変わります。天気ボタンで景色を選べます。「自動」は季節に合わせ、晴れ、くもり、雨、嵐、雪も選べます。景色であって、天気予報ではありません。';
 }

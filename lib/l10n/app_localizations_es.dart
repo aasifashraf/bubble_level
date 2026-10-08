@@ -1285,4 +1285,114 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'Este teléfono no tiene acelerómetro, así que aquí no se puede medir la fuerza G. Las demás herramientas siguen funcionando.';
+
+  @override
+  String get toolSpeed => 'Velocímetro';
+
+  @override
+  String get toolSpeedSubtitle => 'Velocidad, trayecto y altitud GPS';
+
+  @override
+  String get speedHelp1 =>
+      'Permite la ubicación y coloca el teléfono donde vea el cielo, como en el tablero o en un soporte del parabrisas. Al aire libre, la primera ubicación tarda unos segundos.';
+
+  @override
+  String get speedHelp2 =>
+      'El indicador del tablero muestra tu velocidad por GPS, con la distancia del trayecto y la altitud a cada lado. El panel guarda la distancia, la velocidad máxima y la media desde el último reinicio.';
+
+  @override
+  String get speedHelp3 =>
+      'Toca las coordenadas para copiarlas. El botón de unidad cambia entre km/h y mph, y Reiniciar trayecto vuelve a empezar la distancia, la máxima y la media.';
+
+  @override
+  String get speedHelp4 =>
+      'No apartes la vista de la carretera: deja que lo lea un acompañante o revisa el trayecto cuando te detengas.';
+
+  @override
+  String get speedTip =>
+      'La velocidad viene de los satélites y suele tener un margen de 1 km/h en carreteras abiertas; en túneles, entre edificios altos o en interiores puede retrasarse o cortarse. La altitud GPS puede desviarse de 10 a 50 m, así que usa el Altímetro para cambios de altura. La ubicación solo se usa mientras esta herramienta está abierta y nunca sale de tu teléfono.';
+
+  @override
+  String get speedAllowTitle => 'Permitir la ubicación';
+
+  @override
+  String get speedAllowBody =>
+      'El velocímetro usa el GPS para medir tu velocidad, distancia y altitud. La ubicación solo se usa mientras esta herramienta está abierta en pantalla, nunca en segundo plano, y nunca sale de tu teléfono.';
+
+  @override
+  String get speedAllow => 'Permitir ubicación';
+
+  @override
+  String get speedDeniedTitle => 'El acceso a la ubicación está desactivado';
+
+  @override
+  String get speedDeniedBody =>
+      'Activa la ubicación para esta app en Ajustes para usar el velocímetro. Solo se usa mientras la herramienta está abierta y nunca sale de tu teléfono.';
+
+  @override
+  String get speedServiceOffTitle => 'La ubicación está apagada';
+
+  @override
+  String get speedServiceOffBody =>
+      'Activa la ubicación en los ajustes del teléfono para usar el velocímetro.';
+
+  @override
+  String get speedDistance => 'Distancia';
+
+  @override
+  String get speedTop => 'Máxima';
+
+  @override
+  String get speedAverage => 'Media';
+
+  @override
+  String get speedTrip => 'Trayecto';
+
+  @override
+  String get speedAltitude => 'Altitud';
+
+  @override
+  String get speedResetTrip => 'Reiniciar trayecto';
+
+  @override
+  String get speedFinding => 'Buscando satélites…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'GPS débil: la velocidad puede ir con retraso';
+
+  @override
+  String get speedStill => 'Detenido';
+
+  @override
+  String get speedCopied => 'Coordenadas copiadas';
+
+  @override
+  String get speedUnitTooltip => 'Cambiar entre km/h y mph';
+
+  @override
+  String get speedKmh => 'km/h';
+
+  @override
+  String get speedMph => 'mph';
+
+  @override
+  String speedSemantics(String value) {
+    return 'Velocidad $value';
+  }
+
+  @override
+  String get speedCoordinates => 'Coordenadas, toca para copiar';
+
+  @override
+  String get noGps =>
+      'Este teléfono no tiene GPS, así que aquí no se puede medir la velocidad. Las demás herramientas siguen funcionando.';
+
+  @override
+  String get speedSceneHelp =>
+      'El cielo sigue la hora del día. El botón del tiempo elige la escena: Auto sigue la estación, o elige sol, nubes, lluvia, tormenta o nieve. Es decorado, no un pronóstico.';
 }

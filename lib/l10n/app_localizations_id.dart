@@ -1282,4 +1282,114 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'Ponsel ini tidak punya akselerometer, jadi gaya G tidak bisa diukur di sini. Alat lain tetap berfungsi.';
+
+  @override
+  String get toolSpeed => 'Speedometer';
+
+  @override
+  String get toolSpeedSubtitle => 'Kecepatan, perjalanan, dan ketinggian GPS';
+
+  @override
+  String get speedHelp1 =>
+      'Izinkan lokasi, lalu letakkan ponsel di tempat yang bisa melihat langit, seperti di dasbor atau di dudukan kaca depan. Di luar ruangan, posisi pertama butuh beberapa detik.';
+
+  @override
+  String get speedHelp2 =>
+      'Meteran di dasbor menunjukkan kecepatan Anda dari GPS, dengan jarak perjalanan dan ketinggian di kedua sisinya. Panel menyimpan jarak, kecepatan tertinggi, dan rata-rata sejak terakhir Anda atur ulang.';
+
+  @override
+  String get speedHelp3 =>
+      'Ketuk koordinat untuk menyalinnya. Tombol satuan beralih antara km/jam dan mil/jam, dan Atur ulang perjalanan memulai lagi jarak, tertinggi, dan rata-rata.';
+
+  @override
+  String get speedHelp4 =>
+      'Tetap fokus ke jalan: biarkan penumpang yang membaca, atau periksa perjalanan setelah Anda berhenti.';
+
+  @override
+  String get speedTip =>
+      'Kecepatan berasal dari satelit dan biasanya hanya meleset sekitar 1 km/jam di jalan terbuka; di terowongan, di antara gedung tinggi, atau di dalam ruangan, kecepatan bisa tertinggal atau hilang. Ketinggian GPS bisa meleset 10 sampai 50 m, jadi pakai Altimeter untuk perubahan ketinggian. Lokasi hanya dipakai selama alat ini terbuka dan tidak pernah keluar dari ponsel Anda.';
+
+  @override
+  String get speedAllowTitle => 'Izinkan lokasi';
+
+  @override
+  String get speedAllowBody =>
+      'Speedometer memakai GPS untuk mengukur kecepatan, jarak, dan ketinggian Anda. Lokasi hanya dipakai selama alat ini terbuka di layar, tidak pernah di latar belakang, dan tidak pernah keluar dari ponsel Anda.';
+
+  @override
+  String get speedAllow => 'Izinkan lokasi';
+
+  @override
+  String get speedDeniedTitle => 'Akses lokasi nonaktif';
+
+  @override
+  String get speedDeniedBody =>
+      'Aktifkan lokasi untuk aplikasi ini di Setelan agar bisa memakai speedometer. Lokasi hanya dipakai selama alat terbuka dan tidak pernah keluar dari ponsel Anda.';
+
+  @override
+  String get speedServiceOffTitle => 'Lokasi dimatikan';
+
+  @override
+  String get speedServiceOffBody =>
+      'Aktifkan lokasi di setelan ponsel agar bisa memakai speedometer.';
+
+  @override
+  String get speedDistance => 'Jarak';
+
+  @override
+  String get speedTop => 'Tertinggi';
+
+  @override
+  String get speedAverage => 'Rata-rata';
+
+  @override
+  String get speedTrip => 'Perjalanan';
+
+  @override
+  String get speedAltitude => 'Ketinggian';
+
+  @override
+  String get speedResetTrip => 'Atur ulang perjalanan';
+
+  @override
+  String get speedFinding => 'Mencari satelit…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'GPS lemah: kecepatan bisa tertinggal';
+
+  @override
+  String get speedStill => 'Diam';
+
+  @override
+  String get speedCopied => 'Koordinat disalin';
+
+  @override
+  String get speedUnitTooltip => 'Beralih antara km/jam dan mil/jam';
+
+  @override
+  String get speedKmh => 'km/jam';
+
+  @override
+  String get speedMph => 'mil/jam';
+
+  @override
+  String speedSemantics(String value) {
+    return 'Kecepatan $value';
+  }
+
+  @override
+  String get speedCoordinates => 'Koordinat, ketuk untuk menyalin';
+
+  @override
+  String get noGps =>
+      'Ponsel ini tidak punya GPS, jadi kecepatan tidak bisa diukur di sini. Alat lain tetap berfungsi.';
+
+  @override
+  String get speedSceneHelp =>
+      'Langit mengikuti waktu. Tombol cuaca memilih pemandangan: Otomatis mengikuti musim, atau pilih cerah, berawan, hujan, badai, atau salju. Ini hanya pemandangan, bukan prakiraan cuaca.';
 }

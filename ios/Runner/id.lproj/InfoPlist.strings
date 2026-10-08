@@ -3,3 +3,4 @@
 "NSMicrophoneUsageDescription" = "Pengukur suara memakai mikrofon untuk mengukur seberapa keras suara. Suara diukur di ponsel Anda dan tidak pernah direkam, disimpan, atau dikirim.";
 "NSMotionUsageDescription" = "Sensor gerak dan barometer dipakai untuk mengukur kemiringan, sudut, arah kompas, getaran, dan ketinggian.";
 "NSCameraUsageDescription" = "Waterpass kamera menampilkan garis datar di atas gambar kamera untuk mengukur tepi. Gambar tidak pernah direkam, disimpan, atau dikirim.";
+"NSLocationWhenInUseUsageDescription" = "Speedometer memakai lokasi Anda hanya selama terbuka, untuk menampilkan kecepatan, jarak, dan ketinggian. Lokasi tidak pernah keluar dari ponsel Anda.";

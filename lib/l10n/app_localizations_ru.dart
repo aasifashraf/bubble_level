@@ -1283,4 +1283,114 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'В этом телефоне нет акселерометра, поэтому перегрузку здесь не измерить. Другие инструменты работают.';
+
+  @override
+  String get toolSpeed => 'Спидометр';
+
+  @override
+  String get toolSpeedSubtitle => 'Скорость, поездка и высота по GPS';
+
+  @override
+  String get speedHelp1 =>
+      'Разрешите доступ к местоположению и положите телефон туда, откуда видно небо, например на приборную панель или в держатель на лобовом стекле. На улице первое определение места занимает несколько секунд.';
+
+  @override
+  String get speedHelp2 =>
+      'Шкала на приборной панели показывает скорость по GPS, а по бокам от неё расстояние поездки и высоту. Панель хранит расстояние, максимальную и среднюю скорость с последнего сброса.';
+
+  @override
+  String get speedHelp3 =>
+      'Нажмите на координаты, чтобы скопировать их. Кнопка единиц переключает км/ч и миль/ч, а «Сбросить поездку» обнуляет расстояние, максимум и среднее.';
+
+  @override
+  String get speedHelp4 =>
+      'Следите за дорогой: пусть показания читает пассажир, или посмотрите поездку после остановки.';
+
+  @override
+  String get speedTip =>
+      'Скорость берётся со спутников и на открытой дороге обычно точна примерно до 1 км/ч; в туннелях, между высокими домами или в помещении она может запаздывать или пропадать. Высота по GPS может ошибаться на величину от 10 до 50 м, поэтому для перепадов высоты используйте Высотомер. Местоположение используется, только пока этот инструмент открыт, и никогда не покидает ваш телефон.';
+
+  @override
+  String get speedAllowTitle => 'Разрешите доступ к местоположению';
+
+  @override
+  String get speedAllowBody =>
+      'Спидометр с помощью GPS измеряет скорость, расстояние и высоту. Местоположение используется, только пока этот инструмент открыт на экране, никогда в фоне, и никогда не покидает ваш телефон.';
+
+  @override
+  String get speedAllow => 'Разрешить местоположение';
+
+  @override
+  String get speedDeniedTitle => 'Доступ к местоположению выключен';
+
+  @override
+  String get speedDeniedBody =>
+      'Включите доступ к местоположению для этого приложения в настройках, чтобы пользоваться спидометром. Оно используется, только пока инструмент открыт, и никогда не покидает ваш телефон.';
+
+  @override
+  String get speedServiceOffTitle => 'Геолокация выключена';
+
+  @override
+  String get speedServiceOffBody =>
+      'Включите геолокацию в настройках телефона, чтобы пользоваться спидометром.';
+
+  @override
+  String get speedDistance => 'Расстояние';
+
+  @override
+  String get speedTop => 'Максимум';
+
+  @override
+  String get speedAverage => 'Среднее';
+
+  @override
+  String get speedTrip => 'Поездка';
+
+  @override
+  String get speedAltitude => 'Высота';
+
+  @override
+  String get speedResetTrip => 'Сбросить поездку';
+
+  @override
+  String get speedFinding => 'Поиск спутников…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value м';
+  }
+
+  @override
+  String get speedWeak => 'Слабый GPS: скорость может запаздывать';
+
+  @override
+  String get speedStill => 'Без движения';
+
+  @override
+  String get speedCopied => 'Координаты скопированы';
+
+  @override
+  String get speedUnitTooltip => 'Переключить км/ч и миль/ч';
+
+  @override
+  String get speedKmh => 'км/ч';
+
+  @override
+  String get speedMph => 'миль/ч';
+
+  @override
+  String speedSemantics(String value) {
+    return 'Скорость $value';
+  }
+
+  @override
+  String get speedCoordinates => 'Координаты, нажмите, чтобы скопировать';
+
+  @override
+  String get noGps =>
+      'В этом телефоне нет GPS, поэтому скорость здесь не измерить. Другие инструменты работают.';
+
+  @override
+  String get speedSceneHelp =>
+      'Небо меняется со временем суток. Кнопка погоды выбирает сцену: «Авто» следует за сезоном, или выберите солнце, облака, дождь, грозу или снег. Это декорация, а не прогноз.';
 }

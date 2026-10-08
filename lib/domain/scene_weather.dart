@@ -20,3 +20,13 @@ SceneWeather seasonalWeather(DateTime now, {String? countryCode}) {
 
 /// Night in the scene: from 7 pm to 6 am by the phone's clock.
 bool isNight(DateTime now) => now.hour >= 19 || now.hour < 6;
+
+/// The light of the day by the phone's clock.
+enum DayPart { day, dusk, night }
+
+/// Night from 7 pm to 6 am, dusk the hour either side, day otherwise.
+DayPart dayPartOf(DateTime now) {
+  if (isNight(now)) return DayPart.night;
+  final h = now.hour;
+  return h == 18 || h == 6 ? DayPart.dusk : DayPart.day;
+}

@@ -1286,4 +1286,114 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'Ce téléphone n’a pas d’accéléromètre : la force G ne peut pas être mesurée ici. Les autres outils fonctionnent toujours.';
+
+  @override
+  String get toolSpeed => 'Compteur de vitesse';
+
+  @override
+  String get toolSpeedSubtitle => 'Vitesse, trajet et altitude GPS';
+
+  @override
+  String get speedHelp1 =>
+      'Autorisez la localisation, puis placez le téléphone là où il voit le ciel, par exemple sur le tableau de bord ou sur un support de pare-brise. En extérieur, la première position prend quelques secondes.';
+
+  @override
+  String get speedHelp2 =>
+      'Le cadran sur le tableau de bord affiche votre vitesse GPS, avec la distance du trajet et l’altitude de chaque côté. Le panneau garde la distance, la vitesse maximale et la moyenne depuis la dernière remise à zéro.';
+
+  @override
+  String get speedHelp3 =>
+      'Touchez les coordonnées pour les copier. Le bouton d’unité bascule entre km/h et mph, et Réinitialiser le trajet relance la distance, le max et la moyenne.';
+
+  @override
+  String get speedHelp4 =>
+      'Gardez les yeux sur la route : laissez un passager lire, ou consultez le trajet une fois arrêté.';
+
+  @override
+  String get speedTip =>
+      'La vitesse vient des satellites et reste en général à environ 1 km/h près sur route dégagée ; dans les tunnels, entre de hauts immeubles ou en intérieur, elle peut prendre du retard ou disparaître. L’altitude GPS peut être fausse de 10 à 50 m : pour les changements de hauteur, utilisez l’Altimètre. La localisation n’est utilisée que lorsque cet outil est ouvert et ne quitte jamais votre téléphone.';
+
+  @override
+  String get speedAllowTitle => 'Autoriser la localisation';
+
+  @override
+  String get speedAllowBody =>
+      'Le compteur de vitesse utilise le GPS pour mesurer votre vitesse, votre distance et votre altitude. La localisation n’est utilisée que lorsque cet outil est ouvert à l’écran, jamais en arrière-plan, et ne quitte jamais votre téléphone.';
+
+  @override
+  String get speedAllow => 'Autoriser la localisation';
+
+  @override
+  String get speedDeniedTitle => 'L’accès à la localisation est désactivé';
+
+  @override
+  String get speedDeniedBody =>
+      'Autorisez la localisation pour cette app dans les Réglages pour utiliser le compteur de vitesse. Elle n’est utilisée que lorsque l’outil est ouvert et ne quitte jamais votre téléphone.';
+
+  @override
+  String get speedServiceOffTitle => 'La localisation est désactivée';
+
+  @override
+  String get speedServiceOffBody =>
+      'Activez la localisation dans les réglages du téléphone pour utiliser le compteur de vitesse.';
+
+  @override
+  String get speedDistance => 'Distance';
+
+  @override
+  String get speedTop => 'Max';
+
+  @override
+  String get speedAverage => 'Moyenne';
+
+  @override
+  String get speedTrip => 'Trajet';
+
+  @override
+  String get speedAltitude => 'Altitude';
+
+  @override
+  String get speedResetTrip => 'Réinitialiser le trajet';
+
+  @override
+  String get speedFinding => 'Recherche des satellites…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'GPS faible : la vitesse peut être en retard';
+
+  @override
+  String get speedStill => 'À l’arrêt';
+
+  @override
+  String get speedCopied => 'Coordonnées copiées';
+
+  @override
+  String get speedUnitTooltip => 'Basculer entre km/h et mph';
+
+  @override
+  String get speedKmh => 'km/h';
+
+  @override
+  String get speedMph => 'mph';
+
+  @override
+  String speedSemantics(String value) {
+    return 'Vitesse $value';
+  }
+
+  @override
+  String get speedCoordinates => 'Coordonnées, touchez pour copier';
+
+  @override
+  String get noGps =>
+      'Ce téléphone n’a pas de GPS : la vitesse ne peut pas être mesurée ici. Les autres outils fonctionnent toujours.';
+
+  @override
+  String get speedSceneHelp =>
+      'Le ciel suit l’heure de la journée. Le bouton météo choisit la scène : Auto suit la saison, ou choisissez soleil, nuages, pluie, orage ou neige. C’est un décor, pas une prévision.';
 }

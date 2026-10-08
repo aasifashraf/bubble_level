@@ -26,6 +26,7 @@ dependencies:
   # source options; check them before moving to a newer major or minor.
   record: 7.1.1
   camera: ^0.12.1
+  geolocator: ^14.1.1
 
 dev_dependencies:
   flutter_test:

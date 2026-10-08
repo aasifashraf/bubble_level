@@ -1278,4 +1278,114 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'اس فون میں ایکسلرومیٹر نہیں ہے، اس لیے یہاں G فورس نہیں ناپی جا سکتی۔ باقی ٹولز کام کرتے رہیں گے۔';
+
+  @override
+  String get toolSpeed => 'اسپیڈومیٹر';
+
+  @override
+  String get toolSpeedSubtitle => 'رفتار، سفر اور GPS بلندی';
+
+  @override
+  String get speedHelp1 =>
+      'لوکیشن کی اجازت دیں، پھر فون ایسی جگہ رکھیں جہاں سے آسمان نظر آئے، جیسے ڈیش بورڈ پر یا ونڈ اسکرین ماؤنٹ میں۔ باہر پہلی بار جگہ معلوم کرنے میں چند سیکنڈ لگتے ہیں۔';
+
+  @override
+  String get speedHelp2 =>
+      'ڈیش بورڈ پر میٹر GPS سے آپ کی رفتار دکھاتا ہے، اور اس کے دونوں طرف سفر کا فاصلہ اور بلندی۔ پینل پچھلی بار ری سیٹ کرنے کے بعد کا فاصلہ، سب سے تیز اور اوسط رفتار رکھتا ہے۔';
+
+  @override
+  String get speedHelp3 =>
+      'کاپی کرنے کے لیے کوآرڈینیٹس پر ٹیپ کریں۔ یونٹ بٹن km/h اور mph کے درمیان بدلتا ہے، اور سفر ری سیٹ کریں فاصلہ، سب سے تیز اور اوسط دوبارہ شروع کرتا ہے۔';
+
+  @override
+  String get speedHelp4 =>
+      'نظر سڑک پر رکھیں: کسی مسافر سے پڑھوائیں، یا رکنے کے بعد سفر دیکھیں۔';
+
+  @override
+  String get speedTip =>
+      'رفتار سیٹلائٹ سے آتی ہے اور کھلی سڑک پر عموماً تقریباً 1 km/h کے اندر درست ہوتی ہے؛ سرنگ میں، اونچی عمارتوں کے درمیان یا گھر کے اندر یہ پیچھے رہ سکتی ہے یا رک سکتی ہے۔ GPS بلندی 10 سے 50 میٹر تک غلط ہو سکتی ہے، اس لیے اونچائی کی تبدیلی کے لیے بلندی پیما استعمال کریں۔ لوکیشن صرف تب استعمال ہوتی ہے جب یہ ٹول کھلا ہو، اور کبھی آپ کے فون سے باہر نہیں جاتی۔';
+
+  @override
+  String get speedAllowTitle => 'لوکیشن کی اجازت دیں';
+
+  @override
+  String get speedAllowBody =>
+      'اسپیڈومیٹر GPS سے آپ کی رفتار، فاصلہ اور بلندی ناپتا ہے۔ لوکیشن صرف تب استعمال ہوتی ہے جب یہ ٹول اسکرین پر کھلا ہو، کبھی بیک گراؤنڈ میں نہیں، اور کبھی آپ کے فون سے باہر نہیں جاتی۔';
+
+  @override
+  String get speedAllow => 'لوکیشن کی اجازت دیں';
+
+  @override
+  String get speedDeniedTitle => 'لوکیشن کی اجازت بند ہے';
+
+  @override
+  String get speedDeniedBody =>
+      'اسپیڈومیٹر استعمال کرنے کے لیے سیٹنگز میں اس ایپ کے لیے لوکیشن آن کریں۔ یہ صرف ٹول کھلا ہونے پر استعمال ہوتی ہے اور کبھی آپ کے فون سے باہر نہیں جاتی۔';
+
+  @override
+  String get speedServiceOffTitle => 'لوکیشن بند ہے';
+
+  @override
+  String get speedServiceOffBody =>
+      'اسپیڈومیٹر استعمال کرنے کے لیے فون کی سیٹنگز میں لوکیشن آن کریں۔';
+
+  @override
+  String get speedDistance => 'فاصلہ';
+
+  @override
+  String get speedTop => 'سب سے تیز';
+
+  @override
+  String get speedAverage => 'اوسط';
+
+  @override
+  String get speedTrip => 'سفر';
+
+  @override
+  String get speedAltitude => 'بلندی';
+
+  @override
+  String get speedResetTrip => 'سفر ری سیٹ کریں';
+
+  @override
+  String get speedFinding => 'سیٹلائٹ تلاش ہو رہے ہیں…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'کمزور GPS: رفتار پیچھے رہ سکتی ہے';
+
+  @override
+  String get speedStill => 'رکے ہوئے';
+
+  @override
+  String get speedCopied => 'کوآرڈینیٹس کاپی ہو گئے';
+
+  @override
+  String get speedUnitTooltip => 'km/h اور mph کے درمیان بدلیں';
+
+  @override
+  String get speedKmh => 'km/h';
+
+  @override
+  String get speedMph => 'mph';
+
+  @override
+  String speedSemantics(String value) {
+    return 'رفتار $value';
+  }
+
+  @override
+  String get speedCoordinates => 'کوآرڈینیٹس، کاپی کرنے کے لیے ٹیپ کریں';
+
+  @override
+  String get noGps =>
+      'اس فون میں GPS نہیں ہے، اس لیے یہاں رفتار نہیں ناپی جا سکتی۔ باقی ٹولز کام کرتے رہیں گے۔';
+
+  @override
+  String get speedSceneHelp =>
+      'آسمان دن کے وقت کے ساتھ بدلتا ہے۔ موسم کا بٹن منظر چنتا ہے: آٹو موسم کے مطابق چلتا ہے، یا دھوپ، بادل، بارش، طوفان یا برف چنیں۔ یہ صرف منظر ہے، موسم کی پیش گوئی نہیں۔';
 }

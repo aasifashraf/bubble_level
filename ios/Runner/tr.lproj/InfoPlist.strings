@@ -3,3 +3,4 @@
 "NSMicrophoneUsageDescription" = "Ses ölçer, ne kadar gürültü olduğunu ölçmek için mikrofonu kullanır. Ses telefonunuzda ölçülür; asla kaydedilmez, saklanmaz veya gönderilmez.";
 "NSMotionUsageDescription" = "Hareket sensörleri ve barometre eğimi, açıları, pusula yönünü, titreşimi ve yüksekliği ölçer.";
 "NSCameraUsageDescription" = "Kamera terazisi, kenarları ölçmek için kamera görüntüsünün üzerinde düz çizgiler gösterir. Görüntü asla kaydedilmez, saklanmaz ya da gönderilmez.";
+"NSLocationWhenInUseUsageDescription" = "Hız göstergesi, hızınızı, mesafeyi ve rakımı göstermek için konumunuzu yalnızca açıkken kullanır. Konum telefonunuzdan asla çıkmaz.";

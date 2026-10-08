@@ -1277,4 +1277,114 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'This phone has no accelerometer, so g-force can’t be measured here. Other tools still work.';
+
+  @override
+  String get toolSpeed => 'Speedometer';
+
+  @override
+  String get toolSpeedSubtitle => 'Speed, trip and GPS altitude';
+
+  @override
+  String get speedHelp1 =>
+      'Allow location, then put the phone where it can see the sky, like on the dashboard or in a windscreen mount. Outdoors, the first fix takes a few seconds.';
+
+  @override
+  String get speedHelp2 =>
+      'The gauge on the dashboard shows your speed from GPS, with the trip distance and altitude either side. The panel keeps the distance, top speed and average since you last reset.';
+
+  @override
+  String get speedHelp3 =>
+      'Tap the coordinates to copy them. The unit button switches between km/h and mph, and Reset trip starts the distance, top and average again.';
+
+  @override
+  String get speedHelp4 =>
+      'Keep your eyes on the road: let a passenger read it, or check the trip once you\'ve stopped.';
+
+  @override
+  String get speedTip =>
+      'Speed comes from the satellites and is usually within about 1 km/h on open roads; in tunnels, between tall buildings or indoors it can lag or drop out. GPS altitude can be 10 to 50 m off, so use the Altimeter for height changes. Location is used only while this tool is open and never leaves your phone.';
+
+  @override
+  String get speedAllowTitle => 'Allow location';
+
+  @override
+  String get speedAllowBody =>
+      'The speedometer uses GPS to measure your speed, distance and altitude. Location is used only while this tool is open on screen, never in the background, and never leaves your phone.';
+
+  @override
+  String get speedAllow => 'Allow location';
+
+  @override
+  String get speedDeniedTitle => 'Location access is off';
+
+  @override
+  String get speedDeniedBody =>
+      'Turn on location for this app in Settings to use the speedometer. It is used only while the tool is open and never leaves your phone.';
+
+  @override
+  String get speedServiceOffTitle => 'Location is switched off';
+
+  @override
+  String get speedServiceOffBody =>
+      'Turn on location in the phone’s settings to use the speedometer.';
+
+  @override
+  String get speedDistance => 'Distance';
+
+  @override
+  String get speedTop => 'Top';
+
+  @override
+  String get speedAverage => 'Average';
+
+  @override
+  String get speedTrip => 'Trip';
+
+  @override
+  String get speedAltitude => 'Altitude';
+
+  @override
+  String get speedResetTrip => 'Reset trip';
+
+  @override
+  String get speedFinding => 'Finding satellites…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'Weak GPS: speed may lag';
+
+  @override
+  String get speedStill => 'Standing still';
+
+  @override
+  String get speedCopied => 'Coordinates copied';
+
+  @override
+  String get speedUnitTooltip => 'Switch between km/h and mph';
+
+  @override
+  String get speedKmh => 'km/h';
+
+  @override
+  String get speedMph => 'mph';
+
+  @override
+  String speedSemantics(String value) {
+    return 'Speed $value';
+  }
+
+  @override
+  String get speedCoordinates => 'Coordinates, tap to copy';
+
+  @override
+  String get noGps =>
+      'This phone has no GPS, so speed can’t be measured here. Other tools still work.';
+
+  @override
+  String get speedSceneHelp =>
+      'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It\'s scenery, not a forecast.';
 }

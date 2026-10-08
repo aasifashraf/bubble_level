@@ -62,6 +62,8 @@ class SettingsRepository extends ChangeNotifier {
   static const _kSceneWeather = 'sceneWeather';
   static const _kEyeHeight = 'eyeHeight';
   static const _kCameraAllowed = 'cameraAllowed';
+  static const _kSpeedMph = 'speedMph';
+  static const _kDriveWeather = 'driveWeather';
 
   final SharedPreferences _prefs;
   Vec3 _flatRef;
@@ -264,6 +266,28 @@ class SettingsRepository extends ChangeNotifier {
 
   Future<void> setCameraAllowed(bool allowed) =>
       _prefs.setBool(_kCameraAllowed, allowed);
+
+  /// The Speedometer scene's weather picked by the user, or null to follow
+  /// the season.
+  SceneWeather? get driveWeather =>
+      SceneWeather.values.asNameMap()[_prefs.getString(_kDriveWeather)];
+
+  Future<void> setDriveWeather(SceneWeather? v) async {
+    if (v == null) {
+      await _prefs.remove(_kDriveWeather);
+    } else {
+      await _prefs.setString(_kDriveWeather, v.name);
+    }
+    notifyListeners();
+  }
+
+  /// The speedometer shows mph instead of km/h.
+  bool get speedMph => _prefs.getBool(_kSpeedMph) ?? false;
+
+  Future<void> setSpeedMph(bool mph) async {
+    await _prefs.setBool(_kSpeedMph, mph);
+    notifyListeners();
+  }
 
   /// The user's eye height for the Height tool, metres.
   double get eyeHeight => _prefs.getDouble(_kEyeHeight) ?? defaultEyeHeight;

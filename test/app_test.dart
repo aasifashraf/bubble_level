@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
+import 'package:bubble_level/data/services/location_service.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
@@ -44,12 +45,14 @@ const _allTools = [
   'Height',
   'Camera level',
   'G-force',
+  'Speedometer',
 ];
 
 void main() {
   late FakeMotionSensorService sensors;
   late FakeMicrophoneService microphone;
   late FakeCameraService camera;
+  late FakeLocationService location;
 
   /// Phone-sized window unless [size] says otherwise.
   Future<void> pumpApp(
@@ -67,10 +70,12 @@ void main() {
     sensors = FakeMotionSensorService();
     microphone = FakeMicrophoneService();
     camera = FakeCameraService();
+    location = FakeLocationService();
     await tester.pumpWidget(
       BubbleLevelApp(
         microphone: microphone,
         camera: camera,
+        location: location,
         settings: settings,
         orientation: OrientationRepository(
           sensors: sensors,
@@ -1012,6 +1017,73 @@ void main() {
     expect(find.text('Zeroed: forward and down learned'), findsOneWidget);
     await tester.pump(const Duration(seconds: 1));
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('speedometer: explains, then speed and trip from GPS', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await openTool(tester, 'Speedometer');
+    expect(find.text('Allow location'), findsWidgets);
+    expect(location.listening, isFalse, reason: 'nothing before Allow');
+    await tester.tap(find.widgetWithText(SoftButton, 'Allow location'));
+    await tester.pump();
+    await tester.pump();
+    expect(location.listening, isTrue);
+    expect(find.text('Finding satellites…'), findsOneWidget);
+
+    // A minute heading north at 20 m/s (72 km/h), a fix a second.
+    final start = DateTime(2026, 10, 7, 12);
+    for (var i = 0; i <= 60; i++) {
+      location.send(
+        lat: 51.5 + i * 20 / 111195,
+        lon: -0.12,
+        speed: 20,
+        altitude: 35,
+        time: start.add(Duration(seconds: i)),
+      );
+    }
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('GPS ±5 m'), findsOneWidget);
+    expect(find.text('72 km/h'), findsNWidgets(2), reason: 'top and average');
+    expect(find.text('1.2 km'), findsOneWidget);
+    expect(find.textContaining('51.51079° N'), findsOneWidget);
+
+    // mph, remembered.
+    await tester.tap(find.widgetWithText(SoftButton, 'km/h'));
+    await tester.pump();
+    expect(find.text('45 mph'), findsNWidgets(2));
+    expect((await SettingsRepository.load()).speedMph, isTrue);
+
+    // Reset trip starts again.
+    await tester.tap(find.text('Reset trip'));
+    await tester.pump();
+    expect(find.text('0 mph'), findsNWidgets(2));
+
+    // The scene's weather is picked here, apart from the Altimeter's.
+    await tester.tap(find.byTooltip('Weather'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.tap(find.text('Storm'));
+    await tester.pump(const Duration(milliseconds: 500));
+    final saved = await SettingsRepository.load();
+    expect(saved.driveWeather, SceneWeather.storm);
+    expect(saved.sceneWeather, isNull);
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('speedometer: refused, it points to Settings', (tester) async {
+    await pumpApp(tester);
+    location.requestResult = LocationAccess.denied;
+    await openTool(tester, 'Speedometer');
+    await tester.tap(find.widgetWithText(SoftButton, 'Allow location'));
+    await tester.pumpAndSettle();
+    expect(find.text('Location access is off'), findsOneWidget);
+    await tester.tap(find.text('Open settings'));
+    await tester.pump();
+    expect(location.appSettingsOpened, 1);
   });
 
   testWidgets('altimeter: phones without a barometer are told so', (

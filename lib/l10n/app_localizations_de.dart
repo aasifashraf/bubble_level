@@ -1283,4 +1283,114 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'Dieses Handy hat keinen Beschleunigungssensor, daher lässt sich hier keine G-Kraft messen. Andere Werkzeuge funktionieren weiter.';
+
+  @override
+  String get toolSpeed => 'Tacho';
+
+  @override
+  String get toolSpeedSubtitle => 'Tempo, Strecke und GPS-Höhe';
+
+  @override
+  String get speedHelp1 =>
+      'Erlaube den Standort und leg das Handy dorthin, wo es den Himmel sieht, etwa aufs Armaturenbrett oder in eine Halterung an der Windschutzscheibe. Draußen dauert die erste Ortung ein paar Sekunden.';
+
+  @override
+  String get speedHelp2 =>
+      'Die Anzeige auf dem Armaturenbrett zeigt dein Tempo per GPS, links und rechts davon die Strecke der Fahrt und die Höhe. Das Feld hält Strecke, Spitzentempo und Durchschnitt seit dem letzten Zurücksetzen fest.';
+
+  @override
+  String get speedHelp3 =>
+      'Tippe auf die Koordinaten, um sie zu kopieren. Die Einheitentaste wechselt zwischen km/h und mph, und Fahrt zurücksetzen startet Strecke, Spitze und Schnitt neu.';
+
+  @override
+  String get speedHelp4 =>
+      'Behalte die Straße im Blick: Lass einen Beifahrer ablesen oder sieh dir die Fahrt an, wenn du angehalten hast.';
+
+  @override
+  String get speedTip =>
+      'Das Tempo kommt von den Satelliten und stimmt auf freien Straßen meist auf etwa 1 km/h; in Tunneln, zwischen hohen Gebäuden oder drinnen kann es nachhinken oder aussetzen. Die GPS-Höhe kann 10 bis 50 m danebenliegen, nimm für Höhenänderungen also den Höhenmesser. Der Standort wird nur genutzt, solange dieses Werkzeug offen ist, und verlässt nie dein Handy.';
+
+  @override
+  String get speedAllowTitle => 'Standort erlauben';
+
+  @override
+  String get speedAllowBody =>
+      'Der Tacho misst per GPS dein Tempo, deine Strecke und deine Höhe. Der Standort wird nur genutzt, solange dieses Werkzeug auf dem Bildschirm offen ist, nie im Hintergrund, und verlässt nie dein Handy.';
+
+  @override
+  String get speedAllow => 'Standort erlauben';
+
+  @override
+  String get speedDeniedTitle => 'Standortzugriff ist aus';
+
+  @override
+  String get speedDeniedBody =>
+      'Erlaube dieser App in den Einstellungen den Standort, um den Tacho zu nutzen. Er wird nur genutzt, solange das Werkzeug offen ist, und verlässt nie dein Handy.';
+
+  @override
+  String get speedServiceOffTitle => 'Standort ist ausgeschaltet';
+
+  @override
+  String get speedServiceOffBody =>
+      'Schalte den Standort in den Einstellungen des Handys ein, um den Tacho zu nutzen.';
+
+  @override
+  String get speedDistance => 'Strecke';
+
+  @override
+  String get speedTop => 'Spitze';
+
+  @override
+  String get speedAverage => 'Schnitt';
+
+  @override
+  String get speedTrip => 'Fahrt';
+
+  @override
+  String get speedAltitude => 'Höhe';
+
+  @override
+  String get speedResetTrip => 'Fahrt zurücksetzen';
+
+  @override
+  String get speedFinding => 'Suche Satelliten…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'Schwaches GPS: Tempo kann nachhinken';
+
+  @override
+  String get speedStill => 'Stillstand';
+
+  @override
+  String get speedCopied => 'Koordinaten kopiert';
+
+  @override
+  String get speedUnitTooltip => 'Zwischen km/h und mph wechseln';
+
+  @override
+  String get speedKmh => 'km/h';
+
+  @override
+  String get speedMph => 'mph';
+
+  @override
+  String speedSemantics(String value) {
+    return 'Tempo $value';
+  }
+
+  @override
+  String get speedCoordinates => 'Koordinaten, zum Kopieren tippen';
+
+  @override
+  String get noGps =>
+      'Dieses Handy hat kein GPS, daher lässt sich hier kein Tempo messen. Andere Werkzeuge funktionieren weiter.';
+
+  @override
+  String get speedSceneHelp =>
+      'Der Himmel folgt der Tageszeit. Der Wetter-Knopf wählt die Szene: Auto folgt der Jahreszeit, oder wähle Sonne, Wolken, Regen, Gewitter oder Schnee. Das ist Kulisse, keine Vorhersage.';
 }

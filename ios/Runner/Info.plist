@@ -85,6 +85,8 @@
 	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>The Camera level shows level lines over the camera's picture to measure edges. The picture is never recorded, saved or sent.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The Speedometer uses your location only while it's open, to show your speed, distance and altitude. Location never leaves your phone.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>The Sound meter uses the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.</string>
 	<key>NSMotionUsageDescription</key>

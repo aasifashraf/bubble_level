@@ -1279,4 +1279,114 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'Bu telefonda ivmeölçer yok, bu yüzden burada g kuvveti ölçülemez. Diğer araçlar çalışmaya devam eder.';
+
+  @override
+  String get toolSpeed => 'Hız göstergesi';
+
+  @override
+  String get toolSpeedSubtitle => 'Hız, yolculuk ve GPS rakımı';
+
+  @override
+  String get speedHelp1 =>
+      'Konuma izin verin, sonra telefonu gökyüzünü görebileceği bir yere koyun; örneğin gösterge panelinin üstüne ya da ön cam tutucusuna. Açık havada ilk konum birkaç saniye sürer.';
+
+  @override
+  String get speedHelp2 =>
+      'Gösterge panelindeki kadran GPS’ten hızınızı gösterir; iki yanında yolculuk mesafesi ve rakım yer alır. Panel, son sıfırlamadan beri mesafeyi, en yüksek ve ortalama hızı tutar.';
+
+  @override
+  String get speedHelp3 =>
+      'Kopyalamak için koordinatlara dokunun. Birim düğmesi km/sa ile mil/sa arasında geçiş yapar, Yolculuğu sıfırla ise mesafeyi, en yüksek ve ortalama hızı yeniden başlatır.';
+
+  @override
+  String get speedHelp4 =>
+      'Gözünüz yolda olsun: bir yolcu okusun ya da durduktan sonra yolculuğa bakın.';
+
+  @override
+  String get speedTip =>
+      'Hız uydulardan gelir ve açık yollarda genellikle yaklaşık 1 km/sa içinde doğrudur; tünellerde, yüksek binalar arasında ya da kapalı alanlarda gecikebilir veya kesilebilir. GPS rakımı 10 ila 50 m sapabilir, bu yüzden yükseklik değişimleri için Altimetre’yi kullanın. Konum yalnızca bu araç açıkken kullanılır ve telefonunuzdan asla çıkmaz.';
+
+  @override
+  String get speedAllowTitle => 'Konuma izin verin';
+
+  @override
+  String get speedAllowBody =>
+      'Hız göstergesi, hızınızı, mesafeyi ve rakımı ölçmek için GPS’i kullanır. Konum yalnızca bu araç ekranda açıkken kullanılır, asla arka planda kullanılmaz ve telefonunuzdan asla çıkmaz.';
+
+  @override
+  String get speedAllow => 'Konuma izin ver';
+
+  @override
+  String get speedDeniedTitle => 'Konum erişimi kapalı';
+
+  @override
+  String get speedDeniedBody =>
+      'Hız göstergesini kullanmak için Ayarlar’da bu uygulamaya konum izni verin. Konum yalnızca araç açıkken kullanılır ve telefonunuzdan asla çıkmaz.';
+
+  @override
+  String get speedServiceOffTitle => 'Konum kapalı';
+
+  @override
+  String get speedServiceOffBody =>
+      'Hız göstergesini kullanmak için telefonun ayarlarından konumu açın.';
+
+  @override
+  String get speedDistance => 'Mesafe';
+
+  @override
+  String get speedTop => 'En yüksek';
+
+  @override
+  String get speedAverage => 'Ortalama';
+
+  @override
+  String get speedTrip => 'Yolculuk';
+
+  @override
+  String get speedAltitude => 'Rakım';
+
+  @override
+  String get speedResetTrip => 'Yolculuğu sıfırla';
+
+  @override
+  String get speedFinding => 'Uydular aranıyor…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'Zayıf GPS: hız gecikebilir';
+
+  @override
+  String get speedStill => 'Duruyor';
+
+  @override
+  String get speedCopied => 'Koordinatlar kopyalandı';
+
+  @override
+  String get speedUnitTooltip => 'km/sa ile mil/sa arasında geç';
+
+  @override
+  String get speedKmh => 'km/sa';
+
+  @override
+  String get speedMph => 'mil/sa';
+
+  @override
+  String speedSemantics(String value) {
+    return 'Hız $value';
+  }
+
+  @override
+  String get speedCoordinates => 'Koordinatlar, kopyalamak için dokunun';
+
+  @override
+  String get noGps =>
+      'Bu telefonda GPS yok, bu yüzden burada hız ölçülemez. Diğer araçlar çalışmaya devam eder.';
+
+  @override
+  String get speedSceneHelp =>
+      'Gökyüzü günün saatine uyar. Hava düğmesi sahneyi seçer: Otomatik mevsime uyar, ya da güneş, bulut, yağmur, fırtına veya kar seçin. Bu bir dekor, hava tahmini değil.';
 }

@@ -12,6 +12,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.any" android:required="false"
         tools:replace="android:required" />
+    <!-- Speedometer only, and only while it is open: never in the
+         background, never stored or sent. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
     <!-- The camera plugin asks for these; the app records and saves nothing. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
     <!-- No backup: the Level's calibration belongs to this phone's sensor

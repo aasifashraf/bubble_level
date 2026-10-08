@@ -1277,4 +1277,114 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'इस फ़ोन में एक्सेलेरोमीटर नहीं है, इसलिए यहाँ G-फ़ोर्स नहीं मापा जा सकता। बाकी टूल काम करते रहेंगे।';
+
+  @override
+  String get toolSpeed => 'स्पीडोमीटर';
+
+  @override
+  String get toolSpeedSubtitle => 'रफ़्तार, सफ़र और GPS ऊँचाई';
+
+  @override
+  String get speedHelp1 =>
+      'लोकेशन की अनुमति दें, फिर फ़ोन को ऐसी जगह रखें जहाँ से आसमान दिखे, जैसे डैशबोर्ड पर या विंडस्क्रीन माउंट में। बाहर पहली बार जगह पता करने में कुछ सेकंड लगते हैं।';
+
+  @override
+  String get speedHelp2 =>
+      'डैशबोर्ड पर लगा मीटर GPS से आपकी रफ़्तार दिखाता है, और उसके दोनों ओर सफ़र की दूरी और ऊँचाई। पैनल पिछली बार रीसेट करने के बाद की दूरी, सबसे तेज़ और औसत रफ़्तार रखता है।';
+
+  @override
+  String get speedHelp3 =>
+      'कॉपी करने के लिए निर्देशांक पर टैप करें। यूनिट बटन किमी/घं और मील/घं के बीच बदलता है, और सफ़र रीसेट करें दूरी, सबसे तेज़ और औसत को फिर से शुरू करता है।';
+
+  @override
+  String get speedHelp4 =>
+      'नज़र सड़क पर रखें: किसी सवारी से पढ़वाएँ, या रुकने के बाद सफ़र देखें।';
+
+  @override
+  String get speedTip =>
+      'रफ़्तार सैटेलाइट से आती है और खुली सड़क पर आम तौर पर लगभग 1 किमी/घं के अंदर सही होती है; सुरंग में, ऊँची इमारतों के बीच या घर के अंदर यह पीछे रह सकती है या रुक सकती है। GPS ऊँचाई 10 से 50 मीटर तक गलत हो सकती है, इसलिए ऊँचाई के बदलाव के लिए अल्टीमीटर इस्तेमाल करें। लोकेशन सिर्फ़ तब इस्तेमाल होती है जब यह टूल खुला हो, और कभी आपके फ़ोन से बाहर नहीं जाती।';
+
+  @override
+  String get speedAllowTitle => 'लोकेशन की अनुमति दें';
+
+  @override
+  String get speedAllowBody =>
+      'स्पीडोमीटर GPS से आपकी रफ़्तार, दूरी और ऊँचाई मापता है। लोकेशन सिर्फ़ तब इस्तेमाल होती है जब यह टूल स्क्रीन पर खुला हो, कभी बैकग्राउंड में नहीं, और कभी आपके फ़ोन से बाहर नहीं जाती।';
+
+  @override
+  String get speedAllow => 'लोकेशन की अनुमति दें';
+
+  @override
+  String get speedDeniedTitle => 'लोकेशन की अनुमति बंद है';
+
+  @override
+  String get speedDeniedBody =>
+      'स्पीडोमीटर इस्तेमाल करने के लिए सेटिंग्स में इस ऐप के लिए लोकेशन चालू करें। यह सिर्फ़ टूल खुला होने पर इस्तेमाल होती है और कभी आपके फ़ोन से बाहर नहीं जाती।';
+
+  @override
+  String get speedServiceOffTitle => 'लोकेशन बंद है';
+
+  @override
+  String get speedServiceOffBody =>
+      'स्पीडोमीटर इस्तेमाल करने के लिए फ़ोन की सेटिंग्स में लोकेशन चालू करें।';
+
+  @override
+  String get speedDistance => 'दूरी';
+
+  @override
+  String get speedTop => 'सबसे तेज़';
+
+  @override
+  String get speedAverage => 'औसत';
+
+  @override
+  String get speedTrip => 'सफ़र';
+
+  @override
+  String get speedAltitude => 'ऊँचाई';
+
+  @override
+  String get speedResetTrip => 'सफ़र रीसेट करें';
+
+  @override
+  String get speedFinding => 'सैटेलाइट खोज रहे हैं…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value m';
+  }
+
+  @override
+  String get speedWeak => 'कमज़ोर GPS: रफ़्तार पीछे रह सकती है';
+
+  @override
+  String get speedStill => 'रुके हुए';
+
+  @override
+  String get speedCopied => 'निर्देशांक कॉपी हो गए';
+
+  @override
+  String get speedUnitTooltip => 'किमी/घं और मील/घं के बीच बदलें';
+
+  @override
+  String get speedKmh => 'किमी/घं';
+
+  @override
+  String get speedMph => 'मील/घं';
+
+  @override
+  String speedSemantics(String value) {
+    return 'रफ़्तार $value';
+  }
+
+  @override
+  String get speedCoordinates => 'निर्देशांक, कॉपी करने के लिए टैप करें';
+
+  @override
+  String get noGps =>
+      'इस फ़ोन में GPS नहीं है, इसलिए यहाँ रफ़्तार नहीं मापी जा सकती। बाकी टूल काम करते रहेंगे।';
+
+  @override
+  String get speedSceneHelp =>
+      'आसमान दिन के समय के साथ बदलता है। मौसम बटन दृश्य चुनता है: ऑटो मौसम के हिसाब से चलता है, या धूप, बादल, बारिश, तूफ़ान या बर्फ़ चुनें। यह सिर्फ़ दृश्य है, मौसम का पूर्वानुमान नहीं।';
 }

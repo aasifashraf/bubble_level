@@ -2313,6 +2313,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This phone has no accelerometer, so g-force can’t be measured here. Other tools still work.'**
   String get noAccelerometerG;
+
+  /// No description provided for @toolSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speedometer'**
+  String get toolSpeed;
+
+  /// No description provided for @toolSpeedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed, trip and GPS altitude'**
+  String get toolSpeedSubtitle;
+
+  /// No description provided for @speedHelp1.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow location, then put the phone where it can see the sky, like on the dashboard or in a windscreen mount. Outdoors, the first fix takes a few seconds.'**
+  String get speedHelp1;
+
+  /// No description provided for @speedHelp2.
+  ///
+  /// In en, this message translates to:
+  /// **'The gauge on the dashboard shows your speed from GPS, with the trip distance and altitude either side. The panel keeps the distance, top speed and average since you last reset.'**
+  String get speedHelp2;
+
+  /// No description provided for @speedHelp3.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the coordinates to copy them. The unit button switches between km/h and mph, and Reset trip starts the distance, top and average again.'**
+  String get speedHelp3;
+
+  /// No description provided for @speedHelp4.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your eyes on the road: let a passenger read it, or check the trip once you\'ve stopped.'**
+  String get speedHelp4;
+
+  /// No description provided for @speedTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed comes from the satellites and is usually within about 1 km/h on open roads; in tunnels, between tall buildings or indoors it can lag or drop out. GPS altitude can be 10 to 50 m off, so use the Altimeter for height changes. Location is used only while this tool is open and never leaves your phone.'**
+  String get speedTip;
+
+  /// No description provided for @speedAllowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow location'**
+  String get speedAllowTitle;
+
+  /// No description provided for @speedAllowBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The speedometer uses GPS to measure your speed, distance and altitude. Location is used only while this tool is open on screen, never in the background, and never leaves your phone.'**
+  String get speedAllowBody;
+
+  /// No description provided for @speedAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow location'**
+  String get speedAllow;
+
+  /// No description provided for @speedDeniedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location access is off'**
+  String get speedDeniedTitle;
+
+  /// No description provided for @speedDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on location for this app in Settings to use the speedometer. It is used only while the tool is open and never leaves your phone.'**
+  String get speedDeniedBody;
+
+  /// No description provided for @speedServiceOffTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is switched off'**
+  String get speedServiceOffTitle;
+
+  /// No description provided for @speedServiceOffBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on location in the phone’s settings to use the speedometer.'**
+  String get speedServiceOffBody;
+
+  /// No description provided for @speedDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance'**
+  String get speedDistance;
+
+  /// No description provided for @speedTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Top'**
+  String get speedTop;
+
+  /// No description provided for @speedAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Average'**
+  String get speedAverage;
+
+  /// No description provided for @speedTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Trip'**
+  String get speedTrip;
+
+  /// No description provided for @speedAltitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Altitude'**
+  String get speedAltitude;
+
+  /// No description provided for @speedResetTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset trip'**
+  String get speedResetTrip;
+
+  /// No description provided for @speedFinding.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding satellites…'**
+  String get speedFinding;
+
+  /// No description provided for @speedGps.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS ±{value} m'**
+  String speedGps(String value);
+
+  /// No description provided for @speedWeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Weak GPS: speed may lag'**
+  String get speedWeak;
+
+  /// No description provided for @speedStill.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing still'**
+  String get speedStill;
+
+  /// No description provided for @speedCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Coordinates copied'**
+  String get speedCopied;
+
+  /// No description provided for @speedUnitTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch between km/h and mph'**
+  String get speedUnitTooltip;
+
+  /// No description provided for @speedKmh.
+  ///
+  /// In en, this message translates to:
+  /// **'km/h'**
+  String get speedKmh;
+
+  /// No description provided for @speedMph.
+  ///
+  /// In en, this message translates to:
+  /// **'mph'**
+  String get speedMph;
+
+  /// No description provided for @speedSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed {value}'**
+  String speedSemantics(String value);
+
+  /// No description provided for @speedCoordinates.
+  ///
+  /// In en, this message translates to:
+  /// **'Coordinates, tap to copy'**
+  String get speedCoordinates;
+
+  /// No description provided for @noGps.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone has no GPS, so speed can’t be measured here. Other tools still work.'**
+  String get noGps;
+
+  /// No description provided for @speedSceneHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It\'s scenery, not a forecast.'**
+  String get speedSceneHelp;
 }
 
 class _AppLocalizationsDelegate

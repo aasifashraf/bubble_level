@@ -3,10 +3,12 @@ import 'dart:math' as math;
 
 import 'package:bubble_level/data/services/camera_service.dart';
 import 'package:bubble_level/data/services/display_rotation_service.dart';
+import 'package:bubble_level/data/services/location_service.dart';
 import 'package:bubble_level/data/services/microphone_service.dart';
 import 'package:bubble_level/data/services/motion_sensor_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
+import 'package:bubble_level/domain/speed.dart';
 import 'package:flutter/widgets.dart';
 
 /// Sensor streams the test drives by hand.
@@ -199,4 +201,52 @@ class FakeCameraFeed implements CameraFeed {
 
   @override
   Future<void> dispose() async => disposed = true;
+}
+
+/// GPS the test drives: permission answers and fixes.
+class FakeLocationService implements LocationService {
+  /// Where access stands without asking.
+  LocationAccess checkResult = LocationAccess.needed;
+
+  /// The answer to the system prompt.
+  LocationAccess requestResult = LocationAccess.granted;
+
+  int requested = 0, appSettingsOpened = 0, locationSettingsOpened = 0;
+  final fixesController = StreamController<LocationFix>.broadcast();
+
+  bool get listening => fixesController.hasListener;
+
+  void send({
+    required double lat,
+    required double lon,
+    double speed = -1,
+    double accuracy = 5,
+    double? altitude,
+    required DateTime time,
+  }) => fixesController.add((
+    latitude: lat,
+    longitude: lon,
+    altitude: altitude,
+    speed: speed,
+    accuracy: accuracy,
+    time: time,
+  ));
+
+  @override
+  Future<LocationAccess> check() async => checkResult;
+
+  @override
+  Future<LocationAccess> request() async {
+    requested++;
+    return requestResult;
+  }
+
+  @override
+  Future<void> openAppSettings() async => appSettingsOpened++;
+
+  @override
+  Future<void> openLocationSettings() async => locationSettingsOpened++;
+
+  @override
+  Stream<LocationFix> fixes() => fixesController.stream;
 }

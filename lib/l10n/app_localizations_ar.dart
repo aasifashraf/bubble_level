@@ -1271,4 +1271,114 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noAccelerometerG =>
       'لا يحتوي هذا الهاتف على مقياس تسارع، لذا لا يمكن قياس قوة G هنا. الأدوات الأخرى تعمل كالمعتاد.';
+
+  @override
+  String get toolSpeed => 'عداد السرعة';
+
+  @override
+  String get toolSpeedSubtitle => 'السرعة والرحلة والارتفاع عبر GPS';
+
+  @override
+  String get speedHelp1 =>
+      'اسمح بالموقع، ثم ضع الهاتف حيث يرى السماء، مثل لوحة القيادة أو حامل على الزجاج الأمامي. في الخارج، يستغرق تحديد الموقع أول مرة بضع ثوانٍ.';
+
+  @override
+  String get speedHelp2 =>
+      'يعرض العداد على لوحة القيادة سرعتك من GPS، وعلى جانبيه مسافة الرحلة والارتفاع. وتحتفظ اللوحة السفلية بالمسافة وأعلى سرعة والمتوسط منذ آخر إعادة ضبط.';
+
+  @override
+  String get speedHelp3 =>
+      'اضغط على الإحداثيات لنسخها. يبدّل زر الوحدة بين كم/س وميل/س، وتبدأ إعادة ضبط الرحلة المسافة وأعلى سرعة والمتوسط من جديد.';
+
+  @override
+  String get speedHelp4 =>
+      'أبقِ عينيك على الطريق: دع راكبًا يقرؤها، أو راجع الرحلة بعد التوقف.';
+
+  @override
+  String get speedTip =>
+      'تأتي السرعة من الأقمار الصناعية وتكون عادةً ضمن نحو 1 كم/س على الطرق المفتوحة؛ وفي الأنفاق أو بين المباني العالية أو داخل المباني قد تتأخر أو تنقطع. قد يخطئ ارتفاع GPS بما بين 10 و50 م، لذا استخدم مقياس الارتفاع لتغيّرات الارتفاع. لا يُستخدم الموقع إلا أثناء فتح هذه الأداة، ولا يغادر هاتفك أبدًا.';
+
+  @override
+  String get speedAllowTitle => 'اسمح بالموقع';
+
+  @override
+  String get speedAllowBody =>
+      'يستخدم عداد السرعة GPS لقياس سرعتك والمسافة والارتفاع. لا يُستخدم الموقع إلا أثناء فتح هذه الأداة على الشاشة، ولا يُستخدم في الخلفية أبدًا، ولا يغادر هاتفك أبدًا.';
+
+  @override
+  String get speedAllow => 'السماح بالموقع';
+
+  @override
+  String get speedDeniedTitle => 'الوصول إلى الموقع متوقف';
+
+  @override
+  String get speedDeniedBody =>
+      'فعّل الموقع لهذا التطبيق من الإعدادات لاستخدام عداد السرعة. لا يُستخدم إلا أثناء فتح الأداة ولا يغادر هاتفك أبدًا.';
+
+  @override
+  String get speedServiceOffTitle => 'خدمة الموقع متوقفة';
+
+  @override
+  String get speedServiceOffBody =>
+      'شغّل الموقع من إعدادات الهاتف لاستخدام عداد السرعة.';
+
+  @override
+  String get speedDistance => 'المسافة';
+
+  @override
+  String get speedTop => 'الأعلى';
+
+  @override
+  String get speedAverage => 'المتوسط';
+
+  @override
+  String get speedTrip => 'الرحلة';
+
+  @override
+  String get speedAltitude => 'الارتفاع';
+
+  @override
+  String get speedResetTrip => 'إعادة ضبط الرحلة';
+
+  @override
+  String get speedFinding => 'جارٍ البحث عن الأقمار الصناعية…';
+
+  @override
+  String speedGps(String value) {
+    return 'GPS ±$value م';
+  }
+
+  @override
+  String get speedWeak => 'إشارة GPS ضعيفة: قد تتأخر السرعة';
+
+  @override
+  String get speedStill => 'متوقف';
+
+  @override
+  String get speedCopied => 'تم نسخ الإحداثيات';
+
+  @override
+  String get speedUnitTooltip => 'التبديل بين كم/س وميل/س';
+
+  @override
+  String get speedKmh => 'كم/س';
+
+  @override
+  String get speedMph => 'ميل/س';
+
+  @override
+  String speedSemantics(String value) {
+    return 'السرعة $value';
+  }
+
+  @override
+  String get speedCoordinates => 'الإحداثيات، اضغط للنسخ';
+
+  @override
+  String get noGps =>
+      'لا يحتوي هذا الهاتف على GPS، لذا لا يمكن قياس السرعة هنا. الأدوات الأخرى تعمل كالمعتاد.';
+
+  @override
+  String get speedSceneHelp =>
+      'تتبع السماء وقت اليوم. يختار زر الطقس المشهد: تلقائي يتبع الموسم، أو اختر الشمس أو الغيوم أو المطر أو العاصفة أو الثلج. إنه مشهد فقط، وليس توقعًا للطقس.';
 }
