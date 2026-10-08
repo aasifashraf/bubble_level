@@ -408,7 +408,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get compassTip =>
-      'Manyetik kuzeyi gösterir; bu, harita kuzeyinden birkaç derece farklı olabilir. Yanlış görünüyorsa telefonu birkaç kez 8 çizerek hareket ettirin.';
+      'Manyetik kuzeyi gösterir; bu, bazı yerlerde harita kuzeyinden 10 derece veya daha fazla farklı olabilir. Yanlış görünüyorsa telefonu birkaç kez 8 çizerek hareket ettirin.';
 
   @override
   String compassSemantics(int heading, String direction) {
@@ -745,7 +745,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Bir yürüyüşçü yüksekliğinle birlikte dağa tırmanır. Gökyüzü günün saatine ve mevsime uyar; kendin seçmek için hava düğmesine dokun.';
+      'Dağdaki yürüyüşçü, yüksekliğin değiştikçe iner ya da çıkar. Gökyüzü günün saatine ve mevsime uyar; kendin seçmek için hava düğmesine dokun.';
 
   @override
   String get altimeterHelp2 =>
@@ -756,11 +756,12 @@ class AppLocalizationsTr extends AppLocalizations {
       'Çık ya da in: yürüyüşçü seninle yürür, bayrak en yüksek noktanı işaretler. Panel sıfırından metreyi, hava basıncını ve yaklaşık rakımı gösterir.';
 
   @override
-  String get altimeterHelp4 => 'Geri dönmek için Sıfırı temizle\'ye dokunun.';
+  String get altimeterHelp4 =>
+      'Sıfırdan ölçmeyi bırakmak için Sıfırı temizle\'ye dokunun: Sıfırdan değeri yeniden boş kalır.';
 
   @override
   String get altimeterTip =>
-      'Hava durumu basıncı değiştirir, bu yüzden yükseklik onlarca metre sapabilir. Sıfır noktanızdan yükseklik kısa sürelerde doğrudur. Bu araç barometreli bir telefon gerektirir.';
+      'Hava durumu basıncı sürekli değiştirir, bu yüzden bilinen bir başlangıç yüksekliği olmadan yükseklik yüz metre veya daha fazla sapabilir. Kısa sürelerde Sıfırı buraya al\'dan itibaren yükseklik değişimine güvenin. Bu araç barometreli bir telefon gerektirir.';
 
   @override
   String get weather => 'Hava';
@@ -854,7 +855,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Işık sensörleri telefona göre değişir, bu yüzden okumalar %10 ile %20 arasında sapabilir: yerleri karşılaştırmak için iyidir, kalibre edilmiş bir lüksmetre değildir. Ekranın üstünü kapatmayın.';
+      'Telefon ışık sensörleri kalibre edilmemiştir, bu yüzden okumalar telefondan telefona çok farklı olabilir. Aynı yerdeki ışığı aynı telefonla karşılaştırmak için kullanın; kalibre edilmiş bir lüksmetre değildir. Ekranın üstünü kapatmayın.';
 
   @override
   String get noMicrophone =>
@@ -935,7 +936,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get soundTip =>
-      'Telefon mikrofonları farklıdır, bu yüzden okumalar yaklaşık 5 dB sapabilir: karşılaştırma için iyidir, sertifikalı bir ses ölçer değildir. Çok yüksek sesler (yaklaşık 110 dB üstü) düşük okunabilir.';
+      'Telefon mikrofonları kalibre edilmiş ses ölçerler değildir ve modele göre farklıdır, bu yüzden okumalar yaklaşıktır (çoğu zaman yaklaşık 5 ile 10 dB arasında sapar) ve çok yüksek sesler düşük okunabilir. Resmî bir ölçüm için kalibre edilmiş bir ses ölçer gerekir.';
 
   @override
   String get metresFromZero => 'm sıfırdan';
@@ -1256,7 +1257,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get gTip =>
-      'Değerler ivmeölçerden gelir: bir araç veri kaydedicisine yakındır, bozuk yollarda biraz daha oynaktır. Tutucu kayarsa durun ve yeniden Sıfırla’ya dokunun. Sıradan bir araç için 0,5 g üzeri sert bir fren ya da hızlı bir viraj demektir.';
+      'Değerler ivmeölçerden gelir ve yaklaşıktır: sağlam bir tutucuya ve araç dururken alınan Sıfırla’ya bağlıdır, bozuk yollarda biraz daha oynaktır. Tutucu kayarsa durun ve yeniden Sıfırla’ya dokunun. Sıradan bir araç için 0,5 g üzeri sert bir fren ya da hızlı bir viraj demektir.';
 
   @override
   String get gZero => 'Sıfırla';
@@ -1386,6 +1387,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get speedWeak => 'Zayıf GPS: hız gecikebilir';
+
+  @override
+  String get speedApproximate => 'Tam konum kapalı: sabit hız için açın';
 
   @override
   String get speedStill => 'Duruyor';

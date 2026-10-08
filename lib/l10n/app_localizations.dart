@@ -817,7 +817,7 @@ abstract class AppLocalizations {
   /// No description provided for @compassTip.
   ///
   /// In en, this message translates to:
-  /// **'It points to magnetic north, which can differ a few degrees from map north. If it seems wrong, move the phone in a figure 8 a few times.'**
+  /// **'It points to magnetic north, which in some places differs from map north by 10 degrees or more. If it seems wrong, move the phone in a figure 8 a few times.'**
   String get compassTip;
 
   /// No description provided for @compassSemantics.
@@ -1297,7 +1297,7 @@ abstract class AppLocalizations {
   /// No description provided for @vibrationTip.
   ///
   /// In en, this message translates to:
-  /// **'Most phones measure up to 100 Hz (6000 RPM), some less; the dial shows your phone\'s limit. Faster vibration can show up as a wrong, lower speed. The strongest vibration is often the shaft speed, but can be twice it. Phone sensors aren\'t lab instruments.'**
+  /// **'Most phones measure up to 100 Hz (6000 RPM), some less; the dial shows your phone’s limit. Faster vibration can show up as a wrong, lower speed. The strongest vibration is often the shaft speed, but can be twice it. Phone sensors aren’t lab instruments.'**
   String get vibrationTip;
 
   /// No description provided for @still.
@@ -1393,7 +1393,7 @@ abstract class AppLocalizations {
   /// No description provided for @altimeterHelp1.
   ///
   /// In en, this message translates to:
-  /// **'A hiker climbs the mountain with your height. The sky follows the time of day and the season; tap the weather button to pick your own.'**
+  /// **'The hiker on the mountain moves up and down as your height changes. The sky follows the time of day and the season; tap the weather button to pick your own.'**
   String get altimeterHelp1;
 
   /// No description provided for @altimeterHelp2.
@@ -1411,13 +1411,13 @@ abstract class AppLocalizations {
   /// No description provided for @altimeterHelp4.
   ///
   /// In en, this message translates to:
-  /// **'Tap Clear zero to show air pressure again.'**
+  /// **'Tap Clear zero to stop measuring from your zero: the From zero reading goes blank.'**
   String get altimeterHelp4;
 
   /// No description provided for @altimeterTip.
   ///
   /// In en, this message translates to:
-  /// **'Weather changes air pressure, so altitude can be off by tens of metres. Height from your zero is accurate over short periods. This tool needs a phone with a barometer.'**
+  /// **'Weather keeps changing air pressure, so without a known starting height the altitude can be off by a hundred metres or more. Trust the height change from Set zero here over a short time. This tool needs a phone with a barometer.'**
   String get altimeterTip;
 
   /// No description provided for @weather.
@@ -1483,13 +1483,13 @@ abstract class AppLocalizations {
   /// No description provided for @noBarometer.
   ///
   /// In en, this message translates to:
-  /// **'This phone has no barometer (air pressure sensor), so the altimeter can’t work here. Other tools still work.'**
+  /// **'This phone has no barometer (air pressure sensor), so the Altimeter can’t work here. Other tools still work.'**
   String get noBarometer;
 
   /// No description provided for @noLightSensor.
   ///
   /// In en, this message translates to:
-  /// **'This phone has no light sensor, so the light meter can’t work here. Other tools still work.'**
+  /// **'This phone has no light sensor, so the Light meter can’t work here. Other tools still work.'**
   String get noLightSensor;
 
   /// No description provided for @lightSemantics.
@@ -1573,7 +1573,7 @@ abstract class AppLocalizations {
   /// No description provided for @lightHelp3.
   ///
   /// In en, this message translates to:
-  /// **'The sky follows the light: night when it\'s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300 to 750 lx suits reading and desk work.'**
+  /// **'The sky follows the light: night when it’s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300 to 750 lux suits reading and desk work.'**
   String get lightHelp3;
 
   /// No description provided for @lightHelp4.
@@ -1585,13 +1585,13 @@ abstract class AppLocalizations {
   /// No description provided for @lightTip.
   ///
   /// In en, this message translates to:
-  /// **'Light sensors differ between phones, so readings can be 10 to 20% off: good for comparing places, not a calibrated lux meter. Don’t cover the top of the screen.'**
+  /// **'Phone light sensors aren’t calibrated, so readings can differ a lot between phones. Use it to compare light in one place with the same phone, not as a calibrated lux meter. Don’t cover the top of the screen.'**
   String get lightTip;
 
   /// No description provided for @noMicrophone.
   ///
   /// In en, this message translates to:
-  /// **'Can’t use the microphone. Another app may be using it: close that app, then open the sound meter again.'**
+  /// **'Can’t use the microphone. Another app may be using it: close that app, then open the Sound meter again.'**
   String get noMicrophone;
 
   /// No description provided for @soundSemantics.
@@ -1657,7 +1657,7 @@ abstract class AppLocalizations {
   /// No description provided for @micBody.
   ///
   /// In en, this message translates to:
-  /// **'The sound meter listens through the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.'**
+  /// **'The Sound meter listens through the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.'**
   String get micBody;
 
   /// No description provided for @micAllow.
@@ -1675,7 +1675,7 @@ abstract class AppLocalizations {
   /// No description provided for @micDeniedBody.
   ///
   /// In en, this message translates to:
-  /// **'Turn on the microphone for this app in Settings to use the sound meter. Sound is never recorded, saved or sent.'**
+  /// **'Turn on the microphone for this app in Settings to use the Sound meter. Sound is never recorded, saved or sent.'**
   String get micDeniedBody;
 
   /// No description provided for @openSettings.
@@ -1723,7 +1723,7 @@ abstract class AppLocalizations {
   /// No description provided for @soundTip.
   ///
   /// In en, this message translates to:
-  /// **'Phone microphones differ, so readings can be about 5 dB off: good for comparing, not a certified sound level meter. Very loud sounds (above about 110 dB) may read low.'**
+  /// **'Phone microphones aren’t calibrated sound level meters and differ between models, so readings are approximate (often within about 5 to 10 dB) and very loud sounds can read low. For anything official, use a calibrated sound level meter.'**
   String get soundTip;
 
   /// Short label under the height on the dial; keep it short.
@@ -2101,7 +2101,7 @@ abstract class AppLocalizations {
   /// No description provided for @cameraAllowBody.
   ///
   /// In en, this message translates to:
-  /// **'The camera level draws level lines over the camera’s picture and measures edges in it. The picture stays on your phone and is never recorded, saved or sent.'**
+  /// **'The Camera level draws level lines over the camera’s picture and measures edges in it. The picture stays on your phone and is never recorded, saved or sent.'**
   String get cameraAllowBody;
 
   /// No description provided for @cameraAllow.
@@ -2119,13 +2119,13 @@ abstract class AppLocalizations {
   /// No description provided for @cameraDeniedBody.
   ///
   /// In en, this message translates to:
-  /// **'Turn on the camera for this app in Settings to use the camera level. The picture is never recorded, saved or sent.'**
+  /// **'Turn on the camera for this app in Settings to use the Camera level. The picture is never recorded, saved or sent.'**
   String get cameraDeniedBody;
 
   /// No description provided for @noCamera.
   ///
   /// In en, this message translates to:
-  /// **'Can’t use the camera. Another app may be using it, or this phone has none: close other camera apps, then open the camera level again.'**
+  /// **'Can’t use the camera. Another app may be using it, or this phone has none: close other camera apps, then open the Camera level again.'**
   String get noCamera;
 
   /// No description provided for @tilt.
@@ -2269,7 +2269,7 @@ abstract class AppLocalizations {
   /// No description provided for @gHelp2.
   ///
   /// In en, this message translates to:
-  /// **'Drive: the side of the car you\'re pushed towards glows. Braking lights the front, speeding up the back, a bend the outside. Green is gentle, orange firm, red hard.'**
+  /// **'Drive: the side of the car you’re pushed toward glows. Braking lights the front, speeding up the back, a bend the outside. Green is gentle, orange firm, red hard.'**
   String get gHelp2;
 
   /// No description provided for @gHelp3.
@@ -2281,13 +2281,13 @@ abstract class AppLocalizations {
   /// No description provided for @gHelp4.
   ///
   /// In en, this message translates to:
-  /// **'Keep your eyes on the road: let a passenger read it, or check the peaks once you\'ve stopped.'**
+  /// **'Keep your eyes on the road: let a passenger read it, or check the peaks once you’ve stopped.'**
   String get gHelp4;
 
   /// No description provided for @gTip.
   ///
   /// In en, this message translates to:
-  /// **'Readings come from the accelerometer: close to a dash logger, a little noisier on rough roads. If the mount moves, stop and tap Zero again. Over 0.5 g is a hard stop or a fast bend for an everyday car.'**
+  /// **'Readings come from the accelerometer and are approximate: they rely on a firm mount and on Zero taken while standing still, and are a little noisier on rough roads. If the mount moves, stop and tap Zero again. Over 0.5 g is a hard stop or a fast bend for an everyday car.'**
   String get gTip;
 
   /// No description provided for @gZero.
@@ -2401,7 +2401,7 @@ abstract class AppLocalizations {
   /// No description provided for @speedHelp4.
   ///
   /// In en, this message translates to:
-  /// **'Keep your eyes on the road: let a passenger read it, or check the trip once you\'ve stopped.'**
+  /// **'Keep your eyes on the road: let a passenger read it, or check the trip once you’ve stopped.'**
   String get speedHelp4;
 
   /// No description provided for @speedTip.
@@ -2419,7 +2419,7 @@ abstract class AppLocalizations {
   /// No description provided for @speedAllowBody.
   ///
   /// In en, this message translates to:
-  /// **'The speedometer uses GPS to measure your speed, distance and altitude. Location is used only while this tool is open on screen, never in the background, and never leaves your phone.'**
+  /// **'The Speedometer uses GPS to measure your speed, distance and altitude. Location is used only while this tool is open on screen, never in the background, and never leaves your phone.'**
   String get speedAllowBody;
 
   /// No description provided for @speedAllow.
@@ -2437,7 +2437,7 @@ abstract class AppLocalizations {
   /// No description provided for @speedDeniedBody.
   ///
   /// In en, this message translates to:
-  /// **'Turn on location for this app in Settings to use the speedometer. It is used only while the tool is open and never leaves your phone.'**
+  /// **'Turn on location for this app in Settings to use the Speedometer. It is used only while the tool is open and never leaves your phone.'**
   String get speedDeniedBody;
 
   /// No description provided for @speedServiceOffTitle.
@@ -2449,7 +2449,7 @@ abstract class AppLocalizations {
   /// No description provided for @speedServiceOffBody.
   ///
   /// In en, this message translates to:
-  /// **'Turn on location in the phone’s settings to use the speedometer.'**
+  /// **'Turn on location in the phone’s settings to use the Speedometer.'**
   String get speedServiceOffBody;
 
   /// No description provided for @speedDistance.
@@ -2506,6 +2506,12 @@ abstract class AppLocalizations {
   /// **'Weak GPS: speed may lag'**
   String get speedWeak;
 
+  /// No description provided for @speedApproximate.
+  ///
+  /// In en, this message translates to:
+  /// **'Precise location is off: turn it on for a steady speed'**
+  String get speedApproximate;
+
   /// No description provided for @speedStill.
   ///
   /// In en, this message translates to:
@@ -2557,7 +2563,7 @@ abstract class AppLocalizations {
   /// No description provided for @speedSceneHelp.
   ///
   /// In en, this message translates to:
-  /// **'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It\'s scenery, not a forecast.'**
+  /// **'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast.'**
   String get speedSceneHelp;
 
   /// No description provided for @toolTape.
@@ -2575,13 +2581,13 @@ abstract class AppLocalizations {
   /// No description provided for @tapeAllowBody.
   ///
   /// In en, this message translates to:
-  /// **'The tape measure follows the camera’s picture in 3D to place points on surfaces. The picture stays on your phone and is never recorded, saved or sent.'**
+  /// **'The Tape measure follows the camera’s picture in 3D to place points on surfaces. The picture stays on your phone and is never recorded, saved or sent.'**
   String get tapeAllowBody;
 
   /// No description provided for @tapeDeniedBody.
   ///
   /// In en, this message translates to:
-  /// **'Turn on the camera for this app in Settings to use the tape measure. The picture is never recorded, saved or sent.'**
+  /// **'Turn on the camera for this app in Settings to use the Tape measure. The picture is never recorded, saved or sent.'**
   String get tapeDeniedBody;
 
   /// No description provided for @tapeInstallTitle.
@@ -2593,7 +2599,7 @@ abstract class AppLocalizations {
   /// No description provided for @tapeInstallBody.
   ///
   /// In en, this message translates to:
-  /// **'The tape measure uses Google Play Services for AR (ARCore) to follow the phone in 3D. Install or update it from the Play Store, then come back.'**
+  /// **'The Tape measure uses Google Play Services for AR (ARCore) to follow the phone in 3D. Install or update it from the Play Store, then come back.'**
   String get tapeInstallBody;
 
   /// No description provided for @tapeInstall.
@@ -2605,7 +2611,7 @@ abstract class AppLocalizations {
   /// No description provided for @tapeUnsupported.
   ///
   /// In en, this message translates to:
-  /// **'This phone doesn’t support AR (ARCore), which the tape measure needs to follow the phone in 3D.'**
+  /// **'This phone doesn’t support AR (ARCore), which the Tape measure needs to follow the phone in 3D.'**
   String get tapeUnsupported;
 
   /// No description provided for @tapeFailed.

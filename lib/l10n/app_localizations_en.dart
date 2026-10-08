@@ -406,7 +406,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compassTip =>
-      'It points to magnetic north, which can differ a few degrees from map north. If it seems wrong, move the phone in a figure 8 a few times.';
+      'It points to magnetic north, which in some places differs from map north by 10 degrees or more. If it seems wrong, move the phone in a figure 8 a few times.';
 
   @override
   String compassSemantics(int heading, String direction) {
@@ -687,7 +687,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vibrationTip =>
-      'Most phones measure up to 100 Hz (6000 RPM), some less; the dial shows your phone\'s limit. Faster vibration can show up as a wrong, lower speed. The strongest vibration is often the shaft speed, but can be twice it. Phone sensors aren\'t lab instruments.';
+      'Most phones measure up to 100 Hz (6000 RPM), some less; the dial shows your phone’s limit. Faster vibration can show up as a wrong, lower speed. The strongest vibration is often the shaft speed, but can be twice it. Phone sensors aren’t lab instruments.';
 
   @override
   String get still => 'Still';
@@ -743,7 +743,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'A hiker climbs the mountain with your height. The sky follows the time of day and the season; tap the weather button to pick your own.';
+      'The hiker on the mountain moves up and down as your height changes. The sky follows the time of day and the season; tap the weather button to pick your own.';
 
   @override
   String get altimeterHelp2 =>
@@ -754,11 +754,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Go up or down: the hiker walks with you and the flag marks your highest point. The panel shows metres from your zero, air pressure and approximate altitude.';
 
   @override
-  String get altimeterHelp4 => 'Tap Clear zero to show air pressure again.';
+  String get altimeterHelp4 =>
+      'Tap Clear zero to stop measuring from your zero: the From zero reading goes blank.';
 
   @override
   String get altimeterTip =>
-      'Weather changes air pressure, so altitude can be off by tens of metres. Height from your zero is accurate over short periods. This tool needs a phone with a barometer.';
+      'Weather keeps changing air pressure, so without a known starting height the altitude can be off by a hundred metres or more. Trust the height change from Set zero here over a short time. This tool needs a phone with a barometer.';
 
   @override
   String get weather => 'Weather';
@@ -793,11 +794,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noBarometer =>
-      'This phone has no barometer (air pressure sensor), so the altimeter can’t work here. Other tools still work.';
+      'This phone has no barometer (air pressure sensor), so the Altimeter can’t work here. Other tools still work.';
 
   @override
   String get noLightSensor =>
-      'This phone has no light sensor, so the light meter can’t work here. Other tools still work.';
+      'This phone has no light sensor, so the Light meter can’t work here. Other tools still work.';
 
   @override
   String lightSemantics(String value) {
@@ -844,7 +845,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lightHelp3 =>
-      'The sky follows the light: night when it\'s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300 to 750 lx suits reading and desk work.';
+      'The sky follows the light: night when it’s dark, dawn in a dim room, and the sun climbs as it gets brighter. Read the lux and what the light is good for: 300 to 750 lux suits reading and desk work.';
 
   @override
   String get lightHelp4 =>
@@ -852,11 +853,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Light sensors differ between phones, so readings can be 10 to 20% off: good for comparing places, not a calibrated lux meter. Don’t cover the top of the screen.';
+      'Phone light sensors aren’t calibrated, so readings can differ a lot between phones. Use it to compare light in one place with the same phone, not as a calibrated lux meter. Don’t cover the top of the screen.';
 
   @override
   String get noMicrophone =>
-      'Can’t use the microphone. Another app may be using it: close that app, then open the sound meter again.';
+      'Can’t use the microphone. Another app may be using it: close that app, then open the Sound meter again.';
 
   @override
   String soundSemantics(String value) {
@@ -892,7 +893,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get micBody =>
-      'The sound meter listens through the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.';
+      'The Sound meter listens through the microphone to measure how loud it is. Sound is measured on your phone and never recorded, saved or sent.';
 
   @override
   String get micAllow => 'Allow microphone';
@@ -902,7 +903,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get micDeniedBody =>
-      'Turn on the microphone for this app in Settings to use the sound meter. Sound is never recorded, saved or sent.';
+      'Turn on the microphone for this app in Settings to use the Sound meter. Sound is never recorded, saved or sent.';
 
   @override
   String get openSettings => 'Open settings';
@@ -932,7 +933,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soundTip =>
-      'Phone microphones differ, so readings can be about 5 dB off: good for comparing, not a certified sound level meter. Very loud sounds (above about 110 dB) may read low.';
+      'Phone microphones aren’t calibrated sound level meters and differ between models, so readings are approximate (often within about 5 to 10 dB) and very loud sounds can read low. For anything official, use a calibrated sound level meter.';
 
   @override
   String get metresFromZero => 'm from zero';
@@ -1144,7 +1145,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cameraAllowBody =>
-      'The camera level draws level lines over the camera’s picture and measures edges in it. The picture stays on your phone and is never recorded, saved or sent.';
+      'The Camera level draws level lines over the camera’s picture and measures edges in it. The picture stays on your phone and is never recorded, saved or sent.';
 
   @override
   String get cameraAllow => 'Allow camera';
@@ -1154,11 +1155,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cameraDeniedBody =>
-      'Turn on the camera for this app in Settings to use the camera level. The picture is never recorded, saved or sent.';
+      'Turn on the camera for this app in Settings to use the Camera level. The picture is never recorded, saved or sent.';
 
   @override
   String get noCamera =>
-      'Can’t use the camera. Another app may be using it, or this phone has none: close other camera apps, then open the camera level again.';
+      'Can’t use the camera. Another app may be using it, or this phone has none: close other camera apps, then open the Camera level again.';
 
   @override
   String get tilt => 'Tilt';
@@ -1242,7 +1243,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gHelp2 =>
-      'Drive: the side of the car you\'re pushed towards glows. Braking lights the front, speeding up the back, a bend the outside. Green is gentle, orange firm, red hard.';
+      'Drive: the side of the car you’re pushed toward glows. Braking lights the front, speeding up the back, a bend the outside. Green is gentle, orange firm, red hard.';
 
   @override
   String get gHelp3 =>
@@ -1250,11 +1251,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gHelp4 =>
-      'Keep your eyes on the road: let a passenger read it, or check the peaks once you\'ve stopped.';
+      'Keep your eyes on the road: let a passenger read it, or check the peaks once you’ve stopped.';
 
   @override
   String get gTip =>
-      'Readings come from the accelerometer: close to a dash logger, a little noisier on rough roads. If the mount moves, stop and tap Zero again. Over 0.5 g is a hard stop or a fast bend for an everyday car.';
+      'Readings come from the accelerometer and are approximate: they rely on a firm mount and on Zero taken while standing still, and are a little noisier on rough roads. If the mount moves, stop and tap Zero again. Over 0.5 g is a hard stop or a fast bend for an everyday car.';
 
   @override
   String get gZero => 'Zero';
@@ -1326,7 +1327,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speedHelp4 =>
-      'Keep your eyes on the road: let a passenger read it, or check the trip once you\'ve stopped.';
+      'Keep your eyes on the road: let a passenger read it, or check the trip once you’ve stopped.';
 
   @override
   String get speedTip =>
@@ -1337,7 +1338,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speedAllowBody =>
-      'The speedometer uses GPS to measure your speed, distance and altitude. Location is used only while this tool is open on screen, never in the background, and never leaves your phone.';
+      'The Speedometer uses GPS to measure your speed, distance and altitude. Location is used only while this tool is open on screen, never in the background, and never leaves your phone.';
 
   @override
   String get speedAllow => 'Allow location';
@@ -1347,14 +1348,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speedDeniedBody =>
-      'Turn on location for this app in Settings to use the speedometer. It is used only while the tool is open and never leaves your phone.';
+      'Turn on location for this app in Settings to use the Speedometer. It is used only while the tool is open and never leaves your phone.';
 
   @override
   String get speedServiceOffTitle => 'Location is switched off';
 
   @override
   String get speedServiceOffBody =>
-      'Turn on location in the phone’s settings to use the speedometer.';
+      'Turn on location in the phone’s settings to use the Speedometer.';
 
   @override
   String get speedDistance => 'Distance';
@@ -1386,6 +1387,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get speedWeak => 'Weak GPS: speed may lag';
 
   @override
+  String get speedApproximate =>
+      'Precise location is off: turn it on for a steady speed';
+
+  @override
   String get speedStill => 'Standing still';
 
   @override
@@ -1414,7 +1419,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speedSceneHelp =>
-      'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It\'s scenery, not a forecast.';
+      'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast.';
 
   @override
   String get toolTape => 'Tape measure';
@@ -1424,25 +1429,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tapeAllowBody =>
-      'The tape measure follows the camera’s picture in 3D to place points on surfaces. The picture stays on your phone and is never recorded, saved or sent.';
+      'The Tape measure follows the camera’s picture in 3D to place points on surfaces. The picture stays on your phone and is never recorded, saved or sent.';
 
   @override
   String get tapeDeniedBody =>
-      'Turn on the camera for this app in Settings to use the tape measure. The picture is never recorded, saved or sent.';
+      'Turn on the camera for this app in Settings to use the Tape measure. The picture is never recorded, saved or sent.';
 
   @override
   String get tapeInstallTitle => 'Install AR support';
 
   @override
   String get tapeInstallBody =>
-      'The tape measure uses Google Play Services for AR (ARCore) to follow the phone in 3D. Install or update it from the Play Store, then come back.';
+      'The Tape measure uses Google Play Services for AR (ARCore) to follow the phone in 3D. Install or update it from the Play Store, then come back.';
 
   @override
   String get tapeInstall => 'Install';
 
   @override
   String get tapeUnsupported =>
-      'This phone doesn’t support AR (ARCore), which the tape measure needs to follow the phone in 3D.';
+      'This phone doesn’t support AR (ARCore), which the Tape measure needs to follow the phone in 3D.';
 
   @override
   String get tapeFailed =>

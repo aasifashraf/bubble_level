@@ -409,7 +409,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get compassTip =>
-      'Señala el norte magnético, que puede diferir unos grados del norte del mapa. Si parece incorrecta, mueve el teléfono dibujando un 8 varias veces.';
+      'Señala el norte magnético, que en algunos lugares puede diferir 10 grados o más del norte del mapa. Si parece incorrecta, mueve el teléfono dibujando un 8 varias veces.';
 
   @override
   String compassSemantics(int heading, String direction) {
@@ -748,7 +748,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Un excursionista sube la montaña con tu altura. El cielo sigue la hora del día y la estación; toca el botón del tiempo para elegirlo tú.';
+      'El excursionista sube y baja la montaña según cambia tu altura. El cielo sigue la hora del día y la estación; toca el botón del tiempo para elegirlo tú.';
 
   @override
   String get altimeterHelp2 =>
@@ -759,11 +759,12 @@ class AppLocalizationsEs extends AppLocalizations {
       'Sube o baja: el excursionista camina contigo y la bandera marca tu punto más alto. El panel muestra los metros desde tu cero, la presión y la altitud aproximada.';
 
   @override
-  String get altimeterHelp4 => 'Toca Quitar cero para volver.';
+  String get altimeterHelp4 =>
+      'Toca Quitar cero para dejar de medir desde tu cero: la lectura Desde cero vuelve a quedar vacía.';
 
   @override
   String get altimeterTip =>
-      'El clima cambia la presión del aire, así que la altitud puede variar decenas de metros. La altura desde tu cero es precisa en periodos cortos. Esta herramienta necesita un teléfono con barómetro.';
+      'El clima cambia la presión del aire constantemente, así que sin una altura de partida conocida la altitud puede desviarse cien metros o más. Fíate del cambio de altura desde Poner cero aquí en periodos cortos. Esta herramienta necesita un teléfono con barómetro.';
 
   @override
   String get weather => 'Tiempo';
@@ -857,7 +858,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Los sensores de luz varían entre teléfonos, así que las lecturas pueden desviarse entre un 10 y un 20 %: sirven para comparar lugares, no son un luxómetro calibrado. No tapes la parte superior de la pantalla.';
+      'Los sensores de luz de los teléfonos no están calibrados, así que las lecturas pueden variar mucho entre teléfonos. Úsalo para comparar la luz en un mismo lugar con el mismo teléfono, no como un luxómetro calibrado. No tapes la parte superior de la pantalla.';
 
   @override
   String get noMicrophone =>
@@ -938,7 +939,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get soundTip =>
-      'Los micrófonos varían entre teléfonos, así que las lecturas pueden desviarse unos 5 dB: sirve para comparar, no es un sonómetro certificado. Los sonidos muy fuertes (más de unos 110 dB) pueden leerse más bajos.';
+      'Los micrófonos de los teléfonos no son sonómetros calibrados y varían entre modelos, así que las lecturas son aproximadas (a menudo con un margen de unos 5 a 10 dB) y los sonidos muy fuertes pueden leerse más bajos. Para cualquier medición oficial hace falta un sonómetro calibrado.';
 
   @override
   String get metresFromZero => 'm desde cero';
@@ -1262,7 +1263,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get gTip =>
-      'Las lecturas vienen del acelerómetro: cercanas a un registrador de conducción, algo más inestables en carreteras irregulares. Si el soporte se mueve, detente y vuelve a tocar Cero. Más de 0,5 g es una frenada brusca o una curva rápida para un vehículo común.';
+      'Las lecturas vienen del acelerómetro y son aproximadas: dependen de un soporte firme y de tocar Cero con el vehículo parado, y son algo más inestables en carreteras irregulares. Si el soporte se mueve, detente y vuelve a tocar Cero. Más de 0,5 g es una frenada brusca o una curva rápida para un vehículo común.';
 
   @override
   String get gZero => 'Cero';
@@ -1392,6 +1393,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get speedWeak => 'GPS débil: la velocidad puede ir con retraso';
+
+  @override
+  String get speedApproximate =>
+      'Ubicación precisa desactivada: actívala para una velocidad estable';
 
   @override
   String get speedStill => 'Detenido';

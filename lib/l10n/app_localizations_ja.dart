@@ -394,7 +394,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get compassTip =>
-      '磁北を指すため、地図の北と数度ずれることがあります。おかしい場合は端末を8の字に数回動かしてください。';
+      '磁北を指すため、場所によっては地図の北と10度以上ずれることがあります。おかしい場合は端末を8の字に数回動かしてください。';
 
   @override
   String compassSemantics(int heading, String direction) {
@@ -726,11 +726,11 @@ class AppLocalizationsJa extends AppLocalizations {
       '上り下りすると、ハイカーも一緒に歩き、旗が最高地点を示します。パネルにはゼロからの高さ、気圧、おおよその標高が表示されます。';
 
   @override
-  String get altimeterHelp4 => '「ゼロを解除」で元に戻ります。';
+  String get altimeterHelp4 => '「ゼロを解除」をタップすると、ゼロからの測定を終了し、「ゼロから」の値は空欄に戻ります。';
 
   @override
   String get altimeterTip =>
-      '天気で気圧が変わるため、高度は数十メートルずれることがあります。ゼロ点からの高さは短時間なら正確です。このツールには気圧センサー付きの端末が必要です。';
+      '気圧は天気で常に変わるため、出発地点の高さがわからないと、高度は100メートル以上ずれることがあります。信頼できるのは、短時間での「ここをゼロに」からの高さの変化です。このツールには気圧センサー付きの端末が必要です。';
 
   @override
   String get weather => '天気';
@@ -819,7 +819,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get lightTip =>
-      '照度センサーは端末ごとに異なるため、10〜20% ずれることがあります。場所の比較には便利ですが、校正済みの照度計ではありません。画面上部を覆わないでください。';
+      'スマートフォンの照度センサーは校正されておらず、端末によって値が大きく異なることがあります。同じ端末で同じ場所の明るさを比べるのに使ってください。校正済みの照度計ではありません。画面上部を覆わないでください。';
 
   @override
   String get noMicrophone =>
@@ -895,7 +895,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get soundTip =>
-      'スマートフォンのマイクは機種ごとに異なるため、5 dB ほどずれることがあります。比較には便利ですが、認定された騒音計ではありません。非常に大きな音（約110 dB 以上）は低めに表示されることがあります。';
+      'スマートフォンのマイクは校正された騒音計ではなく、機種ごとに異なるため、値はおおよそです（多くの場合5〜10 dB 程度のずれ）。非常に大きな音は低めに表示されることがあります。公式な測定には校正された騒音計が必要です。';
 
   @override
   String get metresFromZero => 'm（ゼロから）';
@@ -1205,7 +1205,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get gTip =>
-      '値は加速度センサーによるもので、車載データロガーに近い精度ですが、荒れた路面では少しぶれます。ホルダーが動いたら停車して、もう一度「ゼロ」をタップしてください。一般的な乗用車では、0.5 g を超えると急ブレーキや速いコーナリングです。';
+      '値は加速度センサーによるおおよその値で、ホルダーがしっかり固定され、停車中に「ゼロ」を設定していることが前提です。荒れた路面では少しぶれます。ホルダーが動いたら停車して、もう一度「ゼロ」をタップしてください。一般的な乗用車では、0.5 g を超えると急ブレーキや速いコーナリングです。';
 
   @override
   String get gZero => 'ゼロ';
@@ -1332,6 +1332,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get speedWeak => 'GPSが弱いため、速度が遅れることがあります';
+
+  @override
+  String get speedApproximate => '正確な位置情報がオフです。オンにすると速度が安定します';
 
   @override
   String get speedStill => '停止中';

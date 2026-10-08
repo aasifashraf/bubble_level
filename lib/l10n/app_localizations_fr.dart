@@ -410,7 +410,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get compassTip =>
-      'Elle indique le nord magnétique, qui peut différer de quelques degrés du nord de la carte. Si elle semble fausse, faites plusieurs fois un 8 avec le téléphone.';
+      'Elle indique le nord magnétique, qui peut différer du nord de la carte de 10 degrés ou plus à certains endroits. Si elle semble fausse, faites plusieurs fois un 8 avec le téléphone.';
 
   @override
   String compassSemantics(int heading, String direction) {
@@ -749,7 +749,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Un randonneur gravit la montagne avec votre hauteur. Le ciel suit l’heure et la saison ; touchez le bouton météo pour choisir vous-même.';
+      'Le randonneur monte et descend la montagne à mesure que votre hauteur change. Le ciel suit l’heure et la saison ; touchez le bouton météo pour choisir vous-même.';
 
   @override
   String get altimeterHelp2 =>
@@ -760,11 +760,12 @@ class AppLocalizationsFr extends AppLocalizations {
       'Montez ou descendez : le randonneur marche avec vous et le drapeau marque votre point le plus haut. Le panneau montre les mètres depuis votre zéro, la pression et l’altitude approximative.';
 
   @override
-  String get altimeterHelp4 => 'Touchez Effacer le zéro pour revenir.';
+  String get altimeterHelp4 =>
+      'Touchez Effacer le zéro pour ne plus mesurer depuis votre zéro : la valeur Depuis zéro redevient vide.';
 
   @override
   String get altimeterTip =>
-      'La météo modifie la pression de l’air : l’altitude peut se tromper de plusieurs dizaines de mètres. La hauteur depuis votre zéro est précise sur de courtes durées. Cet outil nécessite un téléphone équipé d’un baromètre.';
+      'La météo modifie sans cesse la pression de l’air : sans altitude de départ connue, l’altitude peut se tromper d’une centaine de mètres ou plus. Fiez-vous au dénivelé depuis Zéro ici sur de courtes durées. Cet outil nécessite un téléphone équipé d’un baromètre.';
 
   @override
   String get weather => 'Météo';
@@ -858,7 +859,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Les capteurs de lumière varient d’un téléphone à l’autre, les mesures peuvent donc différer de 10 à 20 % : utile pour comparer des lieux, pas un luxmètre étalonné. Ne couvrez pas le haut de l’écran.';
+      'Les capteurs de lumière des téléphones ne sont pas étalonnés : les mesures peuvent donc beaucoup varier d’un téléphone à l’autre. Utilisez-le pour comparer la lumière à un même endroit avec le même téléphone, pas comme un luxmètre étalonné. Ne couvrez pas le haut de l’écran.';
 
   @override
   String get noMicrophone =>
@@ -939,7 +940,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get soundTip =>
-      'Les micros varient d’un téléphone à l’autre, les mesures peuvent donc différer d’environ 5 dB : utile pour comparer, pas un sonomètre certifié. Les sons très forts (plus de 110 dB environ) peuvent être sous-estimés.';
+      'Les micros de téléphone ne sont pas des sonomètres étalonnés et varient d’un modèle à l’autre : les mesures sont donc approximatives (souvent à environ 5 à 10 dB près) et les sons très forts peuvent être sous-estimés. Pour toute mesure officielle, il faut un sonomètre étalonné.';
 
   @override
   String get metresFromZero => 'm depuis zéro';
@@ -1263,7 +1264,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get gTip =>
-      'Les mesures viennent de l’accéléromètre : proches d’un enregistreur de conduite, un peu plus agitées sur route abîmée. Si le support bouge, arrêtez-vous et touchez de nouveau Zéro. Au-delà de 0,5 g, c’est un freinage appuyé ou un virage rapide pour une voiture ordinaire.';
+      'Les mesures viennent de l’accéléromètre et sont approximatives : elles dépendent d’un support bien fixé et d’un Zéro pris à l’arrêt, et sont un peu plus agitées sur route abîmée. Si le support bouge, arrêtez-vous et touchez de nouveau Zéro. Au-delà de 0,5 g, c’est un freinage appuyé ou un virage rapide pour une voiture ordinaire.';
 
   @override
   String get gZero => 'Zéro';
@@ -1393,6 +1394,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get speedWeak => 'GPS faible : la vitesse peut être en retard';
+
+  @override
+  String get speedApproximate =>
+      'Position exacte désactivée : activez-la pour une vitesse stable';
 
   @override
   String get speedStill => 'À l’arrêt';

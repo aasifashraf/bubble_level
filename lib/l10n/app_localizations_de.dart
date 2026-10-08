@@ -408,7 +408,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get compassTip =>
-      'Er zeigt nach magnetisch Nord, das um einige Grad von Kartennord abweichen kann. Wirkt er falsch, beweg das Handy ein paar Mal in Form einer 8.';
+      'Er zeigt nach magnetisch Nord, das an manchen Orten um 10 Grad oder mehr von Kartennord abweichen kann. Wirkt er falsch, beweg das Handy ein paar Mal in Form einer 8.';
 
   @override
   String compassSemantics(int heading, String direction) {
@@ -746,7 +746,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Ein Wanderer steigt mit deiner Höhe den Berg hinauf. Der Himmel folgt Tageszeit und Jahreszeit; tippe auf die Wetter-Taste, um selbst zu wählen.';
+      'Der Wanderer am Berg geht hinauf und hinunter, wenn sich deine Höhe ändert. Der Himmel folgt Tageszeit und Jahreszeit; tippe auf die Wetter-Taste, um selbst zu wählen.';
 
   @override
   String get altimeterHelp2 =>
@@ -758,11 +758,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get altimeterHelp4 =>
-      'Tippe auf Nullpunkt löschen, um zurückzukehren.';
+      'Tippe auf Nullpunkt löschen, um nicht mehr ab deinem Nullpunkt zu messen: Der Wert Ab Null wird wieder leer.';
 
   @override
   String get altimeterTip =>
-      'Das Wetter ändert den Luftdruck, daher kann die Höhe um einige zehn Meter abweichen. Die Höhe ab deinem Nullpunkt ist über kurze Zeit genau. Dieses Werkzeug braucht ein Handy mit Barometer.';
+      'Das Wetter ändert ständig den Luftdruck, daher kann die Höhe ohne bekannte Ausgangshöhe um hundert Meter oder mehr abweichen. Verlass dich auf die Höhenänderung ab Hier nullen über kurze Zeit. Dieses Werkzeug braucht ein Handy mit Barometer.';
 
   @override
   String get weather => 'Wetter';
@@ -856,7 +856,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Lichtsensoren unterscheiden sich je nach Handy, Werte können 10 bis 20 % abweichen: gut zum Vergleichen von Orten, aber kein geeichter Luxmeter. Verdecke den oberen Bildschirmrand nicht.';
+      'Lichtsensoren in Handys sind nicht geeicht, daher können sich die Werte von Handy zu Handy stark unterscheiden. Vergleiche damit Licht an einem Ort mit demselben Handy; ein geeichtes Luxmeter ist es nicht. Verdecke den oberen Bildschirmrand nicht.';
 
   @override
   String get noMicrophone =>
@@ -937,7 +937,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get soundTip =>
-      'Handymikrofone sind unterschiedlich, Werte können etwa 5 dB abweichen: gut zum Vergleichen, aber kein geeichter Schallpegelmesser. Sehr laute Geräusche (über etwa 110 dB) werden eventuell zu niedrig angezeigt.';
+      'Handymikrofone sind keine geeichten Schallpegelmesser und unterscheiden sich je nach Modell, daher sind die Werte ungefähr (oft auf etwa 5 bis 10 dB genau), und sehr laute Geräusche werden eventuell zu niedrig angezeigt. Für alles Offizielle brauchst du einen geeichten Schallpegelmesser.';
 
   @override
   String get metresFromZero => 'm ab Null';
@@ -1260,7 +1260,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get gTip =>
-      'Die Werte kommen vom Beschleunigungssensor: nah an einem Fahrdatenlogger, auf holprigen Straßen etwas unruhiger. Verrutscht die Halterung, halte an und tippe erneut auf Nullen. Über 0,5 g ist für ein normales Auto eine Vollbremsung oder eine schnelle Kurve.';
+      'Die Werte kommen vom Beschleunigungssensor und sind ungefähr: Sie setzen eine feste Halterung und ein Nullen im Stillstand voraus und sind auf holprigen Straßen etwas unruhiger. Verrutscht die Halterung, halte an und tippe erneut auf Nullen. Über 0,5 g ist für ein normales Auto eine Vollbremsung oder eine schnelle Kurve.';
 
   @override
   String get gZero => 'Nullen';
@@ -1390,6 +1390,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get speedWeak => 'Schwaches GPS: Tempo kann nachhinken';
+
+  @override
+  String get speedApproximate =>
+      'Genauer Standort aus: für stabiles Tempo einschalten';
 
   @override
   String get speedStill => 'Stillstand';

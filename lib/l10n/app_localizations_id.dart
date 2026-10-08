@@ -407,7 +407,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get compassTip =>
-      'Kompas menunjuk utara magnetis, yang bisa berbeda beberapa derajat dari utara peta. Jika terlihat salah, gerakkan ponsel membentuk angka 8 beberapa kali.';
+      'Kompas menunjuk utara magnetis, yang di beberapa tempat bisa berbeda 10 derajat atau lebih dari utara peta. Jika terlihat salah, gerakkan ponsel membentuk angka 8 beberapa kali.';
 
   @override
   String compassSemantics(int heading, String direction) {
@@ -744,7 +744,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get altimeterHelp1 =>
-      'Seorang pendaki mendaki gunung seiring ketinggian Anda. Langit mengikuti waktu dan musim; ketuk tombol cuaca untuk memilih sendiri.';
+      'Pendaki di gunung naik dan turun mengikuti perubahan ketinggian Anda. Langit mengikuti waktu dan musim; ketuk tombol cuaca untuk memilih sendiri.';
 
   @override
   String get altimeterHelp2 =>
@@ -755,11 +755,12 @@ class AppLocalizationsId extends AppLocalizations {
       'Naik atau turun: pendaki berjalan bersama Anda dan bendera menandai titik tertinggi. Panel menunjukkan meter dari nol, tekanan udara, dan perkiraan ketinggian.';
 
   @override
-  String get altimeterHelp4 => 'Ketuk Hapus nol untuk kembali.';
+  String get altimeterHelp4 =>
+      'Ketuk Hapus nol untuk berhenti mengukur dari titik nol Anda: nilai Dari nol kembali kosong.';
 
   @override
   String get altimeterTip =>
-      'Cuaca mengubah tekanan udara, jadi ketinggian bisa meleset puluhan meter. Ketinggian dari titik nol Anda akurat untuk waktu singkat. Alat ini memerlukan ponsel dengan barometer.';
+      'Cuaca terus mengubah tekanan udara, jadi tanpa ketinggian awal yang diketahui, ketinggian bisa meleset seratus meter atau lebih. Percayai perubahan ketinggian dari Atur nol di sini dalam waktu singkat. Alat ini memerlukan ponsel dengan barometer.';
 
   @override
   String get weather => 'Cuaca';
@@ -853,7 +854,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get lightTip =>
-      'Sensor cahaya berbeda di tiap ponsel, jadi bacaan bisa meleset 10 sampai 20%: bagus untuk membandingkan tempat, bukan pengukur lux yang terkalibrasi. Jangan tutupi bagian atas layar.';
+      'Sensor cahaya ponsel tidak terkalibrasi, jadi bacaan bisa sangat berbeda antar ponsel. Gunakan untuk membandingkan cahaya di satu tempat dengan ponsel yang sama, bukan sebagai pengukur lux yang terkalibrasi. Jangan tutupi bagian atas layar.';
 
   @override
   String get noMicrophone =>
@@ -934,7 +935,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get soundTip =>
-      'Mikrofon tiap ponsel berbeda, jadi bacaan bisa meleset sekitar 5 dB: bagus untuk membandingkan, bukan pengukur suara bersertifikat. Suara yang sangat keras (di atas sekitar 110 dB) bisa terbaca lebih rendah.';
+      'Mikrofon ponsel bukan pengukur suara yang terkalibrasi dan berbeda tiap model, jadi bacaan hanya perkiraan (sering meleset sekitar 5 sampai 10 dB) dan suara yang sangat keras bisa terbaca lebih rendah. Untuk keperluan resmi, gunakan pengukur suara yang terkalibrasi.';
 
   @override
   String get metresFromZero => 'm dari nol';
@@ -1259,7 +1260,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get gTip =>
-      'Nilai berasal dari akselerometer: mendekati perekam data mobil, sedikit lebih bergejolak di jalan rusak. Jika dudukan bergeser, berhentilah dan ketuk Nol lagi. Di atas 0,5 g berarti pengereman keras atau tikungan cepat untuk mobil biasa.';
+      'Nilai berasal dari akselerometer dan bersifat perkiraan: bergantung pada dudukan yang kokoh dan Nol yang diatur saat diam, serta sedikit lebih bergejolak di jalan rusak. Jika dudukan bergeser, berhentilah dan ketuk Nol lagi. Di atas 0,5 g berarti pengereman keras atau tikungan cepat untuk mobil biasa.';
 
   @override
   String get gZero => 'Nol';
@@ -1389,6 +1390,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get speedWeak => 'GPS lemah: kecepatan bisa tertinggal';
+
+  @override
+  String get speedApproximate =>
+      'Lokasi akurat mati: nyalakan agar kecepatan stabil';
 
   @override
   String get speedStill => 'Diam';
