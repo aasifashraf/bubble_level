@@ -104,6 +104,8 @@ class SoundViewModel extends ActiveViewModel {
 
   @override
   void update() {
+    // A held reading doesn't change: no need to redraw for every block.
+    if (_held != null) return;
     final db = reading.level;
     _band = db == null ? null : SoundBand.settle(_band, db);
     notifyListeners();

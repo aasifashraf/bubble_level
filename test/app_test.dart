@@ -10,6 +10,7 @@ import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/domain/g_force.dart';
 import 'package:bubble_level/domain/ruler.dart';
 import 'package:bubble_level/domain/scene_weather.dart';
+import 'package:bubble_level/domain/sound.dart';
 import 'package:bubble_level/main.dart';
 import 'package:bubble_level/ui/core/controls.dart';
 import 'package:bubble_level/ui/core/dial.dart';
@@ -1182,7 +1183,7 @@ void main() {
 
   group('sound meter', () {
     /// Mean square for a level of [db] (see domain/sound.dart).
-    double ms(double db) => math.pow(10, (db - 90) / 10).toDouble();
+    double ms(double db) => math.pow(10, (db - fullScaleDb) / 10).toDouble();
 
     testWidgets('explains first, asks only on Allow, then measures', (
       tester,

@@ -6,8 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'orientation_reading.dart';
 
 /// Phone microphones aren't calibrated; full scale reads roughly this many
-/// decibels of sound pressure, a common estimate for phone sound meters.
-const fullScaleDb = 90.0;
+/// decibels of sound pressure. Android's compatibility rules tune the
+/// voice recognition input (the one used) so a 90 dB tone comes in about
+/// 22 dB below full scale (RMS 2500 of 32767), which puts full scale near
+/// 112 dB. Phones still differ, hence "approx." on every reading.
+const fullScaleDb = 112.0;
 
 /// The quietest level shown: below this a phone microphone hears only its
 /// own noise.
