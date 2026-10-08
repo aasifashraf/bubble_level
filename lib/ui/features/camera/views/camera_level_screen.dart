@@ -465,8 +465,9 @@ class _EdgeCard extends StatelessWidget {
 }
 
 /// The lines: true level and plumb (following gravity; orange when the
-/// phone is level), the phone's own dashed lines with an arc between the
-/// two horizontals, and, once frozen, the edge line through the handles.
+/// phone is level), the phone's own orange dashed lines with an arc
+/// between the two horizontals, and, once frozen, the edge line through
+/// the handles.
 class _LinesPainter extends CustomPainter {
   const _LinesPainter({
     required this.pose,
@@ -485,8 +486,6 @@ class _LinesPainter extends CustomPainter {
   /// The true lines: a little see-through, so the picture shows past them.
   static const _true = Color(0xBFFFFFFF);
 
-  /// The phone's dashed lines, a quiet grey.
-  static const _phone = Color(0xCCB4BCC4);
   static const _shadow = Color(0x4D000000);
 
   /// Where the arc between the two lines sits, and its angle label.
@@ -535,8 +534,8 @@ class _LinesPainter extends CustomPainter {
 
     if (showPhone) {
       final paint = Paint()
-        ..strokeWidth = 1.6
-        ..color = _phone;
+        ..strokeWidth = 1.8
+        ..color = palette.ballLight;
       line(Offset(0, c.dy), Offset(size.width, c.dy), paint, dashed: true);
       line(Offset(c.dx, 0), Offset(c.dx, size.height), paint, dashed: true);
       // The angle between the phone's line and the nearest true line: an
@@ -556,7 +555,7 @@ class _LinesPainter extends CustomPainter {
           e[1] + u,
           Paint()
             ..strokeWidth = 1.4
-            ..color = const Color(0xB3FFFFFF),
+            ..color = palette.ballLight.withValues(alpha: 0.7),
           dashed: true,
         );
       }
