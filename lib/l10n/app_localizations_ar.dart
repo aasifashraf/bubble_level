@@ -19,13 +19,32 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings => 'الإعدادات';
 
   @override
-  String get tools => 'الأدوات';
+  String get homeTopTools => 'أدواتك المفضلة';
 
   @override
-  String get listView => 'عرض القائمة';
+  String get homeMoreTools => 'أدوات أخرى';
 
   @override
-  String get gridView => 'عرض الشبكة';
+  String get homeArrange => 'ترتيب';
+
+  @override
+  String get arrangeTitle => 'ترتيب الأدوات';
+
+  @override
+  String get arrangeHint =>
+      'اسحب لتغيير الترتيب. أول ثلاث أدوات هي أدواتك المفضلة.';
+
+  @override
+  String get arrangeStar => 'اجعلها مفضلة';
+
+  @override
+  String get arrangeUnstar => 'أزلها من المفضلة';
+
+  @override
+  String get arrangeReset => 'الترتيب الشائع';
+
+  @override
+  String get arrangeDone => 'تم';
 
   @override
   String get back => 'رجوع';

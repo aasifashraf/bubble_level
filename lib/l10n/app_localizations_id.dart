@@ -19,13 +19,32 @@ class AppLocalizationsId extends AppLocalizations {
   String get settings => 'Setelan';
 
   @override
-  String get tools => 'Alat';
+  String get homeTopTools => 'Alat utama Anda';
 
   @override
-  String get listView => 'Tampilan daftar';
+  String get homeMoreTools => 'Alat lainnya';
 
   @override
-  String get gridView => 'Tampilan kisi';
+  String get homeArrange => 'Atur';
+
+  @override
+  String get arrangeTitle => 'Atur alat';
+
+  @override
+  String get arrangeHint =>
+      'Seret untuk mengubah urutan. Tiga teratas adalah alat utama Anda.';
+
+  @override
+  String get arrangeStar => 'Jadikan alat utama';
+
+  @override
+  String get arrangeUnstar => 'Hapus dari alat utama';
+
+  @override
+  String get arrangeReset => 'Urutan populer';
+
+  @override
+  String get arrangeDone => 'Selesai';
 
   @override
   String get back => 'Kembali';

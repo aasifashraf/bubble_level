@@ -136,23 +136,59 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settings;
 
-  /// Heading above the list of tools on the home screen.
+  /// No description provided for @homeTopTools.
   ///
   /// In en, this message translates to:
-  /// **'Tools'**
-  String get tools;
+  /// **'Your top tools'**
+  String get homeTopTools;
 
-  /// No description provided for @listView.
+  /// No description provided for @homeMoreTools.
   ///
   /// In en, this message translates to:
-  /// **'List view'**
-  String get listView;
+  /// **'More tools'**
+  String get homeMoreTools;
 
-  /// No description provided for @gridView.
+  /// No description provided for @homeArrange.
   ///
   /// In en, this message translates to:
-  /// **'Grid view'**
-  String get gridView;
+  /// **'Arrange'**
+  String get homeArrange;
+
+  /// No description provided for @arrangeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrange tools'**
+  String get arrangeTitle;
+
+  /// No description provided for @arrangeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to change the order. The first three are your top tools.'**
+  String get arrangeHint;
+
+  /// No description provided for @arrangeStar.
+  ///
+  /// In en, this message translates to:
+  /// **'Make it a top tool'**
+  String get arrangeStar;
+
+  /// No description provided for @arrangeUnstar.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from top tools'**
+  String get arrangeUnstar;
+
+  /// No description provided for @arrangeReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular order'**
+  String get arrangeReset;
+
+  /// No description provided for @arrangeDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get arrangeDone;
 
   /// No description provided for @back.
   ///

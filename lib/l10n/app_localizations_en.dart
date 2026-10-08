@@ -19,13 +19,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get tools => 'Tools';
+  String get homeTopTools => 'Your top tools';
 
   @override
-  String get listView => 'List view';
+  String get homeMoreTools => 'More tools';
 
   @override
-  String get gridView => 'Grid view';
+  String get homeArrange => 'Arrange';
+
+  @override
+  String get arrangeTitle => 'Arrange tools';
+
+  @override
+  String get arrangeHint =>
+      'Drag to change the order. The first three are your top tools.';
+
+  @override
+  String get arrangeStar => 'Make it a top tool';
+
+  @override
+  String get arrangeUnstar => 'Remove from top tools';
+
+  @override
+  String get arrangeReset => 'Popular order';
+
+  @override
+  String get arrangeDone => 'Done';
 
   @override
   String get back => 'Back';

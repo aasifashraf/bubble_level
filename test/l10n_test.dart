@@ -149,7 +149,7 @@ void main() {
         expect(back.dx, greaterThan(300), reason: 'back tab on the right');
         await tester.tap(find.byTooltip(l.back));
         await tester.pumpAndSettle();
-        expect(find.text(l.tools), findsOneWidget);
+        expect(find.text(l.homeTopTools), findsOneWidget);
       });
     }
 

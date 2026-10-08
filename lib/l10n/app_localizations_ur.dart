@@ -19,13 +19,32 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settings => 'ترتیبات';
 
   @override
-  String get tools => 'ٹولز';
+  String get homeTopTools => 'آپ کے خاص ٹولز';
 
   @override
-  String get listView => 'فہرست کی شکل';
+  String get homeMoreTools => 'مزید ٹولز';
 
   @override
-  String get gridView => 'گرڈ کی شکل';
+  String get homeArrange => 'ترتیب';
+
+  @override
+  String get arrangeTitle => 'ٹولز کی ترتیب';
+
+  @override
+  String get arrangeHint =>
+      'ترتیب بدلنے کے لیے کھینچیں۔ پہلے تین آپ کے خاص ٹولز ہوں گے۔';
+
+  @override
+  String get arrangeStar => 'خاص ٹول بنائیں';
+
+  @override
+  String get arrangeUnstar => 'خاص ٹولز سے ہٹائیں';
+
+  @override
+  String get arrangeReset => 'مقبول ترتیب';
+
+  @override
+  String get arrangeDone => 'ہو گیا';
 
   @override
   String get back => 'واپس';

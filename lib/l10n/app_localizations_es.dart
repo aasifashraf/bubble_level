@@ -19,13 +19,32 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settings => 'Ajustes';
 
   @override
-  String get tools => 'Herramientas';
+  String get homeTopTools => 'Tus herramientas favoritas';
 
   @override
-  String get listView => 'Vista de lista';
+  String get homeMoreTools => 'Más herramientas';
 
   @override
-  String get gridView => 'Vista de cuadrícula';
+  String get homeArrange => 'Ordenar';
+
+  @override
+  String get arrangeTitle => 'Ordenar herramientas';
+
+  @override
+  String get arrangeHint =>
+      'Arrastra para cambiar el orden. Las tres primeras son tus favoritas.';
+
+  @override
+  String get arrangeStar => 'Hacerla favorita';
+
+  @override
+  String get arrangeUnstar => 'Quitar de favoritas';
+
+  @override
+  String get arrangeReset => 'Orden popular';
+
+  @override
+  String get arrangeDone => 'Listo';
 
   @override
   String get back => 'Atrás';

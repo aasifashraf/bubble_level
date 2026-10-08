@@ -19,13 +19,32 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settings => 'Настройки';
 
   @override
-  String get tools => 'Инструменты';
+  String get homeTopTools => 'Главные инструменты';
 
   @override
-  String get listView => 'Списком';
+  String get homeMoreTools => 'Другие инструменты';
 
   @override
-  String get gridView => 'Сеткой';
+  String get homeArrange => 'Порядок';
+
+  @override
+  String get arrangeTitle => 'Порядок инструментов';
+
+  @override
+  String get arrangeHint =>
+      'Перетащите, чтобы изменить порядок. Первые три будут главными.';
+
+  @override
+  String get arrangeStar => 'Сделать главным';
+
+  @override
+  String get arrangeUnstar => 'Убрать из главных';
+
+  @override
+  String get arrangeReset => 'Популярный порядок';
+
+  @override
+  String get arrangeDone => 'Готово';
 
   @override
   String get back => 'Назад';

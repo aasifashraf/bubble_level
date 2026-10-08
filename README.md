@@ -34,7 +34,8 @@ tools (thirteen on iPhone, which has no Light meter), all drawn in one soft, ful
   average speed, altitude and coordinates (location only while open).
 
 Every tool has a short "How to use" guide. The app supports light and dark
-themes, degrees or percent slope, a list or grid home screen, and sounds that
+themes, degrees or percent slope, a home screen with the most popular
+tools first that you can arrange (your top three on cards), and sounds that
 follow the phone's silent mode. It works on phones and tablets in portrait and
 landscape.
 

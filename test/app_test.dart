@@ -112,7 +112,7 @@ void main() {
   testWidgets('the tape measure stays hidden until its points hold', (
     tester,
   ) async {
-    await pumpApp(tester, prefs: {'homeLayout': 'list'});
+    await pumpApp(tester);
     expect(find.text('Tape measure'), findsNothing);
     expect(ar.started, 0);
   });
@@ -125,26 +125,96 @@ void main() {
     expect(find.byType(NavigationBar), findsNothing);
   });
 
-  testWidgets('home: grid and light by default, list on request, '
-      'remembered', (tester) async {
+  testWidgets('home: popular tools first, arranged and remembered', (
+    tester,
+  ) async {
     await pumpApp(tester);
-    double y(String t) => tester.getCenter(find.text(t)).dy;
-    double x(String t) => tester.getCenter(find.text(t)).dx;
+    double y(String t) => tester.getCenter(find.text(t).first).dy;
+    double x(String t) => tester.getCenter(find.text(t).first).dx;
     final settings = await SettingsRepository.load();
     expect(settings.themeMode, ThemeMode.light);
 
-    // Grid: one row, Level, Angle, Compass left to right, no descriptions.
-    expect(find.text('Bubble and spirit level'), findsNothing);
-    expect(y('Level'), y('Compass'));
-    expect(x('Level') < x('Angle') && x('Angle') < x('Compass'), isTrue);
-
-    await tester.tap(find.byTooltip('List view'));
-    await tester.pumpAndSettle();
-    // List: same order top to bottom, with descriptions.
+    // Level across the top, Compass and Ruler side by side under it, with
+    // what they do; Angle among the more tools below, without.
+    expect(find.text('Your top tools'), findsOneWidget);
     expect(find.text('Bubble and spirit level'), findsOneWidget);
-    expect(y('Level') < y('Angle') && y('Angle') < y('Compass'), isTrue);
-    final reloaded = await SettingsRepository.load();
-    expect(reloaded.homeLayout, HomeLayout.list);
+    expect(find.text('Heading and direction'), findsOneWidget);
+    expect(y('Level') < y('Compass'), isTrue);
+    expect(y('Compass'), y('Ruler'));
+    expect(x('Compass') < x('Ruler'), isTrue);
+    expect(y('Ruler') < y('Angle'), isTrue);
+    expect(find.text('Angle from level or from a zero'), findsNothing);
+
+    // Star the Speedometer in the Arrange sheet: it joins the top tools.
+    await tester.tap(find.text('Arrange'));
+    await tester.pumpAndSettle();
+    expect(find.text('Arrange tools'), findsOneWidget);
+    // A tool's row in the sheet, scrolled into view.
+    final list = find.descendant(
+      of: find.byType(ReorderableListView),
+      matching: find.byType(Scrollable),
+    );
+    Future<Finder> row(String tool, {double by = 80}) async {
+      final name = find.descendant(
+        of: find.byType(ReorderableListView),
+        matching: find.text(tool),
+      );
+      await tester.scrollUntilVisible(name, by, scrollable: list.first);
+      await tester.pumpAndSettle();
+      return find.ancestor(
+        of: name,
+        matching: find.byType(ReorderableDelayedDragStartListener),
+      );
+    }
+
+    final star = find.descendant(
+      of: await row('Speedometer'),
+      matching: find.byTooltip('Make it a top tool'),
+    );
+    await tester.tap(star);
+    await tester.pumpAndSettle();
+    var saved = (await SettingsRepository.load()).toolOrder;
+    expect(saved.take(3), ['level', 'compass', 'speed']);
+    expect(saved[3], 'ruler');
+
+    // Drag Compass below Ruler by its handle.
+    final compassHandle = find.descendant(
+      of: await row('Compass', by: -80),
+      matching: find.byIcon(Icons.drag_handle_rounded),
+    );
+    final gesture = await tester.startGesture(tester.getCenter(compassHandle));
+    await tester.pump(const Duration(milliseconds: 100));
+    for (var i = 0; i < 14; i++) {
+      await gesture.moveBy(const Offset(0, 10));
+      await tester.pump(const Duration(milliseconds: 16));
+    }
+    await gesture.up();
+    await tester.pumpAndSettle();
+    saved = (await SettingsRepository.load()).toolOrder;
+    expect(saved.take(4), ['level', 'speed', 'ruler', 'compass']);
+
+    await tester.ensureVisible(find.text('Done'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Done'));
+    await tester.pumpAndSettle();
+    expect(find.text('Arrange tools'), findsNothing);
+    // The Speedometer is a top card now, with what it does.
+    expect(find.text('Speed, trip and GPS altitude'), findsOneWidget);
+    // Compass moved down into the grid.
+    expect(find.text('Heading and direction'), findsNothing);
+
+    // Popular order puts it all back.
+    await tester.tap(find.text('Arrange'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Popular order'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Popular order'));
+    await tester.pumpAndSettle();
+    expect((await SettingsRepository.load()).toolOrder, isEmpty);
+    await tester.tap(find.text('Done'));
+    await tester.pumpAndSettle();
+    expect(find.text('Heading and direction'), findsOneWidget);
+    expect(find.text('Speed, trip and GPS altitude'), findsNothing);
 
     // Tools still open from the grid.
     await openTool(tester, 'Angle');
@@ -1335,14 +1405,10 @@ void main() {
   testWidgets('home marks tools this phone can’t run and explains why', (
     tester,
   ) async {
-    await pumpApp(
-      tester,
-      prefs: {'homeLayout': 'list'},
-      missing: {SensorKind.barometer},
-    );
+    await pumpApp(tester, missing: {SensorKind.barometer});
     await tester.ensureVisible(find.text('Altimeter'));
     await tester.pumpAndSettle();
-    expect(find.text('Not available on this phone'), findsOneWidget);
+    expect(find.text('Not on this phone'), findsOneWidget);
 
     await tester.tap(find.text('Altimeter'));
     await tester.pumpAndSettle();
@@ -1366,11 +1432,7 @@ void main() {
   testWidgets('no camera or GPS greys out the tools that need them', (
     tester,
   ) async {
-    await pumpApp(
-      tester,
-      prefs: {'homeLayout': 'list'},
-      missing: {SensorKind.camera, SensorKind.gps},
-    );
+    await pumpApp(tester, missing: {SensorKind.camera, SensorKind.gps});
     for (final tool in ['Camera level', 'Speedometer']) {
       await tester.ensureVisible(find.text(tool));
       await tester.pumpAndSettle();
@@ -1382,17 +1444,17 @@ void main() {
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
     }
-    expect(find.text('Not available on this phone'), findsNWidgets(2));
+    expect(find.text('Not on this phone'), findsNWidgets(2));
   });
 
-  testWidgets('grid view also marks unavailable tools', (tester) async {
-    await pumpApp(
-      tester,
-      prefs: {'homeLayout': 'grid'},
-      missing: {SensorKind.magnetometer},
-    );
-    // Compass and metal detector both need the magnetometer.
-    expect(find.text('Not on this phone'), findsNWidgets(2));
+  testWidgets('top cards and the grid both mark unavailable tools', (
+    tester,
+  ) async {
+    await pumpApp(tester, missing: {SensorKind.magnetometer});
+    // Compass (a top card) and metal detector (in the grid) both need the
+    // magnetometer.
+    expect(find.text('Not available on this phone'), findsOneWidget);
+    expect(find.text('Not on this phone'), findsOneWidget);
   });
 
   testWidgets('a sensor that never reports gets a clear message', (

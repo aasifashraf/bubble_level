@@ -19,13 +19,32 @@ class AppLocalizationsPt extends AppLocalizations {
   String get settings => 'Configurações';
 
   @override
-  String get tools => 'Ferramentas';
+  String get homeTopTools => 'Suas ferramentas favoritas';
 
   @override
-  String get listView => 'Lista';
+  String get homeMoreTools => 'Mais ferramentas';
 
   @override
-  String get gridView => 'Grade';
+  String get homeArrange => 'Organizar';
+
+  @override
+  String get arrangeTitle => 'Organizar ferramentas';
+
+  @override
+  String get arrangeHint =>
+      'Arraste para mudar a ordem. As três primeiras são suas favoritas.';
+
+  @override
+  String get arrangeStar => 'Tornar favorita';
+
+  @override
+  String get arrangeUnstar => 'Tirar das favoritas';
+
+  @override
+  String get arrangeReset => 'Ordem popular';
+
+  @override
+  String get arrangeDone => 'Concluído';
 
   @override
   String get back => 'Voltar';

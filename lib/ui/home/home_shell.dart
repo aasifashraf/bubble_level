@@ -21,11 +21,12 @@ import '../../data/services/microphone_service.dart';
 import '../../data/services/motion_sensor_service.dart';
 import '../../data/services/sensor_availability_service.dart';
 import '../../data/services/sound_service.dart';
+import '../../domain/tool_order.dart';
+import '../core/controls.dart';
 import '../core/dial.dart';
 import '../core/help.dart';
 import '../core/l10n.dart';
 import '../core/sensor_view_model.dart';
-import '../core/soft_switch.dart';
 import '../core/theme.dart';
 import '../core/theme_toggle.dart';
 import '../core/tool_frame.dart';
@@ -61,6 +62,7 @@ import '../features/tape/view_models/tape_view_model.dart';
 import '../features/tape/views/tape_screen.dart';
 import '../features/vibration/view_models/vibration_view_model.dart';
 import '../features/vibration/views/vibration_screen.dart';
+import 'arrange_sheet.dart';
 import 'tool_glyphs.dart';
 import 'tool_tiles.dart';
 
@@ -391,18 +393,13 @@ class _HomeShellState extends State<HomeShell> {
     }
   }
 
-  /// The tools in display order, named in the user's language.
+  /// The tools in their default order, the most popular first, named in
+  /// the user's language.
   static List<_ToolEntry> _tools(AppLocalizations l) => [
     (
       tool: HomeTool.level,
       title: l.toolLevel,
       subtitle: l.toolLevelSubtitle,
-      needs: [SensorKind.accelerometer],
-    ),
-    (
-      tool: HomeTool.angle,
-      title: l.toolAngle,
-      subtitle: l.toolAngleSubtitle,
       needs: [SensorKind.accelerometer],
     ),
     (
@@ -412,16 +409,34 @@ class _HomeShellState extends State<HomeShell> {
       needs: [SensorKind.accelerometer, SensorKind.magnetometer],
     ),
     (
+      tool: HomeTool.ruler,
+      title: l.toolRuler,
+      subtitle: l.toolRulerSubtitle,
+      needs: [],
+    ),
+    (
+      tool: HomeTool.angle,
+      title: l.toolAngle,
+      subtitle: l.toolAngleSubtitle,
+      needs: [SensorKind.accelerometer],
+    ),
+    (
       tool: HomeTool.protractor,
       title: l.toolProtractor,
       subtitle: l.toolProtractorSubtitle,
       needs: [],
     ),
     (
-      tool: HomeTool.ruler,
-      title: l.toolRuler,
-      subtitle: l.toolRulerSubtitle,
-      needs: [],
+      tool: HomeTool.sound,
+      title: l.toolSound,
+      subtitle: l.toolSoundSubtitle,
+      needs: [SensorKind.microphone],
+    ),
+    (
+      tool: HomeTool.speed,
+      title: l.toolSpeed,
+      subtitle: l.toolSpeedSubtitle,
+      needs: [SensorKind.gps],
     ),
     (
       tool: HomeTool.metal,
@@ -430,16 +445,16 @@ class _HomeShellState extends State<HomeShell> {
       needs: [SensorKind.accelerometer, SensorKind.magnetometer],
     ),
     (
-      tool: HomeTool.vibration,
-      title: l.toolVibration,
-      subtitle: l.toolVibrationSubtitle,
-      needs: [SensorKind.accelerometer],
+      tool: HomeTool.camera,
+      title: l.toolCamera,
+      subtitle: l.toolCameraSubtitle,
+      needs: [SensorKind.accelerometer, SensorKind.camera],
     ),
     (
-      tool: HomeTool.sound,
-      title: l.toolSound,
-      subtitle: l.toolSoundSubtitle,
-      needs: [SensorKind.microphone],
+      tool: HomeTool.height,
+      title: l.toolHeight,
+      subtitle: l.toolHeightSubtitle,
+      needs: [SensorKind.accelerometer],
     ),
     // iPhones have a light sensor, but Apple doesn't let apps read it.
     if (defaultTargetPlatform != TargetPlatform.iOS)
@@ -456,28 +471,16 @@ class _HomeShellState extends State<HomeShell> {
       needs: [SensorKind.barometer],
     ),
     (
-      tool: HomeTool.height,
-      title: l.toolHeight,
-      subtitle: l.toolHeightSubtitle,
+      tool: HomeTool.vibration,
+      title: l.toolVibration,
+      subtitle: l.toolVibrationSubtitle,
       needs: [SensorKind.accelerometer],
-    ),
-    (
-      tool: HomeTool.camera,
-      title: l.toolCamera,
-      subtitle: l.toolCameraSubtitle,
-      needs: [SensorKind.accelerometer, SensorKind.camera],
     ),
     (
       tool: HomeTool.gforce,
       title: l.toolGForce,
       subtitle: l.toolGForceSubtitle,
       needs: [SensorKind.accelerometer],
-    ),
-    (
-      tool: HomeTool.speed,
-      title: l.toolSpeed,
-      subtitle: l.toolSpeedSubtitle,
-      needs: [SensorKind.gps],
     ),
     // ARCore only: not built for iPhone (ARKit) yet. Phones without ARCore
     // show it as unavailable, like any missing sensor.
@@ -489,6 +492,25 @@ class _HomeShellState extends State<HomeShell> {
         needs: [SensorKind.camera, SensorKind.ar],
       ),
   ];
+
+  /// The tools in the user's order (the popular one until they arrange
+  /// them).
+  List<_ToolEntry> _ordered(AppLocalizations l) {
+    final all = {for (final t in _tools(l)) t.tool.name: t};
+    return [
+      for (final n in orderTools(all.keys.toList(), widget.settings.toolOrder))
+        all[n]!,
+    ];
+  }
+
+  void _arrange(AppLocalizations l) => showArrangeSheet(
+    context,
+    settings: widget.settings,
+    items: [
+      for (final t in _tools(l))
+        (tool: t.tool, title: t.title, available: _missing(t).isEmpty),
+    ],
+  );
 
   /// Sensors [t] needs that this device lacks.
   List<SensorKind> _missing(_ToolEntry t) => t.needs
@@ -538,54 +560,7 @@ class _HomeShellState extends State<HomeShell> {
                     constraints: const BoxConstraints(maxWidth: 440),
                     child: ListenableBuilder(
                       listenable: settings,
-                      builder: (context, _) {
-                        final grid = settings.homeLayout == HomeLayout.grid;
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              children: [
-                                // Shrinks with an ellipsis rather than
-                                // pushing the switch off in long languages.
-                                Expanded(
-                                  child: Text(
-                                    context.l10n.tools,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color: palette.label,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 12),
-                                SoftSwitch<HomeLayout>(
-                                  value: settings.homeLayout,
-                                  onChanged: settings.setHomeLayout,
-                                  options: [
-                                    SoftSwitchOption(
-                                      value: HomeLayout.list,
-                                      icon: Icons.view_agenda_outlined,
-                                      tooltip: context.l10n.listView,
-                                    ),
-                                    SoftSwitchOption(
-                                      value: HomeLayout.grid,
-                                      icon: Icons.grid_view_rounded,
-                                      tooltip: context.l10n.gridView,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 22),
-                            AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 200),
-                              child: grid ? _grid() : _list(context),
-                            ),
-                          ],
-                        );
-                      },
+                      builder: (context, _) => _home(context),
                     ),
                   ),
                 ),
@@ -597,41 +572,138 @@ class _HomeShellState extends State<HomeShell> {
     );
   }
 
-  Widget _list(BuildContext context) => Column(
-    key: const ValueKey('list'),
-    mainAxisSize: MainAxisSize.min,
-    spacing: 18,
-    children: [
-      for (final t in _tools(context.l10n))
-        ToolTile(
-          tool: t.tool,
-          title: t.title,
-          subtitle: t.subtitle,
-          available: _missing(t).isEmpty,
-          onTap: () => _tap(t),
-        ),
-    ],
-  );
-
-  /// Rows of three round buttons, each cell a third of the width.
-  Widget _grid() => LayoutBuilder(
-    key: const ValueKey('grid'),
-    builder: (context, constraints) => Wrap(
-      runSpacing: 26,
+  /// The first top tool across the page, the next two side by side, then
+  /// the rest in a grid of four.
+  Widget _home(BuildContext context) {
+    final l = context.l10n;
+    final p = Palette.of(context);
+    final tools = _ordered(l);
+    final top = tools.take(topCount).toList();
+    final rest = tools.skip(topCount).toList();
+    Widget card(_ToolEntry t, {bool wide = false}) => ToolCard(
+      tool: t.tool,
+      title: t.title,
+      subtitle: t.subtitle,
+      available: _missing(t).isEmpty,
+      onTap: () => _tap(t),
+      wide: wide,
+    );
+    Widget label(String text) => Text(
+      text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.w600,
+        color: p.label,
+      ),
+    );
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final t in _tools(context.l10n))
-          SizedBox(
-            width: constraints.maxWidth / 3,
-            child: ToolButton(
-              tool: t.tool,
-              title: t.title,
-              available: _missing(t).isEmpty,
-              onTap: () => _tap(t),
+        Row(
+          children: [
+            // Shrinks with an ellipsis rather than pushing the button off
+            // in long languages.
+            Expanded(child: label(l.homeTopTools)),
+            const SizedBox(width: 12),
+            // Never wider than half the row, its label shrinking to fit.
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.sizeOf(context).width / 2,
+              ),
+              child: _ArrangeButton(onTap: () => _arrange(l)),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        if (top.isNotEmpty) card(top.first, wide: true),
+        if (top.length > 1) ...[
+          const SizedBox(height: 16),
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 16,
+              children: [for (final t in top.skip(1)) Expanded(child: card(t))],
             ),
           ),
+        ],
+        if (rest.isNotEmpty) ...[
+          const SizedBox(height: 30),
+          label(l.homeMoreTools),
+          const SizedBox(height: 18),
+          LayoutBuilder(
+            builder: (context, box) => Wrap(
+              runSpacing: 22,
+              children: [
+                for (final t in rest)
+                  SizedBox(
+                    width: box.maxWidth / 4,
+                    child: ToolButton(
+                      tool: t.tool,
+                      title: t.title,
+                      available: _missing(t).isEmpty,
+                      onTap: () => _tap(t),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
       ],
-    ),
-  );
+    );
+  }
+}
+
+/// Opens the Arrange sheet: a small soft pill.
+class _ArrangeButton extends StatelessWidget {
+  const _ArrangeButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    final radius = BorderRadius.circular(18);
+    return DecoratedBox(
+      decoration: softSurface(p, radius: radius),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          borderRadius: radius,
+          onTap: onTap,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 36),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 6,
+                children: [
+                  Icon(Icons.swap_vert_rounded, size: 18, color: p.ink),
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        context.l10n.homeArrange,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 13.5,
+                          fontWeight: FontWeight.w600,
+                          color: p.ink,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// The design's large soft circle, behind the tools.

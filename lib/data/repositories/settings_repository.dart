@@ -10,9 +10,6 @@ import '../../domain/scene_weather.dart';
 /// of run, as US builders say "4/12").
 enum AngleUnit { degrees, percent, pitch }
 
-/// How the home screen shows the tools.
-enum HomeLayout { list, grid }
-
 /// How the Level tool draws its instrument: the round dial or a classic
 /// spirit-level tube.
 enum LevelStyle { dial, tube }
@@ -34,9 +31,6 @@ class SettingsRepository extends ChangeNotifier {
       _themeMode =
           ThemeMode.values.asNameMap()[_prefs.getString(_kThemeMode)] ??
           ThemeMode.light,
-      _homeLayout =
-          HomeLayout.values.asNameMap()[_prefs.getString(_kHomeLayout)] ??
-          HomeLayout.grid,
       _levelStyle =
           LevelStyle.values.asNameMap()[_prefs.getString(_kLevelStyle)] ??
           LevelStyle.dial,
@@ -51,7 +45,7 @@ class SettingsRepository extends ChangeNotifier {
   static const _kSounds = 'sounds';
   static const _kUnit = 'unit';
   static const _kThemeMode = 'themeMode';
-  static const _kHomeLayout = 'homeLayout';
+  static const _kToolOrder = 'toolOrder';
   static const _kLevelStyle = 'levelStyle';
   static const _kLanguage = 'language';
   static const _kRuler = 'rulerPxPerMm:';
@@ -72,7 +66,6 @@ class SettingsRepository extends ChangeNotifier {
   bool _sounds;
   AngleUnit _unit;
   ThemeMode _themeMode;
-  HomeLayout _homeLayout;
   LevelStyle _levelStyle;
   String? _language;
 
@@ -91,7 +84,6 @@ class SettingsRepository extends ChangeNotifier {
   ThemeMode get themeMode => _themeMode;
 
   /// Grid (the default) or list on the home screen.
-  HomeLayout get homeLayout => _homeLayout;
 
   /// Dial (the default) or tube in the Level tool.
   LevelStyle get levelStyle => _levelStyle;
@@ -176,10 +168,18 @@ class SettingsRepository extends ChangeNotifier {
     await _prefs.setString(_kThemeMode, v.name);
   }
 
-  Future<void> setHomeLayout(HomeLayout v) async {
-    _homeLayout = v;
+  /// The home page's tools in the user's order, by name; empty until they
+  /// arrange them (the popular order then).
+  List<String> get toolOrder => _prefs.getStringList(_kToolOrder) ?? const [];
+
+  /// Saves the order, or goes back to the popular one when [names] is null.
+  Future<void> setToolOrder(List<String>? names) async {
+    if (names == null) {
+      await _prefs.remove(_kToolOrder);
+    } else {
+      await _prefs.setStringList(_kToolOrder, names);
+    }
     notifyListeners();
-    await _prefs.setString(_kHomeLayout, v.name);
   }
 
   /// The ruler's calibration for one physical screen (see `screenKey`), in

@@ -9,12 +9,15 @@
     "description": "Short app name in the home screen header."
   },
   "settings": "Settings",
-  "tools": "Tools",
-  "@tools": {
-    "description": "Heading above the list of tools on the home screen."
-  },
-  "listView": "List view",
-  "gridView": "Grid view",
+  "homeTopTools": "Your top tools",
+  "homeMoreTools": "More tools",
+  "homeArrange": "Arrange",
+  "arrangeTitle": "Arrange tools",
+  "arrangeHint": "Drag to change the order. The first three are your top tools.",
+  "arrangeStar": "Make it a top tool",
+  "arrangeUnstar": "Remove from top tools",
+  "arrangeReset": "Popular order",
+  "arrangeDone": "Done",
   "back": "Back",
   "lightMode": "Light mode",
   "darkMode": "Dark mode",

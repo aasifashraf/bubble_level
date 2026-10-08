@@ -19,13 +19,31 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings => '設定';
 
   @override
-  String get tools => 'ツール';
+  String get homeTopTools => 'よく使うツール';
 
   @override
-  String get listView => 'リスト表示';
+  String get homeMoreTools => 'その他のツール';
 
   @override
-  String get gridView => 'グリッド表示';
+  String get homeArrange => '並べ替え';
+
+  @override
+  String get arrangeTitle => 'ツールの並べ替え';
+
+  @override
+  String get arrangeHint => 'ドラッグで順番を変えられます。上の3つがよく使うツールになります。';
+
+  @override
+  String get arrangeStar => 'よく使うツールにする';
+
+  @override
+  String get arrangeUnstar => 'よく使うツールから外す';
+
+  @override
+  String get arrangeReset => '人気順';
+
+  @override
+  String get arrangeDone => '完了';
 
   @override
   String get back => '戻る';

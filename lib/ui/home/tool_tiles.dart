@@ -5,73 +5,97 @@ import '../core/l10n.dart';
 import '../core/theme.dart';
 import 'tool_glyphs.dart';
 
-/// List row: round icon button, name and description, chevron.
-class ToolTile extends StatelessWidget {
-  const ToolTile({
+/// A top tool: a soft raised card with the tool's icon, name and what it
+/// does. [wide] lays it out across the page (the first top tool); otherwise
+/// it stacks for a half-width card.
+class ToolCard extends StatelessWidget {
+  const ToolCard({
     super.key,
     required this.tool,
     required this.title,
     required this.subtitle,
     required this.available,
     required this.onTap,
+    this.wide = false,
   });
 
   final HomeTool tool;
   final String title;
   final String subtitle;
 
-  /// False when the device lacks a sensor the tool needs: the row is
+  /// False when the device lacks a sensor the tool needs: the card is
   /// dimmed and says so, and tapping explains why.
   final bool available;
   final VoidCallback onTap;
+  final bool wide;
 
   @override
   Widget build(BuildContext context) {
     final p = Palette.of(context);
-    final radius = BorderRadius.circular(28);
-    return DecoratedBox(
-      decoration: softSurface(p, radius: radius),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          borderRadius: radius,
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(14),
-            child: Row(
-              spacing: 16,
-              children: [
-                ToolIcon(tool: tool, size: 60, available: available),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: available ? p.ink : p.label,
+    final radius = BorderRadius.circular(26);
+    final name = Text(
+      title,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: wide ? 19 : 16,
+        fontWeight: FontWeight.w700,
+        color: available ? p.inkStrong : p.label,
+      ),
+    );
+    final about = Text(
+      available ? subtitle : context.l10n.notAvailableOnPhone,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontSize: wide ? 13 : 12, height: 1.3, color: p.label),
+    );
+    return Semantics(
+      button: true,
+      label: available
+          ? '$title, $subtitle'
+          : context.l10n.toolNotAvailableSemantics(title),
+      excludeSemantics: true,
+      child: DecoratedBox(
+        decoration: softSurface(p, radius: radius),
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            borderRadius: radius,
+            onTap: onTap,
+            child: Padding(
+              padding: EdgeInsets.all(wide ? 16 : 14),
+              child: wide
+                  ? Row(
+                      spacing: 14,
+                      children: [
+                        ToolIcon(tool: tool, size: 64, available: available),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 2,
+                            children: [name, about],
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        available ? subtitle : context.l10n.notAvailableOnPhone,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 13, color: p.label),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(
-                  available
-                      ? Icons.chevron_right_rounded
-                      : Icons.info_outline_rounded,
-                  color: p.label,
-                ),
-              ],
+                        Icon(
+                          available
+                              ? Icons.chevron_right_rounded
+                              : Icons.info_outline_rounded,
+                          color: p.label,
+                        ),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ToolIcon(tool: tool, size: 50, available: available),
+                        const SizedBox(height: 12),
+                        name,
+                        const SizedBox(height: 2),
+                        about,
+                      ],
+                    ),
             ),
           ),
         ),
@@ -80,7 +104,7 @@ class ToolTile extends StatelessWidget {
   }
 }
 
-/// Grid cell: a large round icon button with the name underneath.
+/// Grid cell: a round icon button with the name underneath.
 class ToolButton extends StatelessWidget {
   const ToolButton({
     super.key,
@@ -108,14 +132,15 @@ class ToolButton extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ToolIcon(tool: tool, size: 88, available: available),
-            const SizedBox(height: 14),
+            ToolIcon(tool: tool, size: 62, available: available),
+            const SizedBox(height: 9),
             Text(
               title,
               textAlign: TextAlign.center,
               maxLines: 2,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 13,
+                height: 1.2,
                 fontWeight: FontWeight.w500,
                 color: available ? p.ink : p.label,
               ),
@@ -124,8 +149,8 @@ class ToolButton extends StatelessWidget {
               Text(
                 context.l10n.notOnPhone,
                 textAlign: TextAlign.center,
-                maxLines: 1,
-                style: TextStyle(fontSize: 12, color: p.label),
+                maxLines: 2,
+                style: TextStyle(fontSize: 11, color: p.label),
               ),
           ],
         ),

@@ -19,13 +19,32 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings => 'Einstellungen';
 
   @override
-  String get tools => 'Werkzeuge';
+  String get homeTopTools => 'Deine Top-Werkzeuge';
 
   @override
-  String get listView => 'Listenansicht';
+  String get homeMoreTools => 'Weitere Werkzeuge';
 
   @override
-  String get gridView => 'Rasteransicht';
+  String get homeArrange => 'Anordnen';
+
+  @override
+  String get arrangeTitle => 'Werkzeuge anordnen';
+
+  @override
+  String get arrangeHint =>
+      'Ziehen, um die Reihenfolge zu ändern. Die ersten drei sind deine Top-Werkzeuge.';
+
+  @override
+  String get arrangeStar => 'Zum Top-Werkzeug machen';
+
+  @override
+  String get arrangeUnstar => 'Aus den Top-Werkzeugen entfernen';
+
+  @override
+  String get arrangeReset => 'Beliebte Reihenfolge';
+
+  @override
+  String get arrangeDone => 'Fertig';
 
   @override
   String get back => 'Zurück';

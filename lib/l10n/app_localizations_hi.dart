@@ -19,13 +19,32 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settings => 'सेटिंग्स';
 
   @override
-  String get tools => 'टूल';
+  String get homeTopTools => 'आपके मुख्य टूल';
 
   @override
-  String get listView => 'सूची दृश्य';
+  String get homeMoreTools => 'और टूल';
 
   @override
-  String get gridView => 'ग्रिड दृश्य';
+  String get homeArrange => 'क्रम बदलें';
+
+  @override
+  String get arrangeTitle => 'टूल का क्रम';
+
+  @override
+  String get arrangeHint =>
+      'क्रम बदलने के लिए खींचें। पहले तीन आपके मुख्य टूल होंगे।';
+
+  @override
+  String get arrangeStar => 'मुख्य टूल बनाएँ';
+
+  @override
+  String get arrangeUnstar => 'मुख्य टूल से हटाएँ';
+
+  @override
+  String get arrangeReset => 'लोकप्रिय क्रम';
+
+  @override
+  String get arrangeDone => 'हो गया';
 
   @override
   String get back => 'वापस';

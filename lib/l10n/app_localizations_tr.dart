@@ -19,13 +19,32 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settings => 'Ayarlar';
 
   @override
-  String get tools => 'Araçlar';
+  String get homeTopTools => 'En çok kullandıkların';
 
   @override
-  String get listView => 'Liste görünümü';
+  String get homeMoreTools => 'Diğer araçlar';
 
   @override
-  String get gridView => 'Izgara görünümü';
+  String get homeArrange => 'Düzenle';
+
+  @override
+  String get arrangeTitle => 'Araçları düzenle';
+
+  @override
+  String get arrangeHint =>
+      'Sırayı değiştirmek için sürükle. İlk üçü en çok kullandıkların olur.';
+
+  @override
+  String get arrangeStar => 'Öne çıkar';
+
+  @override
+  String get arrangeUnstar => 'Öne çıkanlardan kaldır';
+
+  @override
+  String get arrangeReset => 'Popüler sıra';
+
+  @override
+  String get arrangeDone => 'Bitti';
 
   @override
   String get back => 'Geri';
