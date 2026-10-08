@@ -63,6 +63,7 @@ void main() {
     Size size = const Size(411, 860),
     Map<String, Object> prefs = const {},
     Set<SensorKind> missing = const {},
+    ArSupport arSupport = ArSupport.supported,
     SoundService sound = const SilentSoundService(),
   }) async {
     tester.view.physicalSize = size;
@@ -74,7 +75,7 @@ void main() {
     microphone = FakeMicrophoneService();
     camera = FakeCameraService();
     location = FakeLocationService();
-    ar = FakeArService();
+    ar = FakeArService()..supportResult = arSupport;
     await tester.pumpWidget(
       BubbleLevelApp(
         microphone: microphone,
@@ -1425,6 +1426,46 @@ void main() {
     // Tools that don't need it still open.
     await openTool(tester, 'Level');
     expect(find.byTooltip('Back'), findsOneWidget);
+  });
+
+  testWidgets('a phone without ARCore greys the tape measure out', (
+    tester,
+  ) async {
+    await pumpApp(
+      tester,
+      prefs: {'homeLayout': 'list'},
+      arSupport: ArSupport.unsupported,
+    );
+    await tester.ensureVisible(find.text('Tape measure'));
+    await tester.pumpAndSettle();
+    expect(find.text('Not available on this phone'), findsOneWidget);
+    await tester.tap(find.text('Tape measure'));
+    await tester.pumpAndSettle();
+    expect(find.text('Tape measure isn’t available'), findsOneWidget);
+    expect(find.textContaining('ARCore (augmented reality)'), findsOneWidget);
+    expect(ar.started, 0, reason: 'the tool did not open');
+  });
+
+  testWidgets('no camera or GPS greys out the tools that need them', (
+    tester,
+  ) async {
+    await pumpApp(
+      tester,
+      prefs: {'homeLayout': 'list'},
+      missing: {SensorKind.camera, SensorKind.gps},
+    );
+    for (final tool in ['Camera level', 'Speedometer', 'Tape measure']) {
+      await tester.ensureVisible(find.text(tool));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(tool));
+      await tester.pumpAndSettle();
+      expect(find.text('$tool isn’t available'), findsOneWidget, reason: tool);
+      await tester.ensureVisible(find.text('OK'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+    }
+    expect(find.text('Not available on this phone'), findsNWidgets(3));
   });
 
   testWidgets('grid view also marks unavailable tools', (tester) async {

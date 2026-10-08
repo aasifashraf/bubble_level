@@ -406,6 +406,24 @@ abstract class AppLocalizations {
   /// **'microphone'**
   String get sensorMicrophone;
 
+  /// No description provided for @sensorCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'back camera'**
+  String get sensorCamera;
+
+  /// No description provided for @sensorGps.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS'**
+  String get sensorGps;
+
+  /// No description provided for @sensorAr.
+  ///
+  /// In en, this message translates to:
+  /// **'ARCore (augmented reality)'**
+  String get sensorAr;
+
   /// No description provided for @noAccelerometer.
   ///
   /// In en, this message translates to:

@@ -65,6 +65,12 @@ class MainActivity : FlutterActivity() {
                 if (!packageManager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
                     missing.add("microphone")
                 }
+                if (!packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                    missing.add("camera")
+                }
+                if (!packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
+                    missing.add("gps")
+                }
                 result.success(missing)
             }
 

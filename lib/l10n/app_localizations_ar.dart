@@ -169,6 +169,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sensorMicrophone => 'الميكروفون';
 
   @override
+  String get sensorCamera => 'الكاميرا الخلفية';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (الواقع المعزز)';
+
+  @override
   String get noAccelerometer =>
       'لا يحتوي هذا الهاتف على مقياس تسارع، لذا لا تستطيع هذه الأداة القياس هنا. الأدوات التي لا تحتاج إليه تعمل كالمعتاد.';
 

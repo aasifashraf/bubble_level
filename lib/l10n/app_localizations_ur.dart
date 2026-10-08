@@ -169,6 +169,15 @@ class AppLocalizationsUr extends AppLocalizations {
   String get sensorMicrophone => 'مائیکروفون';
 
   @override
+  String get sensorCamera => 'پچھلا کیمرہ';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (آگمینٹڈ رئیلٹی)';
+
+  @override
   String get noAccelerometer =>
       'اس فون میں ایکسلرومیٹر نہیں ہے، اس لیے یہ ٹول یہاں کچھ نہیں ناپ سکتا۔ جن ٹولز کو اس کی ضرورت نہیں، وہ کام کرتے رہیں گے۔';
 

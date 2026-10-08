@@ -169,6 +169,15 @@ class AppLocalizationsId extends AppLocalizations {
   String get sensorMicrophone => 'mikrofon';
 
   @override
+  String get sensorCamera => 'kamera belakang';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (augmented reality)';
+
+  @override
   String get noAccelerometer =>
       'Ponsel ini tidak punya akselerometer, jadi alat ini tidak bisa mengukur di sini. Alat yang tidak memerlukannya tetap berfungsi.';
 

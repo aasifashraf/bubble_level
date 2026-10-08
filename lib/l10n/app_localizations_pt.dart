@@ -170,6 +170,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get sensorMicrophone => 'microfone';
 
   @override
+  String get sensorCamera => 'câmera traseira';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (realidade aumentada)';
+
+  @override
   String get noAccelerometer =>
       'Este celular não tem acelerômetro, então esta ferramenta não consegue medir aqui. As ferramentas que não precisam dele continuam funcionando.';
 

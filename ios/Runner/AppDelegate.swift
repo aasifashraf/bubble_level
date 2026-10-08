@@ -1,3 +1,4 @@
+import AVFoundation
 import CoreMotion
 import Flutter
 import UIKit
@@ -51,6 +52,9 @@ import UIKit
       if !motion.isAccelerometerAvailable { missing.append("accelerometer") }
       if !motion.isMagnetometerAvailable { missing.append("magnetometer") }
       if !CMAltimeter.isRelativeAltitudeAvailable() { missing.append("barometer") }
+      if AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) == nil {
+        missing.append("camera")
+      }
       result(missing)
     }
 

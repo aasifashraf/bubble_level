@@ -169,6 +169,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get sensorMicrophone => 'マイク';
 
   @override
+  String get sensorCamera => '背面カメラ';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore（拡張現実）';
+
+  @override
   String get noAccelerometer =>
       'この端末には加速度センサーがないため、このツールでは測定できません。加速度センサーを使わないツールは使えます。';
 

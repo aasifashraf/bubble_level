@@ -169,6 +169,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get sensorMicrophone => 'माइक्रोफ़ोन';
 
   @override
+  String get sensorCamera => 'पीछे का कैमरा';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (ऑगमेंटेड रियलिटी)';
+
+  @override
   String get noAccelerometer =>
       'इस फ़ोन में एक्सेलेरोमीटर नहीं है, इसलिए यह टूल यहाँ कुछ नहीं माप सकता। जिन टूल को इसकी ज़रूरत नहीं, वे काम करते रहेंगे।';
 

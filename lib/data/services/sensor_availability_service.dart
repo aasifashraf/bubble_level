@@ -1,7 +1,17 @@
 import 'package:flutter/services.dart';
 
-/// Hardware a tool can depend on (the microphone counts too).
-enum SensorKind { accelerometer, magnetometer, barometer, light, microphone }
+/// Hardware a tool can depend on (the microphone, back camera, GPS and
+/// ARCore support count too).
+enum SensorKind {
+  accelerometer,
+  magnetometer,
+  barometer,
+  light,
+  microphone,
+  camera,
+  gps,
+  ar,
+}
 
 /// Asks the platform which sensors this device lacks (see MainActivity.kt /
 /// AppDelegate.swift), so home can say so before a tool is opened.

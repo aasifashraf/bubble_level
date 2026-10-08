@@ -169,6 +169,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get sensorMicrophone => 'микрофон';
 
   @override
+  String get sensorCamera => 'задняя камера';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (дополненная реальность)';
+
+  @override
   String get noAccelerometer =>
       'В этом телефоне нет акселерометра, поэтому этот инструмент ничего не может измерить. Инструменты, которым он не нужен, работают.';
 

@@ -169,6 +169,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get sensorMicrophone => 'mikrofon';
 
   @override
+  String get sensorCamera => 'arka kamera';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (artırılmış gerçeklik)';
+
+  @override
   String get noAccelerometer =>
       'Bu telefonda ivmeölçer yok, bu yüzden bu araç burada ölçüm yapamaz. Ona ihtiyaç duymayan araçlar çalışmaya devam eder.';
 

@@ -126,6 +126,25 @@ class HomeShell extends StatefulWidget {
 }
 
 class _HomeShellState extends State<HomeShell> {
+  /// ARCore support, asked once without holding up the launch. Until it
+  /// answers the tape measure counts as available; it checks again when
+  /// opened.
+  bool _noAr = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      unawaited(
+        widget.ar.support().then((s) {
+          if (s == ArSupport.unsupported && mounted) {
+            setState(() => _noAr = true);
+          }
+        }),
+      );
+    }
+  }
+
   late final _level = LevelViewModel(
     orientation: widget.orientation,
     settings: widget.settings,
@@ -441,7 +460,7 @@ class _HomeShellState extends State<HomeShell> {
       tool: HomeTool.camera,
       title: l.toolCamera,
       subtitle: l.toolCameraSubtitle,
-      needs: [SensorKind.accelerometer],
+      needs: [SensorKind.accelerometer, SensorKind.camera],
     ),
     (
       tool: HomeTool.gforce,
@@ -453,22 +472,26 @@ class _HomeShellState extends State<HomeShell> {
       tool: HomeTool.speed,
       title: l.toolSpeed,
       subtitle: l.toolSpeedSubtitle,
-      needs: [],
+      needs: [SensorKind.gps],
     ),
     // ARCore only: not built for iPhone (ARKit) yet. Phones without ARCore
-    // are told so when the tool opens.
+    // show it as unavailable, like any missing sensor.
     if (defaultTargetPlatform == TargetPlatform.android)
       (
         tool: HomeTool.tape,
         title: l.toolTape,
         subtitle: l.toolTapeSubtitle,
-        needs: [],
+        needs: [SensorKind.camera, SensorKind.ar],
       ),
   ];
 
   /// Sensors [t] needs that this device lacks.
-  List<SensorKind> _missing(_ToolEntry t) =>
-      t.needs.where(widget.missingSensors.contains).toList();
+  List<SensorKind> _missing(_ToolEntry t) => t.needs
+      .where(
+        (k) =>
+            widget.missingSensors.contains(k) || (k == SensorKind.ar && _noAr),
+      )
+      .toList();
 
   /// Opens the tool, or explains why it can't work on this device.
   void _tap(_ToolEntry t) {

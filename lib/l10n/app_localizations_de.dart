@@ -170,6 +170,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get sensorMicrophone => 'Mikrofon';
 
   @override
+  String get sensorCamera => 'Rückkamera';
+
+  @override
+  String get sensorGps => 'GPS';
+
+  @override
+  String get sensorAr => 'ARCore (Augmented Reality)';
+
+  @override
   String get noAccelerometer =>
       'Dieses Handy hat keinen Beschleunigungssensor, daher kann dieses Werkzeug hier nichts messen. Werkzeuge, die ihn nicht brauchen, funktionieren weiter.';
 
