@@ -7,9 +7,8 @@
          them explain when a phone lacks one. -->
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <uses-feature android:name="android.hardware.sensor.light" android:required="false" />
-    <!-- Camera level and tape measure only: the picture is shown, never
-         recorded, saved or sent. Optional, so phones without a camera can
-         still install. -->
+    <!-- Camera level only: the picture is shown, never recorded, saved or
+         sent. Optional, so phones without a camera can still install. -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.any" android:required="false"
         tools:replace="android:required" />
@@ -53,9 +52,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- The tape measure uses ARCore where the phone supports it; the
-             app installs and works without it. -->
-        <meta-data android:name="com.google.ar.core" android:value="optional" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

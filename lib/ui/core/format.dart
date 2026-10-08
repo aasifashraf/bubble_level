@@ -104,21 +104,3 @@ String formatMeters(double v, {bool signed = false}) =>
 /// [metres] in metres, or in feet when [feet]: 12.4 m, 40.7 ft.
 String formatDistance(double metres, {bool feet = false}) =>
     feet ? '${_fixed(metres * feetPerMetre)} ft' : formatMeters(metres);
-
-/// A tape measure length, to the centimetre (AR is no finer): 87 cm below
-/// a metre, else 1.20 m; in inches, 11.5 in below a foot, else 3 ft 11 in.
-String formatTapeLength(double metres, {bool inches = false}) {
-  if (inches) {
-    final i = metres / 0.0254;
-    if (i < 11.95) return '${_fixed(i)} in';
-    final r = i.round();
-    return '${r ~/ 12} ft ${r % 12} in';
-  }
-  if (metres < 0.995) return '${(metres * 100).round()} cm';
-  return '${_fixed(metres, 2)} m';
-}
-
-/// An area in square metres, or square feet when [feet]: 0.84 m², 9.0 ft².
-String formatTapeArea(double m2, {bool feet = false}) => feet
-    ? '${_fixed(m2 * feetPerMetre * feetPerMetre)} ft²'
-    : '${_fixed(m2, 2)} m²';

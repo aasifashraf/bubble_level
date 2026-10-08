@@ -68,17 +68,13 @@ lib/
                    help sheets, formatting
     features/      level, angle, compass, protractor, ruler, metal,
                    vibration, sound, light, altimeter, height, camera,
-                   g_force, speed, tape, settings (view models + views)
-    home/          home screen (list / grid)
+                   g_force, speed, settings (view models + views)
+    home/          home screen: top tools, the grid, the Arrange sheet
 test/              domain, view-model and app-flow tests
 ```
 
 The UI follows MVVM: views listen to `ChangeNotifier` view models, which read
 the repositories.
-
-Developer note: `features/tape` holds an AR tape measure (ARCore, Android). It
-is hidden from users (`_tapeReady = false` in `lib/ui/home/home_shell.dart`)
-until its placed points stop drifting on real phones.
 
 ## Run
 

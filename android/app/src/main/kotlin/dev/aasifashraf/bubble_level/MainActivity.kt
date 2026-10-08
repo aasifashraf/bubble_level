@@ -17,13 +17,8 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
-    private var ar: ArMeasure? = null
-
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        // The tape measure's AR (ARCore), while the tool is open.
-        ar = ArMeasure(this, flutterEngine.dartExecutor.binaryMessenger, flutterEngine.renderer)
-
         // Reports how far the UI is rotated from the device's natural
         // orientation, so sensor axes can be mapped onto the screen.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "bubble_level/display")
@@ -148,20 +143,5 @@ class MainActivity : FlutterActivity() {
                     listener = null
                 }
             })
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        ar?.onPermissionResult(requestCode, grantResults)
-    }
-
-    override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
-        ar?.stop()
-        ar = null
-        super.cleanUpFlutterEngine(flutterEngine)
     }
 }

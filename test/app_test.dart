@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
-import 'package:bubble_level/data/services/ar_service.dart';
 import 'package:bubble_level/data/services/location_service.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
@@ -55,7 +54,6 @@ void main() {
   late FakeMicrophoneService microphone;
   late FakeCameraService camera;
   late FakeLocationService location;
-  late FakeArService ar;
 
   /// Phone-sized window unless [size] says otherwise.
   Future<void> pumpApp(
@@ -63,7 +61,6 @@ void main() {
     Size size = const Size(411, 860),
     Map<String, Object> prefs = const {},
     Set<SensorKind> missing = const {},
-    ArSupport arSupport = ArSupport.supported,
     SoundService sound = const SilentSoundService(),
   }) async {
     tester.view.physicalSize = size;
@@ -75,13 +72,11 @@ void main() {
     microphone = FakeMicrophoneService();
     camera = FakeCameraService();
     location = FakeLocationService();
-    ar = FakeArService()..supportResult = arSupport;
     await tester.pumpWidget(
       BubbleLevelApp(
         microphone: microphone,
         camera: camera,
         location: location,
-        ar: ar,
         settings: settings,
         orientation: OrientationRepository(
           sensors: sensors,
@@ -109,14 +104,6 @@ void main() {
     await tester.pump();
     await tester.pump();
   }
-
-  testWidgets('the tape measure stays hidden until its points hold', (
-    tester,
-  ) async {
-    await pumpApp(tester);
-    expect(find.text('Tape measure'), findsNothing);
-    expect(ar.started, 0);
-  });
 
   testWidgets('home lists the three tools', (tester) async {
     await pumpApp(tester);

@@ -79,9 +79,3 @@ kotlin {
 flutter {
     source = "../.."
 }
-
-dependencies {
-    // The tape measure's AR. Optional: phones without ARCore still install
-    // the app (see the manifest).
-    implementation("com.google.ar:core:1.56.0")
-}

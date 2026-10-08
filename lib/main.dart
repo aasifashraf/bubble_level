@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'data/repositories/orientation_repository.dart';
 import 'data/repositories/review_repository.dart';
 import 'data/repositories/settings_repository.dart';
-import 'data/services/ar_service.dart';
 import 'data/services/camera_service.dart';
 import 'data/services/display_rotation_service.dart';
 import 'data/services/location_service.dart';
@@ -56,7 +55,6 @@ class BubbleLevelApp extends StatefulWidget {
     this.microphone = const MicrophoneService(),
     this.camera = const CameraService(),
     this.location = const LocationService(),
-    this.ar = const ArService(),
   });
 
   final SettingsRepository settings;
@@ -82,9 +80,6 @@ class BubbleLevelApp extends StatefulWidget {
 
   /// The speedometer's GPS (fake in tests).
   final LocationService location;
-
-  /// The tape measure's AR (fake in tests).
-  final ArService ar;
 
   /// Sensors for the vibration meter and altimeter (fakes in tests).
   final MotionSensorService sensors;
@@ -139,7 +134,6 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         microphone: widget.microphone,
         camera: widget.camera,
         location: widget.location,
-        ar: widget.ar,
       ),
     );
   }

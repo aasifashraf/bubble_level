@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'dart:typed_data';
 
-import 'package:bubble_level/data/services/ar_service.dart';
 import 'package:bubble_level/data/services/camera_service.dart';
 import 'package:bubble_level/data/services/display_rotation_service.dart';
 import 'package:bubble_level/data/services/location_service.dart';
@@ -257,108 +255,4 @@ class FakeLocationService implements LocationService {
 
   @override
   Stream<LocationFix> fixes() => fixesController.stream;
-}
-
-/// ARCore driven by hand: frames are sent by the test; points are added
-/// where the last frame's aim was.
-class FakeArService implements ArService {
-  ArSupport supportResult = ArSupport.supported;
-  bool cameraAllowed = true;
-
-  /// The answer to the camera prompt.
-  bool requestResult = true;
-  String installResult = 'installed';
-
-  /// Thrown by [start] instead of starting.
-  ArStartFailed? startError;
-
-  int requested = 0, started = 0, stopped = 0, appSettingsOpened = 0;
-  final points = <Vec3>[];
-  ArFrame last = ArFrame.none;
-  final framesController = StreamController<ArFrame>.broadcast();
-
-  bool get listening => framesController.hasListener;
-
-  /// A tracking frame aiming at [aim] (null: no surface under the aim),
-  /// seen through a simple camera at the origin looking down -z.
-  void send({Vec3? aim, bool tracking = true, ArTrouble? trouble}) {
-    last = ArFrame(
-      tracking: tracking,
-      trouble: trouble,
-      aim: aim,
-      points: List.of(points),
-      viewProj: lookDownZ,
-      surface: true,
-    );
-    framesController.add(last);
-  }
-
-  /// Perspective (90° field of view, square) looking down -z from the
-  /// origin, column-major: x and y on screen are x/-z and y/-z.
-  static final lookDownZ = Float32List.fromList([
-    1, 0, 0, 0, //
-    0, 1, 0, 0, //
-    0, 0, -1, -1, //
-    0, 0, -0.1, 0,
-  ]);
-
-  @override
-  Future<ArSupport> support() async => supportResult;
-
-  @override
-  Future<String> install() async {
-    if (installResult == 'installed') supportResult = ArSupport.supported;
-    return installResult;
-  }
-
-  @override
-  Future<bool> hasCamera() async => cameraAllowed;
-
-  @override
-  Future<bool> requestCamera() async {
-    requested++;
-    cameraAllowed = requestResult;
-    return requestResult;
-  }
-
-  @override
-  Future<int> start({
-    required int width,
-    required int height,
-    required double aimX,
-    required double aimY,
-  }) async {
-    final e = startError;
-    if (e != null) throw e;
-    started++;
-    return 7;
-  }
-
-  @override
-  Stream<ArFrame> frames() => framesController.stream;
-
-  @override
-  Future<bool> add() async {
-    final aim = last.aim;
-    if (aim == null) return false;
-    points.add(aim);
-    return true;
-  }
-
-  @override
-  Future<void> undo() async {
-    if (points.isNotEmpty) points.removeLast();
-  }
-
-  @override
-  Future<void> clear() async => points.clear();
-
-  @override
-  Future<void> stop() async {
-    stopped++;
-    points.clear();
-  }
-
-  @override
-  Future<void> openAppSettings() async => appSettingsOpened++;
 }

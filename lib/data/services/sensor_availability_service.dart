@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 
-/// Hardware a tool can depend on (the microphone, back camera, GPS and
-/// ARCore support count too).
+/// Hardware a tool can depend on (the microphone, back camera and GPS
+/// count too).
 enum SensorKind {
   accelerometer,
   magnetometer,
@@ -10,7 +10,6 @@ enum SensorKind {
   microphone,
   camera,
   gps,
-  ar,
 }
 
 /// Asks the platform which sensors this device lacks (see MainActivity.kt /

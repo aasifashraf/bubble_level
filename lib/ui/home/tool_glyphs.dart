@@ -18,7 +18,6 @@ enum HomeTool {
   camera,
   gforce,
   speed,
-  tape,
 }
 
 /// Line icons drawn in the design's stroke style.
@@ -304,32 +303,6 @@ class ToolGlyphPainter extends CustomPainter {
               ..color = accent,
           )
           ..drawCircle(const Offset(12, 5.5), 1.6, Paint()..color = accent);
-      case HomeTool.tape:
-        // A shape measured on the floor: its outline with orange balls at
-        // the corners and a dimension line along one side.
-        final ball = Paint()..color = accent;
-        canvas
-          ..drawPath(
-            Path()
-              ..moveTo(3.5, 17)
-              ..lineTo(14.5, 21)
-              ..lineTo(20.5, 10.5)
-              ..lineTo(9.5, 7.5)
-              ..close(),
-            line,
-          )
-          ..drawLine(
-            const Offset(8.5, 3.5),
-            const Offset(20.5, 6.8),
-            Paint()
-              ..strokeWidth = 1.4
-              ..strokeCap = StrokeCap.round
-              ..color = ink,
-          )
-          ..drawCircle(const Offset(3.5, 17), 2, ball)
-          ..drawCircle(const Offset(14.5, 21), 2, ball)
-          ..drawCircle(const Offset(20.5, 10.5), 2, ball)
-          ..drawCircle(const Offset(9.5, 7.5), 2, ball);
       case HomeTool.camera:
         // A camera with a level line through its lens.
         canvas

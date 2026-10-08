@@ -13,7 +13,6 @@ import '../../data/repositories/settings_repository.dart';
 import '../../data/repositories/sound_repository.dart';
 import '../../data/repositories/speed_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
-import '../../data/services/ar_service.dart';
 import '../../data/services/camera_service.dart';
 import '../../data/services/display_rotation_service.dart';
 import '../../data/services/location_service.dart';
@@ -58,8 +57,6 @@ import '../features/sound/view_models/sound_view_model.dart';
 import '../features/sound/views/sound_screen.dart';
 import '../features/speed/view_models/speed_view_model.dart';
 import '../features/speed/views/speed_screen.dart';
-import '../features/tape/view_models/tape_view_model.dart';
-import '../features/tape/views/tape_screen.dart';
 import '../features/vibration/view_models/vibration_view_model.dart';
 import '../features/vibration/views/vibration_screen.dart';
 import 'arrange_sheet.dart';
@@ -89,7 +86,6 @@ class HomeShell extends StatefulWidget {
     this.microphone = const MicrophoneService(),
     this.camera = const CameraService(),
     this.location = const LocationService(),
-    this.ar = const ArService(),
   });
 
   final OrientationRepository orientation;
@@ -117,9 +113,6 @@ class HomeShell extends StatefulWidget {
   /// The speedometer's GPS.
   final LocationService location;
 
-  /// The tape measure's AR.
-  final ArService ar;
-
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
 
@@ -128,30 +121,6 @@ class HomeShell extends StatefulWidget {
 }
 
 class _HomeShellState extends State<HomeShell> {
-  /// The tape measure is hidden until its points stay put: on phones they
-  /// drift away from where they were placed, so its readings can't be
-  /// trusted yet. Its code stays so it can come back.
-  static const _tapeReady = false;
-
-  /// ARCore support, asked once without holding up the launch. Until it
-  /// answers the tape measure counts as available; it checks again when
-  /// opened.
-  bool _noAr = false;
-
-  @override
-  void initState() {
-    super.initState();
-    if (_tapeReady && defaultTargetPlatform == TargetPlatform.android) {
-      unawaited(
-        widget.ar.support().then((s) {
-          if (s == ArSupport.unsupported && mounted) {
-            setState(() => _noAr = true);
-          }
-        }),
-      );
-    }
-  }
-
   late final _level = LevelViewModel(
     orientation: widget.orientation,
     settings: widget.settings,
@@ -169,11 +138,6 @@ class _HomeShellState extends State<HomeShell> {
     settings: widget.settings,
     camera: widget.camera,
     onLevelReached: HapticFeedback.selectionClick,
-  );
-  late final _tape = TapeViewModel(
-    settings: widget.settings,
-    ar: widget.ar,
-    onPlaced: HapticFeedback.selectionClick,
   );
   late final _height = HeightViewModel(
     orientation: widget.orientation,
@@ -218,15 +182,7 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   void dispose() {
-    for (final vm in [
-      _level,
-      _angle,
-      _compass,
-      _height,
-      _camera,
-      _tape,
-      _metal,
-    ]) {
+    for (final vm in [_level, _angle, _compass, _height, _camera, _metal]) {
       vm.dispose();
     }
     _protractor.dispose();
@@ -265,7 +221,6 @@ class _HomeShellState extends State<HomeShell> {
     HomeTool.height,
     HomeTool.camera,
     HomeTool.speed,
-    HomeTool.tape,
   };
 
   /// Opens a tool full screen; its view model (if it uses sensors) follows
@@ -364,12 +319,6 @@ class _HomeShellState extends State<HomeShell> {
         _open(
           _camera,
           (_) => CameraLevelScreen(viewModel: _camera, onBack: back),
-          tool: tool,
-        );
-      case HomeTool.tape:
-        _open(
-          _tape,
-          (_) => TapeScreen(viewModel: _tape, onBack: back),
           tool: tool,
         );
       case HomeTool.speed:
@@ -482,15 +431,6 @@ class _HomeShellState extends State<HomeShell> {
       subtitle: l.toolGForceSubtitle,
       needs: [SensorKind.accelerometer],
     ),
-    // ARCore only: not built for iPhone (ARKit) yet. Phones without ARCore
-    // show it as unavailable, like any missing sensor.
-    if (_tapeReady && defaultTargetPlatform == TargetPlatform.android)
-      (
-        tool: HomeTool.tape,
-        title: l.toolTape,
-        subtitle: l.toolTapeSubtitle,
-        needs: [SensorKind.camera, SensorKind.ar],
-      ),
   ];
 
   /// The tools in the user's order (the popular one until they arrange
@@ -513,12 +453,8 @@ class _HomeShellState extends State<HomeShell> {
   );
 
   /// Sensors [t] needs that this device lacks.
-  List<SensorKind> _missing(_ToolEntry t) => t.needs
-      .where(
-        (k) =>
-            widget.missingSensors.contains(k) || (k == SensorKind.ar && _noAr),
-      )
-      .toList();
+  List<SensorKind> _missing(_ToolEntry t) =>
+      t.needs.where(widget.missingSensors.contains).toList();
 
   /// Opens the tool, or explains why it can't work on this device.
   void _tap(_ToolEntry t) {
