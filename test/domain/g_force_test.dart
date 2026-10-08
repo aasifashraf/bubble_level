@@ -176,11 +176,15 @@ void main() {
       final d = Drive(portrait)..park();
       d
         ..hold(2, forward: 0.3)
-        ..hold(2)
+        ..hold(0.5)
         ..hold(2, forward: -0.5)
-        ..hold(2)
+        ..hold(0.5);
+      // Speeding up pushes you back; that dot is fading by now.
+      expect(d.reading.peaks[8], closeTo(0.3, 1e-3));
+      expect(d.reading.peakFades[8], inExclusiveRange(0, 1));
+      d
         ..hold(2, right: -0.4)
-        ..hold(2);
+        ..hold(1);
       final r = d.reading;
       expect(r.peakSpeedUp, closeTo(0.3, 1e-3));
       expect(r.peakBrake, closeTo(0.5, 1e-3));
@@ -190,11 +194,37 @@ void main() {
       expect(r.peaks[0], closeTo(0.5, 1e-3));
       // A left bend pushes you right: a quarter turn clockwise.
       expect(r.peaks[4], closeTo(0.4, 1e-3));
-      // Speeding up pushes you back.
-      expect(r.peaks[8], closeTo(0.3, 1e-3));
+      expect(r.peakFades[4], 1, reason: 'still fresh');
+      // The speed up dot has faded away; the panel keeps the peak.
+      expect(r.peaks[8], 0);
       expect(r.peaks[12], 0);
       // Now standing still, the live reading is back near zero.
       expect(r.total, lessThan(0.01));
+    });
+
+    test('a peak dot fades away after the push, the panel keeps it', () {
+      final d = Drive(portrait)..park();
+      d
+        ..hold(2, forward: -0.5)
+        ..hold(1);
+      expect(d.reading.peakFades[0], 1);
+      d.hold(GMeter.holdFor + GMeter.fadeFor / 2);
+      expect(d.reading.peakFades[0], inExclusiveRange(0, 1));
+      d.hold(GMeter.fadeFor);
+      expect(d.reading.peaks[0], 0);
+      expect(d.reading.peakFades[0], 0);
+      // The strongest braking stays on the panel until Reset.
+      expect(d.reading.peakBrake, closeTo(0.5, 1e-3));
+    });
+
+    test('a weaker push renews a faded peak', () {
+      final d = Drive(portrait)..park();
+      d
+        ..hold(2, forward: -0.5)
+        ..hold(GMeter.holdFor + GMeter.fadeFor * 0.8)
+        ..hold(2, forward: -0.3);
+      expect(d.reading.peaks[0], closeTo(0.3, 1e-3));
+      expect(d.reading.peakFades[0], 1);
     });
 
     test('a right bend pushes you left: sector 12', () {

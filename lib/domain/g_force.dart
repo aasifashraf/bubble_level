@@ -19,6 +19,7 @@ class GReading {
     this.peakBrake = 0,
     this.peakCorner = 0,
     this.peaks = const [],
+    this.peakFades = const [],
     this.zeroed = false,
     this.state = SensorState.waiting,
   });
@@ -33,9 +34,14 @@ class GReading {
   /// The strongest speeding up, braking and cornering since Zero.
   final double peakSpeedUp, peakBrake, peakCorner;
 
-  /// The strongest push in each of [GMeter.sectors] directions around the
-  /// car, clockwise from straight ahead (the push you feel when braking).
+  /// The strongest recent push in each of [GMeter.sectors] directions
+  /// around the car, clockwise from straight ahead (the push you feel when
+  /// braking).
   final List<double> peaks;
+
+  /// How much of each recent peak is still shown: 1 for a fresh one, fading
+  /// to 0 a few seconds after the push eases off.
+  final List<double> peakFades;
 
   /// Whether Zero has set which way is down and forward.
   final bool zeroed;
@@ -63,6 +69,10 @@ class GMeter {
   /// Directions around the car that hold a peak each.
   static const sectors = 16;
 
+  /// A direction's peak stays this long after the push eases off, then
+  /// fades out over [fadeFor], seconds.
+  static const holdFor = 1.5, fadeFor = 2.5;
+
   /// Samples kept for Zero to average over, seconds.
   static const zeroWindow = 0.5;
 
@@ -72,6 +82,8 @@ class GMeter {
   double _lon = 0, _lat = 0;
   double _peakUp = 0, _peakBrake = 0, _peakCorner = 0;
   final _peaks = List<double>.filled(sectors, 0);
+  final _peakAt = List<double>.filled(sectors, 0);
+  double _now = 0;
 
   bool get zeroed => _rest != null;
   double get lon => _lon;
@@ -80,7 +92,15 @@ class GMeter {
   /// Whether there's enough to take a Zero from.
   bool get canZero => _recent.length >= 5;
 
+  /// How much of sector [i]'s peak is still shown, 0 to 1.
+  double _fade(int i) {
+    if (_peaks[i] <= 0) return 0;
+    final age = _now - _peakAt[i] - holdFor;
+    return age <= 0 ? 1 : (1 - age / fadeFor).clamp(0.0, 1.0);
+  }
+
   void add(Vec3 raw, double seconds) {
+    _now = seconds;
     _recent.addLast((seconds, raw));
     while (_recent.isNotEmpty && seconds - _recent.first.$1 > zeroWindow) {
       _recent.removeFirst();
@@ -108,7 +128,14 @@ class GMeter {
       // Clockwise from ahead (braking pushes you forward).
       final angle = math.atan2(_lat, -_lon);
       final i = (angle / (2 * math.pi) * sectors).round() % sectors;
-      _peaks[i] = math.max(_peaks[i], total);
+      // A push at least as strong as what's left of the peak renews it.
+      if (total >= _peaks[i] * _fade(i)) {
+        _peaks[i] = total;
+        _peakAt[i] = seconds;
+      }
+    }
+    for (var i = 0; i < sectors; i++) {
+      if (_peaks[i] > 0 && _fade(i) == 0) _peaks[i] = 0;
     }
   }
 
@@ -148,6 +175,7 @@ class GMeter {
     peakBrake: _peakBrake,
     peakCorner: _peakCorner,
     peaks: List.unmodifiable(_peaks),
+    peakFades: List.unmodifiable([for (var i = 0; i < sectors; i++) _fade(i)]),
     zeroed: zeroed,
     state: state,
   );

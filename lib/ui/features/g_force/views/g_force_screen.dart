@@ -188,6 +188,7 @@ class GForceDial extends StatelessWidget {
                       palette: p,
                       push: push,
                       peaks: reading.peaks,
+                      fades: reading.peakFades,
                       colorOf: (g) => zoneColor(zones, g, blend: 0.08, end: 1),
                       label: label,
                       centre: centre,
@@ -210,6 +211,7 @@ class _GlowPainter extends CustomPainter {
     required this.palette,
     required this.push,
     required this.peaks,
+    required this.fades,
     required this.colorOf,
     required this.label,
     required this.centre,
@@ -222,6 +224,9 @@ class _GlowPainter extends CustomPainter {
   /// The push on the screen's axes, g (x right, y down = speeding up).
   final Offset push;
   final List<double> peaks;
+
+  /// How much of each peak dot is left (they fade after the push).
+  final List<double> fades;
   final Color Function(double) colorOf;
   final String? label;
   final Offset centre;
@@ -260,12 +265,13 @@ class _GlowPainter extends CustomPainter {
 
     // The peak in each direction (sector 0 is straight ahead, the top).
     for (final (i, v) in peaks.indexed) {
-      if (v <= 0.05) continue;
+      final fade = i < fades.length ? fades[i] : 1.0;
+      if (v <= 0.05 || fade <= 0) continue;
       final at = -math.pi / 2 + i / peaks.length * 2 * math.pi;
       canvas.drawCircle(
         c + Offset.fromDirection(at, r - 20 * s),
         3.2 * s,
-        Paint()..color = colorOf(v),
+        Paint()..color = colorOf(v).withValues(alpha: fade),
       );
     }
 
@@ -360,6 +366,7 @@ class _GlowPainter extends CustomPainter {
       old.palette != palette ||
       old.push != push ||
       old.peaks != peaks ||
+      old.fades != fades ||
       old.label != label ||
       old.centre != centre ||
       old.radius != radius;
