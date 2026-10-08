@@ -1,1 +1,1 @@
-Primeira versão: nível de bolha com mostrador e tubo, medidor de ângulo, bússola, transferidor, régua, detector de metais, medidor de vibração, decibelímetro, luxímetro, altímetro, medidor de altura, nível com câmera, medidor de força G, velocímetro e trena.
+Primeira versão: nível de bolha com mostrador e tubo, medidor de ângulo, bússola, transferidor, régua, detector de metais, medidor de vibração, decibelímetro, luxímetro, altímetro, medidor de altura, nível com câmera, medidor de força G e velocímetro.

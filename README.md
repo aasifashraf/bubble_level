@@ -1,8 +1,7 @@
 # Bubble Level & Angle Finder
 
-A Flutter app for Android and iOS that turns the phone's sensors into fifteen
-tools (thirteen on iPhone, which has no Light meter and no Tape measure yet),
-all drawn in one soft, full-screen dial design:
+A Flutter app for Android and iOS that turns the phone's sensors into fourteen
+tools (thirteen on iPhone, which has no Light meter), all drawn in one soft, full-screen dial design:
 
 - **Level:** a bubble level when the phone lies flat, and a spirit level with
   a tilting water line when it stands on an edge. It shows the X
@@ -33,12 +32,6 @@ all drawn in one soft, full-screen dial design:
   mount, with peaks.
 - **Speedometer:** GPS speed on a dashboard view, trip distance, top and
   average speed, altitude and coordinates (location only while open).
-- **Tape measure** (Android only, Google ARCore): aim the back camera at a
-  table, floor or wall, tap "Add point" at each corner and read each length
-  and the total; "Close shape" gives the area and perimeter, in cm or inches.
-  Approximate (often within 1 to 3 cm over a metre). Phones without ARCore
-  support are told so, and a missing "Google Play Services for AR" can be
-  installed from the Play Store. The camera is never recorded.
 
 Every tool has a short "How to use" guide. The app supports light and dark
 themes, degrees or percent slope, a list or grid home screen, and sounds that
@@ -81,6 +74,10 @@ test/              domain, view-model and app-flow tests
 
 The UI follows MVVM: views listen to `ChangeNotifier` view models, which read
 the repositories.
+
+Developer note: `features/tape` holds an AR tape measure (ARCore, Android). It
+is hidden from users (`_tapeReady = false` in `lib/ui/home/home_shell.dart`)
+until its placed points stop drifting on real phones.
 
 ## Run
 

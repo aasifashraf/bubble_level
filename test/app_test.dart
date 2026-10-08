@@ -47,7 +47,6 @@ const _allTools = [
   'Camera level',
   'G-force',
   'Speedometer',
-  'Tape measure',
 ];
 
 void main() {
@@ -109,6 +108,14 @@ void main() {
     await tester.pump();
     await tester.pump();
   }
+
+  testWidgets('the tape measure stays hidden until its points hold', (
+    tester,
+  ) async {
+    await pumpApp(tester, prefs: {'homeLayout': 'list'});
+    expect(find.text('Tape measure'), findsNothing);
+    expect(ar.started, 0);
+  });
 
   testWidgets('home lists the three tools', (tester) async {
     await pumpApp(tester);
@@ -1025,78 +1032,6 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('tape measure: points chain into a shape with its area', (
-    tester,
-  ) async {
-    await pumpApp(tester);
-    await openTool(tester, 'Tape measure');
-    expect(ar.started, 1);
-    expect(ar.listening, isTrue);
-
-    // Corners two metres ahead (see FakeArService.send): each tap adds the
-    // point under the aim.
-    Future<void> aimAt(Vec3 v) async {
-      ar.send(aim: v);
-      await tester.pump();
-      await tester.pump();
-    }
-
-    Future<void> tapButton(String label) async {
-      await tester.tap(find.widgetWithText(SoftButton, label));
-      await tester.pump();
-      await tester.pump();
-    }
-
-    await aimAt(const Vec3(0, 0, -2));
-    expect(find.text('Aim at the first corner and tap Add point'), findsOne);
-    await tapButton('Add point');
-    await aimAt(const Vec3(1, 0, -2));
-    expect(find.text('1.00 m'), findsOne, reason: 'the live piece, totalled');
-    await tapButton('Add point');
-    await aimAt(const Vec3(1, 1, -2));
-    await tapButton('Add point');
-
-    // Back near the first corner it snaps and closes.
-    await aimAt(const Vec3(0.03, 0.03, -2));
-    expect(
-      find.text('On the first point: tap Close shape for the area'),
-      findsOne,
-    );
-    await tapButton('Close shape');
-    await aimAt(const Vec3(0.5, 0.5, -2));
-    expect(find.text('Perimeter'), findsOne);
-    expect(find.text('≈ 0.50 m²'), findsOne);
-    expect(find.text('3.41 m'), findsOne);
-    expect(ar.points, hasLength(3));
-
-    // Inches, shared with the ruler.
-    await tester.tap(find.byTooltip('Units: centimetres or inches'));
-    await tester.pump();
-    await tester.pump();
-    expect(find.text('≈ 5.4 ft²'), findsOne);
-
-    // Undo opens the shape again.
-    await tester.tap(find.byTooltip('Undo'));
-    await tester.pump();
-    await tester.pump();
-    expect(find.text('Perimeter'), findsNothing);
-    expect(tester.takeException(), isNull);
-
-    await tester.tap(find.byTooltip('Back'));
-    await tester.pumpAndSettle();
-    expect(ar.stopped, 1, reason: 'AR stops with the tool');
-  });
-
-  testWidgets('tape measure: a phone without ARCore is told so', (
-    tester,
-  ) async {
-    await pumpApp(tester);
-    ar.supportResult = ArSupport.unsupported;
-    await openTool(tester, 'Tape measure');
-    expect(find.textContaining('doesn’t support AR (ARCore)'), findsOne);
-    expect(ar.started, 0);
-  });
-
   testWidgets('speedometer: explains, then speed and trip from GPS', (
     tester,
   ) async {
@@ -1428,24 +1363,6 @@ void main() {
     expect(find.byTooltip('Back'), findsOneWidget);
   });
 
-  testWidgets('a phone without ARCore greys the tape measure out', (
-    tester,
-  ) async {
-    await pumpApp(
-      tester,
-      prefs: {'homeLayout': 'list'},
-      arSupport: ArSupport.unsupported,
-    );
-    await tester.ensureVisible(find.text('Tape measure'));
-    await tester.pumpAndSettle();
-    expect(find.text('Not available on this phone'), findsOneWidget);
-    await tester.tap(find.text('Tape measure'));
-    await tester.pumpAndSettle();
-    expect(find.text('Tape measure isn’t available'), findsOneWidget);
-    expect(find.textContaining('ARCore (augmented reality)'), findsOneWidget);
-    expect(ar.started, 0, reason: 'the tool did not open');
-  });
-
   testWidgets('no camera or GPS greys out the tools that need them', (
     tester,
   ) async {
@@ -1454,7 +1371,7 @@ void main() {
       prefs: {'homeLayout': 'list'},
       missing: {SensorKind.camera, SensorKind.gps},
     );
-    for (final tool in ['Camera level', 'Speedometer', 'Tape measure']) {
+    for (final tool in ['Camera level', 'Speedometer']) {
       await tester.ensureVisible(find.text(tool));
       await tester.pumpAndSettle();
       await tester.tap(find.text(tool));
@@ -1465,7 +1382,7 @@ void main() {
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
     }
-    expect(find.text('Not available on this phone'), findsNWidgets(3));
+    expect(find.text('Not available on this phone'), findsNWidgets(2));
   });
 
   testWidgets('grid view also marks unavailable tools', (tester) async {

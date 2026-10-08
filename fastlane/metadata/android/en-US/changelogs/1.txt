@@ -1,1 +1,1 @@
-First release: bubble level with dial and tube views, angle finder, compass, protractor, ruler, metal detector, vibration meter, sound meter, light meter, altimeter, height meter, camera level, g-force meter, speedometer and tape measure.
+First release: bubble level with dial and tube views, angle finder, compass, protractor, ruler, metal detector, vibration meter, sound meter, light meter, altimeter, height meter, camera level, g-force meter and speedometer.

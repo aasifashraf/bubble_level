@@ -126,6 +126,11 @@ class HomeShell extends StatefulWidget {
 }
 
 class _HomeShellState extends State<HomeShell> {
+  /// The tape measure is hidden until its points stay put: on phones they
+  /// drift away from where they were placed, so its readings can't be
+  /// trusted yet. Its code stays so it can come back.
+  static const _tapeReady = false;
+
   /// ARCore support, asked once without holding up the launch. Until it
   /// answers the tape measure counts as available; it checks again when
   /// opened.
@@ -134,7 +139,7 @@ class _HomeShellState extends State<HomeShell> {
   @override
   void initState() {
     super.initState();
-    if (defaultTargetPlatform == TargetPlatform.android) {
+    if (_tapeReady && defaultTargetPlatform == TargetPlatform.android) {
       unawaited(
         widget.ar.support().then((s) {
           if (s == ArSupport.unsupported && mounted) {
@@ -476,7 +481,7 @@ class _HomeShellState extends State<HomeShell> {
     ),
     // ARCore only: not built for iPhone (ARKit) yet. Phones without ARCore
     // show it as unavailable, like any missing sensor.
-    if (defaultTargetPlatform == TargetPlatform.android)
+    if (_tapeReady && defaultTargetPlatform == TargetPlatform.android)
       (
         tool: HomeTool.tape,
         title: l.toolTape,

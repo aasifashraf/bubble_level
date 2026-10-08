@@ -1,1 +1,1 @@
-Première version : niveau à bulle avec vue cadran et fiole, mesure d’angle, boussole, rapporteur, règle, détecteur de métaux, vibromètre, sonomètre, luxmètre, altimètre, mesure de hauteur, niveau caméra, mesure de force G, compteur de vitesse et mètre ruban AR.
+Première version : niveau à bulle avec vue cadran et fiole, mesure d’angle, boussole, rapporteur, règle, détecteur de métaux, vibromètre, sonomètre, luxmètre, altimètre, mesure de hauteur, niveau caméra, mesure de force G et compteur de vitesse.

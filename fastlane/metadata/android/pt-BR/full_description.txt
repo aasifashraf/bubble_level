@@ -1,4 +1,4 @@
-Transforme o celular em um nível de bolha preciso, com mais catorze ferramentas de medição para reformas, marcenaria, obras e pendurar quadros.
+Transforme o celular em um nível de bolha preciso, com mais treze ferramentas de medição para reformas, marcenaria, obras e pendurar quadros.
 
 Nível de bolha: deite o celular para nivelar prateleiras, mesas e eletrodomésticos. X e Y mostram a inclinação em cada direção e uma dica diz qual lado está alto. Ao nivelar, a leitura fica laranja, com vibração e som opcionais.
 
@@ -29,8 +29,6 @@ Nível com câmera: aponte a câmera para uma parede e veja linhas no nível e n
 Medidor de força G: coloque o celular num suporte veicular e veja com que força você freia, acelera e faz curvas, em g. O lado do carro para onde você é empurrado se acende, e os picos ficam guardados para depois do trajeto.
 
 Velocímetro: veja sua velocidade pelo GPS num painel com a estrada passando, com a distância do percurso, as velocidades máxima e média, a altitude e suas coordenadas. A localização só é usada enquanto ele está aberto e nunca sai do seu celular.
-
-Trena AR: aponte a câmera traseira para uma mesa, o chão ou uma parede e mova devagar até ela encontrar a superfície. Toque em cada canto para medir os comprimentos e o total, depois feche a forma para ver a área e o perímetro, em cm ou polegadas. As medidas são aproximadas, muitas vezes com margem de 1 a 3 cm por metro. Requer um celular compatível com o Google Play Services for AR. A imagem nunca é gravada nem salva.
 
 Cada ferramenta tem um guia rápido. Funciona na vertical e na horizontal, nos modos claro e escuro, em 12 idiomas. Sem anúncios, sem conta e sem internet.
 

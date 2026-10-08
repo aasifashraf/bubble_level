@@ -1,4 +1,4 @@
-Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi empat belas alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
+Ubah ponsel Anda menjadi waterpass yang presisi, dilengkapi tiga belas alat ukur lain untuk pekerjaan rumah, pertukangan, bangunan, dan memasang pigura.
 
 Waterpass gelembung: letakkan ponsel mendatar untuk meratakan rak, meja, dan peralatan. X dan Y menunjukkan kemiringan tiap arah dan petunjuk memberi tahu sisi mana yang tinggi. Saat rata, angka berubah oranye, dengan getaran dan bunyi opsional.
 
@@ -29,8 +29,6 @@ Waterpass kamera: arahkan kamera ke dinding untuk melihat garis datar dan tegak 
 Pengukur gaya G: pasang ponsel di dudukan mobil dan lihat seberapa keras Anda mengerem, berakselerasi, dan menikung, dalam g. Sisi mobil ke arah Anda terdorong akan menyala, dan nilai puncak disimpan untuk dilihat setelah perjalanan.
 
 Speedometer: lihat kecepatan Anda dari GPS di dasbor dengan jalan yang melaju di depan, lengkap dengan jarak perjalanan, kecepatan tertinggi dan rata-rata, ketinggian, serta koordinat Anda. Lokasi hanya dipakai selama alat ini terbuka dan tidak pernah keluar dari ponsel Anda.
-
-Meteran AR: arahkan kamera belakang ke meja, lantai, atau dinding dan gerakkan perlahan sampai permukaannya ditemukan. Ketuk di setiap sudut untuk mengukur panjang dan totalnya, lalu tutup bentuknya untuk melihat luas dan kelilingnya, dalam cm atau inci. Hasilnya perkiraan, sering kali selisih 1 sampai 3 cm per meter. Memerlukan ponsel yang mendukung Google Play Services for AR. Gambar tidak pernah direkam atau disimpan.
 
 Setiap alat dilengkapi panduan singkat. Berfungsi dalam mode potret dan lanskap, terang dan gelap, dalam 12 bahasa. Tanpa iklan, tanpa akun, tanpa internet.
 
