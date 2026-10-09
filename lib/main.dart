@@ -14,6 +14,7 @@ import 'data/services/motion_sensor_service.dart';
 import 'data/services/sensor_availability_service.dart';
 import 'data/services/sound_service.dart';
 import 'l10n/app_localizations.dart';
+import 'ui/core/test_build.dart';
 import 'ui/core/theme.dart';
 import 'ui/home/home_shell.dart';
 
@@ -38,6 +39,7 @@ Future<void> main() async {
       missingSensors: missingSensors,
       sound: AudioSoundService(),
       review: review,
+      testEnd: testBuildEnd,
     ),
   );
 }
@@ -55,6 +57,8 @@ class BubbleLevelApp extends StatefulWidget {
     this.microphone = const MicrophoneService(),
     this.camera = const CameraService(),
     this.location = const LocationService(),
+    this.testEnd,
+    this.now = DateTime.now,
   });
 
   final SettingsRepository settings;
@@ -81,6 +85,12 @@ class BubbleLevelApp extends StatefulWidget {
   /// The speedometer's GPS (fake in tests).
   final LocationService location;
 
+  /// TEMPORARY: the last day of a test APK ([testBuildEnd] when built with
+  /// TEST_UNTIL), or null for a normal build. A test build shows the
+  /// feedback line on home and stops on that day.
+  final DateTime? testEnd;
+  final DateTime Function() now;
+
   /// Sensors for the vibration meter and altimeter (fakes in tests).
   final MotionSensorService sensors;
 
@@ -93,8 +103,23 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
   final _light = buildTheme(Brightness.light);
   final _dark = buildTheme(Brightness.dark);
 
+  /// TEMPORARY: a test build that is left open past its last day ends
+  /// when the app is shown again.
+  late final _testCheck = AppLifecycleListener(
+    onShow: () {
+      if (widget.testEnd != null) setState(() {});
+    },
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _testCheck;
+  }
+
   @override
   void dispose() {
+    _testCheck.dispose();
     widget.orientation.dispose();
     super.dispose();
   }
@@ -121,7 +146,9 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         theme: _light,
         darkTheme: _dark,
         themeMode: widget.settings.themeMode,
-        home: home,
+        home: testBuildEnded(widget.now(), widget.testEnd)
+            ? const TestBuildEndedScreen()
+            : home,
       ),
       child: HomeShell(
         orientation: widget.orientation,
@@ -134,6 +161,7 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         microphone: widget.microphone,
         camera: widget.camera,
         location: widget.location,
+        testFeedback: widget.testEnd != null,
       ),
     );
   }

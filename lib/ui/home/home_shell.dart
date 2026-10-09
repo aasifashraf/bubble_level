@@ -26,6 +26,7 @@ import '../core/dial.dart';
 import '../core/help.dart';
 import '../core/l10n.dart';
 import '../core/sensor_view_model.dart';
+import '../core/test_build.dart';
 import '../core/theme.dart';
 import '../core/theme_toggle.dart';
 import '../core/tool_frame.dart';
@@ -86,6 +87,7 @@ class HomeShell extends StatefulWidget {
     this.microphone = const MicrophoneService(),
     this.camera = const CameraService(),
     this.location = const LocationService(),
+    this.testFeedback = false,
   });
 
   final OrientationRepository orientation;
@@ -112,6 +114,9 @@ class HomeShell extends StatefulWidget {
 
   /// The speedometer's GPS.
   final LocationService location;
+
+  /// TEMPORARY: a test build shows where to send feedback below the tools.
+  final bool testFeedback;
 
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
@@ -586,6 +591,10 @@ class _HomeShellState extends State<HomeShell> {
               ],
             ),
           ),
+        ],
+        if (widget.testFeedback) ...[
+          const SizedBox(height: 36),
+          const TestFeedback(),
         ],
       ],
     );

@@ -62,6 +62,8 @@ void main() {
     Map<String, Object> prefs = const {},
     Set<SensorKind> missing = const {},
     SoundService sound = const SilentSoundService(),
+    DateTime? testEnd,
+    DateTime Function()? now,
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -85,6 +87,8 @@ void main() {
         sensors: sensors,
         missingSensors: missing,
         sound: sound,
+        testEnd: testEnd,
+        now: now ?? DateTime.now,
       ),
     );
   }
@@ -104,6 +108,62 @@ void main() {
     await tester.pump();
     await tester.pump();
   }
+
+  group('temporary test build', () {
+    final end = DateTime(2026, 11, 15);
+
+    testWidgets('a normal build has no feedback line and never ends', (
+      tester,
+    ) async {
+      await pumpApp(tester, now: () => DateTime(2030));
+      await tester.scrollUntilVisible(find.text('G-force'), 200);
+      expect(find.text('Email me'), findsNothing);
+      expect(find.text('This test version has ended'), findsNothing);
+    });
+
+    testWidgets('before its last day: the feedback line opens email', (
+      tester,
+    ) async {
+      final calls = <MethodCall>[];
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        const MethodChannel('bubble_level/app'),
+        (call) async {
+          calls.add(call);
+          return true;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          const MethodChannel('bubble_level/app'),
+          null,
+        ),
+      );
+      await pumpApp(tester, testEnd: end, now: () => DateTime(2026, 11, 14));
+      final email = find.text('Email me');
+      await tester.scrollUntilVisible(email, 200);
+      expect(find.text('Help make Bubble Level better'), findsOneWidget);
+      expect(
+        find.textContaining('Designed and built by', findRichText: true),
+        findsOneWidget,
+      );
+      await tester.tap(email);
+      await tester.pump();
+      expect(calls.single.method, 'email');
+      expect(calls.single.arguments, {
+        'address': 'contact@aasifashraf.dev',
+        'subject': 'Bubble Level feedback',
+      });
+    });
+
+    testWidgets('from its last day: only the ended screen', (tester) async {
+      await pumpApp(tester, testEnd: end, now: () => DateTime(2026, 11, 15));
+      await tester.pumpAndSettle();
+      expect(find.text('This test version has ended'), findsOneWidget);
+      expect(find.text('contact@aasifashraf.dev'), findsOneWidget);
+      expect(find.text('Level'), findsNothing, reason: 'no tools');
+      expect(tester.takeException(), isNull);
+    });
+  });
 
   testWidgets('home lists the three tools', (tester) async {
     await pumpApp(tester);
