@@ -62,6 +62,25 @@ import UIKit
     let app = FlutterMethodChannel(
       name: "bubble_level/app", binaryMessenger: registrar.messenger())
     app.setMethodCallHandler { call, result in
+      // TEMPORARY (test builds): opens Mail to write to the owner.
+      if call.method == "email" {
+        var mail = URLComponents()
+        mail.scheme = "mailto"
+        guard let args = call.arguments as? [String: Any],
+          let address = args["address"] as? String
+        else {
+          result(false)
+          return
+        }
+        mail.path = address
+        mail.queryItems = [URLQueryItem(name: "subject", value: args["subject"] as? String ?? "")]
+        guard let url = mail.url else {
+          result(false)
+          return
+        }
+        UIApplication.shared.open(url) { opened in result(opened) }
+        return
+      }
       guard call.method == "openSettings",
         let url = URL(string: UIApplication.openSettingsURLString)
       else {

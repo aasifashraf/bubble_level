@@ -1,5 +1,6 @@
 package dev.aasifashraf.bubble_level
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -72,6 +73,20 @@ class MainActivity : FlutterActivity() {
         // Opens this app's page in Settings, to allow a refused permission.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "bubble_level/app")
             .setMethodCallHandler { call, result ->
+                // TEMPORARY (test builds): opens the email app to write to the owner.
+                if (call.method == "email") {
+                    val address = call.argument<String>("address") ?: return@setMethodCallHandler result.success(false)
+                    val subject = Uri.encode(call.argument<String>("subject") ?: "")
+                    return@setMethodCallHandler try {
+                        startActivity(
+                            Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$address?subject=$subject"))
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                        result.success(true)
+                    } catch (e: ActivityNotFoundException) {
+                        result.success(false)
+                    }
+                }
                 if (call.method != "openSettings") return@setMethodCallHandler result.notImplemented()
                 startActivity(
                     Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null))
