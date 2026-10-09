@@ -1410,4 +1410,35 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'تتبع السماء وقت اليوم. يختار زر الطقس المشهد: تلقائي يتبع الموسم، أو اختر الشمس أو الغيوم أو المطر أو العاصفة أو الثلج. إنه مشهد فقط، وليس توقعًا للطقس.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'ساعدني في تحسين $app';
+  }
+
+  @override
+  String get testFeedbackBody => 'وجدت مشكلة أو لديك فكرة؟ أقرأ كل رسالة.';
+
+  @override
+  String get testEmailMe => 'راسلني';
+
+  @override
+  String testSignature(String name) {
+    return 'تصميم وتطوير $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return 'ملاحظات حول $app';
+  }
+
+  @override
+  String get testEmailCopied => 'تم نسخ عنوان البريد';
+
+  @override
+  String get testEndedTitle => 'انتهت هذه النسخة التجريبية';
+
+  @override
+  String get testEndedBody =>
+      'شكرًا على التجربة! يُرجى الحصول على النسخة الجديدة. للحصول عليها، راسلني على:';
 }

@@ -1362,4 +1362,35 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       '空は時刻に合わせて変わります。天気ボタンで景色を選べます。「自動」は季節に合わせ、晴れ、くもり、雨、嵐、雪も選べます。景色であって、天気予報ではありません。';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return '$appをより良くするためにご協力ください';
+  }
+
+  @override
+  String get testFeedbackBody => '問題やアイデアがあればお知らせください。すべてのメッセージに目を通しています。';
+
+  @override
+  String get testEmailMe => 'メールを送る';
+
+  @override
+  String testSignature(String name) {
+    return 'デザイン・開発：$name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return '$appへのフィードバック';
+  }
+
+  @override
+  String get testEmailCopied => 'メールアドレスをコピーしました';
+
+  @override
+  String get testEndedTitle => 'このテスト版は終了しました';
+
+  @override
+  String get testEndedBody =>
+      'テストにご協力いただきありがとうございます。新しいバージョンをご利用ください。入手するには、こちらへご連絡ください：';
 }

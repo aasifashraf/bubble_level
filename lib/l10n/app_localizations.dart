@@ -2559,6 +2559,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast.'**
   String get speedSceneHelp;
+
+  /// No description provided for @testFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help make {app} better'**
+  String testFeedbackTitle(String app);
+
+  /// No description provided for @testFeedbackBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Found a problem or have an idea? I read every message.'**
+  String get testFeedbackBody;
+
+  /// No description provided for @testEmailMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Email me'**
+  String get testEmailMe;
+
+  /// No description provided for @testSignature.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed and built by {name}'**
+  String testSignature(String name);
+
+  /// No description provided for @testEmailSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'{app} feedback'**
+  String testEmailSubject(String app);
+
+  /// No description provided for @testEmailCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address copied'**
+  String get testEmailCopied;
+
+  /// No description provided for @testEndedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This test version has ended'**
+  String get testEndedTitle;
+
+  /// No description provided for @testEndedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for testing! Please get the new version. To get it, write to me:'**
+  String get testEndedBody;
 }
 
 class _AppLocalizationsDelegate

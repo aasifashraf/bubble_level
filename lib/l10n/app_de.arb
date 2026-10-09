@@ -406,5 +406,13 @@
   "speedSemantics": "Tempo {value}",
   "speedCoordinates": "Koordinaten, zum Kopieren tippen",
   "noGps": "Dieses Handy hat kein GPS, daher lässt sich hier kein Tempo messen. Andere Werkzeuge funktionieren weiter.",
-  "speedSceneHelp": "Der Himmel folgt der Tageszeit. Der Wetter-Knopf wählt die Szene: Auto folgt der Jahreszeit, oder wähle Sonne, Wolken, Regen, Gewitter oder Schnee. Das ist Kulisse, keine Vorhersage."
+  "speedSceneHelp": "Der Himmel folgt der Tageszeit. Der Wetter-Knopf wählt die Szene: Auto folgt der Jahreszeit, oder wähle Sonne, Wolken, Regen, Gewitter oder Schnee. Das ist Kulisse, keine Vorhersage.",
+  "testFeedbackTitle": "Hilf mit, {app} besser zu machen",
+  "testFeedbackBody": "Ein Problem gefunden oder eine Idee? Ich lese jede Nachricht.",
+  "testEmailMe": "Schreib mir",
+  "testSignature": "Entworfen und entwickelt von {name}",
+  "testEmailSubject": "Feedback zu {app}",
+  "testEmailCopied": "E-Mail-Adresse kopiert",
+  "testEndedTitle": "Diese Testversion ist abgelaufen",
+  "testEndedBody": "Danke fürs Testen! Bitte hol dir die neue Version. Schreib mir dafür:"
 }

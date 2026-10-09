@@ -1418,4 +1418,36 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'آسمان دن کے وقت کے ساتھ بدلتا ہے۔ موسم کا بٹن منظر چنتا ہے: آٹو موسم کے مطابق چلتا ہے، یا دھوپ، بادل، بارش، طوفان یا برف چنیں۔ یہ صرف منظر ہے، موسم کی پیش گوئی نہیں۔';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return '$app کو بہتر بنانے میں مدد کریں';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'کوئی مسئلہ ملا یا کوئی خیال ہے؟ ہر پیغام پڑھا جاتا ہے۔';
+
+  @override
+  String get testEmailMe => 'مجھے ای میل کریں';
+
+  @override
+  String testSignature(String name) {
+    return 'ڈیزائن اور تیاری: $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return '$app کے بارے میں رائے';
+  }
+
+  @override
+  String get testEmailCopied => 'ای میل پتہ کاپی ہو گیا';
+
+  @override
+  String get testEndedTitle => 'یہ ٹیسٹ ورژن ختم ہو گیا ہے';
+
+  @override
+  String get testEndedBody =>
+      'ٹیسٹ کرنے کا شکریہ! براہ کرم نیا ورژن حاصل کریں۔ اسے حاصل کرنے کے لیے مجھے لکھیں:';
 }

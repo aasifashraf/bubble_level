@@ -1422,4 +1422,36 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Der Himmel folgt der Tageszeit. Der Wetter-Knopf wählt die Szene: Auto folgt der Jahreszeit, oder wähle Sonne, Wolken, Regen, Gewitter oder Schnee. Das ist Kulisse, keine Vorhersage.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'Hilf mit, $app besser zu machen';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'Ein Problem gefunden oder eine Idee? Ich lese jede Nachricht.';
+
+  @override
+  String get testEmailMe => 'Schreib mir';
+
+  @override
+  String testSignature(String name) {
+    return 'Entworfen und entwickelt von $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return 'Feedback zu $app';
+  }
+
+  @override
+  String get testEmailCopied => 'E-Mail-Adresse kopiert';
+
+  @override
+  String get testEndedTitle => 'Diese Testversion ist abgelaufen';
+
+  @override
+  String get testEndedBody =>
+      'Danke fürs Testen! Bitte hol dir die neue Version. Schreib mir dafür:';
 }

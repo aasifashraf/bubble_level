@@ -730,5 +730,34 @@
   },
   "speedCoordinates": "Coordinates, tap to copy",
   "noGps": "This phone has no GPS, so speed can’t be measured here. Other tools still work.",
-  "speedSceneHelp": "The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast."
+  "speedSceneHelp": "The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast.",
+  "testFeedbackTitle": "Help make {app} better",
+  "@testFeedbackTitle": {
+    "placeholders": {
+      "app": {
+        "type": "String"
+      }
+    }
+  },
+  "testFeedbackBody": "Found a problem or have an idea? I read every message.",
+  "testEmailMe": "Email me",
+  "testSignature": "Designed and built by {name}",
+  "@testSignature": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "testEmailSubject": "{app} feedback",
+  "@testEmailSubject": {
+    "placeholders": {
+      "app": {
+        "type": "String"
+      }
+    }
+  },
+  "testEmailCopied": "Email address copied",
+  "testEndedTitle": "This test version has ended",
+  "testEndedBody": "Thank you for testing! Please get the new version. To get it, write to me:"
 }

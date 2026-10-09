@@ -1422,4 +1422,36 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Langit mengikuti waktu. Tombol cuaca memilih pemandangan: Otomatis mengikuti musim, atau pilih cerah, berawan, hujan, badai, atau salju. Ini hanya pemandangan, bukan prakiraan cuaca.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'Bantu jadikan $app lebih baik';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'Menemukan masalah atau punya ide? Saya membaca setiap pesan.';
+
+  @override
+  String get testEmailMe => 'Email saya';
+
+  @override
+  String testSignature(String name) {
+    return 'Dirancang dan dibuat oleh $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return 'Masukan untuk $app';
+  }
+
+  @override
+  String get testEmailCopied => 'Alamat email disalin';
+
+  @override
+  String get testEndedTitle => 'Versi uji ini sudah berakhir';
+
+  @override
+  String get testEndedBody =>
+      'Terima kasih sudah menguji! Silakan gunakan versi baru. Untuk mendapatkannya, tulis ke saya:';
 }

@@ -1424,4 +1424,36 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'O céu acompanha a hora do dia. O botão do tempo escolhe a cena: Auto segue a estação, ou escolha sol, nuvens, chuva, tempestade ou neve. É cenário, não uma previsão.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'Ajude a melhorar o $app';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'Achou um problema ou tem uma ideia? Leio todas as mensagens.';
+
+  @override
+  String get testEmailMe => 'Escreva para mim';
+
+  @override
+  String testSignature(String name) {
+    return 'Projetado e desenvolvido por $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return 'Feedback sobre o $app';
+  }
+
+  @override
+  String get testEmailCopied => 'Endereço de e-mail copiado';
+
+  @override
+  String get testEndedTitle => 'Esta versão de teste terminou';
+
+  @override
+  String get testEndedBody =>
+      'Obrigado por testar! Baixe a nova versão. Para recebê-la, escreva para mim:';
 }

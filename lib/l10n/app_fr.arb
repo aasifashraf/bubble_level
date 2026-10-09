@@ -406,5 +406,13 @@
   "speedSemantics": "Vitesse {value}",
   "speedCoordinates": "Coordonnées, touchez pour copier",
   "noGps": "Ce téléphone n’a pas de GPS : la vitesse ne peut pas être mesurée ici. Les autres outils fonctionnent toujours.",
-  "speedSceneHelp": "Le ciel suit l’heure de la journée. Le bouton météo choisit la scène : Auto suit la saison, ou choisissez soleil, nuages, pluie, orage ou neige. C’est un décor, pas une prévision."
+  "speedSceneHelp": "Le ciel suit l’heure de la journée. Le bouton météo choisit la scène : Auto suit la saison, ou choisissez soleil, nuages, pluie, orage ou neige. C’est un décor, pas une prévision.",
+  "testFeedbackTitle": "Aidez à améliorer {app}",
+  "testFeedbackBody": "Un problème ou une idée ? Je lis chaque message.",
+  "testEmailMe": "Écrivez-moi",
+  "testSignature": "Conçu et développé par {name}",
+  "testEmailSubject": "Avis sur {app}",
+  "testEmailCopied": "Adresse e-mail copiée",
+  "testEndedTitle": "Cette version de test est terminée",
+  "testEndedBody": "Merci d’avoir testé ! Procurez-vous la nouvelle version. Pour l’obtenir, écrivez-moi :"
 }

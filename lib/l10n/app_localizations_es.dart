@@ -1425,4 +1425,36 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'El cielo sigue la hora del día. El botón del tiempo elige la escena: Auto sigue la estación, o elige sol, nubes, lluvia, tormenta o nieve. Es decorado, no un pronóstico.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'Ayuda a mejorar $app';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      '¿Encontraste un problema o tienes una idea? Leo todos los mensajes.';
+
+  @override
+  String get testEmailMe => 'Escríbeme';
+
+  @override
+  String testSignature(String name) {
+    return 'Diseñado y desarrollado por $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return 'Comentarios sobre $app';
+  }
+
+  @override
+  String get testEmailCopied => 'Dirección de correo copiada';
+
+  @override
+  String get testEndedTitle => 'Esta versión de prueba ha terminado';
+
+  @override
+  String get testEndedBody =>
+      '¡Gracias por probarla! Consigue la nueva versión. Para obtenerla, escríbeme:';
 }

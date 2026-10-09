@@ -1423,4 +1423,36 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Небо меняется со временем суток. Кнопка погоды выбирает сцену: «Авто» следует за сезоном, или выберите солнце, облака, дождь, грозу или снег. Это декорация, а не прогноз.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'Помогите сделать «$app» лучше';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'Нашли проблему или есть идея? Я читаю каждое сообщение.';
+
+  @override
+  String get testEmailMe => 'Написать мне';
+
+  @override
+  String testSignature(String name) {
+    return 'Дизайн и разработка: $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return 'Отзыв о «$app»';
+  }
+
+  @override
+  String get testEmailCopied => 'Адрес почты скопирован';
+
+  @override
+  String get testEndedTitle => 'Срок этой тестовой версии истёк';
+
+  @override
+  String get testEndedBody =>
+      'Спасибо за тестирование! Установите новую версию. Чтобы её получить, напишите мне:';
 }

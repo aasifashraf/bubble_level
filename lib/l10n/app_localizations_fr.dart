@@ -1426,4 +1426,36 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Le ciel suit l’heure de la journée. Le bouton météo choisit la scène : Auto suit la saison, ou choisissez soleil, nuages, pluie, orage ou neige. C’est un décor, pas une prévision.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'Aidez à améliorer $app';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'Un problème ou une idée ? Je lis chaque message.';
+
+  @override
+  String get testEmailMe => 'Écrivez-moi';
+
+  @override
+  String testSignature(String name) {
+    return 'Conçu et développé par $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return 'Avis sur $app';
+  }
+
+  @override
+  String get testEmailCopied => 'Adresse e-mail copiée';
+
+  @override
+  String get testEndedTitle => 'Cette version de test est terminée';
+
+  @override
+  String get testEndedBody =>
+      'Merci d’avoir testé ! Procurez-vous la nouvelle version. Pour l’obtenir, écrivez-moi :';
 }

@@ -1417,4 +1417,36 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return 'Help make $app better';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'Found a problem or have an idea? I read every message.';
+
+  @override
+  String get testEmailMe => 'Email me';
+
+  @override
+  String testSignature(String name) {
+    return 'Designed and built by $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return '$app feedback';
+  }
+
+  @override
+  String get testEmailCopied => 'Email address copied';
+
+  @override
+  String get testEndedTitle => 'This test version has ended';
+
+  @override
+  String get testEndedBody =>
+      'Thank you for testing! Please get the new version. To get it, write to me:';
 }

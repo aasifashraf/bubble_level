@@ -406,5 +406,13 @@
   "speedSemantics": "Hız {value}",
   "speedCoordinates": "Koordinatlar, kopyalamak için dokunun",
   "noGps": "Bu telefonda GPS yok, bu yüzden burada hız ölçülemez. Diğer araçlar çalışmaya devam eder.",
-  "speedSceneHelp": "Gökyüzü günün saatine uyar. Hava düğmesi sahneyi seçer: Otomatik mevsime uyar, ya da güneş, bulut, yağmur, fırtına veya kar seçin. Bu bir dekor, hava tahmini değil."
+  "speedSceneHelp": "Gökyüzü günün saatine uyar. Hava düğmesi sahneyi seçer: Otomatik mevsime uyar, ya da güneş, bulut, yağmur, fırtına veya kar seçin. Bu bir dekor, hava tahmini değil.",
+  "testFeedbackTitle": "{app} uygulamasını birlikte geliştirelim",
+  "testFeedbackBody": "Bir sorun mu buldun ya da bir fikrin mi var? Her mesajı okuyorum.",
+  "testEmailMe": "Bana yaz",
+  "testSignature": "Tasarlayan ve geliştiren: {name}",
+  "testEmailSubject": "{app} geri bildirimi",
+  "testEmailCopied": "E-posta adresi kopyalandı",
+  "testEndedTitle": "Bu test sürümünün süresi doldu",
+  "testEndedBody": "Test ettiğin için teşekkürler! Lütfen yeni sürümü edin. Almak için bana yaz:"
 }

@@ -1418,4 +1418,36 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get speedSceneHelp =>
       'Gökyüzü günün saatine uyar. Hava düğmesi sahneyi seçer: Otomatik mevsime uyar, ya da güneş, bulut, yağmur, fırtına veya kar seçin. Bu bir dekor, hava tahmini değil.';
+
+  @override
+  String testFeedbackTitle(String app) {
+    return '$app uygulamasını birlikte geliştirelim';
+  }
+
+  @override
+  String get testFeedbackBody =>
+      'Bir sorun mu buldun ya da bir fikrin mi var? Her mesajı okuyorum.';
+
+  @override
+  String get testEmailMe => 'Bana yaz';
+
+  @override
+  String testSignature(String name) {
+    return 'Tasarlayan ve geliştiren: $name';
+  }
+
+  @override
+  String testEmailSubject(String app) {
+    return '$app geri bildirimi';
+  }
+
+  @override
+  String get testEmailCopied => 'E-posta adresi kopyalandı';
+
+  @override
+  String get testEndedTitle => 'Bu test sürümünün süresi doldu';
+
+  @override
+  String get testEndedBody =>
+      'Test ettiğin için teşekkürler! Lütfen yeni sürümü edin. Almak için bana yaz:';
 }
