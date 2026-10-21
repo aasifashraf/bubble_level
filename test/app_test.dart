@@ -14,6 +14,7 @@ import 'package:bubble_level/main.dart';
 import 'package:bubble_level/ui/core/controls.dart';
 import 'package:bubble_level/ui/core/dial.dart';
 import 'package:bubble_level/ui/core/readout.dart';
+import 'package:bubble_level/ui/core/support.dart';
 import 'package:bubble_level/ui/core/theme.dart';
 import 'package:bubble_level/ui/core/tool_frame.dart';
 import 'package:bubble_level/ui/core/vial.dart';
@@ -64,6 +65,7 @@ void main() {
     SoundService sound = const SilentSoundService(),
     DateTime? testEnd,
     DateTime Function()? now,
+    bool showSupport = false,
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -89,6 +91,7 @@ void main() {
         sound: sound,
         testEnd: testEnd,
         now: now ?? DateTime.now,
+        showSupport: showSupport,
       ),
     );
   }
@@ -108,6 +111,87 @@ void main() {
     await tester.pump();
     await tester.pump();
   }
+
+  group('support card (F-Droid build)', () {
+    late List<MethodCall> calls;
+    var opens = true;
+
+    setUp(() {
+      calls = [];
+      opens = true;
+    });
+
+    Future<void> pumpSupport(WidgetTester tester) async {
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        const MethodChannel('bubble_level/app'),
+        (call) async {
+          calls.add(call);
+          return opens;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          const MethodChannel('bubble_level/app'),
+          null,
+        ),
+      );
+      await pumpApp(tester, showSupport: true);
+      await tester.scrollUntilVisible(find.text(websiteName), 200);
+    }
+
+    testWidgets('the Play build has no support card and no signature', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      await tester.scrollUntilVisible(find.text('G-force'), 200);
+      expect(find.text('Support on GitHub'), findsNothing);
+      expect(find.text(websiteName), findsNothing);
+    });
+
+    testWidgets('opens GitHub Sponsors and the website', (tester) async {
+      await pumpSupport(tester);
+      expect(find.text('Free, with no ads'), findsOneWidget);
+      expect(
+        find.textContaining('Designed and built by', findRichText: true),
+        findsOneWidget,
+      );
+      await tester.tap(find.text('Support on GitHub'));
+      await tester.pump();
+      await tester.tap(find.text(websiteName));
+      await tester.pump();
+      expect(calls.map((c) => c.method), ['openUrl', 'openUrl']);
+      expect(calls.map((c) => c.arguments), [
+        {'url': sponsorUrl},
+        {'url': websiteUrl},
+      ]);
+      expect(find.text('Link copied'), findsNothing);
+    });
+
+    testWidgets('with no browser the link is copied instead', (tester) async {
+      opens = false;
+      String? copied;
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        (call) async {
+          if (call.method == 'Clipboard.setData') {
+            copied = (call.arguments as Map)['text'] as String;
+          }
+          return null;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          SystemChannels.platform,
+          null,
+        ),
+      );
+      await pumpSupport(tester);
+      await tester.tap(find.text('Support on GitHub'));
+      await tester.pumpAndSettle();
+      expect(copied, sponsorUrl);
+      expect(find.text('Link copied'), findsOneWidget);
+    });
+  });
 
   group('temporary test build', () {
     final end = DateTime(2026, 11, 15);

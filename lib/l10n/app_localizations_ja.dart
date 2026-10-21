@@ -1364,6 +1364,23 @@ class AppLocalizationsJa extends AppLocalizations {
       '空は時刻に合わせて変わります。天気ボタンで景色を選べます。「自動」は季節に合わせ、晴れ、くもり、雨、嵐、雪も選べます。景色であって、天気予報ではありません。';
 
   @override
+  String get supportTitle => '無料、広告なし';
+
+  @override
+  String get supportBody => '一人の開発者が空き時間に作っています。お役に立てたら、応援していただけると嬉しいです。';
+
+  @override
+  String get supportButton => 'GitHubで応援する';
+
+  @override
+  String get linkCopied => 'リンクをコピーしました';
+
+  @override
+  String madeBy(String name) {
+    return 'デザイン・開発：$name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return '$appをより良くするためにご協力ください';
   }
@@ -1373,11 +1390,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get testEmailMe => 'メールを送る';
-
-  @override
-  String testSignature(String name) {
-    return 'デザイン・開発：$name';
-  }
 
   @override
   String testEmailSubject(String app) {

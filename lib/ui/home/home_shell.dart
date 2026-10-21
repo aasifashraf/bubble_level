@@ -26,6 +26,7 @@ import '../core/dial.dart';
 import '../core/help.dart';
 import '../core/l10n.dart';
 import '../core/sensor_view_model.dart';
+import '../core/support.dart';
 import '../core/test_build.dart';
 import '../core/theme.dart';
 import '../core/theme_toggle.dart';
@@ -88,6 +89,7 @@ class HomeShell extends StatefulWidget {
     this.camera = const CameraService(),
     this.location = const LocationService(),
     this.testFeedback = false,
+    this.showSupport = false,
   });
 
   final OrientationRepository orientation;
@@ -117,6 +119,9 @@ class HomeShell extends StatefulWidget {
 
   /// TEMPORARY: a test build shows where to send feedback below the tools.
   final bool testFeedback;
+
+  /// The F-Droid build's support card below the tools (never on Play).
+  final bool showSupport;
 
   /// Feeds the vibration and pressure sensors (orientation has its own).
   final MotionSensorService sensors;
@@ -592,9 +597,14 @@ class _HomeShellState extends State<HomeShell> {
             ),
           ),
         ],
-        if (widget.testFeedback) ...[
+        if (widget.testFeedback || widget.showSupport) ...[
           const SizedBox(height: 36),
-          const TestFeedback(),
+          if (widget.testFeedback) const TestFeedback(),
+          if (widget.testFeedback && widget.showSupport)
+            const SizedBox(height: 20),
+          if (widget.showSupport) const SupportCard(),
+          const SizedBox(height: 10),
+          const MadeBy(),
         ],
       ],
     );

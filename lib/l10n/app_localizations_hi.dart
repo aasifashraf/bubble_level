@@ -1419,6 +1419,24 @@ class AppLocalizationsHi extends AppLocalizations {
       'आसमान दिन के समय के साथ बदलता है। मौसम बटन दृश्य चुनता है: ऑटो मौसम के हिसाब से चलता है, या धूप, बादल, बारिश, तूफ़ान या बर्फ़ चुनें। यह सिर्फ़ दृश्य है, मौसम का पूर्वानुमान नहीं।';
 
   @override
+  String get supportTitle => 'मुफ़्त, बिना विज्ञापन';
+
+  @override
+  String get supportBody =>
+      'इसे एक व्यक्ति ने अपने खाली समय में बनाया है। अगर यह आपके काम आता है, तो आप इसे सहयोग दे सकते हैं।';
+
+  @override
+  String get supportButton => 'GitHub पर सहयोग करें';
+
+  @override
+  String get linkCopied => 'लिंक कॉपी हो गया';
+
+  @override
+  String madeBy(String name) {
+    return 'डिज़ाइन और निर्माण: $name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return '$app को बेहतर बनाने में मदद करें';
   }
@@ -1429,11 +1447,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get testEmailMe => 'मुझे ईमेल करें';
-
-  @override
-  String testSignature(String name) {
-    return 'डिज़ाइन और निर्माण: $name';
-  }
 
   @override
   String testEmailSubject(String app) {

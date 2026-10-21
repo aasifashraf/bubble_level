@@ -1419,6 +1419,24 @@ class AppLocalizationsEn extends AppLocalizations {
       'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast.';
 
   @override
+  String get supportTitle => 'Free, with no ads';
+
+  @override
+  String get supportBody =>
+      'Built by one person in spare time. If it helps you, you can support it.';
+
+  @override
+  String get supportButton => 'Support on GitHub';
+
+  @override
+  String get linkCopied => 'Link copied';
+
+  @override
+  String madeBy(String name) {
+    return 'Designed and built by $name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return 'Help make $app better';
   }
@@ -1429,11 +1447,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get testEmailMe => 'Email me';
-
-  @override
-  String testSignature(String name) {
-    return 'Designed and built by $name';
-  }
 
   @override
   String testEmailSubject(String app) {

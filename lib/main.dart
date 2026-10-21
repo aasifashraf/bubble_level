@@ -59,6 +59,7 @@ class BubbleLevelApp extends StatefulWidget {
     this.location = const LocationService(),
     this.testEnd,
     this.now = DateTime.now,
+    this.showSupport = appFlavor == 'foss',
   });
 
   final SettingsRepository settings;
@@ -90,6 +91,10 @@ class BubbleLevelApp extends StatefulWidget {
   /// feedback line on home and stops on that day.
   final DateTime? testEnd;
   final DateTime Function() now;
+
+  /// The support card: only in the F-Droid build (`--flavor foss`), as
+  /// Google Play allows no donation link.
+  final bool showSupport;
 
   /// Sensors for the vibration meter and altimeter (fakes in tests).
   final MotionSensorService sensors;
@@ -162,6 +167,7 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         camera: widget.camera,
         location: widget.location,
         testFeedback: widget.testEnd != null,
+        showSupport: widget.showSupport,
       ),
     );
   }

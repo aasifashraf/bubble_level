@@ -1426,6 +1426,24 @@ class AppLocalizationsPt extends AppLocalizations {
       'O céu acompanha a hora do dia. O botão do tempo escolhe a cena: Auto segue a estação, ou escolha sol, nuvens, chuva, tempestade ou neve. É cenário, não uma previsão.';
 
   @override
+  String get supportTitle => 'Grátis e sem anúncios';
+
+  @override
+  String get supportBody =>
+      'Feito por uma só pessoa no tempo livre. Se o app ajuda você, você pode apoiá-lo.';
+
+  @override
+  String get supportButton => 'Apoiar no GitHub';
+
+  @override
+  String get linkCopied => 'Link copiado';
+
+  @override
+  String madeBy(String name) {
+    return 'Projetado e desenvolvido por $name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return 'Ajude a melhorar o $app';
   }
@@ -1436,11 +1454,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get testEmailMe => 'Escreva para mim';
-
-  @override
-  String testSignature(String name) {
-    return 'Projetado e desenvolvido por $name';
-  }
 
   @override
   String testEmailSubject(String app) {

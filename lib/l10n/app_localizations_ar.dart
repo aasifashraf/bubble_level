@@ -1412,6 +1412,24 @@ class AppLocalizationsAr extends AppLocalizations {
       'تتبع السماء وقت اليوم. يختار زر الطقس المشهد: تلقائي يتبع الموسم، أو اختر الشمس أو الغيوم أو المطر أو العاصفة أو الثلج. إنه مشهد فقط، وليس توقعًا للطقس.';
 
   @override
+  String get supportTitle => 'مجاني وبلا إعلانات';
+
+  @override
+  String get supportBody =>
+      'صنعه شخص واحد في وقت فراغه. إن كان يفيدك، يمكنك دعمه.';
+
+  @override
+  String get supportButton => 'ادعمه على GitHub';
+
+  @override
+  String get linkCopied => 'تم نسخ الرابط';
+
+  @override
+  String madeBy(String name) {
+    return 'تصميم وتطوير $name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return 'ساعدني في تحسين $app';
   }
@@ -1421,11 +1439,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get testEmailMe => 'راسلني';
-
-  @override
-  String testSignature(String name) {
-    return 'تصميم وتطوير $name';
-  }
 
   @override
   String testEmailSubject(String app) {

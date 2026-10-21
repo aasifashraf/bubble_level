@@ -97,6 +97,16 @@ class MainActivity : FlutterActivity() {
                         result.success(false)
                     }
                 }
+                // Opens a web page (GitHub Sponsors, the owner's site) in the browser.
+                if (call.method == "openUrl") {
+                    val url = call.argument<String>("url") ?: return@setMethodCallHandler result.success(false)
+                    return@setMethodCallHandler try {
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        result.success(true)
+                    } catch (e: ActivityNotFoundException) {
+                        result.success(false)
+                    }
+                }
                 // The store's review card: Google Play's in the Play build,
                 // nothing in the F-Droid build (see src/<flavour>/StoreReview.kt).
                 if (call.method == "review") {

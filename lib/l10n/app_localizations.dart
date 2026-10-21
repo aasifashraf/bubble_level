@@ -2560,6 +2560,36 @@ abstract class AppLocalizations {
   /// **'The sky follows the time of day. The weather button picks the scene: Auto follows the season, or choose sun, clouds, rain, storm or snow. It’s scenery, not a forecast.'**
   String get speedSceneHelp;
 
+  /// No description provided for @supportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Free, with no ads'**
+  String get supportTitle;
+
+  /// No description provided for @supportBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Built by one person in spare time. If it helps you, you can support it.'**
+  String get supportBody;
+
+  /// No description provided for @supportButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Support on GitHub'**
+  String get supportButton;
+
+  /// No description provided for @linkCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Link copied'**
+  String get linkCopied;
+
+  /// No description provided for @madeBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed and built by {name}'**
+  String madeBy(String name);
+
   /// No description provided for @testFeedbackTitle.
   ///
   /// In en, this message translates to:
@@ -2577,12 +2607,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email me'**
   String get testEmailMe;
-
-  /// No description provided for @testSignature.
-  ///
-  /// In en, this message translates to:
-  /// **'Designed and built by {name}'**
-  String testSignature(String name);
 
   /// No description provided for @testEmailSubject.
   ///

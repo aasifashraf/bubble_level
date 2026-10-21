@@ -83,6 +83,18 @@ import UIKit
         UIApplication.shared.open(url) { opened in result(opened) }
         return
       }
+      // Opens a web page (the owner's site) in the browser.
+      if call.method == "openUrl" {
+        guard let args = call.arguments as? [String: Any],
+          let text = args["url"] as? String,
+          let url = URL(string: text)
+        else {
+          result(false)
+          return
+        }
+        UIApplication.shared.open(url) { opened in result(opened) }
+        return
+      }
       // The App Store decides whether the card appears.
       if call.method == "review" {
         if let scene = UIApplication.shared.connectedScenes

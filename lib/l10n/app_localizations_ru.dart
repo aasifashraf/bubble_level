@@ -1425,6 +1425,24 @@ class AppLocalizationsRu extends AppLocalizations {
       'Небо меняется со временем суток. Кнопка погоды выбирает сцену: «Авто» следует за сезоном, или выберите солнце, облака, дождь, грозу или снег. Это декорация, а не прогноз.';
 
   @override
+  String get supportTitle => 'Бесплатно и без рекламы';
+
+  @override
+  String get supportBody =>
+      'Создано одним человеком в свободное время. Если приложение вам помогает, вы можете его поддержать.';
+
+  @override
+  String get supportButton => 'Поддержать на GitHub';
+
+  @override
+  String get linkCopied => 'Ссылка скопирована';
+
+  @override
+  String madeBy(String name) {
+    return 'Дизайн и разработка: $name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return 'Помогите сделать «$app» лучше';
   }
@@ -1435,11 +1453,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get testEmailMe => 'Написать мне';
-
-  @override
-  String testSignature(String name) {
-    return 'Дизайн и разработка: $name';
-  }
 
   @override
   String testEmailSubject(String app) {

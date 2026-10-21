@@ -1420,6 +1420,24 @@ class AppLocalizationsUr extends AppLocalizations {
       'آسمان دن کے وقت کے ساتھ بدلتا ہے۔ موسم کا بٹن منظر چنتا ہے: آٹو موسم کے مطابق چلتا ہے، یا دھوپ، بادل، بارش، طوفان یا برف چنیں۔ یہ صرف منظر ہے، موسم کی پیش گوئی نہیں۔';
 
   @override
+  String get supportTitle => 'مفت، اشتہارات کے بغیر';
+
+  @override
+  String get supportBody =>
+      'اسے ایک شخص نے اپنے فارغ وقت میں بنایا ہے۔ اگر یہ آپ کے کام آئے تو آپ اس کی مدد کر سکتے ہیں۔';
+
+  @override
+  String get supportButton => 'GitHub پر مدد کریں';
+
+  @override
+  String get linkCopied => 'لنک کاپی ہو گیا';
+
+  @override
+  String madeBy(String name) {
+    return 'ڈیزائن اور تیاری: $name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return '$app کو بہتر بنانے میں مدد کریں';
   }
@@ -1430,11 +1448,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get testEmailMe => 'مجھے ای میل کریں';
-
-  @override
-  String testSignature(String name) {
-    return 'ڈیزائن اور تیاری: $name';
-  }
 
   @override
   String testEmailSubject(String app) {

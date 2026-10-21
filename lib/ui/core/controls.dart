@@ -12,12 +12,16 @@ class SoftButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     this.emphasis = false,
+    this.iconColor,
   });
 
   final String label;
   final IconData icon;
   final VoidCallback? onPressed;
   final bool emphasis;
+
+  /// The icon's colour, when it differs from the label's.
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class SoftButton extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(icon, size: 20, color: fg),
+                      Icon(icon, size: 20, color: iconColor ?? fg),
                       const SizedBox(width: 8),
                       Text(
                         label,

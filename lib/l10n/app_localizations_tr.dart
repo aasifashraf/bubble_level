@@ -1420,6 +1420,24 @@ class AppLocalizationsTr extends AppLocalizations {
       'Gökyüzü günün saatine uyar. Hava düğmesi sahneyi seçer: Otomatik mevsime uyar, ya da güneş, bulut, yağmur, fırtına veya kar seçin. Bu bir dekor, hava tahmini değil.';
 
   @override
+  String get supportTitle => 'Ücretsiz ve reklamsız';
+
+  @override
+  String get supportBody =>
+      'Tek bir kişi tarafından boş zamanında yapıldı. İşinize yarıyorsa destek olabilirsiniz.';
+
+  @override
+  String get supportButton => 'GitHub\'da destek olun';
+
+  @override
+  String get linkCopied => 'Bağlantı kopyalandı';
+
+  @override
+  String madeBy(String name) {
+    return 'Tasarlayan ve geliştiren: $name';
+  }
+
+  @override
   String testFeedbackTitle(String app) {
     return '$app uygulamasını birlikte geliştirelim';
   }
@@ -1430,11 +1448,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get testEmailMe => 'Bana yaz';
-
-  @override
-  String testSignature(String name) {
-    return 'Tasarlayan ve geliştiren: $name';
-  }
 
   @override
   String testEmailSubject(String app) {
