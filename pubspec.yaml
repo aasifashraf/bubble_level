@@ -20,13 +20,15 @@ dependencies:
   audioplayers: ^6.8.1
   # Temp files for the generated tones (the low-latency player needs files).
   path_provider: ^2.1.6
-  in_app_review: ^2.0.12
   intl: ^0.20.2
   # Pinned: the sound meter relies on its in-memory PCM stream and audio
   # source options; check them before moving to a newer major or minor.
   record: 7.1.1
   camera: ^0.12.1
-  geolocator: ^14.1.1
+  # iOS location only; Android uses its own LocationManager (Gps.kt), so
+  # the F-Droid build has no Google Play services.
+  geolocator_apple: ^2.3.14
+  geolocator_platform_interface: ^4.4.0
 
 dev_dependencies:
   flutter_test:

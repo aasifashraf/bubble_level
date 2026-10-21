@@ -1,6 +1,7 @@
 import AVFoundation
 import CoreMotion
 import Flutter
+import StoreKit
 import UIKit
 
 @main
@@ -58,7 +59,8 @@ import UIKit
       result(missing)
     }
 
-    // Opens this app's page in Settings, to allow a refused permission.
+    // Opens this app's page in Settings, to allow a refused permission,
+    // and asks for the App Store's review card.
     let app = FlutterMethodChannel(
       name: "bubble_level/app", binaryMessenger: registrar.messenger())
     app.setMethodCallHandler { call, result in
@@ -79,6 +81,17 @@ import UIKit
           return
         }
         UIApplication.shared.open(url) { opened in result(opened) }
+        return
+      }
+      // The App Store decides whether the card appears.
+      if call.method == "review" {
+        if let scene = UIApplication.shared.connectedScenes
+          .compactMap({ $0 as? UIWindowScene })
+          .first(where: { $0.activationState == .foregroundActive })
+        {
+          SKStoreReviewController.requestReview(in: scene)
+        }
+        result(nil)
         return
       }
       guard call.method == "openSettings",

@@ -47,6 +47,15 @@ android {
         versionName = flutter.versionName
     }
 
+    // Two builds of the same app (flutter build ... --flavor play|foss):
+    // Google Play's, with its review card, and the free software one for
+    // F-Droid, IzzyOnDroid and GitHub, with no Google libraries.
+    flavorDimensions += "store"
+    productFlavors {
+        create("play") { dimension = "store" }
+        create("foss") { dimension = "store" }
+    }
+
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"] as String?
@@ -68,6 +77,12 @@ android {
             }
         }
     }
+}
+
+dependencies {
+    // Location (Gps.kt) through Android's own LocationManager.
+    implementation("androidx.core:core:1.16.0")
+    "playImplementation"("com.google.android.play:review:2.0.2")
 }
 
 kotlin {

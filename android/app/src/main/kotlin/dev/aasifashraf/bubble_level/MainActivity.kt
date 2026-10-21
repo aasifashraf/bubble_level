@@ -18,8 +18,17 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
+    private var gps: Gps? = null
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (gps?.onPermissionResult(requestCode, grantResults) == true) return
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        gps = Gps(this, flutterEngine.dartExecutor.binaryMessenger)
+
         // Reports how far the UI is rotated from the device's natural
         // orientation, so sensor axes can be mapped onto the screen.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "bubble_level/display")
@@ -70,7 +79,8 @@ class MainActivity : FlutterActivity() {
                 result.success(missing)
             }
 
-        // Opens this app's page in Settings, to allow a refused permission.
+        // Opens this app's page in Settings, to allow a refused permission,
+        // and asks for the store's review card.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "bubble_level/app")
             .setMethodCallHandler { call, result ->
                 // TEMPORARY (test builds): opens the email app to write to the owner.
@@ -86,6 +96,11 @@ class MainActivity : FlutterActivity() {
                     } catch (e: ActivityNotFoundException) {
                         result.success(false)
                     }
+                }
+                // The store's review card: Google Play's in the Play build,
+                // nothing in the F-Droid build (see src/<flavour>/StoreReview.kt).
+                if (call.method == "review") {
+                    return@setMethodCallHandler StoreReview.request(this) { result.success(null) }
                 }
                 if (call.method != "openSettings") return@setMethodCallHandler result.notImplemented()
                 startActivity(
