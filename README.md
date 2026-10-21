@@ -86,10 +86,9 @@ flutter build apk --release --flavor foss  # installable APK
 ```
 
 Android builds need `--flavor`: `foss` (no Google libraries, for F-Droid and
-direct APKs) or `play` (Google Play). See [commands.md](commands.md).
+direct APKs) or `play` (Google Play).
 
-See [commands.md](commands.md) for emulator, Wi-Fi debugging and preview
-commands, [store_listing.md](store_listing.md) for the store text, and
+See [store_listing.md](store_listing.md) for the store text and
 [play_store_guide.md](play_store_guide.md) for publishing to Google Play.
 
 ## Support

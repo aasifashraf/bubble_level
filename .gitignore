@@ -52,6 +52,9 @@ app.*.map.json
 skills-lock.json
 DESIGN.md
 
+# The owner's own run notes
+commands.md
+
 # Signing keys, wherever they are placed
 key.properties
 *.jks
