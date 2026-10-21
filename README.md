@@ -80,14 +80,26 @@ the repositories.
 
 ```powershell
 flutter pub get
-flutter run                  # on a connected phone or emulator
+flutter run --flavor foss    # on a connected Android phone or emulator
 flutter test                 # unit, view-model and widget tests
-flutter build apk --release  # installable APK
+flutter build apk --release --flavor foss  # installable APK
 ```
+
+Android builds need `--flavor`: `foss` (no Google libraries, for F-Droid and
+direct APKs) or `play` (Google Play). See [commands.md](commands.md).
 
 See [commands.md](commands.md) for emulator, Wi-Fi debugging and preview
 commands, [store_listing.md](store_listing.md) for the store text, and
 [play_store_guide.md](play_store_guide.md) for publishing to Google Play.
+
+## Support
+
+The app is free, with no ads and nothing locked. If it helps you, you can
+support it on [GitHub Sponsors](https://github.com/sponsors/aasifashraf).
+
+## Licence
+
+GPL version 3 only: see [LICENSE](LICENSE).
 
 ## Credits
 
