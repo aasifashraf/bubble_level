@@ -13,6 +13,7 @@ import '../../data/repositories/settings_repository.dart';
 import '../../data/repositories/sound_repository.dart';
 import '../../data/repositories/speed_repository.dart';
 import '../../data/repositories/vibration_repository.dart';
+import '../../data/services/bluetooth_service.dart';
 import '../../data/services/camera_service.dart';
 import '../../data/services/display_rotation_service.dart';
 import '../../data/services/location_service.dart';
@@ -59,6 +60,8 @@ import '../features/sound/view_models/sound_view_model.dart';
 import '../features/sound/views/sound_screen.dart';
 import '../features/speed/view_models/speed_view_model.dart';
 import '../features/speed/views/speed_screen.dart';
+import '../features/tracker/view_models/tracker_view_model.dart';
+import '../features/tracker/views/tracker_screen.dart';
 import '../features/vibration/view_models/vibration_view_model.dart';
 import '../features/vibration/views/vibration_screen.dart';
 import 'arrange_sheet.dart';
@@ -88,6 +91,7 @@ class HomeShell extends StatefulWidget {
     this.microphone = const MicrophoneService(),
     this.camera = const CameraService(),
     this.location = const LocationService(),
+    this.bluetooth = const BluetoothService(),
     this.testFeedback = false,
     this.showSupport = false,
   });
@@ -116,6 +120,9 @@ class HomeShell extends StatefulWidget {
 
   /// The speedometer's GPS.
   final LocationService location;
+
+  /// The Tracker check's Bluetooth scanner.
+  final BluetoothService bluetooth;
 
   /// TEMPORARY: a test build shows where to send feedback below the tools.
   final bool testFeedback;
@@ -189,6 +196,11 @@ class _HomeShellState extends State<HomeShell> {
   );
   late final _lightRepo = LightRepository(sensors: widget.sensors);
   late final _light = LightViewModel(repository: _lightRepo);
+  late final _tracker = TrackerViewModel(
+    settings: widget.settings,
+    bluetooth: widget.bluetooth,
+    location: widget.location,
+  );
 
   @override
   void dispose() {
@@ -205,6 +217,7 @@ class _HomeShellState extends State<HomeShell> {
     _altimeter.dispose();
     _light.dispose();
     _lightRepo.dispose();
+    _tracker.dispose();
     _sound.dispose();
     _soundRepo.dispose();
     _vibrationRepo.dispose();
@@ -231,6 +244,7 @@ class _HomeShellState extends State<HomeShell> {
     HomeTool.height,
     HomeTool.camera,
     HomeTool.speed,
+    HomeTool.tracker,
   };
 
   /// Opens a tool full screen; its view model (if it uses sensors) follows
@@ -337,6 +351,25 @@ class _HomeShellState extends State<HomeShell> {
           (_) => SpeedScreen(viewModel: _speed, onBack: back),
           tool: tool,
         );
+      case HomeTool.tracker:
+        // Its car check hands over to the Metal detector once it's closed.
+        var thenMetal = false;
+        unawaited(
+          _open(
+            _tracker,
+            (_) => TrackerScreen(
+              viewModel: _tracker,
+              onBack: back,
+              onOpenMetal: () {
+                thenMetal = true;
+                back();
+              },
+            ),
+            tool: tool,
+          ).then((_) {
+            if (thenMetal && mounted) _openTool(HomeTool.metal);
+          }),
+        );
       case HomeTool.gforce:
         _open(
           _gForce,
@@ -403,6 +436,15 @@ class _HomeShellState extends State<HomeShell> {
       subtitle: l.toolMetalSubtitle,
       needs: [SensorKind.accelerometer, SensorKind.magnetometer],
     ),
+    // Android only: iPhone apps can't hear AirTags, so it would miss the
+    // most common tracker.
+    if (defaultTargetPlatform != TargetPlatform.iOS)
+      (
+        tool: HomeTool.tracker,
+        title: l.toolTracker,
+        subtitle: l.toolTrackerSubtitle,
+        needs: [SensorKind.bluetooth],
+      ),
     (
       tool: HomeTool.camera,
       title: l.toolCamera,

@@ -1479,4 +1479,223 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get testEndedBody =>
       'टेस्ट करने के लिए धन्यवाद! कृपया नया संस्करण लें। इसे पाने के लिए मुझे लिखें:';
+
+  @override
+  String get toolTracker => 'ट्रैकर जाँच';
+
+  @override
+  String get toolTrackerSubtitle => 'छिपे ट्रैकर जो आपके साथ चल रहे हैं';
+
+  @override
+  String get sensorBluetooth => 'Bluetooth';
+
+  @override
+  String get trackerHelp1 =>
+      'यहाँ स्कैन करें टैप करें, आस पास के वे ब्लूटूथ ट्रैकर दिखेंगे जो अपने मालिक से दूर हैं: AirTag, Galaxy SmartTag, Tile, Chipolo और Find Hub टैग।';
+
+  @override
+  String get trackerHelp2 =>
+      'कोई आपका पीछा कर रहा है या नहीं, यह जानने के लिए चलते हुए जाँचें टैप करें और पैदल या गाड़ी में यह टूल खुला रखें; स्क्रीन चालू रहती है। जो ट्रैकर 30 मिनट या उससे ज़्यादा में 3 जगहों पर सुना जाए, वह आपके साथ चल रहा है।';
+
+  @override
+  String get trackerHelp3 =>
+      'ट्रैकर ढूँढने के लिए उसे टैप करें: धीरे चलें और बढ़ते नंबर के पीछे जाएँ। सब दिखाएँ में अपने ट्रैकर को यह मेरा है चुनें, फिर वह दोबारा नहीं दिखेगा।';
+
+  @override
+  String get trackerHelp4 =>
+      'SIM कार्ड वाले GPS बॉक्स को कोई भी फ़ोन नहीं सुन सकता। कार जाँच टैप करें: ज़्यादातर तेज़ चुंबक से चिपके होते हैं, जिसे मेटल डिटेक्टर ढूँढ लेता है।';
+
+  @override
+  String get trackerTip =>
+      'यह सिर्फ़ खुला रहने पर सुनता है और हर ट्रैकर नहीं सुन पाता। परिवार के किसी सदस्य का या उसी ट्रेन में किसी अजनबी का ट्रैकर भी दिख सकता है, और मालिक के पास वाला ट्रैकर नहीं दिखता। अगर लगे कि कोई आपको ट्रैक कर रहा है, तो पुलिस या किसी सहायता सेवा से संपर्क करें।';
+
+  @override
+  String get trackerAllowTitle => 'ब्लूटूथ स्कैन की अनुमति दें';
+
+  @override
+  String get trackerAllowBody =>
+      'ट्रैकर जाँच आस पास के ब्लूटूथ ट्रैकर सुनती है। यह सिर्फ़ टूल खुला रहने पर सुनती है, उनसे कभी कनेक्ट नहीं होती, और जो सुनती है वह आपके फ़ोन से बाहर नहीं जाता।';
+
+  @override
+  String get trackerAllow => 'ब्लूटूथ की अनुमति दें';
+
+  @override
+  String get trackerDeniedTitle => 'ब्लूटूथ स्कैन बंद है';
+
+  @override
+  String get trackerDeniedBody =>
+      'ट्रैकर जाँच के लिए सेटिंग में इस ऐप को आस पास के डिवाइस की अनुमति दें।';
+
+  @override
+  String get trackerBluetoothOffTitle => 'ब्लूटूथ बंद है';
+
+  @override
+  String get trackerBluetoothOffBody =>
+      'ट्रैकर सुनने के लिए ब्लूटूथ चालू करें। ऐप कभी किसी चीज़ से कनेक्ट नहीं होता।';
+
+  @override
+  String get trackerLocationOffTitle => 'लोकेशन बंद है';
+
+  @override
+  String get trackerLocationOffBody =>
+      'इस Android वर्शन में ब्लूटूथ स्कैन सिर्फ़ लोकेशन चालू होने पर चलता है। इससे कुछ भी लोकेट नहीं किया जाता।';
+
+  @override
+  String get trackerScanHere => 'यहाँ स्कैन करें';
+
+  @override
+  String get trackerCheckMoving => 'चलते हुए जाँचें';
+
+  @override
+  String get trackerStop => 'रोकें';
+
+  @override
+  String get trackerDone => 'हो गया';
+
+  @override
+  String get trackerLocationNeeded =>
+      'चलते हुए जाँच GPS से जगहें नोट करती है: लोकेशन की अनुमति दें।';
+
+  @override
+  String get trackerSimNote => 'SIM कार्ड वाले GPS बॉक्स सुनाई नहीं देते';
+
+  @override
+  String get trackerCarCheck => 'कार जाँच';
+
+  @override
+  String get carCheckBody =>
+      'कुछ ट्रैकर कार में छिपाए गए SIM कार्ड वाले GPS बॉक्स होते हैं। कोई फ़ोन इन्हें नहीं सुन सकता, लेकिन ज़्यादातर तेज़ चुंबक से चिपके होते हैं, जिसे मेटल डिटेक्टर ढूँढ लेता है।';
+
+  @override
+  String get carSpot1 => 'आगे और पीछे के बंपर के नीचे';
+
+  @override
+  String get carSpot2 => 'पहियों के ऊपर की खाली जगह में';
+
+  @override
+  String get carSpot3 => 'सीटों के नीचे और डिक्की में';
+
+  @override
+  String get carSpot4 => 'डैशबोर्ड के नीचे डायग्नोस्टिक (OBD) पोर्ट के पीछे';
+
+  @override
+  String get carCheckTip =>
+      'फ़ोन के ऊपरी किनारे को हर जगह के ऊपर धीरे से घुमाएँ। रीडिंग में अचानक उछाल का मतलब धातु या चुंबक है: ध्यान से देखें।';
+
+  @override
+  String get carOpenMetal => 'मेटल डिटेक्टर खोलें';
+
+  @override
+  String get trackerPaused => 'ऐप छिपा रहने पर रुका हुआ';
+
+  @override
+  String trackerFollowingBanner(String name, int places) {
+    return '$name आपके साथ चल रहा है: $places जगहों पर सुना गया';
+  }
+
+  @override
+  String trackerMoving(int minutes, int places) {
+    return '$minutes मिनट से जाँच जारी। पार की गई जगहें: $places';
+  }
+
+  @override
+  String get trackerListening => 'ट्रैकर सुन रहे हैं';
+
+  @override
+  String get trackerNothingHeard =>
+      'यहाँ मालिक से दूर कोई ट्रैकर नहीं सुना गया';
+
+  @override
+  String get trackerIdle => 'आस पास के ट्रैकर देखने के लिए स्कैन करें';
+
+  @override
+  String trackerSemantics(int following, int nearby) {
+    return 'आपके साथ चल रहे: $following। आस पास के ट्रैकर: $nearby।';
+  }
+
+  @override
+  String trackerShowAll(int count) {
+    return 'सब दिखाएँ ($count)';
+  }
+
+  @override
+  String trackerAllTitle(int count) {
+    return 'आस पास के ट्रैकर: $count';
+  }
+
+  @override
+  String get trackerKindFindMy => 'Find My टैग';
+
+  @override
+  String get trackerKindFindHub => 'Find Hub टैग';
+
+  @override
+  String get trackerKindDult => 'सामान ट्रैकर';
+
+  @override
+  String get trackerClose => 'पास';
+
+  @override
+  String get trackerNear => 'थोड़ा दूर';
+
+  @override
+  String get trackerFar => 'दूर';
+
+  @override
+  String trackerFollowingYou(int places) {
+    return 'आपके साथ · जगहें: $places';
+  }
+
+  @override
+  String trackerPlaces(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count जगहों पर सुना गया',
+      one: '1 जगह सुना गया',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get trackerMine => 'यह मेरा है';
+
+  @override
+  String get trackerNotMine => 'मेरा नहीं';
+
+  @override
+  String get trackerFollowingLabel => 'पीछा कर रहे';
+
+  @override
+  String trackerNearby(int count) {
+    return 'आस पास: $count';
+  }
+
+  @override
+  String trackerFindTitle(String name) {
+    return '$name ढूँढें';
+  }
+
+  @override
+  String get trackerFindHint =>
+      'कार या बैग के चारों ओर धीरे चलें और बढ़ते नंबर के पीछे जाएँ। सिग्नल सिर्फ़ दूरी बताता है, दिशा नहीं।';
+
+  @override
+  String get trackerFindLost => 'सुनाई नहीं दे रहा: धीरे चलें';
+
+  @override
+  String get findFar => 'दूर';
+
+  @override
+  String get findCloser => 'पास आ रहे हैं';
+
+  @override
+  String get findNear => 'पास';
+
+  @override
+  String get findHere => 'बिल्कुल यहीं';
+
+  @override
+  String get trackerAppleSound =>
+      'Apple का Find My, या Android पर Tracker Detect ऐप, AirTag से आवाज़ बजवा सकता है।';
 }

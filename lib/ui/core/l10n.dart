@@ -20,6 +20,7 @@ extension SensorNames on AppLocalizations {
     SensorKind.microphone => sensorMicrophone,
     SensorKind.camera => sensorCamera,
     SensorKind.gps => sensorGps,
+    SensorKind.bluetooth => sensorBluetooth,
   };
 
   /// Compass direction abbreviation for one of the eight 45° sectors,

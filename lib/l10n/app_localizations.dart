@@ -2655,6 +2655,366 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Thank you for testing! Please get the new version. To get it, write to me:'**
   String get testEndedBody;
+
+  /// No description provided for @toolTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracker check'**
+  String get toolTracker;
+
+  /// No description provided for @toolTrackerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden trackers following you'**
+  String get toolTrackerSubtitle;
+
+  /// No description provided for @sensorBluetooth.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth'**
+  String get sensorBluetooth;
+
+  /// No description provided for @trackerHelp1.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap Scan here to list Bluetooth trackers near you that are away from their owners: AirTag, Galaxy SmartTag, Tile, Chipolo and Find Hub tags.'**
+  String get trackerHelp1;
+
+  /// No description provided for @trackerHelp2.
+  ///
+  /// In en, this message translates to:
+  /// **'To find out if one is following you, tap Check while I move and keep this tool open on a walk or drive; the screen stays on. A tracker heard at 3 places over 30 minutes or more is travelling with you.'**
+  String get trackerHelp2;
+
+  /// No description provided for @trackerHelp3.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a tracker to find it: walk slowly and follow the number up. In Show all, mark your own trackers as This is mine and they won’t be listed again.'**
+  String get trackerHelp3;
+
+  /// No description provided for @trackerHelp4.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS boxes with a SIM card can’t be heard by any phone. Tap Car check: most are held on by a strong magnet, which the Metal detector finds.'**
+  String get trackerHelp4;
+
+  /// No description provided for @trackerTip.
+  ///
+  /// In en, this message translates to:
+  /// **'It listens only while open and can’t hear every tracker. A family member’s tracker, or a stranger’s on the same train, can show up too, and one next to its owner is left out. If you think someone is tracking you, contact the police or a support service.'**
+  String get trackerTip;
+
+  /// No description provided for @trackerAllowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Bluetooth scan'**
+  String get trackerAllowTitle;
+
+  /// No description provided for @trackerAllowBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The Tracker check listens for Bluetooth trackers near you. It listens only while this tool is open, never connects to them, and nothing it hears leaves your phone.'**
+  String get trackerAllowBody;
+
+  /// No description provided for @trackerAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Bluetooth'**
+  String get trackerAllow;
+
+  /// No description provided for @trackerDeniedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth scan is off'**
+  String get trackerDeniedTitle;
+
+  /// No description provided for @trackerDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Nearby devices for this app in Settings to use the Tracker check.'**
+  String get trackerDeniedBody;
+
+  /// No description provided for @trackerBluetoothOffTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth is off'**
+  String get trackerBluetoothOffTitle;
+
+  /// No description provided for @trackerBluetoothOffBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on Bluetooth to listen for trackers. The app never connects to anything.'**
+  String get trackerBluetoothOffBody;
+
+  /// No description provided for @trackerLocationOffTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is off'**
+  String get trackerLocationOffTitle;
+
+  /// No description provided for @trackerLocationOffBody.
+  ///
+  /// In en, this message translates to:
+  /// **'On this Android version, Bluetooth scanning only works with location turned on. Nothing is located from it.'**
+  String get trackerLocationOffBody;
+
+  /// No description provided for @trackerScanHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan here'**
+  String get trackerScanHere;
+
+  /// No description provided for @trackerCheckMoving.
+  ///
+  /// In en, this message translates to:
+  /// **'Check while I move'**
+  String get trackerCheckMoving;
+
+  /// No description provided for @trackerStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get trackerStop;
+
+  /// No description provided for @trackerDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get trackerDone;
+
+  /// No description provided for @trackerLocationNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Check while I move notes places with GPS: allow location.'**
+  String get trackerLocationNeeded;
+
+  /// No description provided for @trackerSimNote.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS boxes with a SIM card can’t be heard'**
+  String get trackerSimNote;
+
+  /// No description provided for @trackerCarCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Car check'**
+  String get trackerCarCheck;
+
+  /// No description provided for @carCheckBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Some trackers are GPS boxes with a SIM card hidden on a car. No phone can hear those, but most are held on by a strong magnet, which the Metal detector finds.'**
+  String get carCheckBody;
+
+  /// No description provided for @carSpot1.
+  ///
+  /// In en, this message translates to:
+  /// **'Under the bumpers, front and back'**
+  String get carSpot1;
+
+  /// No description provided for @carSpot2.
+  ///
+  /// In en, this message translates to:
+  /// **'Inside the wheel arches'**
+  String get carSpot2;
+
+  /// No description provided for @carSpot3.
+  ///
+  /// In en, this message translates to:
+  /// **'Under the seats and in the boot'**
+  String get carSpot3;
+
+  /// No description provided for @carSpot4.
+  ///
+  /// In en, this message translates to:
+  /// **'Behind the diagnostic (OBD) port under the dashboard'**
+  String get carSpot4;
+
+  /// No description provided for @carCheckTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweep the top edge of the phone slowly over each spot. A jump in the reading means metal or a magnet: look closer.'**
+  String get carCheckTip;
+
+  /// No description provided for @carOpenMetal.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Metal detector'**
+  String get carOpenMetal;
+
+  /// No description provided for @trackerPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused while the app is hidden'**
+  String get trackerPaused;
+
+  /// No description provided for @trackerFollowingBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is travelling with you: heard at {places} places'**
+  String trackerFollowingBanner(String name, int places);
+
+  /// No description provided for @trackerMoving.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking for {minutes} min. Places passed: {places}'**
+  String trackerMoving(int minutes, int places);
+
+  /// No description provided for @trackerListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening for trackers'**
+  String get trackerListening;
+
+  /// No description provided for @trackerNothingHeard.
+  ///
+  /// In en, this message translates to:
+  /// **'No trackers away from their owner heard here'**
+  String get trackerNothingHeard;
+
+  /// No description provided for @trackerIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan to list trackers near you'**
+  String get trackerIdle;
+
+  /// No description provided for @trackerSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Following you: {following}. Trackers nearby: {nearby}.'**
+  String trackerSemantics(int following, int nearby);
+
+  /// No description provided for @trackerShowAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all ({count})'**
+  String trackerShowAll(int count);
+
+  /// No description provided for @trackerAllTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Trackers nearby: {count}'**
+  String trackerAllTitle(int count);
+
+  /// No description provided for @trackerKindFindMy.
+  ///
+  /// In en, this message translates to:
+  /// **'Find My tag'**
+  String get trackerKindFindMy;
+
+  /// No description provided for @trackerKindFindHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Hub tag'**
+  String get trackerKindFindHub;
+
+  /// No description provided for @trackerKindDult.
+  ///
+  /// In en, this message translates to:
+  /// **'Item tracker'**
+  String get trackerKindDult;
+
+  /// No description provided for @trackerClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get trackerClose;
+
+  /// No description provided for @trackerNear.
+  ///
+  /// In en, this message translates to:
+  /// **'Near'**
+  String get trackerNear;
+
+  /// No description provided for @trackerFar.
+  ///
+  /// In en, this message translates to:
+  /// **'Far'**
+  String get trackerFar;
+
+  /// No description provided for @trackerFollowingYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Following you · places: {places}'**
+  String trackerFollowingYou(int places);
+
+  /// No description provided for @trackerPlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Heard at 1 place} other{Heard at {count} places}}'**
+  String trackerPlaces(int count);
+
+  /// No description provided for @trackerMine.
+  ///
+  /// In en, this message translates to:
+  /// **'This is mine'**
+  String get trackerMine;
+
+  /// No description provided for @trackerNotMine.
+  ///
+  /// In en, this message translates to:
+  /// **'Not mine'**
+  String get trackerNotMine;
+
+  /// No description provided for @trackerFollowingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'following'**
+  String get trackerFollowingLabel;
+
+  /// No description provided for @trackerNearby.
+  ///
+  /// In en, this message translates to:
+  /// **'nearby: {count}'**
+  String trackerNearby(int count);
+
+  /// No description provided for @trackerFindTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find {name}'**
+  String trackerFindTitle(String name);
+
+  /// No description provided for @trackerFindHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk slowly around the car or bag and follow the number up. The signal gives distance only, not direction.'**
+  String get trackerFindHint;
+
+  /// No description provided for @trackerFindLost.
+  ///
+  /// In en, this message translates to:
+  /// **'Not heard: move slowly'**
+  String get trackerFindLost;
+
+  /// No description provided for @findFar.
+  ///
+  /// In en, this message translates to:
+  /// **'Far'**
+  String get findFar;
+
+  /// No description provided for @findCloser.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting closer'**
+  String get findCloser;
+
+  /// No description provided for @findNear.
+  ///
+  /// In en, this message translates to:
+  /// **'Near'**
+  String get findNear;
+
+  /// No description provided for @findHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Right here'**
+  String get findHere;
+
+  /// No description provided for @trackerAppleSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple’s Find My, or the Tracker Detect app on Android, can make an AirTag play a sound.'**
+  String get trackerAppleSound;
 }
 
 class _AppLocalizationsDelegate

@@ -1484,4 +1484,217 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get testEndedBody =>
       'Terima kasih sudah menguji! Silakan gunakan versi baru. Untuk mendapatkannya, tulis ke saya:';
+
+  @override
+  String get toolTracker => 'Cek pelacak';
+
+  @override
+  String get toolTrackerSubtitle => 'Pelacak tersembunyi yang mengikuti Anda';
+
+  @override
+  String get sensorBluetooth => 'Bluetooth';
+
+  @override
+  String get trackerHelp1 =>
+      'Ketuk Pindai di sini untuk melihat pelacak Bluetooth di dekat Anda yang jauh dari pemiliknya: AirTag, Galaxy SmartTag, Tile, Chipolo, dan tag Find Hub.';
+
+  @override
+  String get trackerHelp2 =>
+      'Untuk tahu apakah ada yang mengikuti Anda, ketuk Periksa saat bergerak dan biarkan alat ini terbuka saat berjalan atau berkendara; layar tetap menyala. Pelacak yang terdengar di 3 tempat selama 30 menit atau lebih ikut bepergian bersama Anda.';
+
+  @override
+  String get trackerHelp3 =>
+      'Ketuk pelacak untuk mencarinya: berjalanlah perlahan dan ikuti angka yang naik. Di Tampilkan semua, tandai pelacak Anda sebagai Ini milik saya agar tidak muncul lagi.';
+
+  @override
+  String get trackerHelp4 =>
+      'Kotak GPS dengan kartu SIM tidak bisa didengar ponsel mana pun. Ketuk Cek mobil: sebagian besar ditempel dengan magnet kuat, yang bisa ditemukan detektor logam.';
+
+  @override
+  String get trackerTip =>
+      'Alat ini hanya mendengar saat terbuka dan tidak bisa mendengar semua pelacak. Pelacak milik keluarga, atau milik orang asing di kereta yang sama, juga bisa muncul, dan pelacak yang dekat pemiliknya tidak ditampilkan. Jika Anda merasa dilacak seseorang, hubungi polisi atau layanan bantuan.';
+
+  @override
+  String get trackerAllowTitle => 'Izinkan pemindaian Bluetooth';
+
+  @override
+  String get trackerAllowBody =>
+      'Cek pelacak mendengarkan pelacak Bluetooth di dekat Anda. Alat ini hanya mendengar saat terbuka, tidak pernah terhubung ke pelacak, dan tidak ada yang didengarnya keluar dari ponsel Anda.';
+
+  @override
+  String get trackerAllow => 'Izinkan Bluetooth';
+
+  @override
+  String get trackerDeniedTitle => 'Pemindaian Bluetooth nonaktif';
+
+  @override
+  String get trackerDeniedBody =>
+      'Izinkan Perangkat di sekitar untuk aplikasi ini di Setelan agar dapat memakai Cek pelacak.';
+
+  @override
+  String get trackerBluetoothOffTitle => 'Bluetooth nonaktif';
+
+  @override
+  String get trackerBluetoothOffBody =>
+      'Nyalakan Bluetooth untuk mendengarkan pelacak. Aplikasi tidak pernah terhubung ke apa pun.';
+
+  @override
+  String get trackerLocationOffTitle => 'Lokasi nonaktif';
+
+  @override
+  String get trackerLocationOffBody =>
+      'Pada versi Android ini, pemindaian Bluetooth hanya berfungsi jika lokasi aktif. Tidak ada yang dilacak lokasinya dari situ.';
+
+  @override
+  String get trackerScanHere => 'Pindai di sini';
+
+  @override
+  String get trackerCheckMoving => 'Periksa saat bergerak';
+
+  @override
+  String get trackerStop => 'Berhenti';
+
+  @override
+  String get trackerDone => 'Selesai';
+
+  @override
+  String get trackerLocationNeeded =>
+      'Periksa saat bergerak mencatat tempat dengan GPS: izinkan lokasi.';
+
+  @override
+  String get trackerSimNote => 'Kotak GPS ber-SIM tidak bisa didengar';
+
+  @override
+  String get trackerCarCheck => 'Cek mobil';
+
+  @override
+  String get carCheckBody =>
+      'Sebagian pelacak berupa kotak GPS dengan kartu SIM yang disembunyikan di mobil. Tidak ada ponsel yang bisa mendengarnya, tetapi sebagian besar ditempel dengan magnet kuat, yang bisa ditemukan detektor logam.';
+
+  @override
+  String get carSpot1 => 'Di bawah bemper, depan dan belakang';
+
+  @override
+  String get carSpot2 => 'Di dalam spakbor roda';
+
+  @override
+  String get carSpot3 => 'Di bawah jok dan di bagasi';
+
+  @override
+  String get carSpot4 => 'Di balik port diagnostik (OBD) di bawah dasbor';
+
+  @override
+  String get carCheckTip =>
+      'Gerakkan tepi atas ponsel perlahan di atas setiap tempat. Lonjakan angka berarti ada logam atau magnet: periksa lebih dekat.';
+
+  @override
+  String get carOpenMetal => 'Buka detektor logam';
+
+  @override
+  String get trackerPaused => 'Dijeda saat aplikasi tersembunyi';
+
+  @override
+  String trackerFollowingBanner(String name, int places) {
+    return '$name bepergian bersama Anda: terdengar di $places tempat';
+  }
+
+  @override
+  String trackerMoving(int minutes, int places) {
+    return 'Memeriksa selama $minutes menit. Tempat dilewati: $places';
+  }
+
+  @override
+  String get trackerListening => 'Mendengarkan pelacak';
+
+  @override
+  String get trackerNothingHeard =>
+      'Tidak ada pelacak jauh dari pemiliknya di sini';
+
+  @override
+  String get trackerIdle => 'Pindai untuk melihat pelacak di dekat Anda';
+
+  @override
+  String trackerSemantics(int following, int nearby) {
+    return 'Mengikuti Anda: $following. Pelacak di dekat: $nearby.';
+  }
+
+  @override
+  String trackerShowAll(int count) {
+    return 'Tampilkan semua ($count)';
+  }
+
+  @override
+  String trackerAllTitle(int count) {
+    return 'Pelacak di dekat: $count';
+  }
+
+  @override
+  String get trackerKindFindMy => 'Tag Lacak';
+
+  @override
+  String get trackerKindFindHub => 'Tag Find Hub';
+
+  @override
+  String get trackerKindDult => 'Pelacak barang';
+
+  @override
+  String get trackerClose => 'Dekat';
+
+  @override
+  String get trackerNear => 'Sedang';
+
+  @override
+  String get trackerFar => 'Jauh';
+
+  @override
+  String trackerFollowingYou(int places) {
+    return 'Mengikuti Anda · tempat: $places';
+  }
+
+  @override
+  String trackerPlaces(int count) {
+    return 'Terdengar di $count tempat';
+  }
+
+  @override
+  String get trackerMine => 'Ini milik saya';
+
+  @override
+  String get trackerNotMine => 'Bukan milik saya';
+
+  @override
+  String get trackerFollowingLabel => 'mengikuti';
+
+  @override
+  String trackerNearby(int count) {
+    return 'di dekat: $count';
+  }
+
+  @override
+  String trackerFindTitle(String name) {
+    return 'Cari $name';
+  }
+
+  @override
+  String get trackerFindHint =>
+      'Berjalanlah perlahan mengelilingi mobil atau tas dan ikuti angka yang naik. Sinyal hanya menunjukkan jarak, bukan arah.';
+
+  @override
+  String get trackerFindLost => 'Tidak terdengar: bergerak perlahan';
+
+  @override
+  String get findFar => 'Jauh';
+
+  @override
+  String get findCloser => 'Makin dekat';
+
+  @override
+  String get findNear => 'Dekat';
+
+  @override
+  String get findHere => 'Tepat di sini';
+
+  @override
+  String get trackerAppleSound =>
+      'Lacak dari Apple, atau aplikasi Tracker Detect di Android, bisa membuat AirTag berbunyi.';
 }

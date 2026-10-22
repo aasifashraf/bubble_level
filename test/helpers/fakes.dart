@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:bubble_level/data/services/bluetooth_service.dart';
 import 'package:bubble_level/data/services/camera_service.dart';
 import 'package:bubble_level/data/services/display_rotation_service.dart';
 import 'package:bubble_level/data/services/location_service.dart';
@@ -9,6 +10,7 @@ import 'package:bubble_level/data/services/motion_sensor_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
 import 'package:bubble_level/domain/angles.dart';
 import 'package:bubble_level/domain/speed.dart';
+import 'package:bubble_level/domain/tracker.dart';
 import 'package:flutter/widgets.dart';
 
 /// Sensor streams the test drives by hand.
@@ -255,4 +257,40 @@ class FakeLocationService implements LocationService {
 
   @override
   Stream<LocationFix> fixes() => fixesController.stream;
+}
+
+/// Bluetooth the test drives: permission answers, adverts, the screen.
+class FakeBluetoothService implements BluetoothService {
+  /// Where access stands without asking.
+  BluetoothAccess checkResult = BluetoothAccess.needed;
+
+  /// The answer to the system prompt.
+  BluetoothAccess requestResult = BluetoothAccess.granted;
+
+  int requested = 0, appSettingsOpened = 0, bluetoothSettingsOpened = 0;
+  bool screenKeptOn = false;
+  final signalsController = StreamController<BleSignal>.broadcast();
+
+  bool get listening => signalsController.hasListener;
+
+  @override
+  Future<BluetoothAccess> check() async => checkResult;
+
+  @override
+  Future<BluetoothAccess> request() async {
+    requested++;
+    return requestResult;
+  }
+
+  @override
+  Future<void> openAppSettings() async => appSettingsOpened++;
+
+  @override
+  Future<void> openBluetoothSettings() async => bluetoothSettingsOpened++;
+
+  @override
+  Future<void> keepScreenOn(bool on) async => screenKeptOn = on;
+
+  @override
+  Stream<BleSignal> signals() => signalsController.stream;
 }

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:bubble_level/data/repositories/orientation_repository.dart';
 import 'package:bubble_level/data/repositories/settings_repository.dart';
+import 'package:bubble_level/data/services/bluetooth_service.dart';
 import 'package:bubble_level/data/services/location_service.dart';
 import 'package:bubble_level/data/services/sensor_availability_service.dart';
 import 'package:bubble_level/data/services/sound_service.dart';
@@ -10,6 +11,7 @@ import 'package:bubble_level/domain/g_force.dart';
 import 'package:bubble_level/domain/ruler.dart';
 import 'package:bubble_level/domain/scene_weather.dart';
 import 'package:bubble_level/domain/sound.dart';
+import 'package:bubble_level/domain/tracker.dart';
 import 'package:bubble_level/main.dart';
 import 'package:bubble_level/ui/core/controls.dart';
 import 'package:bubble_level/ui/core/dial.dart';
@@ -48,6 +50,7 @@ const _allTools = [
   'Camera level',
   'G-force',
   'Speedometer',
+  'Tracker check',
 ];
 
 void main() {
@@ -55,6 +58,7 @@ void main() {
   late FakeMicrophoneService microphone;
   late FakeCameraService camera;
   late FakeLocationService location;
+  late FakeBluetoothService bluetooth;
 
   /// Phone-sized window unless [size] says otherwise.
   Future<void> pumpApp(
@@ -76,11 +80,13 @@ void main() {
     microphone = FakeMicrophoneService();
     camera = FakeCameraService();
     location = FakeLocationService();
+    bluetooth = FakeBluetoothService();
     await tester.pumpWidget(
       BubbleLevelApp(
         microphone: microphone,
         camera: camera,
         location: location,
+        bluetooth: bluetooth,
         settings: settings,
         orientation: OrientationRepository(
           sensors: sensors,
@@ -1529,8 +1535,69 @@ void main() {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       await pumpApp(tester);
       expect(find.text('Light meter'), findsNothing);
+      // iPhone apps can't hear AirTags, so no Tracker check either.
+      expect(find.text('Tracker check'), findsNothing);
       expect(find.text('Altimeter'), findsOneWidget);
       debugDefaultTargetPlatformOverride = null;
+    });
+  });
+
+  group('Tracker check', () {
+    testWidgets('asks for Bluetooth first, then lists a tracker away from '
+        'its owner', (tester) async {
+      await pumpApp(tester);
+      await openTool(tester, 'Tracker check');
+      expect(find.text('Allow Bluetooth scan'), findsOneWidget);
+      await tester.tap(find.text('Allow Bluetooth'));
+      await tester.pumpAndSettle();
+      expect(bluetooth.requested, 1);
+      expect(find.text('Scan to list trackers near you'), findsOneWidget);
+
+      await tester.tap(find.text('Scan here'));
+      await tester.pump();
+      expect(bluetooth.listening, isTrue);
+      bluetooth.signalsController.add(
+        BleSignal(
+          address: 'AA:00:00:00:00:01',
+          rssi: -55,
+          time: DateTime.now(),
+          serviceData: {
+            'fd5a': Uint8List.fromList([2 << 5, 0, 0, 1]),
+          },
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.text('Galaxy SmartTag'), findsOneWidget);
+      expect(find.textContaining('Close'), findsWidgets);
+      expect(
+        find.bySemanticsLabel('Following you: 0. Trackers nearby: 1.'),
+        findsOneWidget,
+      );
+
+      // Back out: the scan stops and nothing is kept.
+      await tester.tap(find.bySemanticsLabel('Back'));
+      await tester.pumpAndSettle();
+      expect(bluetooth.listening, isFalse);
+    });
+
+    testWidgets('the car check hands over to the Metal detector', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      bluetooth.checkResult = BluetoothAccess.granted;
+      await openTool(tester, 'Tracker check');
+      expect(
+        find.textContaining('GPS boxes with a SIM card can’t be heard'),
+        findsOneWidget,
+      );
+      await tester.tap(find.textContaining('Car check'));
+      await tester.pumpAndSettle();
+      expect(find.text('Inside the wheel arches'), findsOneWidget);
+      await tester.tap(find.text('Open Metal detector'));
+      await tester.pumpAndSettle();
+      expect(find.text('Metal detector'), findsOneWidget);
+      expect(find.text('Tracker check'), findsNothing);
+      expect(tester.takeException(), isNull);
     });
   });
 

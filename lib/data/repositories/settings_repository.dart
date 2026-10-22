@@ -57,6 +57,7 @@ class SettingsRepository extends ChangeNotifier {
   static const _kEyeHeight = 'eyeHeight';
   static const _kCameraAllowed = 'cameraAllowed';
   static const _kSpeedMph = 'speedMph';
+  static const _kTrackerMine = 'trackerMine';
   static const _kDriveWeather = 'driveWeather';
 
   final SharedPreferences _prefs;
@@ -299,6 +300,15 @@ class SettingsRepository extends ChangeNotifier {
 
   Future<void> setSpeedMph(bool mph) async {
     await _prefs.setBool(_kSpeedMph, mph);
+    notifyListeners();
+  }
+
+  /// Trackers the user marked as their own in the Tracker check, by their
+  /// Bluetooth address: never listed or warned about.
+  Set<String> get trackerMine => {...?_prefs.getStringList(_kTrackerMine)};
+
+  Future<void> setTrackerMine(Set<String> ids) async {
+    await _prefs.setStringList(_kTrackerMine, ids.toList()..sort());
     notifyListeners();
   }
 

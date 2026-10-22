@@ -787,5 +787,137 @@
   },
   "testEmailCopied": "Email address copied",
   "testEndedTitle": "This test version has ended",
-  "testEndedBody": "Thank you for testing! Please get the new version. To get it, write to me:"
+  "testEndedBody": "Thank you for testing! Please get the new version. To get it, write to me:",
+  "toolTracker": "Tracker check",
+  "toolTrackerSubtitle": "Hidden trackers following you",
+  "sensorBluetooth": "Bluetooth",
+  "trackerHelp1": "Tap Scan here to list Bluetooth trackers near you that are away from their owners: AirTag, Galaxy SmartTag, Tile, Chipolo and Find Hub tags.",
+  "trackerHelp2": "To find out if one is following you, tap Check while I move and keep this tool open on a walk or drive; the screen stays on. A tracker heard at 3 places over 30 minutes or more is travelling with you.",
+  "trackerHelp3": "Tap a tracker to find it: walk slowly and follow the number up. In Show all, mark your own trackers as This is mine and they won’t be listed again.",
+  "trackerHelp4": "GPS boxes with a SIM card can’t be heard by any phone. Tap Car check: most are held on by a strong magnet, which the Metal detector finds.",
+  "trackerTip": "It listens only while open and can’t hear every tracker. A family member’s tracker, or a stranger’s on the same train, can show up too, and one next to its owner is left out. If you think someone is tracking you, contact the police or a support service.",
+  "trackerAllowTitle": "Allow Bluetooth scan",
+  "trackerAllowBody": "The Tracker check listens for Bluetooth trackers near you. It listens only while this tool is open, never connects to them, and nothing it hears leaves your phone.",
+  "trackerAllow": "Allow Bluetooth",
+  "trackerDeniedTitle": "Bluetooth scan is off",
+  "trackerDeniedBody": "Allow Nearby devices for this app in Settings to use the Tracker check.",
+  "trackerBluetoothOffTitle": "Bluetooth is off",
+  "trackerBluetoothOffBody": "Turn on Bluetooth to listen for trackers. The app never connects to anything.",
+  "trackerLocationOffTitle": "Location is off",
+  "trackerLocationOffBody": "On this Android version, Bluetooth scanning only works with location turned on. Nothing is located from it.",
+  "trackerScanHere": "Scan here",
+  "trackerCheckMoving": "Check while I move",
+  "trackerStop": "Stop",
+  "trackerDone": "Done",
+  "trackerLocationNeeded": "Check while I move notes places with GPS: allow location.",
+  "trackerSimNote": "GPS boxes with a SIM card can’t be heard",
+  "trackerCarCheck": "Car check",
+  "carCheckBody": "Some trackers are GPS boxes with a SIM card hidden on a car. No phone can hear those, but most are held on by a strong magnet, which the Metal detector finds.",
+  "carSpot1": "Under the bumpers, front and back",
+  "carSpot2": "Inside the wheel arches",
+  "carSpot3": "Under the seats and in the boot",
+  "carSpot4": "Behind the diagnostic (OBD) port under the dashboard",
+  "carCheckTip": "Sweep the top edge of the phone slowly over each spot. A jump in the reading means metal or a magnet: look closer.",
+  "carOpenMetal": "Open Metal detector",
+  "trackerPaused": "Paused while the app is hidden",
+  "trackerFollowingBanner": "{name} is travelling with you: heard at {places} places",
+  "@trackerFollowingBanner": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "places": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerMoving": "Checking for {minutes} min. Places passed: {places}",
+  "@trackerMoving": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "places": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerListening": "Listening for trackers",
+  "trackerNothingHeard": "No trackers away from their owner heard here",
+  "trackerIdle": "Scan to list trackers near you",
+  "trackerSemantics": "Following you: {following}. Trackers nearby: {nearby}.",
+  "@trackerSemantics": {
+    "placeholders": {
+      "following": {
+        "type": "int"
+      },
+      "nearby": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerShowAll": "Show all ({count})",
+  "@trackerShowAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerAllTitle": "Trackers nearby: {count}",
+  "@trackerAllTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerKindFindMy": "Find My tag",
+  "trackerKindFindHub": "Find Hub tag",
+  "trackerKindDult": "Item tracker",
+  "trackerClose": "Close",
+  "trackerNear": "Near",
+  "trackerFar": "Far",
+  "trackerFollowingYou": "Following you · places: {places}",
+  "@trackerFollowingYou": {
+    "placeholders": {
+      "places": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerPlaces": "{count, plural, =1{Heard at 1 place} other{Heard at {count} places}}",
+  "@trackerPlaces": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerMine": "This is mine",
+  "trackerNotMine": "Not mine",
+  "trackerFollowingLabel": "following",
+  "trackerNearby": "nearby: {count}",
+  "@trackerNearby": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trackerFindTitle": "Find {name}",
+  "@trackerFindTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "trackerFindHint": "Walk slowly around the car or bag and follow the number up. The signal gives distance only, not direction.",
+  "trackerFindLost": "Not heard: move slowly",
+  "findFar": "Far",
+  "findCloser": "Getting closer",
+  "findNear": "Near",
+  "findHere": "Right here",
+  "trackerAppleSound": "Apple’s Find My, or the Tracker Detect app on Android, can make an AirTag play a sound."
 }

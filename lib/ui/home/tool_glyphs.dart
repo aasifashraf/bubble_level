@@ -18,6 +18,7 @@ enum HomeTool {
   camera,
   gforce,
   speed,
+  tracker,
 }
 
 /// Line icons drawn in the design's stroke style.
@@ -283,6 +284,24 @@ class ToolGlyphPainter extends CustomPainter {
               ..color = accent,
           )
           ..drawCircle(const Offset(15.3, 3.3), 1.7, Paint()..color = accent);
+      case HomeTool.tracker:
+        // A round item tag with its key ring, sending orange signal arcs.
+        canvas
+          ..drawCircle(const Offset(10, 14), 6.5, line)
+          ..drawCircle(const Offset(10, 14), 1.6, line);
+        for (final r in [10.0, 13.5]) {
+          canvas.drawArc(
+            Rect.fromCircle(center: const Offset(10, 14), radius: r),
+            -math.pi * 0.42,
+            math.pi * 0.36,
+            false,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 2
+              ..strokeCap = StrokeCap.round
+              ..color = accent,
+          );
+        }
       case HomeTool.gforce:
         // A car from above in a ring, an orange glow off its nose.
         canvas

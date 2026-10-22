@@ -1471,4 +1471,224 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get testEndedBody =>
       'شكرًا على التجربة! يُرجى الحصول على النسخة الجديدة. للحصول عليها، راسلني على:';
+
+  @override
+  String get toolTracker => 'كاشف أجهزة التتبع';
+
+  @override
+  String get toolTrackerSubtitle => 'أجهزة تتبع مخفية تلاحقك';
+
+  @override
+  String get sensorBluetooth => 'Bluetooth';
+
+  @override
+  String get trackerHelp1 =>
+      'اضغط افحص هنا لترى أجهزة تتبع البلوتوث القريبة منك والبعيدة عن أصحابها: AirTag وGalaxy SmartTag وTile وChipolo وعلامات Find Hub.';
+
+  @override
+  String get trackerHelp2 =>
+      'لتعرف إن كان أحدها يلاحقك، اضغط افحص أثناء تنقلي وأبقِ الأداة مفتوحة أثناء المشي أو القيادة؛ تبقى الشاشة مضاءة. جهاز التتبع الذي يُسمع في 3 أماكن خلال 30 دقيقة أو أكثر يتنقل معك.';
+
+  @override
+  String get trackerHelp3 =>
+      'اضغط جهاز تتبع لتجده: امشِ ببطء واتبع الرقم وهو يرتفع. في عرض الكل، علّم أجهزتك بـ هذا لي فلا تظهر مرة أخرى.';
+
+  @override
+  String get trackerHelp4 =>
+      'لا يستطيع أي هاتف سماع صناديق GPS ذات شريحة SIM. اضغط فحص السيارة: معظمها مثبت بمغناطيس قوي يجده كاشف المعادن.';
+
+  @override
+  String get trackerTip =>
+      'تستمع الأداة فقط وهي مفتوحة ولا تسمع كل أجهزة التتبع. قد يظهر جهاز أحد أفراد العائلة أو جهاز غريب في القطار نفسه، ولا يظهر الجهاز القريب من صاحبه. إن ظننت أن أحدًا يتتبعك، فاتصل بالشرطة أو بجهة دعم.';
+
+  @override
+  String get trackerAllowTitle => 'اسمح بفحص البلوتوث';
+
+  @override
+  String get trackerAllowBody =>
+      'يستمع كاشف أجهزة التتبع إلى أجهزة البلوتوث القريبة منك. يستمع فقط والأداة مفتوحة، ولا يتصل بها أبدًا، ولا يغادر هاتفك شيء مما يسمعه.';
+
+  @override
+  String get trackerAllow => 'السماح بالبلوتوث';
+
+  @override
+  String get trackerDeniedTitle => 'فحص البلوتوث متوقف';
+
+  @override
+  String get trackerDeniedBody =>
+      'اسمح لهذا التطبيق بالأجهزة القريبة في الإعدادات لاستخدام كاشف أجهزة التتبع.';
+
+  @override
+  String get trackerBluetoothOffTitle => 'البلوتوث متوقف';
+
+  @override
+  String get trackerBluetoothOffBody =>
+      'شغّل البلوتوث للاستماع إلى أجهزة التتبع. لا يتصل التطبيق بأي شيء أبدًا.';
+
+  @override
+  String get trackerLocationOffTitle => 'الموقع متوقف';
+
+  @override
+  String get trackerLocationOffBody =>
+      'في هذا الإصدار من أندرويد، لا يعمل فحص البلوتوث إلا والموقع مُفعّل. لا يُحدَّد أي موقع منه.';
+
+  @override
+  String get trackerScanHere => 'افحص هنا';
+
+  @override
+  String get trackerCheckMoving => 'افحص أثناء تنقلي';
+
+  @override
+  String get trackerStop => 'إيقاف';
+
+  @override
+  String get trackerDone => 'تم';
+
+  @override
+  String get trackerLocationNeeded =>
+      'افحص أثناء تنقلي يسجل الأماكن عبر GPS: اسمح بالموقع.';
+
+  @override
+  String get trackerSimNote => 'صناديق GPS ذات الشريحة لا تُسمع';
+
+  @override
+  String get trackerCarCheck => 'فحص السيارة';
+
+  @override
+  String get carCheckBody =>
+      'بعض أجهزة التتبع صناديق GPS بشريحة SIM مخبأة في السيارة. لا يستطيع أي هاتف سماعها، لكن معظمها مثبت بمغناطيس قوي يجده كاشف المعادن.';
+
+  @override
+  String get carSpot1 => 'تحت المصدّات، في الأمام والخلف';
+
+  @override
+  String get carSpot2 => 'داخل أقواس العجلات';
+
+  @override
+  String get carSpot3 => 'تحت المقاعد وفي صندوق السيارة';
+
+  @override
+  String get carSpot4 => 'خلف منفذ التشخيص (OBD) تحت لوحة القيادة';
+
+  @override
+  String get carCheckTip =>
+      'مرّر الحافة العلوية للهاتف ببطء فوق كل مكان. القفزة في القراءة تعني معدنًا أو مغناطيسًا: انظر عن قرب.';
+
+  @override
+  String get carOpenMetal => 'افتح كاشف المعادن';
+
+  @override
+  String get trackerPaused => 'متوقف مؤقتًا أثناء إخفاء التطبيق';
+
+  @override
+  String trackerFollowingBanner(String name, int places) {
+    return '$name يتنقل معك: سُمع في $places أماكن';
+  }
+
+  @override
+  String trackerMoving(int minutes, int places) {
+    return 'جارٍ الفحص منذ $minutes دقيقة. الأماكن التي مررت بها: $places';
+  }
+
+  @override
+  String get trackerListening => 'جارٍ الاستماع لأجهزة التتبع';
+
+  @override
+  String get trackerNothingHeard => 'لا أجهزة تتبع بعيدة عن أصحابها هنا';
+
+  @override
+  String get trackerIdle => 'افحص لترى أجهزة التتبع القريبة';
+
+  @override
+  String trackerSemantics(int following, int nearby) {
+    return 'تلاحقك: $following. أجهزة تتبع قريبة: $nearby.';
+  }
+
+  @override
+  String trackerShowAll(int count) {
+    return 'عرض الكل ($count)';
+  }
+
+  @override
+  String trackerAllTitle(int count) {
+    return 'أجهزة تتبع قريبة: $count';
+  }
+
+  @override
+  String get trackerKindFindMy => 'علامة تحديد الموقع';
+
+  @override
+  String get trackerKindFindHub => 'علامة Find Hub';
+
+  @override
+  String get trackerKindDult => 'جهاز تتبع أغراض';
+
+  @override
+  String get trackerClose => 'قريب';
+
+  @override
+  String get trackerNear => 'متوسط';
+
+  @override
+  String get trackerFar => 'بعيد';
+
+  @override
+  String trackerFollowingYou(int places) {
+    return 'يلاحقك · الأماكن: $places';
+  }
+
+  @override
+  String trackerPlaces(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'سُمع في $count مكانًا',
+      few: 'سُمع في $count أماكن',
+      two: 'سُمع في مكانين',
+      one: 'سُمع في مكان واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get trackerMine => 'هذا لي';
+
+  @override
+  String get trackerNotMine => 'ليس لي';
+
+  @override
+  String get trackerFollowingLabel => 'يلاحقك';
+
+  @override
+  String trackerNearby(int count) {
+    return 'قريبة: $count';
+  }
+
+  @override
+  String trackerFindTitle(String name) {
+    return 'ابحث عن $name';
+  }
+
+  @override
+  String get trackerFindHint =>
+      'امشِ ببطء حول السيارة أو الحقيبة واتبع الرقم وهو يرتفع. الإشارة تعطي المسافة فقط، لا الاتجاه.';
+
+  @override
+  String get trackerFindLost => 'لا يُسمع: تحرّك ببطء';
+
+  @override
+  String get findFar => 'بعيد';
+
+  @override
+  String get findCloser => 'تقترب';
+
+  @override
+  String get findNear => 'قريب';
+
+  @override
+  String get findHere => 'هنا تمامًا';
+
+  @override
+  String get trackerAppleSound =>
+      'يمكن لتطبيق تحديد الموقع من Apple، أو تطبيق Tracker Detect على أندرويد، جعل AirTag يصدر صوتًا.';
 }

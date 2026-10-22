@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'data/repositories/orientation_repository.dart';
 import 'data/repositories/review_repository.dart';
 import 'data/repositories/settings_repository.dart';
+import 'data/services/bluetooth_service.dart';
 import 'data/services/camera_service.dart';
 import 'data/services/display_rotation_service.dart';
 import 'data/services/location_service.dart';
@@ -57,6 +58,7 @@ class BubbleLevelApp extends StatefulWidget {
     this.microphone = const MicrophoneService(),
     this.camera = const CameraService(),
     this.location = const LocationService(),
+    this.bluetooth = const BluetoothService(),
     this.testEnd,
     this.now = DateTime.now,
     this.showSupport = appFlavor == 'foss',
@@ -85,6 +87,9 @@ class BubbleLevelApp extends StatefulWidget {
 
   /// The speedometer's GPS (fake in tests).
   final LocationService location;
+
+  /// The Tracker check's Bluetooth scanner (fake in tests).
+  final BluetoothService bluetooth;
 
   /// TEMPORARY: the last day of a test APK ([testBuildEnd] when built with
   /// TEST_UNTIL), or null for a normal build. A test build shows the
@@ -166,6 +171,7 @@ class _BubbleLevelAppState extends State<BubbleLevelApp> {
         microphone: widget.microphone,
         camera: widget.camera,
         location: widget.location,
+        bluetooth: widget.bluetooth,
         testFeedback: widget.testEnd != null,
         showSupport: widget.showSupport,
       ),

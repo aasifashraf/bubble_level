@@ -1484,4 +1484,223 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get testEndedBody =>
       'Danke fürs Testen! Bitte hol dir die neue Version. Schreib mir dafür:';
+
+  @override
+  String get toolTracker => 'Tracker-Check';
+
+  @override
+  String get toolTrackerSubtitle => 'Versteckte Tracker, die dir folgen';
+
+  @override
+  String get sensorBluetooth => 'Bluetooth';
+
+  @override
+  String get trackerHelp1 =>
+      'Tippe auf Hier scannen, um Bluetooth-Tracker in deiner Nähe zu sehen, die von ihrem Besitzer getrennt sind: AirTag, Galaxy SmartTag, Tile, Chipolo und Find-Hub-Tags.';
+
+  @override
+  String get trackerHelp2 =>
+      'Um zu prüfen, ob dir einer folgt, tippe auf Unterwegs prüfen und lass das Werkzeug beim Gehen oder Fahren offen; der Bildschirm bleibt an. Ein Tracker, der an 3 Orten über mindestens 30 Minuten gehört wird, ist mit dir unterwegs.';
+
+  @override
+  String get trackerHelp3 =>
+      'Tippe auf einen Tracker, um ihn zu finden: Geh langsam und folge der steigenden Zahl. Unter Alle zeigen markierst du eigene Tracker mit Gehört mir, dann erscheinen sie nicht mehr.';
+
+  @override
+  String get trackerHelp4 =>
+      'GPS-Boxen mit SIM-Karte kann kein Handy hören. Tippe auf Auto-Check: Die meisten halten mit einem starken Magneten, den der Metalldetektor findet.';
+
+  @override
+  String get trackerTip =>
+      'Es hört nur, solange es offen ist, und nicht jeden Tracker. Auch der Tracker eines Familienmitglieds oder eines Fremden im selben Zug kann erscheinen, und einer neben seinem Besitzer wird ausgelassen. Wenn du glaubst, dass dich jemand verfolgt, wende dich an die Polizei oder eine Beratungsstelle.';
+
+  @override
+  String get trackerAllowTitle => 'Bluetooth-Scan erlauben';
+
+  @override
+  String get trackerAllowBody =>
+      'Der Tracker-Check hört auf Bluetooth-Tracker in deiner Nähe. Er hört nur, solange das Werkzeug offen ist, verbindet sich nie mit ihnen, und nichts davon verlässt dein Handy.';
+
+  @override
+  String get trackerAllow => 'Bluetooth erlauben';
+
+  @override
+  String get trackerDeniedTitle => 'Bluetooth-Scan ist aus';
+
+  @override
+  String get trackerDeniedBody =>
+      'Erlaube in den Einstellungen Geräte in der Nähe für diese App, um den Tracker-Check zu nutzen.';
+
+  @override
+  String get trackerBluetoothOffTitle => 'Bluetooth ist aus';
+
+  @override
+  String get trackerBluetoothOffBody =>
+      'Schalte Bluetooth ein, um auf Tracker zu hören. Die App verbindet sich nie mit etwas.';
+
+  @override
+  String get trackerLocationOffTitle => 'Standort ist aus';
+
+  @override
+  String get trackerLocationOffBody =>
+      'Auf dieser Android-Version funktioniert der Bluetooth-Scan nur mit eingeschaltetem Standort. Daraus wird nichts geortet.';
+
+  @override
+  String get trackerScanHere => 'Hier scannen';
+
+  @override
+  String get trackerCheckMoving => 'Unterwegs prüfen';
+
+  @override
+  String get trackerStop => 'Stopp';
+
+  @override
+  String get trackerDone => 'Fertig';
+
+  @override
+  String get trackerLocationNeeded =>
+      'Unterwegs prüfen merkt sich Orte per GPS: Erlaube den Standort.';
+
+  @override
+  String get trackerSimNote => 'GPS-Boxen mit SIM-Karte sind nicht hörbar';
+
+  @override
+  String get trackerCarCheck => 'Auto-Check';
+
+  @override
+  String get carCheckBody =>
+      'Manche Tracker sind GPS-Boxen mit SIM-Karte, die an einem Auto versteckt sind. Kein Handy kann sie hören, aber die meisten halten mit einem starken Magneten, den der Metalldetektor findet.';
+
+  @override
+  String get carSpot1 => 'Unter den Stoßstangen, vorn und hinten';
+
+  @override
+  String get carSpot2 => 'In den Radkästen';
+
+  @override
+  String get carSpot3 => 'Unter den Sitzen und im Kofferraum';
+
+  @override
+  String get carSpot4 =>
+      'Hinter der Diagnosebuchse (OBD) unter dem Armaturenbrett';
+
+  @override
+  String get carCheckTip =>
+      'Fahre mit der Oberkante des Handys langsam über jede Stelle. Springt die Anzeige, ist dort Metall oder ein Magnet: Sieh genauer hin.';
+
+  @override
+  String get carOpenMetal => 'Metalldetektor öffnen';
+
+  @override
+  String get trackerPaused => 'Pausiert, solange die App verborgen ist';
+
+  @override
+  String trackerFollowingBanner(String name, int places) {
+    return '$name ist mit dir unterwegs: an $places Orten gehört';
+  }
+
+  @override
+  String trackerMoving(int minutes, int places) {
+    return 'Prüft seit $minutes Min. Passierte Orte: $places';
+  }
+
+  @override
+  String get trackerListening => 'Hört auf Tracker';
+
+  @override
+  String get trackerNothingHeard => 'Hier kein Tracker ohne Besitzer gehört';
+
+  @override
+  String get trackerIdle => 'Scanne, um Tracker in der Nähe zu sehen';
+
+  @override
+  String trackerSemantics(int following, int nearby) {
+    return 'Folgen dir: $following. Tracker in der Nähe: $nearby.';
+  }
+
+  @override
+  String trackerShowAll(int count) {
+    return 'Alle zeigen ($count)';
+  }
+
+  @override
+  String trackerAllTitle(int count) {
+    return 'Tracker in der Nähe: $count';
+  }
+
+  @override
+  String get trackerKindFindMy => 'Wo-ist?-Tag';
+
+  @override
+  String get trackerKindFindHub => 'Find-Hub-Tag';
+
+  @override
+  String get trackerKindDult => 'Gegenstands-Tracker';
+
+  @override
+  String get trackerClose => 'Nah';
+
+  @override
+  String get trackerNear => 'Mittel';
+
+  @override
+  String get trackerFar => 'Fern';
+
+  @override
+  String trackerFollowingYou(int places) {
+    return 'Folgt dir · Orte: $places';
+  }
+
+  @override
+  String trackerPlaces(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'An $count Orten gehört',
+      one: 'An 1 Ort gehört',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get trackerMine => 'Gehört mir';
+
+  @override
+  String get trackerNotMine => 'Nicht meiner';
+
+  @override
+  String get trackerFollowingLabel => 'folgen dir';
+
+  @override
+  String trackerNearby(int count) {
+    return 'in der Nähe: $count';
+  }
+
+  @override
+  String trackerFindTitle(String name) {
+    return '$name finden';
+  }
+
+  @override
+  String get trackerFindHint =>
+      'Geh langsam um das Auto oder die Tasche und folge der steigenden Zahl. Das Signal zeigt nur die Entfernung, nicht die Richtung.';
+
+  @override
+  String get trackerFindLost => 'Nicht gehört: langsam bewegen';
+
+  @override
+  String get findFar => 'Fern';
+
+  @override
+  String get findCloser => 'Wärmer';
+
+  @override
+  String get findNear => 'Nah';
+
+  @override
+  String get findHere => 'Genau hier';
+
+  @override
+  String get trackerAppleSound =>
+      'Apples Wo ist? oder die App Tracker Detect auf Android können einen AirTag einen Ton abspielen lassen.';
 }

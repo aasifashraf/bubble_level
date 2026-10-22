@@ -1485,4 +1485,224 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get testEndedBody =>
       'Спасибо за тестирование! Установите новую версию. Чтобы её получить, напишите мне:';
+
+  @override
+  String get toolTracker => 'Поиск трекеров';
+
+  @override
+  String get toolTrackerSubtitle => 'Скрытые трекеры, которые следуют за вами';
+
+  @override
+  String get sensorBluetooth => 'Bluetooth';
+
+  @override
+  String get trackerHelp1 =>
+      'Нажмите «Сканировать здесь», чтобы увидеть Bluetooth-трекеры рядом, которые находятся вдали от владельца: AirTag, Galaxy SmartTag, Tile, Chipolo и метки Find Hub.';
+
+  @override
+  String get trackerHelp2 =>
+      'Чтобы узнать, следует ли за вами трекер, нажмите «Проверять в пути» и держите инструмент открытым на прогулке или в поездке; экран остаётся включённым. Трекер, услышанный в 3 местах за 30 минут и дольше, перемещается вместе с вами.';
+
+  @override
+  String get trackerHelp3 =>
+      'Нажмите на трекер, чтобы найти его: идите медленно, следя за ростом числа. В разделе «Показать все» отметьте свои трекеры «Это мой», и они больше не появятся.';
+
+  @override
+  String get trackerHelp4 =>
+      'GPS-устройства с SIM-картой не слышит ни один телефон. Нажмите «Проверка машины»: большинство держится на сильном магните, который находит металлоискатель.';
+
+  @override
+  String get trackerTip =>
+      'Он слушает только пока открыт и слышит не все трекеры. Может появиться трекер родственника или незнакомца в том же поезде, а трекер рядом с владельцем не показывается. Если вы думаете, что за вами следят, обратитесь в полицию или службу помощи.';
+
+  @override
+  String get trackerAllowTitle => 'Разрешите поиск Bluetooth';
+
+  @override
+  String get trackerAllowBody =>
+      'Поиск трекеров слушает Bluetooth-трекеры рядом с вами. Он слушает только пока инструмент открыт, никогда к ним не подключается, и ничего услышанное не покидает ваш телефон.';
+
+  @override
+  String get trackerAllow => 'Разрешить Bluetooth';
+
+  @override
+  String get trackerDeniedTitle => 'Поиск Bluetooth отключён';
+
+  @override
+  String get trackerDeniedBody =>
+      'Разрешите «Устройства поблизости» для этого приложения в настройках, чтобы пользоваться поиском трекеров.';
+
+  @override
+  String get trackerBluetoothOffTitle => 'Bluetooth выключен';
+
+  @override
+  String get trackerBluetoothOffBody =>
+      'Включите Bluetooth, чтобы слушать трекеры. Приложение ни к чему не подключается.';
+
+  @override
+  String get trackerLocationOffTitle => 'Геолокация выключена';
+
+  @override
+  String get trackerLocationOffBody =>
+      'В этой версии Android поиск Bluetooth работает только с включённой геолокацией. По нему ничего не определяется.';
+
+  @override
+  String get trackerScanHere => 'Сканировать здесь';
+
+  @override
+  String get trackerCheckMoving => 'Проверять в пути';
+
+  @override
+  String get trackerStop => 'Остановить';
+
+  @override
+  String get trackerDone => 'Готово';
+
+  @override
+  String get trackerLocationNeeded =>
+      '«Проверять в пути» отмечает места по GPS: разрешите геолокацию.';
+
+  @override
+  String get trackerSimNote => 'GPS-устройства с SIM-картой не слышны';
+
+  @override
+  String get trackerCarCheck => 'Проверка машины';
+
+  @override
+  String get carCheckBody =>
+      'Некоторые трекеры представляют собой GPS-устройства с SIM-картой, спрятанные на машине. Их не слышит ни один телефон, но большинство держится на сильном магните, который находит металлоискатель.';
+
+  @override
+  String get carSpot1 => 'Под бамперами, спереди и сзади';
+
+  @override
+  String get carSpot2 => 'В колёсных арках';
+
+  @override
+  String get carSpot3 => 'Под сиденьями и в багажнике';
+
+  @override
+  String get carSpot4 =>
+      'За диагностическим разъёмом (OBD) под приборной панелью';
+
+  @override
+  String get carCheckTip =>
+      'Медленно проводите верхним краем телефона над каждым местом. Скачок показаний означает металл или магнит: присмотритесь.';
+
+  @override
+  String get carOpenMetal => 'Открыть металлоискатель';
+
+  @override
+  String get trackerPaused => 'Пауза, пока приложение скрыто';
+
+  @override
+  String trackerFollowingBanner(String name, int places) {
+    return '$name перемещается вместе с вами: мест: $places';
+  }
+
+  @override
+  String trackerMoving(int minutes, int places) {
+    return 'Проверка идёт $minutes мин. Пройдено мест: $places';
+  }
+
+  @override
+  String get trackerListening => 'Поиск трекеров идёт';
+
+  @override
+  String get trackerNothingHeard =>
+      'Здесь не слышно трекеров вдали от владельца';
+
+  @override
+  String get trackerIdle => 'Сканируйте, чтобы увидеть трекеры рядом';
+
+  @override
+  String trackerSemantics(int following, int nearby) {
+    return 'Следуют за вами: $following. Трекеров рядом: $nearby.';
+  }
+
+  @override
+  String trackerShowAll(int count) {
+    return 'Показать все ($count)';
+  }
+
+  @override
+  String trackerAllTitle(int count) {
+    return 'Трекеров рядом: $count';
+  }
+
+  @override
+  String get trackerKindFindMy => 'Метка «Локатор»';
+
+  @override
+  String get trackerKindFindHub => 'Метка Find Hub';
+
+  @override
+  String get trackerKindDult => 'Трекер предметов';
+
+  @override
+  String get trackerClose => 'Близко';
+
+  @override
+  String get trackerNear => 'Средне';
+
+  @override
+  String get trackerFar => 'Далеко';
+
+  @override
+  String trackerFollowingYou(int places) {
+    return 'Следует за вами · мест: $places';
+  }
+
+  @override
+  String trackerPlaces(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Слышен в $count местах',
+      one: 'Слышен в $count месте',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get trackerMine => 'Это мой';
+
+  @override
+  String get trackerNotMine => 'Не мой';
+
+  @override
+  String get trackerFollowingLabel => 'следуют';
+
+  @override
+  String trackerNearby(int count) {
+    return 'рядом: $count';
+  }
+
+  @override
+  String trackerFindTitle(String name) {
+    return 'Найти $name';
+  }
+
+  @override
+  String get trackerFindHint =>
+      'Медленно обойдите машину или сумку, следя за ростом числа. Сигнал показывает только расстояние, а не направление.';
+
+  @override
+  String get trackerFindLost => 'Не слышен: двигайтесь медленно';
+
+  @override
+  String get findFar => 'Далеко';
+
+  @override
+  String get findCloser => 'Ближе';
+
+  @override
+  String get findNear => 'Близко';
+
+  @override
+  String get findHere => 'Прямо здесь';
+
+  @override
+  String get trackerAppleSound =>
+      '«Локатор» Apple или приложение Tracker Detect на Android могут заставить AirTag издать звук.';
 }

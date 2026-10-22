@@ -1422,4 +1422,214 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get testEndedBody =>
       'テストにご協力いただきありがとうございます。新しいバージョンをご利用ください。入手するには、こちらへご連絡ください：';
+
+  @override
+  String get toolTracker => 'トラッカー検出';
+
+  @override
+  String get toolTrackerSubtitle => 'あなたを追う隠れたトラッカー';
+
+  @override
+  String get sensorBluetooth => 'Bluetooth';
+
+  @override
+  String get trackerHelp1 =>
+      '「ここでスキャン」をタップすると、持ち主から離れた近くのBluetoothトラッカー（AirTag、Galaxy SmartTag、Tile、Chipolo、Find Hubタグ）が表示されます。';
+
+  @override
+  String get trackerHelp2 =>
+      '追跡されているか調べるには「移動しながら確認」をタップし、歩くときや運転中もこのツールを開いたままにします（画面はオンのまま）。30分以上のあいだに3か所で検出されたトラッカーは、あなたと一緒に移動しています。';
+
+  @override
+  String get trackerHelp3 =>
+      'トラッカーをタップすると探せます。ゆっくり歩き、数字が上がる方へ進みます。「すべて表示」で自分のトラッカーを「自分のもの」にすると、今後は表示されません。';
+
+  @override
+  String get trackerHelp4 =>
+      'SIMカード入りのGPS端末はどのスマホでも検出できません。「車のチェック」をタップしてください。多くは強い磁石で取り付けられており、金属探知機で見つけられます。';
+
+  @override
+  String get trackerTip =>
+      '開いている間だけ検出し、すべてのトラッカーを検出できるわけではありません。家族のものや同じ電車の他人のものが表示されることもあり、持ち主のそばにあるものは表示されません。追跡されていると思ったら、警察や相談窓口に連絡してください。';
+
+  @override
+  String get trackerAllowTitle => 'Bluetoothスキャンを許可';
+
+  @override
+  String get trackerAllowBody =>
+      'トラッカー検出は近くのBluetoothトラッカーを検出します。このツールを開いている間だけ動き、トラッカーには接続せず、検出した内容がスマホの外に出ることはありません。';
+
+  @override
+  String get trackerAllow => 'Bluetoothを許可';
+
+  @override
+  String get trackerDeniedTitle => 'Bluetoothスキャンがオフです';
+
+  @override
+  String get trackerDeniedBody => 'トラッカー検出を使うには、設定でこのアプリに「付近のデバイス」を許可してください。';
+
+  @override
+  String get trackerBluetoothOffTitle => 'Bluetoothがオフです';
+
+  @override
+  String get trackerBluetoothOffBody =>
+      'トラッカーを検出するにはBluetoothをオンにしてください。アプリが何かに接続することはありません。';
+
+  @override
+  String get trackerLocationOffTitle => '位置情報がオフです';
+
+  @override
+  String get trackerLocationOffBody =>
+      'このAndroidバージョンでは、位置情報がオンのときだけBluetoothスキャンが動きます。位置の特定には使いません。';
+
+  @override
+  String get trackerScanHere => 'ここでスキャン';
+
+  @override
+  String get trackerCheckMoving => '移動しながら確認';
+
+  @override
+  String get trackerStop => '停止';
+
+  @override
+  String get trackerDone => '完了';
+
+  @override
+  String get trackerLocationNeeded => '「移動しながら確認」はGPSで場所を記録します。位置情報を許可してください。';
+
+  @override
+  String get trackerSimNote => 'SIM入りGPS端末は検出できません';
+
+  @override
+  String get trackerCarCheck => '車のチェック';
+
+  @override
+  String get carCheckBody =>
+      '車に隠されたSIMカード入りのGPS端末もあります。どのスマホでも検出できませんが、多くは強い磁石で取り付けられていて、金属探知機で見つけられます。';
+
+  @override
+  String get carSpot1 => '前後のバンパーの下';
+
+  @override
+  String get carSpot2 => 'タイヤハウスの内側';
+
+  @override
+  String get carSpot3 => 'シートの下とトランクの中';
+
+  @override
+  String get carSpot4 => 'ダッシュボード下の診断（OBD）ポートの裏';
+
+  @override
+  String get carCheckTip =>
+      'スマホの上端を各場所の上でゆっくり動かします。数値が急に上がれば金属か磁石があります。よく見てください。';
+
+  @override
+  String get carOpenMetal => '金属探知機を開く';
+
+  @override
+  String get trackerPaused => 'アプリが非表示の間は一時停止中';
+
+  @override
+  String trackerFollowingBanner(String name, int places) {
+    return '$nameがあなたと一緒に移動しています（$placesか所で検出）';
+  }
+
+  @override
+  String trackerMoving(int minutes, int places) {
+    return '$minutes分間確認中。通過した場所：$places';
+  }
+
+  @override
+  String get trackerListening => 'トラッカーを検出中';
+
+  @override
+  String get trackerNothingHeard => 'ここでは持ち主から離れたトラッカーは検出されません';
+
+  @override
+  String get trackerIdle => 'スキャンして近くのトラッカーを表示';
+
+  @override
+  String trackerSemantics(int following, int nearby) {
+    return '追跡中：$following。近くのトラッカー：$nearby。';
+  }
+
+  @override
+  String trackerShowAll(int count) {
+    return 'すべて表示（$count）';
+  }
+
+  @override
+  String trackerAllTitle(int count) {
+    return '近くのトラッカー：$count';
+  }
+
+  @override
+  String get trackerKindFindMy => '「探す」タグ';
+
+  @override
+  String get trackerKindFindHub => 'Find Hubタグ';
+
+  @override
+  String get trackerKindDult => '持ち物トラッカー';
+
+  @override
+  String get trackerClose => '近い';
+
+  @override
+  String get trackerNear => '中くらい';
+
+  @override
+  String get trackerFar => '遠い';
+
+  @override
+  String trackerFollowingYou(int places) {
+    return '追跡中 · 場所：$places';
+  }
+
+  @override
+  String trackerPlaces(int count) {
+    return '$countか所で検出';
+  }
+
+  @override
+  String get trackerMine => '自分のもの';
+
+  @override
+  String get trackerNotMine => '自分のものではない';
+
+  @override
+  String get trackerFollowingLabel => '追跡中';
+
+  @override
+  String trackerNearby(int count) {
+    return '近く：$count';
+  }
+
+  @override
+  String trackerFindTitle(String name) {
+    return '$nameを探す';
+  }
+
+  @override
+  String get trackerFindHint =>
+      '車やバッグの周りをゆっくり歩き、数字が上がる方へ進みます。信号でわかるのは距離だけで、方向はわかりません。';
+
+  @override
+  String get trackerFindLost => '検出なし：ゆっくり動いてください';
+
+  @override
+  String get findFar => '遠い';
+
+  @override
+  String get findCloser => '近づいている';
+
+  @override
+  String get findNear => '近い';
+
+  @override
+  String get findHere => 'すぐここ';
+
+  @override
+  String get trackerAppleSound =>
+      'Appleの「探す」アプリ、またはAndroidのTracker Detectアプリで、AirTagの音を鳴らせます。';
 }

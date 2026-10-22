@@ -1480,4 +1480,217 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get testEndedBody =>
       'Test ettiğin için teşekkürler! Lütfen yeni sürümü edin. Almak için bana yaz:';
+
+  @override
+  String get toolTracker => 'Takip cihazı kontrolü';
+
+  @override
+  String get toolTrackerSubtitle => 'Sizi takip eden gizli cihazlar';
+
+  @override
+  String get sensorBluetooth => 'Bluetooth';
+
+  @override
+  String get trackerHelp1 =>
+      'Sahibinden uzak olan yakındaki Bluetooth takip cihazlarını görmek için Burada tara düğmesine dokunun: AirTag, Galaxy SmartTag, Tile, Chipolo ve Find Hub etiketleri.';
+
+  @override
+  String get trackerHelp2 =>
+      'Birinin sizi takip edip etmediğini anlamak için Hareket ederken kontrol et düğmesine dokunun ve yürürken ya da araç kullanırken aracı açık tutun; ekran açık kalır. 30 dakika veya daha uzun sürede 3 yerde duyulan bir cihaz sizinle birlikte geziyordur.';
+
+  @override
+  String get trackerHelp3 =>
+      'Bulmak için bir cihaza dokunun: yavaşça yürüyün ve artan sayıyı izleyin. Tümünü göster bölümünde kendi cihazlarınızı Bu benim olarak işaretleyin, bir daha listelenmezler.';
+
+  @override
+  String get trackerHelp4 =>
+      'SIM kartlı GPS kutularını hiçbir telefon duyamaz. Araç kontrolü düğmesine dokunun: çoğu güçlü bir mıknatısla tutturulur ve metal dedektörü bunu bulur.';
+
+  @override
+  String get trackerTip =>
+      'Yalnızca açıkken dinler ve her cihazı duyamaz. Bir aile üyesinin ya da aynı trendeki bir yabancının cihazı da görünebilir, sahibinin yanındaki cihaz ise gösterilmez. Biri sizi takip ediyor diye düşünüyorsanız polise veya bir destek hattına başvurun.';
+
+  @override
+  String get trackerAllowTitle => 'Bluetooth taramasına izin verin';
+
+  @override
+  String get trackerAllowBody =>
+      'Takip cihazı kontrolü yakınınızdaki Bluetooth cihazlarını dinler. Yalnızca araç açıkken dinler, onlara asla bağlanmaz ve duyduğu hiçbir şey telefonunuzdan çıkmaz.';
+
+  @override
+  String get trackerAllow => 'Bluetooth’a izin ver';
+
+  @override
+  String get trackerDeniedTitle => 'Bluetooth taraması kapalı';
+
+  @override
+  String get trackerDeniedBody =>
+      'Takip cihazı kontrolünü kullanmak için Ayarlar’da bu uygulamaya Yakındaki cihazlar izni verin.';
+
+  @override
+  String get trackerBluetoothOffTitle => 'Bluetooth kapalı';
+
+  @override
+  String get trackerBluetoothOffBody =>
+      'Takip cihazlarını dinlemek için Bluetooth’u açın. Uygulama hiçbir şeye bağlanmaz.';
+
+  @override
+  String get trackerLocationOffTitle => 'Konum kapalı';
+
+  @override
+  String get trackerLocationOffBody =>
+      'Bu Android sürümünde Bluetooth taraması yalnızca konum açıkken çalışır. Bununla hiçbir konum bulunmaz.';
+
+  @override
+  String get trackerScanHere => 'Burada tara';
+
+  @override
+  String get trackerCheckMoving => 'Hareket ederken kontrol et';
+
+  @override
+  String get trackerStop => 'Durdur';
+
+  @override
+  String get trackerDone => 'Bitti';
+
+  @override
+  String get trackerLocationNeeded =>
+      'Hareket ederken kontrol, yerleri GPS ile kaydeder: konuma izin verin.';
+
+  @override
+  String get trackerSimNote => 'SIM kartlı GPS kutuları duyulamaz';
+
+  @override
+  String get trackerCarCheck => 'Araç kontrolü';
+
+  @override
+  String get carCheckBody =>
+      'Bazı takip cihazları, araca gizlenmiş SIM kartlı GPS kutularıdır. Hiçbir telefon bunları duyamaz, ama çoğu güçlü bir mıknatısla tutturulur ve metal dedektörü bunu bulur.';
+
+  @override
+  String get carSpot1 => 'Tamponların altında, önde ve arkada';
+
+  @override
+  String get carSpot2 => 'Çamurlukların içinde';
+
+  @override
+  String get carSpot3 => 'Koltukların altında ve bagajda';
+
+  @override
+  String get carSpot4 =>
+      'Gösterge panelinin altındaki teşhis (OBD) soketinin arkasında';
+
+  @override
+  String get carCheckTip =>
+      'Telefonun üst kenarını her noktanın üzerinden yavaşça geçirin. Değerde ani bir sıçrama metal ya da mıknatıs demektir: daha yakından bakın.';
+
+  @override
+  String get carOpenMetal => 'Metal dedektörünü aç';
+
+  @override
+  String get trackerPaused => 'Uygulama gizliyken duraklatıldı';
+
+  @override
+  String trackerFollowingBanner(String name, int places) {
+    return '$name sizinle birlikte geziyor: $places yerde duyuldu';
+  }
+
+  @override
+  String trackerMoving(int minutes, int places) {
+    return '$minutes dakikadır kontrol ediliyor. Geçilen yer: $places';
+  }
+
+  @override
+  String get trackerListening => 'Takip cihazları dinleniyor';
+
+  @override
+  String get trackerNothingHeard => 'Burada sahibinden uzak cihaz duyulmadı';
+
+  @override
+  String get trackerIdle => 'Yakındaki cihazları görmek için tarayın';
+
+  @override
+  String trackerSemantics(int following, int nearby) {
+    return 'Sizi takip eden: $following. Yakındaki cihaz: $nearby.';
+  }
+
+  @override
+  String trackerShowAll(int count) {
+    return 'Tümünü göster ($count)';
+  }
+
+  @override
+  String trackerAllTitle(int count) {
+    return 'Yakındaki cihaz: $count';
+  }
+
+  @override
+  String get trackerKindFindMy => 'Bul etiketi';
+
+  @override
+  String get trackerKindFindHub => 'Find Hub etiketi';
+
+  @override
+  String get trackerKindDult => 'Eşya takip cihazı';
+
+  @override
+  String get trackerClose => 'Yakın';
+
+  @override
+  String get trackerNear => 'Orta';
+
+  @override
+  String get trackerFar => 'Uzak';
+
+  @override
+  String trackerFollowingYou(int places) {
+    return 'Sizi takip ediyor · yer: $places';
+  }
+
+  @override
+  String trackerPlaces(int count) {
+    return '$count yerde duyuldu';
+  }
+
+  @override
+  String get trackerMine => 'Bu benim';
+
+  @override
+  String get trackerNotMine => 'Benim değil';
+
+  @override
+  String get trackerFollowingLabel => 'takip eden';
+
+  @override
+  String trackerNearby(int count) {
+    return 'yakında: $count';
+  }
+
+  @override
+  String trackerFindTitle(String name) {
+    return '$name cihazını bul';
+  }
+
+  @override
+  String get trackerFindHint =>
+      'Arabanın ya da çantanın etrafında yavaşça dolaşın ve artan sayıyı izleyin. Sinyal yalnızca uzaklığı gösterir, yönü değil.';
+
+  @override
+  String get trackerFindLost => 'Duyulmuyor: yavaş hareket edin';
+
+  @override
+  String get findFar => 'Uzak';
+
+  @override
+  String get findCloser => 'Yaklaşıyor';
+
+  @override
+  String get findNear => 'Yakın';
+
+  @override
+  String get findHere => 'Tam burada';
+
+  @override
+  String get trackerAppleSound =>
+      'Apple’ın Bul uygulaması ya da Android’deki Tracker Detect, bir AirTag’e ses çaldırabilir.';
 }
