@@ -32,7 +32,10 @@ Light meter), all drawn in one soft, full-screen dial design:
   under the number and a warning when nearby metal disturbs it.
 - **Protractor:** drag two handles along an object's edges to read its angle.
 - **Ruler:** measure small objects on the screen in mm, cm or inches, after a
-  one-time calibration with a bank card, a ruler or the screen size.
+  one-time calibration with a bank card, a ruler or the screen size. Turn on
+  width for two more lines across, and it shows length × width and the area.
+  Each finger moves its own line, so one can hold the object while another
+  drags.
 - **Metal detector:** magnetic field strength and change from a baseline, with
   a beep that speeds up as metal gets closer.
 - **Vibration meter:** how hard a machine shakes (m/s²) and how fast it

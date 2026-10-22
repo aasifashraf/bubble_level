@@ -10,7 +10,7 @@ Brújula: rumbo magnético estable aunque el teléfono esté inclinado, con avis
 
 Transportador: coloca un objeto en la pantalla y arrastra dos tiradores por sus bordes.
 
-Regla: mide objetos pequeños en la pantalla en mm, cm o pulgadas. Calibra una vez con una tarjeta o una regla para ±0,5 mm, o simplemente indica el tamaño de pantalla.
+Regla: mide objetos pequeños en la pantalla en mm, cm o pulgadas, y también su ancho y su área. Calibra una vez con una tarjeta o una regla para ±0,5 mm, o simplemente indica el tamaño de pantalla.
 
 Detector de metales: encuentra hierro, acero e imanes, con un pitido que se acelera al acercarte.
 

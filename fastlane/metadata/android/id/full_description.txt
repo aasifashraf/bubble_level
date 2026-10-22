@@ -10,7 +10,7 @@ Kompas: arah magnetis stabil meski ponsel miring, dengan peringatan saat logam d
 
 Busur derajat: letakkan benda di layar lalu seret dua pegangan di sepanjang tepinya.
 
-Penggaris: ukur benda kecil di layar dalam mm, cm, atau inci. Kalibrasi sekali dengan kartu bank atau penggaris untuk ±0,5 mm, atau cukup masukkan ukuran layar.
+Penggaris: ukur benda kecil di layar dalam mm, cm, atau inci, juga lebar dan luasnya. Kalibrasi sekali dengan kartu bank atau penggaris untuk ±0,5 mm, atau cukup masukkan ukuran layar.
 
 Detektor logam: temukan besi, baja, dan magnet, dengan bunyi bip yang makin cepat saat mendekat.
 

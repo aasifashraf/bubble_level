@@ -10,7 +10,7 @@ Compass: steady magnetic heading even when the phone is tilted, with a warning w
 
 Protractor: place an object on the screen and drag two handles along its edges.
 
-Ruler: measure small objects on the screen in mm, cm or inches. Calibrate once with a bank card or a ruler for ±0.5 mm, or just enter your screen size.
+Ruler: measure small objects on the screen in mm, cm or inches, and their width and area too. Calibrate once with a bank card or a ruler for ±0.5 mm, or just enter your screen size.
 
 Metal detector: find iron, steel and magnets, with a beep that speeds up as you get closer.
 

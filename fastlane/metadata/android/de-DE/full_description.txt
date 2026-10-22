@@ -10,7 +10,7 @@ Kompass: ruhige magnetische Richtung, auch wenn das Handy geneigt ist, mit Warnu
 
 Winkelmesser auf dem Bildschirm: Leg einen Gegenstand auf das Display und zieh zwei Griffe an seine Kanten.
 
-Lineal: Miss kleine Gegenstände auf dem Bildschirm in mm, cm oder Zoll. Einmal mit einer Bankkarte oder einem Lineal kalibrieren für ±0,5 mm, oder einfach die Bildschirmgröße eingeben.
+Lineal: Miss kleine Gegenstände auf dem Bildschirm in mm, cm oder Zoll, auch Breite und Fläche. Einmal mit einer Bankkarte oder einem Lineal kalibrieren für ±0,5 mm, oder einfach die Bildschirmgröße eingeben.
 
 Metalldetektor: Finde Eisen, Stahl und Magnete, mit einem Piepton, der schneller wird, je näher du kommst.
 

@@ -10,7 +10,7 @@ Bússola: rumo magnético estável mesmo com o celular inclinado, com aviso quan
 
 Transferidor: coloque um objeto na tela e arraste duas alças pelas bordas.
 
-Régua: meça objetos pequenos na tela em mm, cm ou polegadas. Calibre uma vez com um cartão ou uma régua para ±0,5 mm, ou apenas informe o tamanho da tela.
+Régua: meça objetos pequenos na tela em mm, cm ou polegadas, e também a largura e a área. Calibre uma vez com um cartão ou uma régua para ±0,5 mm, ou apenas informe o tamanho da tela.
 
 Detector de metais: encontre ferro, aço e ímãs, com um bipe que acelera conforme você se aproxima.
 

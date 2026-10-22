@@ -10,7 +10,7 @@ Pusula: telefon eğikken bile sabit manyetik yön; yakındaki metal bozduğunda 
 
 İletki: bir nesneyi ekrana koyun ve iki tutamacı kenarları boyunca sürükleyin.
 
-Cetvel: küçük nesneleri ekranda mm, cm veya inç olarak ölçün. ±0,5 mm için bir kez banka kartı veya cetvelle kalibre edin ya da yalnızca ekran boyutunu girin.
+Cetvel: küçük nesnelerin uzunluğunu, genişliğini ve alanını ekranda mm, cm veya inç olarak ölçün. ±0,5 mm için bir kez banka kartı veya cetvelle kalibre edin ya da yalnızca ekran boyutunu girin.
 
 Metal dedektörü: demir, çelik ve mıknatısları bulun; yaklaştıkça bip sesi hızlanır.
 

@@ -10,7 +10,7 @@ Boussole : cap magnétique stable même téléphone incliné, avec une alerte qu
 
 Rapporteur : posez un objet sur l’écran et faites glisser deux poignées le long de ses bords.
 
-Règle : mesurez de petits objets sur l’écran en mm, cm ou pouces. Calibrez une fois avec une carte bancaire ou une règle pour ±0,5 mm, ou saisissez simplement la taille de l’écran.
+Règle : mesurez de petits objets sur l’écran en mm, cm ou pouces, ainsi que leur largeur et leur surface. Calibrez une fois avec une carte bancaire ou une règle pour ±0,5 mm, ou saisissez simplement la taille de l’écran.
 
 Détecteur de métaux : trouvez le fer, l’acier et les aimants, avec un bip qui s’accélère à l’approche.
 
