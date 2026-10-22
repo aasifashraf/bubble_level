@@ -52,8 +52,14 @@ app.*.map.json
 skills-lock.json
 DESIGN.md
 
-# The owner's own run notes
+# The owner's own notes, kept off GitHub
 commands.md
+CLAUDE.md
+RULES.md
+TODO.md
+play_store_guide.md
+store_listing.md
+tool/store/
 
 # Signing keys, wherever they are placed
 key.properties

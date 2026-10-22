@@ -1,7 +1,25 @@
 # Bubble Level & Angle Finder
 
-A Flutter app for Android and iOS that turns the phone's sensors into fourteen
-tools (thirteen on iPhone, which has no Light meter), all drawn in one soft, full-screen dial design:
+Fourteen measuring tools from your phone's sensors, in one free app with no
+ads, no tracking and no internet permission. Built with Flutter, in 12
+languages, light and dark.
+
+**[Download the latest APK](https://github.com/aasifashraf/bubble_level/releases/latest)**
+(Android 7.0 or newer). Most phones need the `arm64-v8a` file; older 32 bit
+phones need `armeabi-v7a`. To get updates automatically, add this repo to
+[Obtainium](https://github.com/ImranR98/Obtainium).
+
+<p>
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="190" alt="Bubble level, flat and level">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="190" alt="Spirit level tube view">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="190" alt="Compass">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="190" alt="Home screen with every tool">
+</p>
+
+## Tools
+
+The phone's sensors drive fourteen tools (thirteen on iPhone, which has no
+Light meter), all drawn in one soft, full-screen dial design:
 
 - **Level:** a bubble level when the phone lies flat, and a spirit level with
   a tilting water line when it stands on an edge. It shows the X
@@ -39,6 +57,23 @@ tools first that you can arrange (your top three on cards), and sounds that
 follow the phone's silent mode. It works on phones and tablets in portrait and
 landscape.
 
+## Privacy and permissions
+
+The app has no internet permission, no ads, no analytics and no account.
+Readings stay on the phone; settings and calibrations are saved on the phone
+only. Each permission is asked only when you open the tool that needs it,
+after a short explanation, and is used only while that tool is on screen:
+
+| Permission | Used by | What for |
+|---|---|---|
+| Location | Speedometer | GPS speed, distance and altitude |
+| Microphone | Sound meter | Noise level; sound is measured, never recorded |
+| Camera | Camera level | The picture under the level lines; never recorded or saved |
+
+The GitHub and F-Droid build (`foss`) contains no Google libraries at all:
+GPS uses Android's own location service. Full details are in the
+[privacy policy](docs/privacy-policy.html).
+
 ## How it works
 
 - **Sensor fusion:** the gyroscope rotates the gravity estimate (smooth and
@@ -60,8 +95,9 @@ landscape.
 lib/
   domain/          pure math and models: angles, filters, readings, status
   data/
-    services/      sensors_plus streams, display-rotation and sensor
-                   availability channels, sounds
+    services/      sensors_plus streams, native channels (display
+                   rotation, sensor availability, GPS, light), camera,
+                   microphone, sounds
     repositories/  orientation (fusion), settings (shared_preferences)
   ui/
     core/          theme tokens, dial and tube painters, full-screen frame,
@@ -76,20 +112,34 @@ test/              domain, view-model and app-flow tests
 The UI follows MVVM: views listen to `ChangeNotifier` view models, which read
 the repositories.
 
-## Run
+## Build it yourself
+
+You need Flutter 3.47 or newer (Dart 3.13) and the Android SDK.
 
 ```powershell
 flutter pub get
 flutter run --flavor foss    # on a connected Android phone or emulator
 flutter test                 # unit, view-model and widget tests
-flutter build apk --release --flavor foss  # installable APK
+flutter build apk --release --flavor foss --split-per-abi  # installable APKs
 ```
 
-Android builds need `--flavor`: `foss` (no Google libraries, for F-Droid and
-direct APKs) or `play` (Google Play).
+Android builds need `--flavor`:
 
-See [store_listing.md](store_listing.md) for the store text and
-[play_store_guide.md](play_store_guide.md) for publishing to Google Play.
+- `foss`: free software only, no Google libraries. Used for GitHub releases
+  and F-Droid. Shows a small GitHub Sponsors card at the bottom of home.
+- `play`: for Google Play, with Play's in-app review card and no Sponsors
+  card.
+
+Without `android/key.properties`, release builds are signed with the debug
+key, which is fine for trying it on your own phone. iOS builds without a
+flavour; it hasn't been released or tested on an iPhone yet.
+
+## Feedback
+
+Found a wrong reading, a bug or a translation mistake? Please
+[open an issue](https://github.com/aasifashraf/bubble_level/issues) with your
+phone model and Android version. Ideas for tools are welcome too, as long as
+a phone's sensors can measure them honestly.
 
 ## Support
 
