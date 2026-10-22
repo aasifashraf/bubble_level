@@ -1,6 +1,6 @@
 # Bubble Level & Angle Finder
 
-Fourteen measuring tools from your phone's sensors, in one free app with no
+Fifteen tools from your phone's sensors, in one free app with no
 ads, no tracking and no internet permission. Built with Flutter, in 12
 languages, light and dark.
 
@@ -18,8 +18,8 @@ phones need `armeabi-v7a`. To get updates automatically, add this repo to
 
 ## Tools
 
-The phone's sensors drive fourteen tools (thirteen on iPhone, which has no
-Light meter), all drawn in one soft, full-screen dial design:
+The phone's sensors drive fifteen tools (thirteen on iPhone, which has no
+Light meter or Tracker check), all drawn in one soft, full-screen dial design:
 
 - **Level:** a bubble level when the phone lies flat, and a spirit level with
   a tilting water line when it stands on an edge. It shows the X
@@ -53,6 +53,12 @@ Light meter), all drawn in one soft, full-screen dial design:
   mount, with peaks.
 - **Speedometer:** GPS speed on a dashboard view, trip distance, top and
   average speed, altitude and coordinates (location only while open).
+- **Tracker check** (Android): Bluetooth trackers near you that are away from
+  their owners (AirTag, Galaxy SmartTag, Tile, Chipolo, Find Hub tags), on
+  rings by how close they are, and a warning when one is heard at 3 places
+  over 30 minutes or more on a walk or drive. It helps you find the tracker,
+  and its car check points to the Metal detector for GPS boxes with a SIM
+  card, which no phone can hear.
 
 Every tool has a short "How to use" guide. The app supports light and dark
 themes, degrees or percent slope, a home screen with the most popular
@@ -69,7 +75,8 @@ after a short explanation, and is used only while that tool is on screen:
 
 | Permission | Used by | What for |
 |---|---|---|
-| Location | Speedometer | GPS speed, distance and altitude |
+| Location | Speedometer, Tracker check | GPS speed, distance and altitude; places passed while checking for trackers |
+| Nearby devices (Bluetooth) | Tracker check | Hearing item trackers; it never connects to them |
 | Microphone | Sound meter | Noise level; sound is measured, never recorded |
 | Camera | Camera level | The picture under the level lines; never recorded or saved |
 

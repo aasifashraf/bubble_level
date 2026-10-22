@@ -1,4 +1,4 @@
-Transformez votre téléphone en niveau à bulle précis, avec treize autres outils de mesure pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
+Transformez votre téléphone en niveau à bulle précis, avec quatorze autres outils pour le bricolage, la menuiserie, les travaux et l’accrochage de cadres.
 
 Niveau à bulle : posez le téléphone à plat pour mettre de niveau étagères, tables et appareils. X et Y indiquent l’inclinaison dans chaque direction et une indication vous dit quel côté est haut. De niveau, l’affichage devient orange, avec vibration et son en option.
 
@@ -29,6 +29,8 @@ Niveau caméra : pointez la caméra vers un mur pour voir de vraies lignes de ni
 Mesure de force G : placez le téléphone sur un support voiture et voyez la force de vos freinages, accélérations et virages, en g. Le côté de la voiture vers lequel vous êtes poussé s’allume, et les crêtes sont gardées pour après le trajet.
 
 Compteur de vitesse : voyez votre vitesse GPS sur un tableau de bord où défile la route, avec la distance du trajet, les vitesses maximale et moyenne, l’altitude et vos coordonnées. La localisation n’est utilisée que lorsqu’il est ouvert et ne quitte jamais votre téléphone.
+
+Détecteur de traceurs : trouvez les traceurs Bluetooth loin de leur propriétaire, comme un AirTag, un Galaxy SmartTag ou un Tile, et soyez prévenu si l’un d’eux voyage avec vous à pied ou en voiture. Il n’écoute que lorsqu’il est ouvert, ne se connecte jamais à rien et vous aide à trouver le traceur. Aucun téléphone n’entend les boîtiers GPS à carte SIM ; la vérification de la voiture montre où passer le détecteur de métaux.
 
 Chaque outil a un mode d’emploi court. Fonctionne en portrait et en paysage, en mode clair et sombre, en 12 langues. Sans publicité, sans compte, sans internet.
 

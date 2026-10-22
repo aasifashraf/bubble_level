@@ -1,4 +1,4 @@
-Convierte tu teléfono en un nivel de burbuja preciso, con trece herramientas de medición más para bricolaje, carpintería, obras y colgar cuadros.
+Convierte tu teléfono en un nivel de burbuja preciso, con catorce herramientas más para bricolaje, carpintería, obras y colgar cuadros.
 
 Nivel de burbuja: apoya el teléfono plano para nivelar estantes, mesas y electrodomésticos. X e Y muestran la inclinación en cada dirección y una indicación te dice qué lado está alto. Al nivelar, la lectura se pone naranja, con vibración y sonido opcionales.
 
@@ -29,6 +29,8 @@ Nivel con cámara: apunta la cámara a una pared y verás líneas a nivel y a pl
 Medidor de fuerza G: pon el teléfono en un soporte para vehículo y mira con qué fuerza frenas, aceleras y tomas las curvas, en g. Se ilumina el lado del vehículo hacia el que te ves empujado, y los picos se guardan para después del trayecto.
 
 Velocímetro: mira tu velocidad por GPS en un tablero con la carretera pasando a toda prisa, con la distancia del trayecto, la velocidad máxima y media, la altitud y tus coordenadas. La ubicación solo se usa mientras está abierto y nunca sale de tu teléfono.
+
+Detector de rastreadores: encuentra rastreadores Bluetooth lejos de su dueño, como un AirTag, Galaxy SmartTag o Tile, y recibe un aviso si uno viaja contigo al caminar o conducir. Solo escucha mientras está abierto, nunca se conecta a nada y te ayuda a encontrar el rastreador. Ningún teléfono oye las cajas GPS con tarjeta SIM; la revisión del coche muestra dónde pasar el detector de metales.
 
 Cada herramienta tiene una guía breve. Funciona en vertical y horizontal, en modo claro y oscuro, en 12 idiomas. Sin anuncios, sin cuenta y sin internet.
 
