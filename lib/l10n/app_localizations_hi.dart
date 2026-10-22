@@ -496,6 +496,23 @@ class AppLocalizationsHi extends AppLocalizations {
       'यह स्क्रीन की लंबाई तक मापता है। कवर और मुड़े किनारे शुरुआती मिलीमीटर छिपा देते हैं, इसलिए फ़ोन के किनारे से नहीं, रेखाओं के बीच मापें।';
 
   @override
+  String get rulerWidthOn => 'चौड़ाई भी मापें';
+
+  @override
+  String rulerArea(String value) {
+    return 'क्षेत्रफल $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'लंबाई $length मिलीमीटर, चौड़ाई $width मिलीमीटर, क्षेत्रफल $area वर्ग सेंटीमीटर';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'चौड़ाई भी मापने के लिए ऊपर आयत वाला बटन टैप करें: दोनों किनारे वाली रेखाओं को वस्तु के किनारों तक खींचें, फिर चौड़ाई और क्षेत्रफल दिखेंगे। चौड़ाई स्क्रीन की चौड़ाई तक ही मापी जा सकती है।';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'लंबाई $mm मिलीमीटर, $inches इंच';
   }

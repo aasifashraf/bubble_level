@@ -496,6 +496,23 @@ class AppLocalizationsEn extends AppLocalizations {
       'It measures up to the length of the screen. Cases and curved edges hide the first millimetres, so measure between the lines, not from the edge of the phone.';
 
   @override
+  String get rulerWidthOn => 'Measure width too';
+
+  @override
+  String rulerArea(String value) {
+    return 'Area $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Length $length millimetres, width $width millimetres, area $area square centimetres';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Tap the box button at the top to measure width too: drag the two side lines to the object’s sides to read its width and area. Width can only be as wide as the screen.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Length $mm millimetres, $inches inches';
   }

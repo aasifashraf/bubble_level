@@ -277,6 +277,30 @@
   "rulerHelp3": "For the best accuracy, tap Calibrate once and use a bank card, a ruler or the screen size.",
   "rulerHelp4": "Tap the lock to keep the lines in place while you move the object.",
   "rulerTip": "It measures up to the length of the screen. Cases and curved edges hide the first millimetres, so measure between the lines, not from the edge of the phone.",
+  "rulerWidthOn": "Measure width too",
+  "rulerArea": "Area {value}",
+  "@rulerArea": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "rulerBoxSemantics": "Length {length} millimetres, width {width} millimetres, area {area} square centimetres",
+  "@rulerBoxSemantics": {
+    "placeholders": {
+      "length": {
+        "type": "String"
+      },
+      "width": {
+        "type": "String"
+      },
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "rulerHelp5": "Tap the box button at the top to measure width too: drag the two side lines to the object’s sides to read its width and area. Width can only be as wide as the screen.",
   "rulerSemantics": "Length {mm} millimetres, {inches} inches",
   "@rulerSemantics": {
     "placeholders": {

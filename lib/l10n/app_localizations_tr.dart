@@ -498,6 +498,23 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ekranın uzunluğu kadar ölçer. Kılıflar ve kavisli kenarlar ilk milimetreleri gizler; telefonun kenarından değil, çizgiler arasında ölçün.';
 
   @override
+  String get rulerWidthOn => 'Genişliği de ölç';
+
+  @override
+  String rulerArea(String value) {
+    return 'Alan $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Uzunluk $length milimetre, genişlik $width milimetre, alan $area santimetrekare';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Genişliği de ölçmek için üstteki dikdörtgen düğmesine dokunun: genişliği ve alanı görmek için iki yan çizgiyi nesnenin kenarlarına sürükleyin. Genişlik en fazla ekranın genişliği kadardır.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Uzunluk $mm milimetre, $inches inç';
   }

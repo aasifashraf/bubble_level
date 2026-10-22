@@ -499,6 +499,23 @@ class AppLocalizationsEs extends AppLocalizations {
       'Mide hasta el largo de la pantalla. Las fundas y los bordes curvos ocultan los primeros milímetros, así que mide entre las líneas, no desde el borde del teléfono.';
 
   @override
+  String get rulerWidthOn => 'Medir también el ancho';
+
+  @override
+  String rulerArea(String value) {
+    return 'Área $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Largo $length milímetros, ancho $width milímetros, área $area centímetros cuadrados';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Toca el botón del rectángulo arriba para medir también el ancho: arrastra las dos líneas laterales hasta los lados del objeto para ver su ancho y su área. El ancho llega como máximo al ancho de la pantalla.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Longitud $mm milímetros, $inches pulgadas';
   }

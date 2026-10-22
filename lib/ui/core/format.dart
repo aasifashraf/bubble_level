@@ -43,6 +43,23 @@ String formatLength(double mm, LengthUnit unit) => switch (unit) {
   LengthUnit.inch => '${_fixed(mm / mmPerInch, 2)} in',
 };
 
+/// Length by width in [unit]: 50.0 × 32.0 mm, 5.00 × 3.20 cm,
+/// 1.97 × 1.26 in.
+String formatLengthByWidth(double lengthMm, double widthMm, LengthUnit unit) {
+  final (div, digits, name) = switch (unit) {
+    LengthUnit.mm => (1.0, 1, 'mm'),
+    LengthUnit.cm => (10.0, 2, 'cm'),
+    LengthUnit.inch => (mmPerInch, 2, 'in'),
+  };
+  return '${_fixed(lengthMm / div, digits)} × ${_fixed(widthMm / div, digits)} $name';
+}
+
+/// An area of [mm2] square millimetres: in cm² (one decimal), or in² (two)
+/// when [unit] is inches.
+String formatArea(double mm2, LengthUnit unit) => unit == LengthUnit.inch
+    ? '${_fixed(mm2 / (mmPerInch * mmPerInch), 2)} in²'
+    : '${_fixed(mm2 / 100)} cm²';
+
 String formatDegrees(double? deg) => deg == null ? '—' : '${_fixed(deg)}°';
 
 /// Signed, with an explicit "+" so direction is obvious.

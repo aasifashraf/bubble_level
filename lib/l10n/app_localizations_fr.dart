@@ -501,6 +501,23 @@ class AppLocalizationsFr extends AppLocalizations {
       'Elle mesure jusqu’à la longueur de l’écran. Les coques et les bords incurvés cachent les premiers millimètres : mesurez entre les lignes, pas depuis le bord du téléphone.';
 
   @override
+  String get rulerWidthOn => 'Mesurer aussi la largeur';
+
+  @override
+  String rulerArea(String value) {
+    return 'Surface $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Longueur $length millimètres, largeur $width millimètres, surface $area centimètres carrés';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Touchez le bouton rectangle en haut pour mesurer aussi la largeur : faites glisser les deux lignes latérales jusqu’aux côtés de l’objet pour lire sa largeur et sa surface. La largeur est limitée à celle de l’écran.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Longueur $mm millimètres, $inches pouces';
   }

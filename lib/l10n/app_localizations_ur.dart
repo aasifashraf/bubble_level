@@ -497,6 +497,23 @@ class AppLocalizationsUr extends AppLocalizations {
       'یہ اسکرین کی لمبائی تک ناپتا ہے۔ کور اور مڑے ہوئے کنارے پہلے چند ملی میٹر چھپا دیتے ہیں، اس لیے فون کے کنارے سے نہیں، لکیروں کے درمیان ناپیں۔';
 
   @override
+  String get rulerWidthOn => 'چوڑائی بھی ناپیں';
+
+  @override
+  String rulerArea(String value) {
+    return 'رقبہ $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'لمبائی $length ملی میٹر، چوڑائی $width ملی میٹر، رقبہ $area مربع سینٹی میٹر';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'چوڑائی بھی ناپنے کے لیے اوپر مستطیل والا بٹن دبائیں: دونوں کنارے والی لکیروں کو چیز کے کناروں تک کھینچیں، پھر چوڑائی اور رقبہ نظر آئے گا۔ چوڑائی زیادہ سے زیادہ اسکرین کی چوڑائی تک ہے۔';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'لمبائی $mm ملی میٹر، $inches انچ';
   }

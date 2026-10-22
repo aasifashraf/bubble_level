@@ -494,6 +494,23 @@ class AppLocalizationsAr extends AppLocalizations {
       'تقيس المسطرة حتى طول الشاشة. تُخفي الأغطية والحواف المنحنية أول بضعة مليمترات، لذا قِس بين الخطين وليس من حافة الهاتف.';
 
   @override
+  String get rulerWidthOn => 'قِس العرض أيضًا';
+
+  @override
+  String rulerArea(String value) {
+    return 'المساحة $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'الطول $length مليمتر، العرض $width مليمتر، المساحة $area سنتيمتر مربع';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'اضغط زر المستطيل في الأعلى لقياس العرض أيضًا: اسحب الخطين الجانبيين إلى طرفي الجسم لترى عرضه ومساحته. أقصى عرض هو عرض الشاشة.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'الطول $mm مليمتر، $inches بوصة';
   }

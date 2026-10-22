@@ -498,6 +498,23 @@ class AppLocalizationsDe extends AppLocalizations {
       'Es misst bis zur Länge des Bildschirms. Hüllen und gebogene Ränder verdecken die ersten Millimeter, miss also zwischen den Linien, nicht ab dem Rand des Handys.';
 
   @override
+  String get rulerWidthOn => 'Auch die Breite messen';
+
+  @override
+  String rulerArea(String value) {
+    return 'Fläche $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Länge $length Millimeter, Breite $width Millimeter, Fläche $area Quadratzentimeter';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Tippe oben auf die Kastentaste, um auch die Breite zu messen: Zieh die zwei seitlichen Linien an die Seiten des Objekts, dann siehst du Breite und Fläche. Die Breite reicht höchstens über die Bildschirmbreite.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Länge $mm Millimeter, $inches Zoll';
   }

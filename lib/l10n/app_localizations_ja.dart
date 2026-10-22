@@ -475,6 +475,23 @@ class AppLocalizationsJa extends AppLocalizations {
       '測れるのは画面の長さまでです。ケースや曲面の縁で最初の数ミリが隠れるため、端末の端からではなく線と線の間で測ってください。';
 
   @override
+  String get rulerWidthOn => '幅も測る';
+
+  @override
+  String rulerArea(String value) {
+    return '面積 $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return '長さ $length ミリメートル、幅 $width ミリメートル、面積 $area 平方センチメートル';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      '上の四角いボタンをタップすると幅も測れます。左右の2本の線を物の両端に合わせると、幅と面積が表示されます。幅は画面の幅までです。';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return '長さ $mmミリ、$inchesインチ';
   }

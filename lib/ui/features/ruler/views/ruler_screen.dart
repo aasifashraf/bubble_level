@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/ruler.dart';
@@ -12,7 +14,8 @@ import '../../../core/tool_frame.dart';
 import '../view_models/ruler_view_model.dart';
 
 /// Ruler: millimetres down one edge and inches down the other, two orange
-/// lines dragged to an object's ends, and the length between them.
+/// lines dragged to an object's ends, and the length between them. With
+/// width on, two more lines across the ruler give the width and area.
 class RulerScreen extends StatelessWidget {
   const RulerScreen({super.key, required this.viewModel, required this.onBack});
 
@@ -21,7 +24,13 @@ class RulerScreen extends StatelessWidget {
 
   static ToolHelp _help(AppLocalizations l) => ToolHelp(
     tool: l.toolRuler,
-    steps: [l.rulerHelp1, l.rulerHelp2, l.rulerHelp3, l.rulerHelp4],
+    steps: [
+      l.rulerHelp1,
+      l.rulerHelp2,
+      l.rulerHelp5,
+      l.rulerHelp3,
+      l.rulerHelp4,
+    ],
     tip: l.rulerTip,
   );
 
@@ -43,6 +52,12 @@ class RulerScreen extends StatelessWidget {
           title: context.l10n.toolRuler,
           onBack: onBack,
           trailing: HelpButton(help: _help(context.l10n)),
+          action: viewModel.calibrating
+              ? null
+              : _WidthButton(
+                  on: viewModel.width,
+                  onPressed: viewModel.toggleWidth,
+                ),
           bodyBottomInset: 150,
           footerBelowInLandscape: true,
           body: _body(context, scale, dpr),
@@ -67,34 +82,59 @@ class RulerScreen extends StatelessWidget {
           builder: (context, box) {
             final vertical = box.maxHeight >= box.maxWidth;
             final length = vertical ? box.maxHeight : box.maxWidth;
+            final across = vertical ? box.maxWidth : box.maxHeight;
             final maxMm = scale.mm(length, dpr);
-            viewModel.setRulerLength(maxMm);
+            final maxAcrossMm = scale.mm(across, dpr);
+            viewModel.setRulerLength(maxMm, widthMm: maxAcrossMm);
             double along(Offset p) => vertical ? p.dy : p.dx;
-            double mmAt(Offset p) => scale.mm(along(p), dpr);
+            double side(Offset p) => vertical ? p.dx : p.dy;
             final aligning = viewModel.calibrating;
+            final width = viewModel.width && !aligning;
             final referenceMm = viewModel.referenceMm;
             final l = context.l10n;
             final mm = viewModel.lengthMm;
+            final widthMm = viewModel.widthMm;
             final unit = _unit(context);
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onPanStart: (d) => aligning
-                  ? viewModel.dragReference(along(d.localPosition), length)
-                  : viewModel.beginDrag(mmAt(d.localPosition), maxMm),
-              onPanUpdate: (d) => aligning
-                  ? viewModel.dragReference(along(d.localPosition), length)
-                  : viewModel.dragTo(mmAt(d.localPosition), maxMm),
-              onTapUp: (d) => aligning
-                  ? viewModel.dragReference(along(d.localPosition), length)
-                  : viewModel.beginDrag(mmAt(d.localPosition), maxMm),
-              child: Stack(
-                children: [
-                  Positioned.fill(
+            // Every finger on its own: one can hold the object while
+            // another drags, or two lines move at once.
+            void down(PointerDownEvent e) => aligning
+                ? viewModel.dragReference(along(e.localPosition), length)
+                : viewModel.pointerDown(
+                    e.pointer,
+                    scale.mm(along(e.localPosition), dpr),
+                    scale.mm(side(e.localPosition), dpr),
+                    time: e.timeStamp,
+                    grabMm: scale.mm(_grab, dpr),
+                  );
+            void move(PointerMoveEvent e) => aligning
+                ? viewModel.dragReference(along(e.localPosition), length)
+                : viewModel.pointerMove(
+                    e.pointer,
+                    scale.mm(along(e.localPosition), dpr),
+                    scale.mm(side(e.localPosition), dpr),
+                    slopMm: scale.mm(kTouchSlop, dpr),
+                  );
+            return Stack(
+              children: [
+                Positioned.fill(
+                  child: Listener(
+                    behavior: HitTestBehavior.opaque,
+                    onPointerDown: down,
+                    onPointerMove: move,
+                    onPointerUp: (e) =>
+                        viewModel.pointerUp(e.pointer, time: e.timeStamp),
+                    onPointerCancel: (e) => viewModel.pointerCancel(e.pointer),
                     child: Semantics(
-                      // Its own node: the length, read as one phrase.
+                      // Its own node: the measurement, read as one phrase.
                       container: true,
                       label: aligning
                           ? null
+                          : width
+                          ? l.rulerBoxSemantics(
+                              formatDecimal(mm),
+                              formatDecimal(widthMm),
+                              formatDecimal(mm * widthMm / 100),
+                            )
                           : l.rulerSemantics(
                               formatDecimal(mm),
                               formatDecimal(mm / mmPerInch, digits: 2),
@@ -118,6 +158,12 @@ class RulerScreen extends StatelessWidget {
                                     viewModel.shown(0, maxMm),
                                     viewModel.shown(1, maxMm),
                                   ],
+                                  cross: width
+                                      ? [
+                                          viewModel.shown(2, maxAcrossMm),
+                                          viewModel.shown(3, maxAcrossMm),
+                                        ]
+                                      : null,
                                   referenceSpan: aligning
                                       ? viewModel.referenceSpan
                                       : null,
@@ -132,34 +178,36 @@ class RulerScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // In landscape the ruler is short: its reading and unit
-                  // switch sit in the footer instead, so nothing covers it.
-                  if (!ToolFrame.sideBySide(context))
-                    Center(
-                      // Shrinks rather than overflows in a very short window.
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: aligning
-                            ? _Reading(
-                                main: viewModel.method == CalibrationMethod.card
-                                    ? '${formatDecimal(referenceMm, digits: 2)} mm'
-                                    : _mark(
-                                        referenceMm,
-                                        inches: viewModel.inches,
-                                      ),
-                              )
-                            : Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _reading(mm, unit),
-                                  const SizedBox(height: 14),
-                                  _unitSwitch(context, unit),
-                                ],
-                              ),
-                      ),
+                ),
+                // In landscape the ruler is short: its reading and unit
+                // switch sit in the footer instead, so nothing covers it.
+                // The reading lets touches through to the lines; the switch
+                // keeps its own taps.
+                if (!ToolFrame.sideBySide(context))
+                  Center(
+                    // Shrinks rather than overflows in a very short window.
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: aligning
+                          ? _Reading(
+                              main: viewModel.method == CalibrationMethod.card
+                                  ? '${formatDecimal(referenceMm, digits: 2)} mm'
+                                  : _mark(
+                                      referenceMm,
+                                      inches: viewModel.inches,
+                                    ),
+                            )
+                          : Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                _measurement(context, unit),
+                                const SizedBox(height: 14),
+                                _unitSwitch(context, unit),
+                              ],
+                            ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             );
           },
         ),
@@ -172,16 +220,33 @@ class RulerScreen extends StatelessWidget {
       viewModel.unit ??
       (_usesInches(context) ? LengthUnit.inch : LengthUnit.mm);
 
-  /// The length in [unit], big, with the other system small.
-  static Widget _reading(double mm, LengthUnit unit, {bool inline = false}) =>
-      _Reading(
-        main: formatLength(mm, unit),
-        sub: formatLength(
-          mm,
-          unit == LengthUnit.inch ? LengthUnit.mm : LengthUnit.inch,
-        ),
+  /// How near a line a finger must land to take it at once.
+  static const _grab = 24.0;
+
+  /// The length in [unit], big, with the other system small; with width
+  /// on, length × width big and the area small.
+  Widget _measurement(
+    BuildContext context,
+    LengthUnit unit, {
+    bool inline = false,
+  }) {
+    final mm = viewModel.lengthMm;
+    if (viewModel.width) {
+      return _Reading(
+        main: formatLengthByWidth(mm, viewModel.widthMm, unit),
+        sub: context.l10n.rulerArea(formatArea(mm * viewModel.widthMm, unit)),
         inline: inline,
       );
+    }
+    return _Reading(
+      main: formatLength(mm, unit),
+      sub: formatLength(
+        mm,
+        unit == LengthUnit.inch ? LengthUnit.mm : LengthUnit.inch,
+      ),
+      inline: inline,
+    );
+  }
 
   Widget _unitSwitch(BuildContext context, LengthUnit unit) {
     final l = context.l10n;
@@ -361,7 +426,7 @@ class RulerScreen extends StatelessWidget {
               flex: 2,
               child: FittedBox(
                 fit: BoxFit.scaleDown,
-                child: _reading(viewModel.lengthMm, unit, inline: true),
+                child: _measurement(context, unit, inline: true),
               ),
             ),
             Expanded(
@@ -482,6 +547,70 @@ class RulerScreen extends StatelessWidget {
       ],
     );
   }
+}
+
+/// The header's width switch: a box in a disc, orange while the lines
+/// across the ruler are on.
+class _WidthButton extends StatelessWidget {
+  const _WidthButton({required this.on, required this.onPressed});
+
+  final bool on;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Palette.of(context);
+    return Semantics(
+      toggled: on,
+      child: IconButton(
+        tooltip: context.l10n.rulerWidthOn,
+        onPressed: onPressed,
+        icon: CustomPaint(
+          size: const Size(28, 28),
+          painter: _BoxGlyphPainter(
+            disc: on ? [p.ballLight, p.ballDark] : [p.tab, p.tab],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BoxGlyphPainter extends CustomPainter {
+  _BoxGlyphPainter({required this.disc});
+
+  final List<Color> disc;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final rect = Rect.fromCircle(center: c, radius: 12);
+    canvas
+      ..drawCircle(
+        c,
+        12,
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: disc,
+          ).createShader(rect),
+      )
+      ..drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromCenter(center: c, width: 13, height: 10),
+          const Radius.circular(1.5),
+        ),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.8
+          ..color = Colors.white,
+      );
+  }
+
+  @override
+  bool shouldRepaint(_BoxGlyphPainter old) =>
+      old.disc[0] != disc[0] || old.disc[1] != disc[1];
 }
 
 /// The screen size typed in inches, in its own sheet so the keyboard
@@ -673,6 +802,7 @@ class _RulerPainter extends CustomPainter {
     required this.dpr,
     required this.vertical,
     required this.ends,
+    this.cross,
     required this.referenceSpan,
     required this.card,
     required this.cardMm,
@@ -684,6 +814,9 @@ class _RulerPainter extends CustomPainter {
   final double dpr;
   final bool vertical;
   final List<double> ends;
+
+  /// The width lines, in mm across the ruler, or null with width off.
+  final List<double>? cross;
 
   /// Where the line being aligned is, or null when measuring.
   final double? referenceSpan;
@@ -700,7 +833,9 @@ class _RulerPainter extends CustomPainter {
     Offset at(double along, double a) =>
         vertical ? Offset(a, along) : Offset(along, a);
     double pos(double mm) => scale.logical(mm, dpr);
-    if (layer == _RulerLayer.overlay) return _overlay(canvas, across, at, pos);
+    if (layer == _RulerLayer.overlay) {
+      return _overlay(canvas, length, across, at, pos);
+    }
 
     final minor = Paint()
       ..strokeWidth = 1
@@ -742,10 +877,44 @@ class _RulerPainter extends CustomPainter {
         _label(canvas, '${i ~/ 8}', at(x, across - 36), p.ink);
       }
     }
+    if (cross == null) return;
+    // With width on, the same scales across the ruler: millimetres along
+    // the zero end, inches along the far end.
+    for (var mm = 0; pos(mm.toDouble()) <= across; mm++) {
+      final y = pos(mm.toDouble());
+      final len = mm % 10 == 0
+          ? 26.0
+          : mm % 5 == 0
+          ? 17.0
+          : 10.0;
+      canvas.drawLine(at(0, y), at(len, y), mm % 5 == 0 ? major : minor);
+      if (mm % 10 == 0 && mm > 0) {
+        _label(canvas, '${mm ~/ 10}', at(36, y), p.ink);
+      }
+    }
+    for (var i = 0; pos(i * eighth) <= across; i++) {
+      final y = pos(i * eighth);
+      final len = i % 8 == 0
+          ? 26.0
+          : i % 4 == 0
+          ? 19.0
+          : i.isEven
+          ? 13.0
+          : 8.0;
+      canvas.drawLine(
+        at(length, y),
+        at(length - len, y),
+        i % 4 == 0 ? major : minor,
+      );
+      if (i % 8 == 0 && i > 0) {
+        _label(canvas, '${i ~/ 8}', at(length - 36, y), p.ink);
+      }
+    }
   }
 
   void _overlay(
     Canvas canvas,
+    double length,
     double across,
     Offset Function(double, double) at,
     double Function(double) pos,
@@ -762,9 +931,42 @@ class _RulerPainter extends CustomPainter {
     final span = Path()
       ..addPolygon([at(a, 0), at(b, 0), at(b, across), at(a, across)], true);
     canvas.drawPath(span, Paint()..color = p.ballDark.withValues(alpha: 0.07));
+    final cross = this.cross;
+    if (cross != null) {
+      // Across the ruler: the width band (its overlap with the length band
+      // frames the object), then its lines with handles near the far end.
+      final c = pos(cross[0]), d = pos(cross[1]);
+      final band = Path()
+        ..addPolygon([at(0, c), at(length, c), at(length, d), at(0, d)], true);
+      canvas.drawPath(
+        band,
+        Paint()..color = p.ballDark.withValues(alpha: 0.06),
+      );
+      for (final y in [c, d]) {
+        _crossLine(canvas, y, length, at);
+      }
+    }
     for (final x in [a, b]) {
       _line(canvas, x, across, at);
     }
+  }
+
+  /// A width line across the ruler at [y], its handle near the far end so
+  /// it stays clear of the length lines' handles.
+  void _crossLine(
+    Canvas canvas,
+    double y,
+    double length,
+    Offset Function(double, double) at,
+  ) {
+    canvas.drawLine(
+      at(0, y),
+      at(length, y),
+      Paint()
+        ..strokeWidth = 2
+        ..color = palette.ballDark,
+    );
+    _handle(canvas, at(length * 0.86, y));
   }
 
   void _line(
@@ -781,7 +983,12 @@ class _RulerPainter extends CustomPainter {
         ..strokeWidth = 2
         ..color = p.ballDark,
     );
-    final ball = at(x, across * 0.78);
+    _handle(canvas, at(x, across * 0.78));
+  }
+
+  /// The orange ball a line is dragged by.
+  void _handle(Canvas canvas, Offset ball) {
+    final p = palette;
     canvas
       ..drawCircle(
         ball + const Offset(1, 2),
@@ -853,6 +1060,7 @@ class _RulerPainter extends CustomPainter {
       old.scale != scale ||
       old.dpr != dpr ||
       old.vertical != vertical ||
+      (old.cross == null) != (cross == null) ||
       (layer == _RulerLayer.overlay && _overlayChanged(old));
 
   bool _overlayChanged(_RulerPainter old) =>
@@ -861,6 +1069,7 @@ class _RulerPainter extends CustomPainter {
       old.vertical != vertical ||
       old.ends[0] != ends[0] ||
       old.ends[1] != ends[1] ||
+      !listEquals(old.cross, cross) ||
       old.referenceSpan != referenceSpan ||
       old.card != card ||
       old.cardMm != cardMm ||

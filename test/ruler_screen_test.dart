@@ -458,6 +458,106 @@ void main() {
     expect(find.text('Calibrate'), findsOneWidget);
   });
 
+  testWidgets('width: the box button adds lines across, the reading shows '
+      'length × width and area, and it is off again next time', (tester) async {
+    useLocale(tester, const Locale('en', 'GB'));
+    final semantics = tester.ensureSemantics();
+    await pumpRuler(tester);
+    expect(find.text('50.0 mm'), findsOneWidget);
+    await tester.tap(find.byTooltip('Measure width too'));
+    await tester.pump();
+    expect(find.text('50.0 × 30.0 mm'), findsOneWidget);
+    expect(find.text('Area 15.0 cm²'), findsOneWidget);
+    expect(
+      find.bySemanticsLabel(
+        'Length 50.0 millimetres, width 30.0 millimetres, '
+        'area 15.0 square centimetres',
+      ),
+      findsOneWidget,
+    );
+
+    // The far width line, grabbed away from the length lines.
+    await tester.dragFrom(
+      const Offset(40 * _perMm, _top + 70 * _perMm),
+      const Offset(10 * _perMm, 0),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('50.0 × 40.0 mm'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Centimetres'));
+    await tester.pump();
+    expect(find.text('5.00 × 4.00 cm'), findsOneWidget);
+    expect(find.text('Area 20.0 cm²'), findsOneWidget);
+    await tester.tap(find.byTooltip('Inches'));
+    await tester.pump();
+    expect(find.text('1.97 × 1.57 in'), findsOneWidget);
+    expect(find.text('Area 3.10 in²'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Measure width too'));
+    await tester.pump();
+    expect(find.text('1.97 in'), findsOneWidget);
+
+    // Back out and in: length only again.
+    await tester.tap(find.byTooltip('Measure width too'));
+    await tester.pump();
+    await tester.tap(find.bySemanticsLabel('Back'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Ruler'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('×'), findsNothing);
+    semantics.dispose();
+  });
+
+  testWidgets('one finger holds the object while another drags; neither '
+      'its rest nor its lift moves a line', (tester) async {
+    final semantics = tester.ensureSemantics();
+    await pumpRuler(tester);
+    // Holding the object between the lines.
+    final hold = await tester.startGesture(
+      const Offset(150, _top + 25 * _perMm),
+      pointer: 1,
+    );
+    await tester.pump(const Duration(milliseconds: 200));
+    final drag = await tester.startGesture(
+      const Offset(200, _top + 50 * _perMm),
+      pointer: 2,
+    );
+    for (var i = 1; i <= 10; i++) {
+      await drag.moveTo(Offset(200, _top + (50 + 2 * i) * _perMm));
+      await tester.pump(const Duration(milliseconds: 16));
+    }
+    await drag.up();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(length('70.0', '2.76'), findsOneWidget);
+    await hold.moveBy(const Offset(4, 30));
+    await tester.pump(const Duration(milliseconds: 300));
+    await hold.up();
+    await tester.pumpAndSettle();
+    expect(length('70.0', '2.76'), findsOneWidget);
+    semantics.dispose();
+  });
+
+  testWidgets('two fingers move both lines at once', (tester) async {
+    final semantics = tester.ensureSemantics();
+    await pumpRuler(tester);
+    final a = await tester.startGesture(
+      const Offset(200, _top + 1),
+      pointer: 1,
+    );
+    final b = await tester.startGesture(
+      const Offset(200, _top + 50 * _perMm),
+      pointer: 2,
+    );
+    await a.moveTo(const Offset(200, _top + 10 * _perMm));
+    await b.moveTo(const Offset(200, _top + 90 * _perMm));
+    await tester.pump();
+    await a.up();
+    await b.up();
+    await tester.pumpAndSettle();
+    expect(length('80.0', '3.15'), findsOneWidget);
+    semantics.dispose();
+  });
+
   testWidgets('locked lines ignore drags; Calibrate waits for unlock', (
     tester,
   ) async {
@@ -569,43 +669,142 @@ void main() {
       );
     });
 
-    test('drags the nearer line, snapped to 0.5 mm, kept on the ruler', () {
-      vm.beginDrag(48.2, 100);
+    const t0 = Duration.zero;
+    Duration ms(int v) => Duration(milliseconds: v);
+
+    /// Finger [id] down at [along] (and [across]) mm, grabbing within 4 mm.
+    void down(int id, double along, {double across = 30, Duration? at}) =>
+        vm.pointerDown(id, along, across, time: at ?? t0, grabMm: 4);
+
+    test('a finger near a line takes it, snapped to 0.5 mm, kept on the '
+        'ruler', () {
+      vm.setRulerLength(100, widthMm: 60);
+      down(1, 48.2);
       expect(vm.end(1), 48.0);
-      vm.dragTo(130, 100);
+      vm.pointerMove(1, 130, 30);
       expect(vm.end(1), 100);
-      vm.dragTo(-5, 100);
+      vm.pointerMove(1, -5, 30);
       expect(vm.end(1), 0);
       expect(vm.end(0), 0);
     });
 
     testWidgets('on a shorter ruler the length and the nearest line are '
         'those drawn', (tester) async {
+      vm.setRulerLength(130);
+      down(1, 50);
       vm
-        ..setRulerLength(130)
-        ..beginDrag(50, 130)
-        ..dragTo(120, 130);
+        ..pointerMove(1, 120, 30)
+        ..pointerUp(1, time: ms(500));
       expect(vm.lengthMm, 120);
       // Turned to a 60 mm ruler: the line is drawn at 60, so it reads 60.
       vm.setRulerLength(60);
       expect(vm.lengthMm, 60);
-      // A touch at 55 mm grabs that line, not the one at 0.
-      vm.beginDrag(55, 60);
-      expect(vm.end(1), 55);
+      // A touch at 57 mm takes that line, not the one at 0.
+      down(2, 57);
+      expect(vm.end(1), 57);
       await tester.pump();
     });
 
     test('lines beyond a shorter ruler (after rotating) stay visible', () {
-      vm
-        ..beginDrag(50, 120)
-        ..dragTo(110, 120);
+      vm.setRulerLength(120);
+      down(1, 50);
+      vm.pointerMove(1, 110, 30);
       expect(vm.shown(1, 60), 60);
       expect(vm.end(1), 110); // kept for when it fits again
     });
 
-    test('opening again unlocks and leaves calibration', () {
+    test('two fingers move two lines at once', () {
+      vm.setRulerLength(120);
+      down(1, 1);
+      down(2, 49);
+      vm
+        ..pointerMove(1, 20, 30)
+        ..pointerMove(2, 80, 30);
+      expect(vm.end(0), 20);
+      expect(vm.end(1), 80);
+      expect(vm.lengthMm, 60);
+    });
+
+    test('a finger resting on the object moves nothing, before or after the '
+        'other finger lets go', () {
+      vm.setRulerLength(120);
+      down(1, 25); // holding the object, between the lines
+      down(2, 50, at: ms(200)); // dragging the far line
+      vm
+        ..pointerMove(2, 70, 30)
+        ..pointerUp(2, time: ms(900));
+      expect(vm.end(1), 70);
+      // The holding finger shifts and lifts: nothing jumps to it.
+      vm
+        ..pointerMove(1, 31, 34)
+        ..pointerUp(1, time: ms(1500));
+      expect(vm.end(0), 0);
+      expect(vm.end(1), 70);
+    });
+
+    test('a quick lone tap moves the nearest line there; a long press does '
+        'not', () {
+      vm.setRulerLength(120);
+      down(1, 20);
+      vm.pointerUp(1, time: ms(120));
+      expect(vm.end(0), 20);
+      down(2, 40, at: ms(1000));
+      vm.pointerUp(2, time: ms(1600));
+      expect(vm.end(1), 50);
+    });
+
+    test('a lone finger dragging from elsewhere takes the nearest line once '
+        'it really moves', () {
+      vm.setRulerLength(120);
+      down(1, 30); // 30 from line 0, 20 from line 1
+      vm.pointerMove(1, 31, 30);
+      expect(vm.end(1), 50, reason: 'not past the slop yet');
+      vm.pointerMove(1, 36, 30);
+      expect(vm.end(1), 36);
+      expect(vm.end(0), 0);
+    });
+
+    test('width lines take part only with width on', () {
+      vm.setRulerLength(120, widthMm: 60);
+      // Off: a touch on the width line's spot moves nothing across.
+      down(1, 90, across: 40);
+      vm.pointerUp(1, time: ms(1000));
+      expect(vm.end(3), 40);
+      vm.toggleWidth();
+      expect(vm.width, isTrue);
+      expect(vm.widthMm, 30);
+      down(2, 90, across: 39);
+      vm.pointerMove(2, 90, 55);
+      expect(vm.end(3), 55);
+      expect(vm.widthMm, 45);
+      // Kept on a narrower ruler, like the length lines.
+      vm.setRulerLength(120, widthMm: 50);
+      expect(vm.widthMm, 40);
+      // Turning width off lets go of a held width line.
+      vm
+        ..toggleWidth()
+        ..pointerMove(2, 90, 20);
+      expect(vm.end(3), 55);
+    });
+
+    test('locked: no finger moves a line', () {
+      vm
+        ..setRulerLength(120)
+        ..toggleLock();
+      down(1, 50);
+      vm
+        ..pointerMove(1, 80, 30)
+        ..pointerUp(1, time: ms(100));
+      down(2, 10);
+      vm.pointerUp(2, time: ms(100));
+      expect(vm.end(0), 0);
+      expect(vm.end(1), 50);
+    });
+
+    test('opening again unlocks, turns width off and leaves calibration', () {
       vm
         ..toggleLock()
+        ..toggleWidth()
         ..startCalibration(
           CalibrationMethod.card,
           scale: estimatedScale(2),
@@ -613,6 +812,7 @@ void main() {
         )
         ..open();
       expect(vm.locked, isFalse);
+      expect(vm.width, isFalse);
       expect(vm.calibrating, isFalse);
     });
   });

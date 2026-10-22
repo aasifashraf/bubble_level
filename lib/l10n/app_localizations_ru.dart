@@ -498,6 +498,23 @@ class AppLocalizationsRu extends AppLocalizations {
       'Линейка измеряет до длины экрана. Чехлы и изогнутые края скрывают первые миллиметры, поэтому измеряйте между линиями, а не от края телефона.';
 
   @override
+  String get rulerWidthOn => 'Измерять и ширину';
+
+  @override
+  String rulerArea(String value) {
+    return 'Площадь $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Длина $length миллиметров, ширина $width миллиметров, площадь $area квадратных сантиметров';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Нажмите кнопку с прямоугольником вверху, чтобы измерять и ширину: перетащите две боковые линии к краям предмета, и вы увидите его ширину и площадь. Ширина ограничена шириной экрана.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Длина $mm мм, $inches дюйма';
   }

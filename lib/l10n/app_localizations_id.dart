@@ -497,6 +497,23 @@ class AppLocalizationsId extends AppLocalizations {
       'Penggaris mengukur hingga sepanjang layar. Casing dan tepi melengkung menutupi milimeter pertama, jadi ukur di antara garis, bukan dari tepi ponsel.';
 
   @override
+  String get rulerWidthOn => 'Ukur lebar juga';
+
+  @override
+  String rulerArea(String value) {
+    return 'Luas $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Panjang $length milimeter, lebar $width milimeter, luas $area sentimeter persegi';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Ketuk tombol persegi panjang di atas untuk mengukur lebar juga: seret dua garis samping ke sisi benda untuk melihat lebar dan luasnya. Lebar paling besar selebar layar.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Panjang $mm milimeter, $inches inci';
   }

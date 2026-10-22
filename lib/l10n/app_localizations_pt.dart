@@ -498,6 +498,23 @@ class AppLocalizationsPt extends AppLocalizations {
       'Mede até o comprimento da tela. Capinhas e bordas curvas escondem os primeiros milímetros, então meça entre as linhas, não a partir da borda do celular.';
 
   @override
+  String get rulerWidthOn => 'Medir também a largura';
+
+  @override
+  String rulerArea(String value) {
+    return 'Área $value';
+  }
+
+  @override
+  String rulerBoxSemantics(String length, String width, String area) {
+    return 'Comprimento $length milímetros, largura $width milímetros, área $area centímetros quadrados';
+  }
+
+  @override
+  String get rulerHelp5 =>
+      'Toque no botão do retângulo no topo para medir também a largura: arraste as duas linhas laterais até os lados do objeto para ver a largura e a área. A largura vai no máximo até a largura da tela.';
+
+  @override
   String rulerSemantics(String mm, String inches) {
     return 'Comprimento $mm milímetros, $inches polegadas';
   }
