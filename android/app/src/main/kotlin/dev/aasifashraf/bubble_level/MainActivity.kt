@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.view.Surface
+import android.view.WindowManager
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.EventChannel
@@ -19,15 +20,18 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
     private var gps: Gps? = null
+    private var ble: Ble? = null
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (gps?.onPermissionResult(requestCode, grantResults) == true) return
+        if (ble?.onPermissionResult(requestCode, grantResults) == true) return
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         gps = Gps(this, flutterEngine.dartExecutor.binaryMessenger)
+        ble = Ble(this, flutterEngine.dartExecutor.binaryMessenger)
 
         // Reports how far the UI is rotated from the device's natural
         // orientation, so sensor axes can be mapped onto the screen.
@@ -76,6 +80,9 @@ class MainActivity : FlutterActivity() {
                 if (!packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
                     missing.add("gps")
                 }
+                if (!packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+                    missing.add("bluetooth")
+                }
                 result.success(missing)
             }
 
@@ -106,6 +113,16 @@ class MainActivity : FlutterActivity() {
                     } catch (e: ActivityNotFoundException) {
                         result.success(false)
                     }
+                }
+                // Keeps the screen on during a Tracker check on the move;
+                // cleared when the check stops or the tool closes.
+                if (call.method == "keepScreenOn") {
+                    if (call.argument<Boolean>("on") == true) {
+                        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    } else {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    }
+                    return@setMethodCallHandler result.success(null)
                 }
                 // The store's review card: Google Play's in the Play build,
                 // nothing in the F-Droid build (see src/<flavour>/StoreReview.kt).

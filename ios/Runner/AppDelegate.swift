@@ -95,6 +95,13 @@ import UIKit
         UIApplication.shared.open(url) { opened in result(opened) }
         return
       }
+      // Keeps the screen on during a Tracker check on the move.
+      if call.method == "keepScreenOn" {
+        let on = (call.arguments as? [String: Any])?["on"] as? Bool ?? false
+        UIApplication.shared.isIdleTimerDisabled = on
+        result(nil)
+        return
+      }
       // The App Store decides whether the card appears.
       if call.method == "review" {
         if let scene = UIApplication.shared.connectedScenes

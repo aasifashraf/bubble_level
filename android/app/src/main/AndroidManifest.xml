@@ -12,8 +12,17 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.any" android:required="false"
         tools:replace="android:required" />
-    <!-- Speedometer only, and only while it is open: never in the
-         background, never stored or sent. -->
+    <!-- Tracker check only, and only while it is open: listens for item
+         trackers (AirTag, SmartTag, Tile...), never connects to them, never
+         stores or sends what it hears. Android 12 and later: no location
+         is taken from Bluetooth. Older Android scans under location. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" tools:targetApi="s" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+    <!-- Speedometer, and the Tracker check's places while moving; only
+         while open: never in the background, never stored or sent. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-feature android:name="android.hardware.location.gps" android:required="false" />
