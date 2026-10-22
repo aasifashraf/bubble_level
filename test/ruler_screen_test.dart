@@ -468,6 +468,11 @@ void main() {
     await tester.pump();
     expect(find.text('50.0 × 30.0 mm'), findsOneWidget);
     expect(find.text('Area 15.0 cm²'), findsOneWidget);
+    // Smaller than a single length (40).
+    expect(
+      tester.widget<Text>(find.text('50.0 × 30.0 mm')).style?.fontSize,
+      22,
+    );
     expect(
       find.bySemanticsLabel(
         'Length 50.0 millimetres, width 30.0 millimetres, '
@@ -556,6 +561,30 @@ void main() {
     await tester.pumpAndSettle();
     expect(length('80.0', '3.15'), findsOneWidget);
     semantics.dispose();
+  });
+
+  testWidgets('portrait: the units sit in the footer row with Calibrate and '
+      'the lock; only the reading is on the ruler', (tester) async {
+    useLocale(tester, const Locale('en', 'GB'));
+    await pumpRuler(tester);
+    final ruler = tester.getRect(find.bySemanticsLabel(RegExp('^Length ')));
+    final units = tester.getRect(find.byTooltip('Centimetres'));
+    final calibrate = tester.getRect(find.text('Calibrate'));
+    final lock = tester.getRect(find.byTooltip('Lock handles'));
+    expect(units.top, greaterThanOrEqualTo(ruler.bottom));
+    expect(units.center.dy, closeTo(calibrate.center.dy, 8));
+    expect(units.center.dy, closeTo(lock.center.dy, 8));
+    expect(units.right, lessThan(calibrate.left));
+    // The orange stays large text, readable at 3:1.
+    expect(tester.widget<Text>(find.text('mm')).style?.fontSize, 19);
+    // Calibrate keeps its word at full size on this phone.
+    expect(
+      tester.getSize(find.widgetWithText(SoftButton, 'Calibrate')).width,
+      greaterThan(110),
+    );
+    await tester.tap(find.byTooltip('Centimetres'));
+    await tester.pump();
+    expect(find.text('5.00 cm'), findsOneWidget);
   });
 
   testWidgets('locked lines ignore drags; Calibrate waits for unlock', (

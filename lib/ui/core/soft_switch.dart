@@ -31,11 +31,15 @@ class SoftSwitch<T> extends StatelessWidget {
     required this.value,
     required this.options,
     required this.onChanged,
+    this.dense = false,
   });
 
   final T value;
   final List<SoftSwitchOption<T>> options;
   final ValueChanged<T> onChanged;
+
+  /// Narrower cells (44 wide) for a footer row; the text stays as large.
+  final bool dense;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,8 @@ class SoftSwitch<T> extends StatelessWidget {
                   tooltip: o.tooltip,
                   onPressed: () => onChanged(o.value),
                   style: IconButton.styleFrom(
+                    padding: dense ? const EdgeInsets.all(2) : null,
+                    minimumSize: dense ? const Size(44, 46) : null,
                     backgroundColor: o.value == value
                         ? p.ink.withValues(alpha: p.isDark ? 0.14 : 0.08)
                         : Colors.transparent,

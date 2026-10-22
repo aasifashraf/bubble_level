@@ -179,10 +179,9 @@ class RulerScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // In landscape the ruler is short: its reading and unit
-                // switch sit in the footer instead, so nothing covers it.
-                // The reading lets touches through to the lines; the switch
-                // keeps its own taps.
+                // Only the reading sits on the ruler, and touches pass
+                // through it to the lines. In landscape the ruler is short,
+                // so the reading moves to the footer too.
                 if (!ToolFrame.sideBySide(context))
                   Center(
                     // Shrinks rather than overflows in a very short window.
@@ -197,14 +196,7 @@ class RulerScreen extends StatelessWidget {
                                       inches: viewModel.inches,
                                     ),
                             )
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _measurement(context, unit),
-                                const SizedBox(height: 14),
-                                _unitSwitch(context, unit),
-                              ],
-                            ),
+                          : _measurement(context, unit),
                     ),
                   ),
               ],
@@ -236,6 +228,7 @@ class RulerScreen extends StatelessWidget {
         main: formatLengthByWidth(mm, viewModel.widthMm, unit),
         sub: context.l10n.rulerArea(formatArea(mm * viewModel.widthMm, unit)),
         inline: inline,
+        compact: true,
       );
     }
     return _Reading(
@@ -248,11 +241,16 @@ class RulerScreen extends StatelessWidget {
     );
   }
 
-  Widget _unitSwitch(BuildContext context, LengthUnit unit) {
+  Widget _unitSwitch(
+    BuildContext context,
+    LengthUnit unit, {
+    bool dense = false,
+  }) {
     final l = context.l10n;
     return SoftSwitch<LengthUnit>(
       value: unit,
       onChanged: viewModel.setUnit,
+      dense: dense,
       options: [
         SoftSwitchOption(
           value: LengthUnit.mm,
@@ -401,17 +399,28 @@ class RulerScreen extends StatelessWidget {
       onPressed: viewModel.toggleLock,
       tooltip: l.lockHandles,
     );
+    final unit = _unit(context);
     if (!ToolFrame.sideBySide(context)) {
-      return _arrange(
-        context,
-        gap: 16,
-        message: message,
-        buttons: [(calibrate, true), (lock, false)],
+      // The status, then one row to tap: the units (slim, so Calibrate
+      // keeps its word), Calibrate and the lock.
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          message,
+          const SizedBox(height: 16),
+          Row(
+            spacing: 14,
+            children: [
+              _unitSwitch(context, unit, dense: true),
+              Expanded(child: calibrate),
+              lock,
+            ],
+          ),
+        ],
       );
     }
     // Landscape, under the full-width ruler: what you read on top (the
     // length and its status), everything you tap below.
-    final unit = _unit(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -738,7 +747,12 @@ class _ScreenSizeSheetState extends State<_ScreenSizeSheet> {
 
 /// The length between the lines: big millimetres, small inches.
 class _Reading extends StatelessWidget {
-  const _Reading({required this.main, this.sub, this.inline = false});
+  const _Reading({
+    required this.main,
+    this.sub,
+    this.inline = false,
+    this.compact = false,
+  });
 
   final String main;
   final String? sub;
@@ -746,47 +760,62 @@ class _Reading extends StatelessWidget {
   /// On one line (landscape footer) rather than stacked.
   final bool inline;
 
+  /// Length × width: twice as long, so smaller, with a faint halo in the
+  /// background colour so lines crossing it don't break up the digits (no
+  /// plate, which would hide a handle underneath).
+  final bool compact;
+
   @override
   Widget build(BuildContext context) {
     final p = Palette.of(context);
-    // The ruler's label already says it; read it once.
-    return IgnorePointer(
-      child: ExcludeSemantics(
-        child: Flex(
-          direction: inline ? Axis.horizontal : Axis.vertical,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: inline
-              ? CrossAxisAlignment.baseline
-              : CrossAxisAlignment.center,
-          textBaseline: TextBaseline.alphabetic,
-          spacing: inline ? 14 : 0,
-          children: [
-            Text(
-              main,
-              textDirection: TextDirection.ltr,
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(
-                fontSize: inline ? 32 : 40,
-                fontWeight: FontWeight.w700,
-                fontFeatures: readoutFeatures,
-                color: p.inkStrong,
-              ),
-            ),
-            if (sub != null)
-              Text(
-                sub!,
-                textDirection: TextDirection.ltr,
-                textScaler: TextScaler.noScaling,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFeatures: readoutFeatures,
-                  color: p.label,
-                ),
-              ),
-          ],
+    final halo = compact
+        ? [
+            for (final blur in [2.0, 6.0])
+              Shadow(color: p.background, blurRadius: blur),
+          ]
+        : null;
+    final reading = Flex(
+      direction: inline ? Axis.horizontal : Axis.vertical,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: inline
+          ? CrossAxisAlignment.baseline
+          : CrossAxisAlignment.center,
+      textBaseline: TextBaseline.alphabetic,
+      spacing: inline ? 14 : 0,
+      children: [
+        Text(
+          main,
+          textDirection: TextDirection.ltr,
+          textScaler: TextScaler.noScaling,
+          style: TextStyle(
+            fontSize: compact
+                ? (inline ? 21 : 22)
+                : inline
+                ? 32
+                : 40,
+            fontWeight: FontWeight.w700,
+            fontFeatures: readoutFeatures,
+            color: p.inkStrong,
+            shadows: halo,
+          ),
         ),
-      ),
+        if (sub != null)
+          Text(
+            sub!,
+            textDirection: TextDirection.ltr,
+            textScaler: TextScaler.noScaling,
+            style: TextStyle(
+              fontSize: compact ? 13 : 18,
+              fontFeatures: readoutFeatures,
+              color: p.label,
+              shadows: halo,
+            ),
+          ),
+      ],
     );
+    // The ruler's label already says it; read it once. Touches pass
+    // through to the lines underneath.
+    return IgnorePointer(child: ExcludeSemantics(child: reading));
   }
 }
 
