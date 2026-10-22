@@ -1,0 +1,1 @@
+Ruler: measure width and area as well as length (tap the box button at the top). Each finger now moves its own line, so you can hold the object with one hand and drag with the other; the lines no longer freeze or jump.

@@ -1,0 +1,1 @@
+Penggaris: ukur lebar dan luas selain panjang (ketuk tombol persegi panjang di atas). Setiap jari kini menggeser garisnya sendiri, jadi Anda bisa menahan benda dengan satu tangan dan menyeret dengan tangan lain; garis tidak lagi macet atau melompat.

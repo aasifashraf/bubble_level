@@ -1,0 +1,1 @@
+Règle : mesurez aussi la largeur et la surface, en plus de la longueur (touchez le bouton rectangle en haut). Chaque doigt déplace désormais sa propre ligne : tenez l’objet d’une main et faites glisser de l’autre ; les lignes ne se bloquent plus et ne sautent plus.

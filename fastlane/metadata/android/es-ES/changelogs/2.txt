@@ -1,0 +1,1 @@
+Regla: mide también el ancho y el área, además del largo (toca el botón del rectángulo arriba). Cada dedo mueve ahora su propia línea, así puedes sujetar el objeto con una mano y arrastrar con la otra; las líneas ya no se traban ni saltan.

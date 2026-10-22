@@ -1,0 +1,1 @@
+Cetvel: artık uzunluğun yanında genişliği ve alanı da ölçün (üstteki dikdörtgen düğmesine dokunun). Her parmak kendi çizgisini taşır; nesneyi bir elinizle tutup diğeriyle sürükleyebilirsiniz, çizgiler artık takılmaz ve zıplamaz.

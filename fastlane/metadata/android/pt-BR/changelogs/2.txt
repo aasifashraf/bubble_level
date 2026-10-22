@@ -1,0 +1,1 @@
+Régua: meça também a largura e a área, além do comprimento (toque no botão do retângulo no topo). Cada dedo agora move a sua própria linha, então dá para segurar o objeto com uma mão e arrastar com a outra; as linhas não travam nem pulam mais.

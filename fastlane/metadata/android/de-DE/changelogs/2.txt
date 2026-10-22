@@ -1,0 +1,1 @@
+Lineal: misst jetzt auch Breite und Fläche, nicht nur die Länge (oben auf die Kastentaste tippen). Jeder Finger bewegt seine eigene Linie, so hältst du den Gegenstand mit einer Hand und ziehst mit der anderen; die Linien hängen und springen nicht mehr.

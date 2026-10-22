@@ -4,7 +4,7 @@ publish_to: 'none'
 
 # version: name+build. The build number (versionCode) must rise with every
 # store upload.
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: ^3.13.5
