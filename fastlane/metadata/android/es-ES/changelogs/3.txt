@@ -1,0 +1,1 @@
+Nuevo: detector de rastreadores. Encuentra rastreadores Bluetooth lejos de su dueño (AirTag, SmartTag, Tile, Chipolo) y recibe un aviso si uno viaja contigo. Revisión del coche para cajas GPS con SIM. Regla: mm, cm e in ahora abajo, y una lectura de largo × ancho más tranquila.

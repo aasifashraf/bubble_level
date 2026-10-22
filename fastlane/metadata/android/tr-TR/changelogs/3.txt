@@ -1,0 +1,1 @@
+Yeni: Takip cihazı kontrolü. Sahibinden uzak Bluetooth takip cihazlarını bulun (AirTag, SmartTag, Tile, Chipolo) ve biri sizinle geziyorsa uyarı alın. SIM kartlı GPS kutuları için araç kontrolü. Cetvel: mm, cm ve in artık altta, uzunluk × genişlik gösterimi daha sade.

@@ -1,0 +1,1 @@
+New: Tracker check. Find Bluetooth trackers away from their owners (AirTag, SmartTag, Tile, Chipolo) and get warned when one travels with you on a walk or drive. Car check for GPS boxes with a SIM card. Ruler: mm, cm and in moved to the bottom, and a calmer length × width reading.

@@ -1,0 +1,1 @@
+Nouveau : détecteur de traceurs. Trouvez les traceurs Bluetooth loin de leur propriétaire (AirTag, SmartTag, Tile, Chipolo) et soyez prévenu si l’un d’eux voyage avec vous. Vérification de la voiture pour les boîtiers GPS à SIM. Règle : mm, cm et in en bas, et un affichage longueur × largeur plus calme.
