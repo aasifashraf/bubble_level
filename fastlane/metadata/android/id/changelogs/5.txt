@@ -1,0 +1,1 @@
+Perbaikan kompas: membaca dengan benar saat ponsel tertelungkup atau miring ke samping; arah tidak lagi berayun saat ponsel dimiringkan atau berkedip di antara dua derajat; dan lebih sedikit permintaan kalibrasi palsu.

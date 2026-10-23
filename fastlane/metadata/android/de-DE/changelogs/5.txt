@@ -1,0 +1,1 @@
+Kompass verbessert: zeigt richtig, auch wenn das Handy mit dem Display nach unten oder auf der Seite liegt; die Richtung schwankt beim Neigen nicht mehr und springt nicht zwischen zwei Graden hin und her; und seltener eine unnötige Aufforderung zum Kalibrieren.

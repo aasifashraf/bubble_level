@@ -1,0 +1,1 @@
+Mejoras de la brújula: lee bien con el teléfono boca abajo o de lado; el ángulo ya no salta mientras inclinas el teléfono ni parpadea entre dos grados; y menos avisos falsos de calibración.

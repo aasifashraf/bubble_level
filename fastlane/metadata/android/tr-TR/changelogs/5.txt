@@ -1,0 +1,1 @@
+Pusula düzeltmeleri: telefon ters çevrildiğinde veya yan yattığında doğru okur; telefonu eğerken yön artık sallanmaz ve iki derece arasında titremez; ve daha az yanlış kalibrasyon uyarısı.

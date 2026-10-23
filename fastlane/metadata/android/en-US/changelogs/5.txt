@@ -1,0 +1,1 @@
+Compass fixes: it reads correctly face down and turned onto its side; the heading no longer swings while you tilt the phone or flickers between two degrees; and fewer false calibrate prompts.

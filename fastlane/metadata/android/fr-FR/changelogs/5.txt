@@ -1,0 +1,1 @@
+Corrections de la boussole : elle lit correctement téléphone retourné ou posé sur le côté ; le cap ne vacille plus quand vous inclinez le téléphone et ne clignote plus entre deux degrés ; et moins de fausses demandes d’étalonnage.

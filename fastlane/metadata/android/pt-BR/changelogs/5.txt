@@ -1,0 +1,1 @@
+Correções na bússola: lê corretamente com o celular virado para baixo ou de lado; a direção não oscila mais ao inclinar o celular nem pisca entre dois graus; e menos avisos falsos de calibração.
