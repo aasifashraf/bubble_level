@@ -62,6 +62,9 @@ class FakeMotionSensorService implements MotionSensorService {
   Stream<ScalarSample> light() => lightSensor.stream;
   @override
   Stream<int> magneticAccuracy() => magnetAccuracy.stream;
+  @override
+  Stream<({SensorSample sample, int accuracy})> calibratedMagnetometer() =>
+      const Stream.empty();
 }
 
 class FakeDisplayRotationService implements DisplayRotationService {

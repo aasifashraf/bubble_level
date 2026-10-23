@@ -113,6 +113,25 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
 
   void _startMagnetic() {
     if (_magneticSubs.isNotEmpty) return;
+    // iOS: sensors_plus gives the raw field there, bias and all; the
+    // system's own calibrated one comes with its accuracy.
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      _magneticSubs.add(
+        _sensors.calibratedMagnetometer().listen(
+          (e) {
+            _magneticAccuracy = e.accuracy;
+            // Core Motion may send no field until it has calibrated.
+            if (e.sample.value.length > 0) _addMagnetic(e.sample);
+          },
+          onError: (Object _) {
+            _magnet = SensorState.missing;
+            _publish();
+          },
+          cancelOnError: true,
+        ),
+      );
+      return;
+    }
     _magneticSubs.add(
       _listen(
         _sensors.magnetometer(),

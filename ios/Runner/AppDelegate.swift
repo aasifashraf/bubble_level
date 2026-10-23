@@ -59,6 +59,11 @@ import UIKit
       result(missing)
     }
 
+    // The magnetic field without the phone's own bias, for the compass
+    // (sensors_plus reads the raw field, bias and all).
+    FlutterEventChannel(name: "bubble_level/magnetometer", binaryMessenger: registrar.messenger())
+      .setStreamHandler(CalibratedMagnetometer())
+
     // Opens this app's page in Settings, to allow a refused permission,
     // and asks for the App Store's review card.
     let app = FlutterMethodChannel(
@@ -122,5 +127,34 @@ import UIKit
       UIApplication.shared.open(url)
       result(nil)
     }
+  }
+}
+
+/// Sends [x, y, z, accuracy]: the calibrated magnetic field in µT on the
+/// device axes, and Core Motion's calibration status shifted to Android's
+/// scale (0 unreliable to 3 high). Runs only while the app listens.
+class CalibratedMagnetometer: NSObject, FlutterStreamHandler {
+  private let motion = CMMotionManager()
+
+  func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink)
+    -> FlutterError?
+  {
+    guard motion.isDeviceMotionAvailable,
+      CMMotionManager.availableAttitudeReferenceFrames().contains(.xMagneticNorthZVertical)
+    else {
+      return FlutterError(code: "NO_SENSOR", message: "This device has no magnetometer", details: nil)
+    }
+    motion.deviceMotionUpdateInterval = 0.02
+    // A magnetic reference frame, or Core Motion leaves the field uncalibrated.
+    motion.startDeviceMotionUpdates(using: .xMagneticNorthZVertical, to: .main) { data, _ in
+      guard let field = data?.magneticField else { return }
+      events([field.field.x, field.field.y, field.field.z, Double(field.accuracy.rawValue + 1)])
+    }
+    return nil
+  }
+
+  func onCancel(withArguments arguments: Any?) -> FlutterError? {
+    motion.stopDeviceMotionUpdates()
+    return nil
   }
 }

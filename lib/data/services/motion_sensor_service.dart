@@ -55,6 +55,24 @@ class MotionSensorService {
   Stream<int> magneticAccuracy() =>
       _magneticAccuracy.receiveBroadcastStream().map((e) => (e as num).toInt());
 
+  static const _calibratedMagnetometer = EventChannel(
+    'bubble_level/magnetometer',
+  );
+
+  /// iOS only: the field without the phone's own bias, with the system's
+  /// calibration status (0 to 3, as on Android), from Core Motion (see
+  /// AppDelegate.swift). sensors_plus reads the raw field there, which
+  /// still holds the bias of the phone's own parts: often tens of µT,
+  /// enough to turn a heading anywhere.
+  Stream<({SensorSample sample, int accuracy})> calibratedMagnetometer() =>
+      _calibratedMagnetometer.receiveBroadcastStream().map((e) {
+        final v = [for (final n in e as List) (n as num).toDouble()];
+        return (
+          sample: (value: Vec3(v[0], v[1], v[2]), timestamp: DateTime.now()),
+          accuracy: v[3].toInt(),
+        );
+      });
+
   static const _light = EventChannel('bubble_level/light');
 
   /// Illuminance in lux, from the ambient light sensor (Android; see
