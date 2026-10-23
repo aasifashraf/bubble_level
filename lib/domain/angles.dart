@@ -130,6 +130,14 @@ int nextQuadrant(int current, double edge) {
   return q == -180 ? 180 : q;
 }
 
+/// How steeply the top edge points up or down: 0° level, 90° straight up
+/// or down.
+double topEdgeRiseDeg(Vec3 g) => 90 - _acosDeg((g.y / g.length).abs());
+
+/// Strength of the level (horizontal) part of field [m] in its units, with
+/// [g] pointing up: the part a compass turns by.
+double horizontalField(Vec3 g, Vec3 m) => m.cross(g.normalized()).length;
+
 /// Tilt-compensated magnetic heading in [0, 360), using Android's
 /// getRotationMatrix construction. When [flat], it is the direction the top
 /// edge points; otherwise the direction the back camera faces.

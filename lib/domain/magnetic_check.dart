@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'angles.dart';
+import 'angles.dart' show wrap180;
 
 /// Catches a compass the system believes is calibrated but isn't: after a
 /// magnet has been near, the phone's own parts can be left magnetised, or
@@ -14,7 +14,12 @@ import 'angles.dart';
 /// enough, a strength that swings with the direction means the compass is
 /// off (a figure 8 lets the system correct it).
 class MagneticCheck {
-  MagneticCheck({this.window = 8, this.minTurn = 90, this.maxSwing = 0.1});
+  MagneticCheck({
+    this.window = 8,
+    this.minTurn = 90,
+    this.minSamples = 8,
+    this.maxSwing = 0.15,
+  });
 
   /// Seconds of samples considered.
   final double window;
@@ -22,9 +27,14 @@ class MagneticCheck {
   /// How far the heading must have turned (degrees) to judge.
   final double minTurn;
 
+  /// Fewest samples to judge on: a quick flick covers the turn with too
+  /// few to tell a swing from noise.
+  final int minSamples;
+
   /// Largest change in strength, as a fraction of the typical strength, a
-  /// healthy compass shows as it turns. 10% is a few µT, well above sensor
-  /// noise; an offset that size already turns the heading ten degrees.
+  /// healthy compass shows as it turns. 15% is several µT, well above
+  /// sensor noise and a good phone's leftover calibration error; an offset
+  /// that size already turns the heading ten degrees or more.
   final double maxSwing;
 
   final _samples = <({double t, double heading, double strength})>[];
@@ -39,7 +49,9 @@ class MagneticCheck {
     _consistent = null;
   }
 
-  void add(Vec3 field, double heading, double seconds) {
+  /// [strength] is the field's strength in µT (see
+  /// `OrientationReading.magneticStrength`).
+  void add(double strength, double heading, double seconds) {
     // Keep one sample per few degrees (or half second) to bound the work.
     final last = _samples.isEmpty ? null : _samples.last;
     if (last != null &&
@@ -48,9 +60,9 @@ class MagneticCheck {
       return;
     }
     _samples
-      ..add((t: seconds, heading: heading, strength: field.length))
+      ..add((t: seconds, heading: heading, strength: strength))
       ..removeWhere((s) => seconds - s.t > window);
-    if (_turned() < minTurn) return;
+    if (_samples.length < minSamples || _turned() < minTurn) return;
     final strengths = [for (final s in _samples) s.strength]..sort();
     final typical = strengths[strengths.length ~/ 2];
     if (typical <= 0) return;

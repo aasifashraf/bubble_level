@@ -30,7 +30,7 @@ class CompassScreen extends StatelessWidget {
       listenable: viewModel,
       builder: (context, _) {
         final state = viewModel.state;
-        final heading = state == null ? 0 : state.heading.round() % 360;
+        final heading = state?.shown ?? 0;
         final reading = viewModel.reading;
         return ToolFrame(
           title: context.l10n.toolCompass,

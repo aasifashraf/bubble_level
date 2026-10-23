@@ -467,6 +467,71 @@ void main() {
       expect(vm.state!.fieldOk, isFalse);
     });
 
+    /// Sends [pose] long enough for the filters to settle on it.
+    Future<void> hold(({Vec3 up, Vec3 field}) pose) async {
+      for (var i = 0; i < 60; i++) {
+        sensors
+          ..sendUp(pose.up)
+          ..sendMagnet(pose.field);
+      }
+      await flush();
+    }
+
+    /// Top edge facing [heading], the phone turned [roll] degrees about it
+    /// (90: on its long side; 180: face down).
+    ({Vec3 up, Vec3 field}) rolled(double heading, double roll) {
+      final h = heading * math.pi / 180, r = roll * math.pi / 180;
+      final top = Vec3(math.sin(h), math.cos(h), 0);
+      final right = Vec3(math.cos(h), -math.sin(h), 0);
+      const worldUp = Vec3(0, 0, 1);
+      final x = right * math.cos(r) + worldUp * math.sin(r);
+      final z = right * -math.sin(r) + worldUp * math.cos(r);
+      Vec3 toDevice(Vec3 w) => Vec3(w.dot(x), w.dot(top), w.dot(z));
+      return (up: toDevice(worldUp), field: toDevice(const Vec3(0, 20, -40)));
+    }
+
+    test('face down, and on its long side, it reads the top edge', () async {
+      for (final roll in [70.0, 90.0, 180.0]) {
+        await hold(rolled(90, roll));
+        expect(vm.state!.heading, closeTo(90, 1), reason: 'roll $roll');
+        expect(vm.state!.flat, isTrue, reason: 'roll $roll');
+      }
+    });
+
+    test('upright, it reads the back camera', () async {
+      await hold(devicePose(heading: 200, pitch: 85));
+      expect(vm.state!.flat, isFalse);
+      expect(vm.state!.heading, closeTo(200, 1));
+    });
+
+    test('reads the top of the screen as turned', () async {
+      display.turns = 1; // turned to landscape, top edge to the left
+      vm.active = false;
+      vm.active = true;
+      await flush();
+      await hold(devicePose(heading: 0, pitch: 0));
+      expect(vm.state!.heading, closeTo(90, 1));
+    });
+
+    test('the number holds until the heading clearly moves on', () async {
+      await hold(devicePose(heading: 90.4, pitch: 0));
+      expect(vm.state!.shown, 90);
+      await hold(devicePose(heading: 90.6, pitch: 0));
+      expect(vm.state!.shown, 90);
+      await hold(devicePose(heading: 89.5, pitch: 0));
+      expect(vm.state!.shown, 90);
+      await hold(devicePose(heading: 91.2, pitch: 0));
+      expect(vm.state!.shown, 91);
+      await hold(devicePose(heading: 359.6, pitch: 0));
+      expect(vm.state!.shown, 0);
+      expect(vm.state!.sector, 0);
+    });
+
+    test('a field with almost no level part is flagged', () async {
+      await hold((up: Vec3.up, field: const Vec3(0, 2, -50)));
+      expect(vm.state!.fieldOk, isFalse);
+    });
+
     test('untrusted while the system asks for calibration', () async {
       final pose = devicePose(heading: 120, pitch: 0);
       sensors

@@ -18,7 +18,7 @@ void main() {
     final check = MagneticCheck();
     for (var i = 0; i <= 60; i++) {
       final heading = i * 3.0;
-      check.add(_field(heading), heading, i * 0.1);
+      check.add(_field(heading).length, heading, i * 0.1);
     }
     expect(check.consistent, isTrue);
   });
@@ -27,17 +27,30 @@ void main() {
     final check = MagneticCheck();
     const offset = Vec3(12, 0, 0); // left magnetised by a magnet
     for (var i = 0; i <= 60; i++) {
-      final heading = i * 3.0;
-      check.add(_field(heading, offset: offset), heading, i * 0.1);
+      final heading = i * 6.0;
+      check.add(_field(heading, offset: offset).length, heading, i * 0.1);
     }
     expect(check.consistent, isFalse);
 
     // After a figure 8 the system has corrected it: clear again.
     for (var i = 0; i <= 60; i++) {
       final heading = 180 + i * 3.0;
-      check.add(_field(heading), heading, 20 + i * 0.1);
+      check.add(_field(heading).length, heading, 20 + i * 0.1);
     }
     expect(check.consistent, isTrue);
+  });
+
+  test('no verdict from a quick flick with too few samples', () {
+    final check = MagneticCheck();
+    for (var i = 0; i <= 4; i++) {
+      final heading = i * 40.0;
+      check.add(
+        _field(heading, offset: const Vec3(12, 0, 0)).length,
+        heading,
+        i * 0.05,
+      );
+    }
+    expect(check.consistent, isNull);
   });
 
   test('no verdict until the phone has turned far enough', () {
@@ -45,7 +58,7 @@ void main() {
     for (var i = 0; i <= 20; i++) {
       final heading = i * 2.0; // 40° only
       check.add(
-        _field(heading, offset: const Vec3(12, 0, 0)),
+        _field(heading, offset: const Vec3(12, 0, 0)).length,
         heading,
         i * 0.1,
       );
