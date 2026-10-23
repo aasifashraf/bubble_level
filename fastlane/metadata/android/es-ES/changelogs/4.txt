@@ -1,0 +1,1 @@
+Mejoras del detector de rastreadores: las etiquetas Samsung se leen bien y se siguen aunque cambien de ID; también encuentra AirPods y dispositivos Apple; menos falsas alarmas por el GPS; avisa si se pierde el Bluetooth o el GPS; y una guía de Qué hacer si un rastreador te sigue.

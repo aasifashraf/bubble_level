@@ -1,0 +1,1 @@
+Takip cihazı kontrolü düzeltmeleri: Samsung etiketleri doğru okunuyor ve kimlik değiştirseler de izleniyor; AirPods ve Apple cihazları da bulunuyor; GPS kaymasından daha az yanlış alarm; Bluetooth veya GPS kesilince bildiriyor; ve bir cihaz sizi takip ederse Ne yapmalı rehberi.

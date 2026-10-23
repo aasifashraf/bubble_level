@@ -1,0 +1,1 @@
+Perbaikan Cek pelacak: tag Samsung kini terbaca dengan benar dan tetap diikuti saat ID-nya berganti; AirPods dan perangkat Apple juga ditemukan; lebih sedikit alarm palsu dari GPS; memberi tahu saat Bluetooth atau GPS hilang; dan panduan Apa yang harus dilakukan jika pelacak mengikuti Anda.

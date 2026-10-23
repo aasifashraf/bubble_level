@@ -1,0 +1,1 @@
+Tracker check fixes: Samsung tags are read correctly and still followed when they change ID; AirPods and Apple devices are found too; fewer false alarms from GPS drift; it says when Bluetooth or GPS drops; and a What to do guide when a tracker follows you.

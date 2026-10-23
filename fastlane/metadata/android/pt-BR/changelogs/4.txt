@@ -1,0 +1,1 @@
+Correções no detector de rastreadores: etiquetas Samsung são lidas corretamente e seguidas mesmo quando mudam de ID; também encontra AirPods e aparelhos Apple; menos alarmes falsos por causa do GPS; avisa quando o Bluetooth ou o GPS cai; e um guia O que fazer quando um rastreador segue você.

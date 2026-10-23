@@ -1,0 +1,1 @@
+Corrections du détecteur de traceurs : les balises Samsung sont lues correctement et suivies même quand elles changent d’identifiant ; les AirPods et appareils Apple sont aussi trouvés ; moins de fausses alertes dues au GPS ; il signale la perte du Bluetooth ou du GPS ; et un guide Que faire si un traceur vous suit.

@@ -1,0 +1,1 @@
+Verbesserungen am Tracker-Check: Samsung-Tags werden richtig gelesen und auch nach einem ID-Wechsel weiter erkannt; AirPods und Apple-Geräte werden ebenfalls gefunden; weniger Fehlalarme durch GPS-Ungenauigkeit; er meldet, wenn Bluetooth oder GPS ausfällt; und eine Anleitung Was tun?, wenn dir ein Tracker folgt.
