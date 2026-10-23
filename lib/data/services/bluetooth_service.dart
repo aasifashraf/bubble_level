@@ -75,6 +75,7 @@ class BluetoothService {
     address: m['address']! as String,
     rssi: (m['rssi']! as num).toInt(),
     time: DateTime.fromMillisecondsSinceEpoch((m['time']! as num).toInt()),
+    flags: (m['flags'] as num?)?.toInt(),
     serviceData: {
       for (final e in ((m['service'] as Map?) ?? const {}).entries)
         e.key as String: e.value as Uint8List,

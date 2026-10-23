@@ -4,13 +4,16 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.BLUETOOTH_SCAN
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Build
@@ -72,6 +75,10 @@ class Ble(private val activity: Activity, messenger: BinaryMessenger) {
                 }
             }
 
+            // Bluetooth switched off mid-scan stops it without a word;
+            // this tells the app, which then says so.
+            private var stateReceiver: BroadcastReceiver? = null
+
             override fun onListen(arguments: Any?, events: EventChannel.EventSink) {
                 if (access() != "granted") return events.error("NOT_READY", access(), null)
                 val c = object : ScanCallback() {
@@ -80,18 +87,46 @@ class Ble(private val activity: Activity, messenger: BinaryMessenger) {
                     }
 
                     override fun onScanFailed(errorCode: Int) {
+                        end()
                         events.error("SCAN_FAILED", "Scan failed: $errorCode", null)
                     }
                 }
                 callback = c
+                val receiver = object : BroadcastReceiver() {
+                    override fun onReceive(context: Context, intent: Intent) {
+                        val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
+                        if (state == BluetoothAdapter.STATE_TURNING_OFF || state == BluetoothAdapter.STATE_OFF) {
+                            end()
+                            events.error("BLUETOOTH_OFF", "Bluetooth was switched off", null)
+                        }
+                    }
+                }
+                stateReceiver = receiver
+                ContextCompat.registerReceiver(
+                    activity,
+                    receiver,
+                    IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED),
+                    ContextCompat.RECEIVER_NOT_EXPORTED,
+                )
                 start(c)
                 main.postDelayed(restart, RESTART_MS)
             }
 
-            override fun onCancel(arguments: Any?) {
+            override fun onCancel(arguments: Any?) = end()
+
+            /** Stops scanning for good: no restart, no receiver, no callback. */
+            private fun end() {
                 main.removeCallbacks(restart)
                 stop()
                 callback = null
+                stateReceiver?.let {
+                    try {
+                        activity.unregisterReceiver(it)
+                    } catch (e: IllegalArgumentException) {
+                        // Already gone.
+                    }
+                }
+                stateReceiver = null
             }
 
             @SuppressLint("MissingPermission")
@@ -166,7 +201,9 @@ class Ble(private val activity: Activity, messenger: BinaryMessenger) {
         val record = r.scanRecord
         val service = HashMap<String, ByteArray>()
         record?.serviceData?.forEach { (uuid, data) ->
-            service[uuid.uuid.toString().substring(4, 8).lowercase()] = data
+            // Only standard 16 bit UUIDs (on the Bluetooth base UUID).
+            val text = uuid.uuid.toString().lowercase()
+            if (text.startsWith("0000") && text.endsWith(BASE_UUID_TAIL)) service[text.substring(4, 8)] = data
         }
         val manufacturer = HashMap<Int, ByteArray>()
         record?.manufacturerSpecificData?.let { m ->
@@ -176,6 +213,7 @@ class Ble(private val activity: Activity, messenger: BinaryMessenger) {
             "address" to r.device.address,
             "rssi" to r.rssi,
             "time" to System.currentTimeMillis(),
+            "flags" to record?.advertiseFlags?.takeIf { it >= 0 },
             "service" to service,
             "manufacturer" to manufacturer,
         )
@@ -186,8 +224,9 @@ class Ble(private val activity: Activity, messenger: BinaryMessenger) {
         const val RESTART_MS = 9 * 60 * 1000L
         const val APPLE = 0x004C
 
-        /** Joint standard, Google Find Hub, Samsung, Tile, Chipolo. */
-        val SERVICES = listOf("fcb2", "feaa", "fd5a", "feed", "fe33")
+        /** Joint standard, Google Find Hub, Samsung, Tile, Chipolo, Pebblebee. */
+        val SERVICES = listOf("fcb2", "feaa", "fd5a", "feed", "fe33", "fa25")
+        const val BASE_UUID_TAIL = "-0000-1000-8000-00805f9b34fb"
 
         fun uuid16(short: String): ParcelUuid =
             ParcelUuid(UUID.fromString("0000$short-0000-1000-8000-00805f9b34fb"))
