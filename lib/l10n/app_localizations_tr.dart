@@ -1693,4 +1693,50 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'Apple’ın Bul uygulaması ya da Android’deki Tracker Detect, bir AirTag’e ses çaldırabilir.';
+
+  @override
+  String get trackerScanFailed =>
+      'Tarama durdu. Bluetooth’u kontrol edip yeniden tarayın.';
+
+  @override
+  String get trackerGpsLost => 'GPS sinyali yok: yerler kaydedilmiyor';
+
+  @override
+  String get trackerHeardEarlier => 'Daha önce duyuldu';
+
+  @override
+  String get trackerKindSamsung => 'Samsung etiketi veya cihazı';
+
+  @override
+  String get trackerKindApple => 'Apple cihazı';
+
+  @override
+  String get trackerWhatToDo => 'Ne yapmalı';
+
+  @override
+  String get trackerSafetyTitle => 'Bir cihaz sizi takip ediyorsa';
+
+  @override
+  String get trackerSafety1 =>
+      'Otobüste, trende veya uçakta bir yabancının olabilir: indikten sonra yeniden kontrol edin.';
+
+  @override
+  String get trackerSafety2 =>
+      'Kendinizi güvende hissetmiyorsanız kalabalık bir yere gidin ve polisi arayın.';
+
+  @override
+  String get trackerSafety3 =>
+      'Bul ile bulun. Cihazın, saklandığı yerin ve seri numarasının tarih ve saatle fotoğrafını çekin.';
+
+  @override
+  String get trackerSafety4 =>
+      'Eve götürmeyin ve sahibiyle iletişime geçmeyin.';
+
+  @override
+  String get trackerSafety5 =>
+      'Pilini çıkarmak onu durdurur ama sahibi bunu fark eder. Bu kişiyle birlikte yaşıyorsanız önce bir destek hattıyla konuşun.';
+
+  @override
+  String get trackerSafety6 =>
+      'Kendi Bluetooth’unuzu veya konumunuzu kapatmak, nerede olduğunuzu bildirmesini durdurmaz.';
 }

@@ -1706,4 +1706,51 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'O Buscar da Apple, ou o app Tracker Detect no Android, pode fazer um AirTag tocar um som.';
+
+  @override
+  String get trackerScanFailed =>
+      'A busca parou. Verifique o Bluetooth e escaneie de novo.';
+
+  @override
+  String get trackerGpsLost =>
+      'Sem sinal de GPS: os lugares não estão sendo anotados';
+
+  @override
+  String get trackerHeardEarlier => 'Ouvido antes';
+
+  @override
+  String get trackerKindSamsung => 'Etiqueta ou aparelho Samsung';
+
+  @override
+  String get trackerKindApple => 'Dispositivo Apple';
+
+  @override
+  String get trackerWhatToDo => 'O que fazer';
+
+  @override
+  String get trackerSafetyTitle => 'Se um rastreador seguir você';
+
+  @override
+  String get trackerSafety1 =>
+      'Num ônibus, trem ou avião pode ser de um desconhecido: verifique de novo ao descer.';
+
+  @override
+  String get trackerSafety2 =>
+      'Se você não se sentir seguro, vá a um lugar público e ligue para a polícia.';
+
+  @override
+  String get trackerSafety3 =>
+      'Encontre-o com Encontrar. Fotografe-o, onde estava escondido e o número de série, com data e hora.';
+
+  @override
+  String get trackerSafety4 =>
+      'Não o leve para casa e não entre em contato com o dono.';
+
+  @override
+  String get trackerSafety5 =>
+      'Tirar a bateria faz ele parar, mas o dono percebe. Se você mora com a pessoa, fale antes com um serviço de apoio.';
+
+  @override
+  String get trackerSafety6 =>
+      'Desligar o seu Bluetooth ou a sua localização não impede que ele informe onde você está.';
 }

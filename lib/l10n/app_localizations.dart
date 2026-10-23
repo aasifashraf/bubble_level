@@ -3015,6 +3015,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apple’s Find My, or the Tracker Detect app on Android, can make an AirTag play a sound.'**
   String get trackerAppleSound;
+
+  /// No description provided for @trackerScanFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The scan stopped. Check Bluetooth and scan again.'**
+  String get trackerScanFailed;
+
+  /// No description provided for @trackerGpsLost.
+  ///
+  /// In en, this message translates to:
+  /// **'No GPS fix: places aren’t being noted'**
+  String get trackerGpsLost;
+
+  /// No description provided for @trackerHeardEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Heard earlier'**
+  String get trackerHeardEarlier;
+
+  /// No description provided for @trackerKindSamsung.
+  ///
+  /// In en, this message translates to:
+  /// **'Samsung tag or device'**
+  String get trackerKindSamsung;
+
+  /// No description provided for @trackerKindApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple device'**
+  String get trackerKindApple;
+
+  /// No description provided for @trackerWhatToDo.
+  ///
+  /// In en, this message translates to:
+  /// **'What to do'**
+  String get trackerWhatToDo;
+
+  /// No description provided for @trackerSafetyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'If a tracker follows you'**
+  String get trackerSafetyTitle;
+
+  /// No description provided for @trackerSafety1.
+  ///
+  /// In en, this message translates to:
+  /// **'On a bus, train or plane it may be a stranger’s: check again after you get off.'**
+  String get trackerSafety1;
+
+  /// No description provided for @trackerSafety2.
+  ///
+  /// In en, this message translates to:
+  /// **'If you feel unsafe, go somewhere public and call the police.'**
+  String get trackerSafety2;
+
+  /// No description provided for @trackerSafety3.
+  ///
+  /// In en, this message translates to:
+  /// **'Find it with Find it. Photograph it, where it was hidden, and its serial number, with the date and time.'**
+  String get trackerSafety3;
+
+  /// No description provided for @trackerSafety4.
+  ///
+  /// In en, this message translates to:
+  /// **'Don’t take it home, and don’t contact its owner.'**
+  String get trackerSafety4;
+
+  /// No description provided for @trackerSafety5.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing its battery stops it, but its owner can tell. If you live with the person, talk to a support service first.'**
+  String get trackerSafety5;
+
+  /// No description provided for @trackerSafety6.
+  ///
+  /// In en, this message translates to:
+  /// **'Turning off your own Bluetooth or location doesn’t stop it reporting where you are.'**
+  String get trackerSafety6;
 }
 
 class _AppLocalizationsDelegate

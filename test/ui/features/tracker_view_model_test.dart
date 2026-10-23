@@ -54,6 +54,22 @@ void main() {
     await tester.pump();
   }
 
+  /// Closes the tool, so no timer outlives the test.
+  void close() => vm.active = false;
+
+  /// Moves on, [minutes] later, about 330 m further north.
+  Future<void> step(WidgetTester tester, int i, {double accuracy = 5}) async {
+    location.send(
+      lat: 34.0 + i * 0.003,
+      lon: 74.8,
+      accuracy: accuracy,
+      time: clock,
+    );
+    airTag();
+    await tester.pump(const Duration(milliseconds: 300));
+    clock = clock.add(const Duration(minutes: 11));
+  }
+
   testWidgets('asks once, then a refusal points to Settings', (tester) async {
     bluetooth.checkResult = BluetoothAccess.needed;
     bluetooth.requestResult = BluetoothAccess.needed;
@@ -64,17 +80,25 @@ void main() {
     expect(vm.access, BluetoothAccess.denied);
     await vm.openSettings();
     expect(bluetooth.appSettingsOpened, 1);
+    close();
   });
 
-  testWidgets('Bluetooth off opens Bluetooth settings', (tester) async {
+  testWidgets('Bluetooth switched off in the quick settings is noticed '
+      'without leaving the app, and so is switching it back on', (
+    tester,
+  ) async {
     bluetooth.checkResult = BluetoothAccess.bluetoothOff;
     await open(tester);
     await vm.openSettings();
     expect(bluetooth.bluetoothSettingsOpened, 1);
+    bluetooth.checkResult = BluetoothAccess.granted;
+    await tester.pump(const Duration(seconds: 3));
+    expect(vm.access, BluetoothAccess.granted);
+    close();
   });
 
-  testWidgets('scan here: lists trackers away from their owners, stops '
-      'after 30 s, and keeps the screen as it is', (tester) async {
+  testWidgets('scan here: lists trackers away from their owners and stops '
+      'after 30 s; a quick Scan again reuses the scan', (tester) async {
     await open(tester);
     vm.scanHere();
     expect(bluetooth.listening, isTrue);
@@ -94,10 +118,50 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
     expect(vm.trackers.map((t) => t.id), ['AA:00:00:00:00:01']);
     expect(vm.followingCount, 0);
+    clock = clock.add(TrackerViewModel.hereTime);
     await tester.pump(TrackerViewModel.hereTime);
     expect(vm.mode, TrackerMode.idle);
-    expect(bluetooth.listening, isFalse);
+    expect(vm.scanning, isFalse);
+    expect(vm.listenedEnough, isTrue);
     expect(vm.trackers, hasLength(1), reason: 'what was heard stays listed');
+    // Lingers a few seconds, then really stops.
+    await tester.pump(const Duration(seconds: 7));
+    expect(bluetooth.listening, isFalse);
+    close();
+  });
+
+  testWidgets('hiding the app ends a short scan; it does not run on later', (
+    tester,
+  ) async {
+    await open(tester);
+    vm.scanHere();
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    await tester.pump();
+    expect(bluetooth.listening, isFalse);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump();
+    expect(vm.mode, TrackerMode.idle);
+    expect(bluetooth.listening, isFalse);
+    expect(vm.listenedEnough, isFalse, reason: 'no "nothing heard"');
+    close();
+  });
+
+  testWidgets('a scan that stops by itself says so and lets go of it', (
+    tester,
+  ) async {
+    await open(tester);
+    vm.scanHere();
+    bluetooth
+      ..checkResult = BluetoothAccess.bluetoothOff
+      ..signalsController.addError(Exception('off'));
+    await tester.pump();
+    expect(vm.scanFailed, isTrue);
+    expect(vm.mode, TrackerMode.idle);
+    expect(bluetooth.listening, isFalse);
+    expect(vm.access, BluetoothAccess.bluetoothOff);
+    close();
   });
 
   testWidgets('on the move: a tag heard at 3 places over 30 minutes is '
@@ -108,10 +172,7 @@ void main() {
     expect(location.listening, isTrue);
     expect(bluetooth.screenKeptOn, isTrue);
     for (var i = 0; i <= 3; i++) {
-      location.send(lat: 34.0 + i * 0.002, lon: 74.8, time: clock);
-      airTag();
-      await tester.pump(const Duration(milliseconds: 300));
-      clock = clock.add(const Duration(minutes: 11));
+      await step(tester, i);
     }
     expect(vm.placesPassed, 4);
     expect(vm.followingCount, 1);
@@ -119,6 +180,73 @@ void main() {
     vm.stop();
     expect(bluetooth.screenKeptOn, isFalse);
     expect(location.listening, isFalse);
+    close();
+  });
+
+  testWidgets('GPS fixes count by when they arrive, so a phone clock far '
+      'from GPS time still notes places', (tester) async {
+    await open(tester);
+    await vm.checkWhileMoving();
+    for (var i = 0; i <= 3; i++) {
+      location.send(
+        lat: 34.0 + i * 0.003,
+        lon: 74.8,
+        time: clock.subtract(const Duration(hours: 3)),
+      );
+      airTag();
+      await tester.pump(const Duration(milliseconds: 300));
+      clock = clock.add(const Duration(minutes: 11));
+    }
+    expect(vm.followingCount, 1);
+    close();
+  });
+
+  testWidgets('rough fixes at one café table never make places', (
+    tester,
+  ) async {
+    await open(tester);
+    await vm.checkWhileMoving();
+    for (var i = 0; i <= 5; i++) {
+      // 90 m accurate, jumping about 170 m around one spot.
+      location.send(
+        lat: 34.0 + (i.isEven ? 0.0015 : -0.0001),
+        lon: 74.8,
+        accuracy: 90,
+        time: clock,
+      );
+      airTag();
+      await tester.pump(const Duration(milliseconds: 300));
+      clock = clock.add(const Duration(minutes: 10));
+    }
+    expect(vm.trackers.single.places, hasLength(1));
+    expect(vm.followingCount, 0);
+    close();
+  });
+
+  testWidgets('no GPS fix for a while on the move says so', (tester) async {
+    await open(tester);
+    await vm.checkWhileMoving();
+    location.send(lat: 34.0, lon: 74.8, time: clock);
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(vm.gpsLost, isFalse);
+    clock = clock.add(const Duration(seconds: 40));
+    await tester.pump(const Duration(seconds: 1));
+    expect(vm.gpsLost, isTrue);
+    close();
+  });
+
+  testWidgets('trackers not heard for a minute leave the rings, followers '
+      'stay', (tester) async {
+    await open(tester);
+    vm.scanHere();
+    airTag();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(vm.nearby, hasLength(1));
+    clock = clock.add(const Duration(seconds: 61));
+    await tester.pump(const Duration(seconds: 1));
+    expect(vm.nearby, isEmpty);
+    expect(vm.trackers, hasLength(1));
+    close();
   });
 
   testWidgets('on the move without location says so and starts nothing', (
@@ -132,6 +260,7 @@ void main() {
     expect(vm.mode, TrackerMode.idle);
     expect(vm.locationProblem, LocationAccess.denied);
     expect(bluetooth.listening, isFalse);
+    close();
   });
 
   testWidgets('"This is mine" hides a tracker for good, and can be undone', (
@@ -149,41 +278,62 @@ void main() {
     });
     await vm.toggleMine('AA:00:00:00:00:01');
     expect(vm.trackers, hasLength(1));
-    vm.stop();
+    close();
   });
 
-  testWidgets('finding follows one tag; done stops a short scan', (
-    tester,
-  ) async {
+  testWidgets('finding: "not heard" once it goes quiet; done stops a short '
+      'scan', (tester) async {
     await open(tester);
     vm.scanHere();
     airTag(rssi: -45);
     await tester.pump(const Duration(milliseconds: 300));
     vm.find('AA:00:00:00:00:01');
     expect(vm.mode, TrackerMode.find);
+    expect(vm.findingHeard, isTrue);
     expect(vm.finding!.rssi, -45);
+    clock = clock.add(const Duration(seconds: 16));
+    await tester.pump(const Duration(seconds: 1));
+    expect(vm.findingHeard, isFalse);
     vm.doneFinding();
     expect(vm.mode, TrackerMode.idle);
+    await tester.pump(const Duration(seconds: 7));
     expect(bluetooth.listening, isFalse);
+    close();
   });
 
-  testWidgets('hidden app: stops listening; back in front: carries on', (
+  testWidgets('finding during a check on the move carries the check on', (
     tester,
   ) async {
     await open(tester);
     await vm.checkWhileMoving();
+    await step(tester, 0);
+    vm.find('AA:00:00:00:00:01');
+    vm.doneFinding();
+    expect(vm.mode, TrackerMode.moving);
+    expect(location.listening, isTrue);
+    expect(bluetooth.screenKeptOn, isTrue);
+    close();
+  });
+
+  testWidgets('hidden app: stops listening and the clock; back in front: '
+      'carries on', (tester) async {
+    await open(tester);
+    await vm.checkWhileMoving();
+    clock = clock.add(const Duration(minutes: 5));
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
     await tester.pump();
     expect(bluetooth.listening, isFalse);
     expect(location.listening, isFalse);
     expect(vm.paused, isTrue);
+    clock = clock.add(const Duration(minutes: 20));
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
     await tester.pump();
     expect(bluetooth.listening, isTrue);
     expect(location.listening, isTrue);
-    vm.stop();
+    expect(vm.listenedFor, const Duration(minutes: 5));
+    close();
   });
 
   testWidgets('closing the tool stops everything and forgets what was heard', (
@@ -193,7 +343,7 @@ void main() {
     await vm.checkWhileMoving();
     airTag();
     await tester.pump(const Duration(milliseconds: 300));
-    vm.active = false;
+    close();
     expect(bluetooth.listening, isFalse);
     expect(location.listening, isFalse);
     expect(bluetooth.screenKeptOn, isFalse);

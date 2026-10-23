@@ -294,6 +294,7 @@ class _Overview extends StatelessWidget {
     final p = Palette.of(context);
     final vm = viewModel;
     final trackers = vm.trackers;
+    final nearby = vm.nearby;
     final following = trackers.where(FollowCheck.follows).toList();
     final first = following.isEmpty ? null : following.first;
     final status = switch (vm.mode) {
@@ -310,15 +311,26 @@ class _Overview extends StatelessWidget {
         ),
         tone: StatusTone.danger,
       ),
+      _ when vm.scanFailed => StatusBanner(
+        icon: Icons.bluetooth_disabled_rounded,
+        text: l.trackerScanFailed,
+        tone: StatusTone.warning,
+      ),
+      _ when vm.gpsLost => StatusBanner(
+        icon: Icons.location_disabled_rounded,
+        text: l.trackerGpsLost,
+        tone: StatusTone.warning,
+      ),
       TrackerMode.moving => StatusBanner(
         icon: Icons.route_rounded,
-        text: l.trackerMoving(vm.movingFor.inMinutes, vm.placesPassed),
+        text: l.trackerMoving(vm.listenedFor.inMinutes, vm.placesPassed),
       ),
       TrackerMode.here => StatusBanner(
         icon: Icons.radar_rounded,
         text: l.trackerListening,
       ),
-      _ when trackers.isEmpty && vm.everScanned => StatusBanner(
+      // Only after a full scan: a cut-short one proves nothing.
+      _ when trackers.isEmpty && vm.listenedEnough => StatusBanner(
         icon: Icons.check_circle_outline_rounded,
         text: l.trackerNothingHeard,
         tone: StatusTone.success,
@@ -331,10 +343,24 @@ class _Overview extends StatelessWidget {
       child: Column(
         children: [
           status,
+          if (first != null)
+            TextButton.icon(
+              onPressed: () => _safety(context),
+              icon: Icon(Icons.shield_outlined, color: p.gaugeDanger),
+              label: Text(
+                l.trackerWhatToDo,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: p.gaugeDanger,
+                ),
+              ),
+            ),
           Expanded(
             child: Semantics(
-              label: l.trackerSemantics(following.length, trackers.length),
-              child: _OrbitDial(trackers: trackers, spinning: vm.scanning),
+              label: l.trackerSemantics(following.length, nearby.length),
+              child: RepaintBoundary(
+                child: _OrbitDial(trackers: nearby, spinning: vm.scanning),
+              ),
             ),
           ),
           for (final t in rows) _TrackerRow(trail: t, viewModel: vm),
@@ -351,48 +377,116 @@ class _Overview extends StatelessWidget {
     );
   }
 
-  void _showAll(BuildContext context) => showAppSheet<void>(
-    context,
-    (sheet) => ListenableBuilder(
-      listenable: viewModel,
-      builder: (sheet, _) {
-        final l = sheet.l10n;
-        final trackers = viewModel.trackers;
-        return AppSheet(
-          title: l.trackerAllTitle(trackers.length),
-          action: SoftButton(
-            label: l.trackerDone,
-            icon: Icons.check_rounded,
-            onPressed: () => Navigator.of(sheet).pop(),
-          ),
-          children: [
-            for (final t in trackers)
-              _TrackerRow(
-                trail: t,
-                viewModel: viewModel,
-                onFind: () {
-                  Navigator.of(sheet).pop();
-                  viewModel.find(t.id);
-                },
-                mineButton: true,
+  /// What to do when a tracker follows you: safety first, then evidence,
+  /// as police and support services advise.
+  void _safety(BuildContext context) => showAppSheet<void>(context, (sheet) {
+    final l = sheet.l10n;
+    final p = Palette.of(sheet);
+    final points = [
+      l.trackerSafety1,
+      l.trackerSafety2,
+      l.trackerSafety3,
+      l.trackerSafety4,
+      l.trackerSafety5,
+      l.trackerSafety6,
+    ];
+    return AppSheet(
+      title: l.trackerSafetyTitle,
+      action: SoftButton(
+        label: l.trackerDone,
+        icon: Icons.check_rounded,
+        onPressed: () => Navigator.of(sheet).pop(),
+      ),
+      children: [
+        for (final (i, point) in points.indexed)
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 12,
+            children: [
+              Container(
+                width: 24,
+                height: 24,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: p.gaugeDanger,
+                ),
+                child: Text(
+                  '${i + 1}',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            for (final t in viewModel.mineHeard)
-              _TrackerRow(trail: t, viewModel: viewModel, mineButton: true),
-          ],
-        );
-      },
-    ),
-  );
+              Expanded(
+                child: Text(
+                  point,
+                  style: TextStyle(fontSize: 15, height: 1.4, color: p.ink),
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+  });
+
+  /// Every tracker heard, in the order they had when the sheet opened, so
+  /// rows don't move under the finger as signals change.
+  void _showAll(BuildContext context) {
+    final order = [for (final t in viewModel.trackers) t.id];
+    showAppSheet<void>(
+      context,
+      (sheet) => ListenableBuilder(
+        listenable: viewModel,
+        builder: (sheet, _) {
+          final l = sheet.l10n;
+          final byId = {for (final t in viewModel.trackers) t.id: t};
+          final listed = [
+            for (final id in order) ?byId[id],
+            for (final t in viewModel.trackers)
+              if (!order.contains(t.id)) t,
+          ];
+          return AppSheet(
+            title: l.trackerAllTitle(listed.length),
+            action: SoftButton(
+              label: l.trackerDone,
+              icon: Icons.check_rounded,
+              onPressed: () => Navigator.of(sheet).pop(),
+            ),
+            children: [
+              for (final t in listed)
+                _TrackerRow(
+                  trail: t,
+                  viewModel: viewModel,
+                  onFind: () {
+                    Navigator.of(sheet).pop();
+                    viewModel.find(t.id);
+                  },
+                  mineButton: true,
+                ),
+              for (final t in viewModel.mineHeard)
+                _TrackerRow(trail: t, viewModel: viewModel, mineButton: true),
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
 
 String _kindName(AppLocalizations l, TrackerKind k) => switch (k) {
   TrackerKind.airTag => 'AirTag',
   TrackerKind.findMy => l.trackerKindFindMy,
+  TrackerKind.airPods => 'AirPods',
+  TrackerKind.appleDevice => l.trackerKindApple,
   TrackerKind.findHub => l.trackerKindFindHub,
   TrackerKind.dult => l.trackerKindDult,
-  TrackerKind.smartTag => 'Galaxy SmartTag',
+  TrackerKind.smartTag => l.trackerKindSamsung,
   TrackerKind.tile => 'Tile',
   TrackerKind.chipolo => 'Chipolo',
+  TrackerKind.pebblebee => 'Pebblebee',
 };
 
 String _closeness(AppLocalizations l, Closeness c) => switch (c) {
@@ -425,7 +519,7 @@ class _TrackerRow extends StatelessWidget {
     final colour = follows ? p.gaugeDanger : p.inkStrong;
     final detail = follows
         ? l.trackerFollowingYou(trail.places.length)
-        : '${_closeness(l, trail.closeness)} · '
+        : '${viewModel.isStale(trail) ? l.trackerHeardEarlier : _closeness(l, trail.closeness)} · '
               '${l.trackerPlaces(math.max(1, trail.places.length))}';
     return Padding(
       padding: const EdgeInsets.only(top: 8),
@@ -547,7 +641,9 @@ class _OrbitDialState extends State<_OrbitDial>
         painter: _OrbitPainter(
           palette: Palette.of(context),
           trackers: widget.trackers,
-          turn: _turn.value * 2 * math.pi,
+          // Ten steps a second is smooth at this slow speed and spares
+          // the battery on a long check.
+          turn: (_turn.value * 600).floor() / 600 * 2 * math.pi,
           scanning: widget.spinning,
           labels: [l.trackerClose, l.trackerNear, l.trackerFar],
           centre: '$following',
@@ -743,7 +839,26 @@ class _OrbitPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_OrbitPainter old) => true;
+  bool shouldRepaint(_OrbitPainter old) =>
+      old.turn != turn ||
+      old.scanning != scanning ||
+      old.palette != palette ||
+      old.centre != centre ||
+      old.nearby != nearby ||
+      !_sameTrackers(old.trackers, trackers);
+
+  /// Same trackers, rings and places: nothing to redraw.
+  static bool _sameTrackers(List<TrackerTrail> a, List<TrackerTrail> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i].id != b[i].id ||
+          a[i].closeness != b[i].closeness ||
+          a[i].places.length != b[i].places.length) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 /// Finding one tracker: a warmer and colder gauge from its signal.
@@ -757,10 +872,8 @@ class _FindView extends StatelessWidget {
     final l = context.l10n;
     final p = Palette.of(context);
     final t = viewModel.finding;
-    final heard =
-        t != null &&
-        DateTime.now().difference(t.lastSeen) < const Duration(seconds: 15);
-    final w = heard ? warmth(t.rssi) : 0;
+    final heard = viewModel.findingHeard;
+    final w = heard ? warmth(t!.rssi) : 0;
     final (word, colour) = !heard
         ? (l.trackerFindLost, p.label)
         : w >= 85

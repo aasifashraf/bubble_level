@@ -919,5 +919,18 @@
   "findCloser": "Getting closer",
   "findNear": "Near",
   "findHere": "Right here",
-  "trackerAppleSound": "Apple’s Find My, or the Tracker Detect app on Android, can make an AirTag play a sound."
+  "trackerAppleSound": "Apple’s Find My, or the Tracker Detect app on Android, can make an AirTag play a sound.",
+  "trackerScanFailed": "The scan stopped. Check Bluetooth and scan again.",
+  "trackerGpsLost": "No GPS fix: places aren’t being noted",
+  "trackerHeardEarlier": "Heard earlier",
+  "trackerKindSamsung": "Samsung tag or device",
+  "trackerKindApple": "Apple device",
+  "trackerWhatToDo": "What to do",
+  "trackerSafetyTitle": "If a tracker follows you",
+  "trackerSafety1": "On a bus, train or plane it may be a stranger’s: check again after you get off.",
+  "trackerSafety2": "If you feel unsafe, go somewhere public and call the police.",
+  "trackerSafety3": "Find it with Find it. Photograph it, where it was hidden, and its serial number, with the date and time.",
+  "trackerSafety4": "Don’t take it home, and don’t contact its owner.",
+  "trackerSafety5": "Removing its battery stops it, but its owner can tell. If you live with the person, talk to a support service first.",
+  "trackerSafety6": "Turning off your own Bluetooth or location doesn’t stop it reporting where you are."
 }

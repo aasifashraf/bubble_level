@@ -1698,4 +1698,50 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'Apple’s Find My, or the Tracker Detect app on Android, can make an AirTag play a sound.';
+
+  @override
+  String get trackerScanFailed =>
+      'The scan stopped. Check Bluetooth and scan again.';
+
+  @override
+  String get trackerGpsLost => 'No GPS fix: places aren’t being noted';
+
+  @override
+  String get trackerHeardEarlier => 'Heard earlier';
+
+  @override
+  String get trackerKindSamsung => 'Samsung tag or device';
+
+  @override
+  String get trackerKindApple => 'Apple device';
+
+  @override
+  String get trackerWhatToDo => 'What to do';
+
+  @override
+  String get trackerSafetyTitle => 'If a tracker follows you';
+
+  @override
+  String get trackerSafety1 =>
+      'On a bus, train or plane it may be a stranger’s: check again after you get off.';
+
+  @override
+  String get trackerSafety2 =>
+      'If you feel unsafe, go somewhere public and call the police.';
+
+  @override
+  String get trackerSafety3 =>
+      'Find it with Find it. Photograph it, where it was hidden, and its serial number, with the date and time.';
+
+  @override
+  String get trackerSafety4 =>
+      'Don’t take it home, and don’t contact its owner.';
+
+  @override
+  String get trackerSafety5 =>
+      'Removing its battery stops it, but its owner can tell. If you live with the person, talk to a support service first.';
+
+  @override
+  String get trackerSafety6 =>
+      'Turning off your own Bluetooth or location doesn’t stop it reporting where you are.';
 }

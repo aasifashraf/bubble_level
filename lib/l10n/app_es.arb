@@ -482,5 +482,18 @@
   "findCloser": "Más cerca",
   "findNear": "Cerca",
   "findHere": "Justo aquí",
-  "trackerAppleSound": "Encontrar de Apple, o la app Tracker Detect en Android, puede hacer que un AirTag emita un sonido."
+  "trackerAppleSound": "Encontrar de Apple, o la app Tracker Detect en Android, puede hacer que un AirTag emita un sonido.",
+  "trackerScanFailed": "El escaneo se detuvo. Revisa Bluetooth y vuelve a escanear.",
+  "trackerGpsLost": "Sin señal GPS: no se anotan lugares",
+  "trackerHeardEarlier": "Oído antes",
+  "trackerKindSamsung": "Etiqueta o equipo Samsung",
+  "trackerKindApple": "Dispositivo Apple",
+  "trackerWhatToDo": "Qué hacer",
+  "trackerSafetyTitle": "Si un rastreador te sigue",
+  "trackerSafety1": "En un autobús, tren o avión puede ser de un desconocido: vuelve a comprobar al bajar.",
+  "trackerSafety2": "Si no te sientes seguro, ve a un lugar público y llama a la policía.",
+  "trackerSafety3": "Encuéntralo con Encontrar. Fotografíalo, junto con dónde estaba escondido y su número de serie, con fecha y hora.",
+  "trackerSafety4": "No te lo lleves a casa y no contactes con su dueño.",
+  "trackerSafety5": "Quitarle la pila lo detiene, pero su dueño lo notará. Si vives con esa persona, habla antes con un servicio de ayuda.",
+  "trackerSafety6": "Apagar tu Bluetooth o tu ubicación no impide que informe de dónde estás."
 }

@@ -482,5 +482,18 @@
   "findCloser": "قریب آ رہے ہیں",
   "findNear": "قریب",
   "findHere": "بالکل یہیں",
-  "trackerAppleSound": "Apple کی Find My، یا Android پر Tracker Detect ایپ، AirTag سے آواز بجوا سکتی ہے۔"
+  "trackerAppleSound": "Apple کی Find My، یا Android پر Tracker Detect ایپ، AirTag سے آواز بجوا سکتی ہے۔",
+  "trackerScanFailed": "اسکین رک گیا۔ بلوٹوتھ چیک کریں اور دوبارہ اسکین کریں۔",
+  "trackerGpsLost": "GPS سگنل نہیں: جگہیں نوٹ نہیں ہو رہیں",
+  "trackerHeardEarlier": "پہلے سنا گیا",
+  "trackerKindSamsung": "Samsung ٹیگ یا آلہ",
+  "trackerKindApple": "Apple آلہ",
+  "trackerWhatToDo": "کیا کریں",
+  "trackerSafetyTitle": "اگر کوئی ٹریکر آپ کے ساتھ چل رہا ہے",
+  "trackerSafety1": "بس، ٹرین یا جہاز میں یہ کسی اجنبی کا ہو سکتا ہے: اترنے کے بعد دوبارہ جانچیں۔",
+  "trackerSafety2": "اگر غیر محفوظ محسوس ہو تو کسی بھیڑ والی جگہ جائیں اور پولیس کو فون کریں۔",
+  "trackerSafety3": "ڈھونڈیں سے اسے تلاش کریں۔ اس کی، چھپانے کی جگہ کی اور سیریل نمبر کی تاریخ اور وقت کے ساتھ تصویر لیں۔",
+  "trackerSafety4": "اسے گھر نہ لے جائیں اور اس کے مالک سے رابطہ نہ کریں۔",
+  "trackerSafety5": "بیٹری نکالنے سے وہ رک جاتا ہے، لیکن مالک کو پتا چل جاتا ہے۔ اگر آپ اس شخص کے ساتھ رہتے ہیں تو پہلے کسی مدد کی سروس سے بات کریں۔",
+  "trackerSafety6": "اپنا بلوٹوتھ یا لوکیشن بند کرنے سے وہ آپ کی جگہ بتانا بند نہیں کرتا۔"
 }

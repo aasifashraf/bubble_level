@@ -1705,4 +1705,50 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       '«Локатор» Apple или приложение Tracker Detect на Android могут заставить AirTag издать звук.';
+
+  @override
+  String get trackerScanFailed =>
+      'Поиск остановился. Проверьте Bluetooth и начните снова.';
+
+  @override
+  String get trackerGpsLost => 'Нет сигнала GPS: места не отмечаются';
+
+  @override
+  String get trackerHeardEarlier => 'Слышен ранее';
+
+  @override
+  String get trackerKindSamsung => 'Метка или устройство Samsung';
+
+  @override
+  String get trackerKindApple => 'Устройство Apple';
+
+  @override
+  String get trackerWhatToDo => 'Что делать';
+
+  @override
+  String get trackerSafetyTitle => 'Если за вами следует трекер';
+
+  @override
+  String get trackerSafety1 =>
+      'В автобусе, поезде или самолёте он может принадлежать незнакомцу: проверьте снова после выхода.';
+
+  @override
+  String get trackerSafety2 =>
+      'Если вам небезопасно, идите в людное место и звоните в полицию.';
+
+  @override
+  String get trackerSafety3 =>
+      'Найдите его через «Найти». Сфотографируйте его, место, где он был спрятан, и серийный номер, с датой и временем.';
+
+  @override
+  String get trackerSafety4 =>
+      'Не несите его домой и не связывайтесь с владельцем.';
+
+  @override
+  String get trackerSafety5 =>
+      'Если вынуть батарейку, он перестанет работать, но владелец это заметит. Если вы живёте с этим человеком, сначала обратитесь в службу помощи.';
+
+  @override
+  String get trackerSafety6 =>
+      'Отключение вашего Bluetooth или геолокации не мешает ему сообщать, где вы.';
 }

@@ -1632,4 +1632,44 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'Appleの「探す」アプリ、またはAndroidのTracker Detectアプリで、AirTagの音を鳴らせます。';
+
+  @override
+  String get trackerScanFailed => 'スキャンが止まりました。Bluetoothを確認して、もう一度スキャンしてください。';
+
+  @override
+  String get trackerGpsLost => 'GPS信号なし：場所を記録できません';
+
+  @override
+  String get trackerHeardEarlier => '以前に検出';
+
+  @override
+  String get trackerKindSamsung => 'Samsungのタグまたは機器';
+
+  @override
+  String get trackerKindApple => 'Appleデバイス';
+
+  @override
+  String get trackerWhatToDo => 'どうすればいい？';
+
+  @override
+  String get trackerSafetyTitle => 'トラッカーに追跡されていたら';
+
+  @override
+  String get trackerSafety1 => 'バスや電車、飛行機では他人のものかもしれません。降りてからもう一度確認してください。';
+
+  @override
+  String get trackerSafety2 => '危険を感じたら、人の多い場所に移動して警察に連絡してください。';
+
+  @override
+  String get trackerSafety3 => '「探す」で見つけたら、本体、隠されていた場所、シリアル番号を日時付きで撮影してください。';
+
+  @override
+  String get trackerSafety4 => '家に持ち帰らず、持ち主に連絡しないでください。';
+
+  @override
+  String get trackerSafety5 =>
+      '電池を抜くと止まりますが、持ち主に気づかれます。その人と一緒に暮らしているなら、先に相談窓口に相談してください。';
+
+  @override
+  String get trackerSafety6 => '自分のBluetoothや位置情報をオフにしても、居場所の送信は止まりません。';
 }

@@ -1691,4 +1691,49 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'يمكن لتطبيق تحديد الموقع من Apple، أو تطبيق Tracker Detect على أندرويد، جعل AirTag يصدر صوتًا.';
+
+  @override
+  String get trackerScanFailed =>
+      'توقف الفحص. تحقق من البلوتوث ثم افحص مرة أخرى.';
+
+  @override
+  String get trackerGpsLost => 'لا إشارة GPS: لا تُسجَّل الأماكن';
+
+  @override
+  String get trackerHeardEarlier => 'سُمع سابقًا';
+
+  @override
+  String get trackerKindSamsung => 'علامة أو جهاز Samsung';
+
+  @override
+  String get trackerKindApple => 'جهاز Apple';
+
+  @override
+  String get trackerWhatToDo => 'ماذا أفعل';
+
+  @override
+  String get trackerSafetyTitle => 'إذا كان جهاز تتبع يلاحقك';
+
+  @override
+  String get trackerSafety1 =>
+      'في الحافلة أو القطار أو الطائرة قد يكون لشخص غريب: افحص مجددًا بعد النزول.';
+
+  @override
+  String get trackerSafety2 =>
+      'إن شعرت بعدم الأمان، فاذهب إلى مكان عام واتصل بالشرطة.';
+
+  @override
+  String get trackerSafety3 =>
+      'اعثر عليه عبر ابحث. صوّره وصوّر مكان إخفائه ورقمه التسلسلي مع التاريخ والوقت.';
+
+  @override
+  String get trackerSafety4 => 'لا تأخذه إلى المنزل ولا تتواصل مع صاحبه.';
+
+  @override
+  String get trackerSafety5 =>
+      'نزع البطارية يوقفه، لكن صاحبه سيلاحظ ذلك. إن كنت تعيش مع ذلك الشخص، فتحدث أولًا إلى جهة دعم.';
+
+  @override
+  String get trackerSafety6 =>
+      'إيقاف البلوتوث أو الموقع في هاتفك لا يمنعه من الإبلاغ عن مكانك.';
 }

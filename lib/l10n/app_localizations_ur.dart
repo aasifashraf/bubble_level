@@ -1698,4 +1698,50 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'Apple کی Find My، یا Android پر Tracker Detect ایپ، AirTag سے آواز بجوا سکتی ہے۔';
+
+  @override
+  String get trackerScanFailed =>
+      'اسکین رک گیا۔ بلوٹوتھ چیک کریں اور دوبارہ اسکین کریں۔';
+
+  @override
+  String get trackerGpsLost => 'GPS سگنل نہیں: جگہیں نوٹ نہیں ہو رہیں';
+
+  @override
+  String get trackerHeardEarlier => 'پہلے سنا گیا';
+
+  @override
+  String get trackerKindSamsung => 'Samsung ٹیگ یا آلہ';
+
+  @override
+  String get trackerKindApple => 'Apple آلہ';
+
+  @override
+  String get trackerWhatToDo => 'کیا کریں';
+
+  @override
+  String get trackerSafetyTitle => 'اگر کوئی ٹریکر آپ کے ساتھ چل رہا ہے';
+
+  @override
+  String get trackerSafety1 =>
+      'بس، ٹرین یا جہاز میں یہ کسی اجنبی کا ہو سکتا ہے: اترنے کے بعد دوبارہ جانچیں۔';
+
+  @override
+  String get trackerSafety2 =>
+      'اگر غیر محفوظ محسوس ہو تو کسی بھیڑ والی جگہ جائیں اور پولیس کو فون کریں۔';
+
+  @override
+  String get trackerSafety3 =>
+      'ڈھونڈیں سے اسے تلاش کریں۔ اس کی، چھپانے کی جگہ کی اور سیریل نمبر کی تاریخ اور وقت کے ساتھ تصویر لیں۔';
+
+  @override
+  String get trackerSafety4 =>
+      'اسے گھر نہ لے جائیں اور اس کے مالک سے رابطہ نہ کریں۔';
+
+  @override
+  String get trackerSafety5 =>
+      'بیٹری نکالنے سے وہ رک جاتا ہے، لیکن مالک کو پتا چل جاتا ہے۔ اگر آپ اس شخص کے ساتھ رہتے ہیں تو پہلے کسی مدد کی سروس سے بات کریں۔';
+
+  @override
+  String get trackerSafety6 =>
+      'اپنا بلوٹوتھ یا لوکیشن بند کرنے سے وہ آپ کی جگہ بتانا بند نہیں کرتا۔';
 }

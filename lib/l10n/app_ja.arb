@@ -482,5 +482,18 @@
   "findCloser": "近づいている",
   "findNear": "近い",
   "findHere": "すぐここ",
-  "trackerAppleSound": "Appleの「探す」アプリ、またはAndroidのTracker Detectアプリで、AirTagの音を鳴らせます。"
+  "trackerAppleSound": "Appleの「探す」アプリ、またはAndroidのTracker Detectアプリで、AirTagの音を鳴らせます。",
+  "trackerScanFailed": "スキャンが止まりました。Bluetoothを確認して、もう一度スキャンしてください。",
+  "trackerGpsLost": "GPS信号なし：場所を記録できません",
+  "trackerHeardEarlier": "以前に検出",
+  "trackerKindSamsung": "Samsungのタグまたは機器",
+  "trackerKindApple": "Appleデバイス",
+  "trackerWhatToDo": "どうすればいい？",
+  "trackerSafetyTitle": "トラッカーに追跡されていたら",
+  "trackerSafety1": "バスや電車、飛行機では他人のものかもしれません。降りてからもう一度確認してください。",
+  "trackerSafety2": "危険を感じたら、人の多い場所に移動して警察に連絡してください。",
+  "trackerSafety3": "「探す」で見つけたら、本体、隠されていた場所、シリアル番号を日時付きで撮影してください。",
+  "trackerSafety4": "家に持ち帰らず、持ち主に連絡しないでください。",
+  "trackerSafety5": "電池を抜くと止まりますが、持ち主に気づかれます。その人と一緒に暮らしているなら、先に相談窓口に相談してください。",
+  "trackerSafety6": "自分のBluetoothや位置情報をオフにしても、居場所の送信は止まりません。"
 }

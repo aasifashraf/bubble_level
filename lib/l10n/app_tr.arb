@@ -482,5 +482,18 @@
   "findCloser": "Yaklaşıyor",
   "findNear": "Yakın",
   "findHere": "Tam burada",
-  "trackerAppleSound": "Apple’ın Bul uygulaması ya da Android’deki Tracker Detect, bir AirTag’e ses çaldırabilir."
+  "trackerAppleSound": "Apple’ın Bul uygulaması ya da Android’deki Tracker Detect, bir AirTag’e ses çaldırabilir.",
+  "trackerScanFailed": "Tarama durdu. Bluetooth’u kontrol edip yeniden tarayın.",
+  "trackerGpsLost": "GPS sinyali yok: yerler kaydedilmiyor",
+  "trackerHeardEarlier": "Daha önce duyuldu",
+  "trackerKindSamsung": "Samsung etiketi veya cihazı",
+  "trackerKindApple": "Apple cihazı",
+  "trackerWhatToDo": "Ne yapmalı",
+  "trackerSafetyTitle": "Bir cihaz sizi takip ediyorsa",
+  "trackerSafety1": "Otobüste, trende veya uçakta bir yabancının olabilir: indikten sonra yeniden kontrol edin.",
+  "trackerSafety2": "Kendinizi güvende hissetmiyorsanız kalabalık bir yere gidin ve polisi arayın.",
+  "trackerSafety3": "Bul ile bulun. Cihazın, saklandığı yerin ve seri numarasının tarih ve saatle fotoğrafını çekin.",
+  "trackerSafety4": "Eve götürmeyin ve sahibiyle iletişime geçmeyin.",
+  "trackerSafety5": "Pilini çıkarmak onu durdurur ama sahibi bunu fark eder. Bu kişiyle birlikte yaşıyorsanız önce bir destek hattıyla konuşun.",
+  "trackerSafety6": "Kendi Bluetooth’unuzu veya konumunuzu kapatmak, nerede olduğunuzu bildirmesini durdurmaz."
 }

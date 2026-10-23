@@ -482,5 +482,18 @@
   "findCloser": "تقترب",
   "findNear": "قريب",
   "findHere": "هنا تمامًا",
-  "trackerAppleSound": "يمكن لتطبيق تحديد الموقع من Apple، أو تطبيق Tracker Detect على أندرويد، جعل AirTag يصدر صوتًا."
+  "trackerAppleSound": "يمكن لتطبيق تحديد الموقع من Apple، أو تطبيق Tracker Detect على أندرويد، جعل AirTag يصدر صوتًا.",
+  "trackerScanFailed": "توقف الفحص. تحقق من البلوتوث ثم افحص مرة أخرى.",
+  "trackerGpsLost": "لا إشارة GPS: لا تُسجَّل الأماكن",
+  "trackerHeardEarlier": "سُمع سابقًا",
+  "trackerKindSamsung": "علامة أو جهاز Samsung",
+  "trackerKindApple": "جهاز Apple",
+  "trackerWhatToDo": "ماذا أفعل",
+  "trackerSafetyTitle": "إذا كان جهاز تتبع يلاحقك",
+  "trackerSafety1": "في الحافلة أو القطار أو الطائرة قد يكون لشخص غريب: افحص مجددًا بعد النزول.",
+  "trackerSafety2": "إن شعرت بعدم الأمان، فاذهب إلى مكان عام واتصل بالشرطة.",
+  "trackerSafety3": "اعثر عليه عبر ابحث. صوّره وصوّر مكان إخفائه ورقمه التسلسلي مع التاريخ والوقت.",
+  "trackerSafety4": "لا تأخذه إلى المنزل ولا تتواصل مع صاحبه.",
+  "trackerSafety5": "نزع البطارية يوقفه، لكن صاحبه سيلاحظ ذلك. إن كنت تعيش مع ذلك الشخص، فتحدث أولًا إلى جهة دعم.",
+  "trackerSafety6": "إيقاف البلوتوث أو الموقع في هاتفك لا يمنعه من الإبلاغ عن مكانك."
 }

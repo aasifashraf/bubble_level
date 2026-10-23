@@ -44,11 +44,23 @@ class TrackerViewModel extends ActiveViewModel {
   /// How long "Scan here" listens.
   static const hereTime = Duration(seconds: 30);
 
-  /// A GPS fix older than this doesn't say where a tracker was heard.
-  static const _fixAge = Duration(seconds: 20);
+  /// A tracker not heard for this long is no longer drawn as nearby.
+  static const recentTime = Duration(seconds: 60);
+
+  /// Finding: a tracker not heard for this long is "not heard".
+  static const lostTime = Duration(seconds: 15);
+
+  /// A GPS fix older than this (by when it arrived) doesn't say where a
+  /// tracker was heard, and on the move the user is told GPS is lost.
+  static const _fixAge = Duration(seconds: 30);
+
+  /// A stopped scan lingers this long before it is really stopped, so
+  /// quick Stop and Scan taps reuse it: Android ignores a sixth scan start
+  /// within 30 seconds without saying so.
+  static const _scanGrace = Duration(seconds: 6);
 
   final _check = FollowCheck();
-  final _placesPassed = <Place>[];
+  final _placesPassed = <({Place place, double accuracy})>[];
 
   BluetoothAccess? _access;
   bool _asked = false;
@@ -56,14 +68,20 @@ class TrackerViewModel extends ActiveViewModel {
   TrackerMode _beforeFind = TrackerMode.idle;
   LocationAccess? _locationProblem;
   String? _finding;
-  DateTime? _since;
   bool _hidden = false;
-  bool _everScanned = false;
+  bool _scanFailed = false;
+  Set<String> _mine = const {};
+
+  /// Time actually spent listening (the check on the move, or the last
+  /// short scan), not counting pauses.
+  Duration _listened = Duration.zero;
+  DateTime? _listeningSince;
 
   LocationFix? _fix;
+  DateTime? _fixAt;
   StreamSubscription<BleSignal>? _scan;
   StreamSubscription<LocationFix>? _fixes;
-  Timer? _hereTimer, _repaint;
+  Timer? _hereTimer, _tick, _grace, _accessPoll;
   bool _dirty = false;
   AppLifecycleListener? _lifecycle;
 
@@ -77,11 +95,27 @@ class TrackerViewModel extends ActiveViewModel {
   /// Paused because the app is hidden (or the screen went off).
   bool get paused => _hidden && _mode != TrackerMode.idle;
 
-  /// Trackers heard, followers first, then closest; the user's own and
-  /// those next to their owners left out.
-  List<TrackerTrail> get trackers => _check.sorted(mine: _settings.trackerMine);
+  /// Listening, as the user asked (not a scan lingering after Stop).
+  bool get scanning => _mode != TrackerMode.idle && _scan != null && !_hidden;
+
+  /// The scan stopped by itself (Bluetooth trouble).
+  bool get scanFailed => _scanFailed;
+
+  /// Every tracker heard this time, followers first, then closest; the
+  /// user's own and those next to their owners left out.
+  List<TrackerTrail> get trackers => _check.sorted(mine: _mine);
+
+  /// Those heard in the last [recentTime], and every follower: what the
+  /// rings show as near you now.
+  List<TrackerTrail> get nearby => [
+    for (final t in trackers)
+      if (FollowCheck.follows(t) || !isStale(t)) t,
+  ];
 
   int get followingCount => trackers.where(FollowCheck.follows).length;
+
+  /// Not heard for a while (moved off, or out of range).
+  bool isStale(TrackerTrail t) => _now().difference(t.lastSeen) > recentTime;
 
   /// Heard trackers the user marked as their own (to unmark them).
   List<TrackerTrail> get mineHeard => [
@@ -89,51 +123,72 @@ class TrackerViewModel extends ActiveViewModel {
       if (isMine(t.id)) t,
   ];
 
-  /// Listening right now.
-  bool get scanning => _scan != null;
+  /// Listened long enough that "nothing heard" means something.
+  bool get listenedEnough =>
+      listenedFor >= hereTime - const Duration(seconds: 5);
 
-  /// A scan has run since the tool opened (so "nothing heard" means it).
-  bool get everScanned => _everScanned;
+  /// How long it has actually listened (pauses not counted).
+  Duration get listenedFor {
+    final since = _listeningSince;
+    return since == null ? _listened : _listened + _now().difference(since);
+  }
 
-  /// How long the check on the move has run.
-  Duration get movingFor =>
-      _since == null ? Duration.zero : _now().difference(_since!);
+  /// On the move with no recent GPS fix: places aren't being noted.
+  bool get gpsLost {
+    if (_mode != TrackerMode.moving || _hidden) return false;
+    final at = _fixAt;
+    return at == null
+        ? listenedFor > const Duration(seconds: 45)
+        : _now().difference(at) > _fixAge;
+  }
 
   /// Separate places passed so far on the move.
   int get placesPassed => _placesPassed.length;
 
-  /// The tracker being found, while it is still heard.
+  /// The tracker being found.
   TrackerTrail? get finding => _finding == null
       ? null
       : _check.trails.where((t) => t.id == _finding).firstOrNull;
 
-  bool isMine(String id) => _settings.trackerMine.contains(id);
+  /// The tracker being found has been heard lately.
+  bool get findingHeard {
+    final t = finding;
+    return t != null && _now().difference(t.lastSeen) < lostTime;
+  }
+
+  bool isMine(String id) => _mine.contains(id);
 
   @override
   void onActivate() {
     _access = null;
     _asked = false;
     _hidden = false;
+    _mine = _settings.trackerMine;
     _lifecycle = AppLifecycleListener(onShow: _shown, onHide: _hide);
     unawaited(_checkAccess());
   }
 
   @override
   void onDeactivate() {
-    _everScanned = false;
     _lifecycle?.dispose();
     _lifecycle = null;
-    _stopListening();
+    _accessPoll?.cancel();
+    _accessPoll = null;
+    _stopListening(now: true);
     _mode = TrackerMode.idle;
     _finding = null;
-    _since = null;
     _locationProblem = null;
+    _scanFailed = false;
+    _listened = Duration.zero;
     _check.clear();
     _placesPassed.clear();
   }
 
   @override
-  void update() => notifyListeners();
+  void update() {
+    _mine = _settings.trackerMine;
+    notifyListeners();
+  }
 
   // ---- Access
 
@@ -160,9 +215,26 @@ class TrackerViewModel extends ActiveViewModel {
 
   void _setAccess(BluetoothAccess a) {
     if (!active) return;
+    final was = _access;
     _access = a;
-    if (a != BluetoothAccess.granted) _stopListening();
-    notifyListeners();
+    if (a != BluetoothAccess.granted) {
+      _mode = TrackerMode.idle;
+      _stopListening(now: true);
+    }
+    // Bluetooth or location switched off from the quick settings doesn't
+    // hide the app: look again every couple of seconds until it's back.
+    final switchedOff =
+        a == BluetoothAccess.bluetoothOff || a == BluetoothAccess.locationOff;
+    if (switchedOff) {
+      _accessPoll ??= Timer.periodic(
+        const Duration(seconds: 2),
+        (_) => unawaited(_checkAccess()),
+      );
+    } else {
+      _accessPoll?.cancel();
+      _accessPoll = null;
+    }
+    if (a != was) notifyListeners();
   }
 
   void _shown() {
@@ -176,7 +248,9 @@ class TrackerViewModel extends ActiveViewModel {
 
   void _hide() {
     _hidden = true;
-    _stopListening();
+    // A short scan doesn't carry on later: it simply ends.
+    if (_mode == TrackerMode.here) _mode = TrackerMode.idle;
+    _stopListening(now: true);
     notifyListeners();
   }
 
@@ -188,7 +262,9 @@ class TrackerViewModel extends ActiveViewModel {
       return;
     }
     _mode = TrackerMode.here;
+    _scanFailed = false;
     _check.clear();
+    _listened = Duration.zero;
     _listen();
     _hereTimer?.cancel();
     _hereTimer = Timer(hereTime, () {
@@ -212,11 +288,12 @@ class TrackerViewModel extends ActiveViewModel {
       return;
     }
     _locationProblem = null;
+    _scanFailed = false;
     _hereTimer?.cancel();
     _check.clear();
     _placesPassed.clear();
+    _listened = Duration.zero;
     _mode = TrackerMode.moving;
-    _since = _now();
     _listen();
     notifyListeners();
   }
@@ -234,7 +311,6 @@ class TrackerViewModel extends ActiveViewModel {
   void stop() {
     _hereTimer?.cancel();
     _mode = TrackerMode.idle;
-    _since = null;
     _stopListening();
     notifyListeners();
   }
@@ -261,10 +337,16 @@ class TrackerViewModel extends ActiveViewModel {
 
   /// Marks [id] as the user's own (never listed again), or not.
   Future<void> toggleMine(String id) {
-    final mine = {..._settings.trackerMine};
+    final mine = {..._mine};
     if (!mine.remove(id)) mine.add(id);
+    _mine = mine;
+    notifyListeners();
     return _settings.setTrackerMine(mine);
   }
+
+  bool get _onTheMove =>
+      _mode == TrackerMode.moving ||
+      (_mode == TrackerMode.find && _beforeFind == TrackerMode.moving);
 
   void _resume() {
     if (_mode != TrackerMode.idle) _listen();
@@ -272,65 +354,104 @@ class TrackerViewModel extends ActiveViewModel {
 
   void _listen() {
     if (_hidden) return;
-    _everScanned = true;
+    _grace?.cancel();
+    _grace = null;
+    _listeningSince ??= _now();
     _scan ??= _bluetooth.signals().listen(
       _heard,
-      onError: (Object _) {
-        _scan = null;
-        unawaited(_checkAccess());
-      },
-      onDone: () => _scan = null,
+      onError: (Object _) => _scanStopped(),
+      onDone: _scanStopped,
     );
-    final moving =
-        _mode == TrackerMode.moving ||
-        (_mode == TrackerMode.find && _beforeFind == TrackerMode.moving);
-    if (moving) {
+    if (_onTheMove) {
       _fixes ??= _location.fixes().listen(
         _moved,
-        onError: (Object _) => _fixes = null,
-        onDone: () => _fixes = null,
+        // GPS switched off or lost: [gpsLost] says so on screen.
+        onError: (Object _) => _dropFixes(),
+        onDone: _dropFixes,
       );
     }
-    unawaited(_bluetooth.keepScreenOn(moving));
-    // Many adverts a second: redraw a few times a second, not for each.
-    _repaint ??= Timer.periodic(const Duration(milliseconds: 250), (_) {
-      if (!_dirty) return;
+    unawaited(_bluetooth.keepScreenOn(_onTheMove));
+    // Many adverts a second: redraw a few times a second, not for each,
+    // and every second anyway so minutes, staleness and "lost" stay true.
+    var ticks = 0;
+    _tick ??= Timer.periodic(const Duration(milliseconds: 250), (_) {
+      if (!_dirty && ++ticks % 4 != 0) return;
       _dirty = false;
       notifyListeners();
     });
   }
 
-  void _stopListening() {
+  /// Stops listening. A user's Stop leaves the scan running a few seconds
+  /// in case they start again; leaving the tool or hiding the app stops it
+  /// [now].
+  void _stopListening({bool now = false}) {
     _hereTimer?.cancel();
-    unawaited(_scan?.cancel());
-    unawaited(_fixes?.cancel());
-    _scan = null;
-    _fixes = null;
-    _repaint?.cancel();
-    _repaint = null;
+    final since = _listeningSince;
+    if (since != null) _listened += _now().difference(since);
+    _listeningSince = null;
+    _dropFixes();
+    _fix = null;
+    _fixAt = null;
+    _tick?.cancel();
+    _tick = null;
     unawaited(_bluetooth.keepScreenOn(false));
+    _grace?.cancel();
+    if (now) {
+      _grace = null;
+      _cancelScan();
+    } else {
+      _grace = Timer(_scanGrace, () {
+        _grace = null;
+        if (_mode == TrackerMode.idle) _cancelScan();
+      });
+    }
+  }
+
+  void _cancelScan() {
+    final s = _scan;
+    _scan = null;
+    unawaited(s?.cancel());
+  }
+
+  void _dropFixes() {
+    final f = _fixes;
+    _fixes = null;
+    unawaited(f?.cancel());
+  }
+
+  /// The scan ended on its own: Bluetooth off, permission withdrawn, or a
+  /// scan error. Say so rather than look as if it were still listening.
+  void _scanStopped() {
+    _cancelScan();
+    if (!active) return;
+    if (_mode != TrackerMode.idle) _scanFailed = true;
+    _mode = TrackerMode.idle;
+    _stopListening(now: true);
+    notifyListeners();
+    unawaited(_checkAccess());
   }
 
   void _moved(LocationFix fix) {
     _fix = fix;
+    // When it arrived, by the phone's clock: GPS time can differ from it.
+    _fixAt = _now();
     if (fix.accuracy > FollowRules.worstAccuracyM) return;
     final p = (latitude: fix.latitude, longitude: fix.longitude);
-    if (_placesPassed.every(
-      (q) => metresBetween(p, q) >= FollowRules.placeApartM,
-    )) {
-      _placesPassed.add(p);
+    if (FollowCheck.isNewPlace(_placesPassed, p, fix.accuracy)) {
+      _placesPassed.add((place: p, accuracy: fix.accuracy));
       _dirty = true;
     }
   }
 
   void _heard(BleSignal s) {
-    final ad = recognise(s);
+    final ad = recognise(s, now: _now());
     if (ad == null) return;
-    final fix = _fix;
+    final fix = _fix, at = _fixAt;
     final fresh =
-        _mode != TrackerMode.here &&
+        _onTheMove &&
         fix != null &&
-        _now().difference(fix.time).abs() <= _fixAge;
+        at != null &&
+        _now().difference(at) <= _fixAge;
     _check.add(
       ad,
       place: fresh ? (latitude: fix.latitude, longitude: fix.longitude) : null,
@@ -341,7 +462,8 @@ class TrackerViewModel extends ActiveViewModel {
 
   @override
   void dispose() {
-    _stopListening();
+    _accessPoll?.cancel();
+    _stopListening(now: true);
     super.dispose();
   }
 }

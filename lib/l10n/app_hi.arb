@@ -482,5 +482,18 @@
   "findCloser": "पास आ रहे हैं",
   "findNear": "पास",
   "findHere": "बिल्कुल यहीं",
-  "trackerAppleSound": "Apple का Find My, या Android पर Tracker Detect ऐप, AirTag से आवाज़ बजवा सकता है।"
+  "trackerAppleSound": "Apple का Find My, या Android पर Tracker Detect ऐप, AirTag से आवाज़ बजवा सकता है।",
+  "trackerScanFailed": "स्कैन रुक गया। ब्लूटूथ जाँचें और फिर से स्कैन करें।",
+  "trackerGpsLost": "GPS सिग्नल नहीं: जगहें नोट नहीं हो रहीं",
+  "trackerHeardEarlier": "पहले सुना गया",
+  "trackerKindSamsung": "Samsung टैग या डिवाइस",
+  "trackerKindApple": "Apple डिवाइस",
+  "trackerWhatToDo": "क्या करें",
+  "trackerSafetyTitle": "अगर कोई ट्रैकर आपके साथ चल रहा है",
+  "trackerSafety1": "बस, ट्रेन या विमान में यह किसी अजनबी का हो सकता है: उतरने के बाद फिर जाँचें।",
+  "trackerSafety2": "अगर असुरक्षित लगे, तो किसी भीड़ वाली जगह जाएँ और पुलिस को फ़ोन करें।",
+  "trackerSafety3": "ढूँढें से उसे खोजें। उसकी, छिपाने की जगह की और सीरियल नंबर की तारीख और समय के साथ फ़ोटो लें।",
+  "trackerSafety4": "उसे घर न ले जाएँ और उसके मालिक से संपर्क न करें।",
+  "trackerSafety5": "बैटरी निकालने से वह बंद हो जाता है, लेकिन मालिक को पता चल जाता है। अगर आप उस व्यक्ति के साथ रहते हैं, तो पहले किसी सहायता सेवा से बात करें।",
+  "trackerSafety6": "अपना ब्लूटूथ या लोकेशन बंद करने से वह आपकी जगह बताना बंद नहीं करता।"
 }

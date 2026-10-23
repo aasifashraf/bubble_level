@@ -1698,4 +1698,50 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'Apple का Find My, या Android पर Tracker Detect ऐप, AirTag से आवाज़ बजवा सकता है।';
+
+  @override
+  String get trackerScanFailed =>
+      'स्कैन रुक गया। ब्लूटूथ जाँचें और फिर से स्कैन करें।';
+
+  @override
+  String get trackerGpsLost => 'GPS सिग्नल नहीं: जगहें नोट नहीं हो रहीं';
+
+  @override
+  String get trackerHeardEarlier => 'पहले सुना गया';
+
+  @override
+  String get trackerKindSamsung => 'Samsung टैग या डिवाइस';
+
+  @override
+  String get trackerKindApple => 'Apple डिवाइस';
+
+  @override
+  String get trackerWhatToDo => 'क्या करें';
+
+  @override
+  String get trackerSafetyTitle => 'अगर कोई ट्रैकर आपके साथ चल रहा है';
+
+  @override
+  String get trackerSafety1 =>
+      'बस, ट्रेन या विमान में यह किसी अजनबी का हो सकता है: उतरने के बाद फिर जाँचें।';
+
+  @override
+  String get trackerSafety2 =>
+      'अगर असुरक्षित लगे, तो किसी भीड़ वाली जगह जाएँ और पुलिस को फ़ोन करें।';
+
+  @override
+  String get trackerSafety3 =>
+      'ढूँढें से उसे खोजें। उसकी, छिपाने की जगह की और सीरियल नंबर की तारीख और समय के साथ फ़ोटो लें।';
+
+  @override
+  String get trackerSafety4 =>
+      'उसे घर न ले जाएँ और उसके मालिक से संपर्क न करें।';
+
+  @override
+  String get trackerSafety5 =>
+      'बैटरी निकालने से वह बंद हो जाता है, लेकिन मालिक को पता चल जाता है। अगर आप उस व्यक्ति के साथ रहते हैं, तो पहले किसी सहायता सेवा से बात करें।';
+
+  @override
+  String get trackerSafety6 =>
+      'अपना ब्लूटूथ या लोकेशन बंद करने से वह आपकी जगह बताना बंद नहीं करता।';
 }

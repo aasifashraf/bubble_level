@@ -1562,12 +1562,12 @@ void main() {
           rssi: -55,
           time: DateTime.now(),
           serviceData: {
-            'fd5a': Uint8List.fromList([2 << 5, 0, 0, 1]),
+            'fd5a': Uint8List.fromList([0x12, 0, 0, 1]),
           },
         ),
       );
       await tester.pump(const Duration(milliseconds: 300));
-      expect(find.text('Galaxy SmartTag'), findsOneWidget);
+      expect(find.text('Samsung tag or device'), findsOneWidget);
       expect(find.textContaining('Close'), findsWidgets);
       expect(
         find.bySemanticsLabel('Following you: 0. Trackers nearby: 1.'),

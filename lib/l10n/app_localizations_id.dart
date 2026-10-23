@@ -1697,4 +1697,50 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get trackerAppleSound =>
       'Lacak dari Apple, atau aplikasi Tracker Detect di Android, bisa membuat AirTag berbunyi.';
+
+  @override
+  String get trackerScanFailed =>
+      'Pemindaian berhenti. Periksa Bluetooth lalu pindai lagi.';
+
+  @override
+  String get trackerGpsLost => 'Tidak ada sinyal GPS: tempat tidak dicatat';
+
+  @override
+  String get trackerHeardEarlier => 'Terdengar tadi';
+
+  @override
+  String get trackerKindSamsung => 'Tag atau perangkat Samsung';
+
+  @override
+  String get trackerKindApple => 'Perangkat Apple';
+
+  @override
+  String get trackerWhatToDo => 'Apa yang harus dilakukan';
+
+  @override
+  String get trackerSafetyTitle => 'Jika pelacak mengikuti Anda';
+
+  @override
+  String get trackerSafety1 =>
+      'Di bus, kereta, atau pesawat bisa jadi milik orang lain: periksa lagi setelah turun.';
+
+  @override
+  String get trackerSafety2 =>
+      'Jika merasa tidak aman, pergilah ke tempat ramai dan hubungi polisi.';
+
+  @override
+  String get trackerSafety3 =>
+      'Temukan dengan Cari. Foto pelacaknya, tempat ia disembunyikan, dan nomor serinya, beserta tanggal dan waktu.';
+
+  @override
+  String get trackerSafety4 =>
+      'Jangan bawa pulang dan jangan hubungi pemiliknya.';
+
+  @override
+  String get trackerSafety5 =>
+      'Melepas baterainya akan menghentikannya, tetapi pemiliknya bisa tahu. Jika Anda tinggal bersama orang itu, bicaralah dulu dengan layanan bantuan.';
+
+  @override
+  String get trackerSafety6 =>
+      'Mematikan Bluetooth atau lokasi Anda sendiri tidak menghentikannya melaporkan posisi Anda.';
 }

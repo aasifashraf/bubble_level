@@ -482,5 +482,18 @@
   "findCloser": "Makin dekat",
   "findNear": "Dekat",
   "findHere": "Tepat di sini",
-  "trackerAppleSound": "Lacak dari Apple, atau aplikasi Tracker Detect di Android, bisa membuat AirTag berbunyi."
+  "trackerAppleSound": "Lacak dari Apple, atau aplikasi Tracker Detect di Android, bisa membuat AirTag berbunyi.",
+  "trackerScanFailed": "Pemindaian berhenti. Periksa Bluetooth lalu pindai lagi.",
+  "trackerGpsLost": "Tidak ada sinyal GPS: tempat tidak dicatat",
+  "trackerHeardEarlier": "Terdengar tadi",
+  "trackerKindSamsung": "Tag atau perangkat Samsung",
+  "trackerKindApple": "Perangkat Apple",
+  "trackerWhatToDo": "Apa yang harus dilakukan",
+  "trackerSafetyTitle": "Jika pelacak mengikuti Anda",
+  "trackerSafety1": "Di bus, kereta, atau pesawat bisa jadi milik orang lain: periksa lagi setelah turun.",
+  "trackerSafety2": "Jika merasa tidak aman, pergilah ke tempat ramai dan hubungi polisi.",
+  "trackerSafety3": "Temukan dengan Cari. Foto pelacaknya, tempat ia disembunyikan, dan nomor serinya, beserta tanggal dan waktu.",
+  "trackerSafety4": "Jangan bawa pulang dan jangan hubungi pemiliknya.",
+  "trackerSafety5": "Melepas baterainya akan menghentikannya, tetapi pemiliknya bisa tahu. Jika Anda tinggal bersama orang itu, bicaralah dulu dengan layanan bantuan.",
+  "trackerSafety6": "Mematikan Bluetooth atau lokasi Anda sendiri tidak menghentikannya melaporkan posisi Anda."
 }
