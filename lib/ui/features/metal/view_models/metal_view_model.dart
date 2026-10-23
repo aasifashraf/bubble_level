@@ -136,7 +136,7 @@ class MetalViewModel extends SensorViewModel {
 
   /// Treats the current field as "no metal".
   void setBaseline() {
-    final field = reading.magnetic?.length;
+    final field = reading.magneticStrength;
     if (field != null) _baseline.reset(field, _seconds);
     update();
   }
@@ -175,7 +175,7 @@ class MetalViewModel extends SensorViewModel {
 
   @override
   void update() {
-    final field = reading.magnetic?.length;
+    final field = reading.magneticStrength;
     if (field == null) {
       _state = null;
     } else {

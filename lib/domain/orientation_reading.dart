@@ -10,6 +10,7 @@ class OrientationReading {
   const OrientationReading({
     this.gravity,
     this.magnetic,
+    this.magneticStrength,
     this.quarterTurns = 0,
     this.accel = SensorState.waiting,
     this.gyro = SensorState.waiting,
@@ -23,6 +24,10 @@ class OrientationReading {
 
   /// Smoothed magnetic field in µT, device frame.
   final Vec3? magnetic;
+
+  /// The field's strength in µT, smoothed on its own: it doesn't change as
+  /// the phone turns, so it needs no gyroscope and never lags a turn.
+  final double? magneticStrength;
 
   /// Current UI rotation from the device's natural orientation.
   final int quarterTurns;
@@ -56,7 +61,7 @@ class OrientationReading {
   /// Earth's field is 25 to 65 µT; far outside that the compass is disturbed
   /// (nearby metal, magnets) or the magnetometer needs calibrating.
   bool get magneticFieldOk {
-    final m = magnetic?.length;
+    final m = magneticStrength ?? magnetic?.length;
     return m != null && m > 20 && m < 75;
   }
 

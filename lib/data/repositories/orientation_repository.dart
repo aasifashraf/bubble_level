@@ -45,11 +45,12 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
   final DisplayRotationService _display;
   late final AppLifecycleListener _lifecycle;
   var _gravity = GravityFilter();
-  var _magnetic = VectorLowPass(0.25);
+  var _magnetic = MagneticFilter();
+  var _strength = ScalarLowPass(0.25);
   final _subs = <StreamSubscription<Object?>>[];
   final _magneticSubs = <StreamSubscription<Object?>>[];
   var _magneticUsers = 0;
-  Timer? _rotationPoll;
+  Timer? _rotationPoll, _rotationRecheck;
   var _quarterTurns = 0;
   var _accel = SensorState.waiting,
       _gyro = SensorState.waiting,
@@ -84,6 +85,7 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
       _listen(_sensors.gyroscope(), (s) {
         _gyro = SensorState.ok;
         _gravity.addGyro(s.value, _seconds(s.timestamp));
+        _magnetic.addGyro(s.value, _seconds(s.timestamp));
       }, () => _gyro = SensorState.missing),
     ]);
     if (_magneticUsers > 0) _startMagnetic();
@@ -112,10 +114,11 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
   void _startMagnetic() {
     if (_magneticSubs.isNotEmpty) return;
     _magneticSubs.add(
-      _listen(_sensors.magnetometer(), (s) {
-        _magnet = SensorState.ok;
-        _magnetic.add(s.value, _seconds(s.timestamp));
-      }, () => _magnet = SensorState.missing),
+      _listen(
+        _sensors.magnetometer(),
+        _addMagnetic,
+        () => _magnet = SensorState.missing,
+      ),
     );
     // Only Android reports it (MainActivity.kt); elsewhere it's unknown.
     if (defaultTargetPlatform == TargetPlatform.android) {
@@ -129,12 +132,19 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
     }
   }
 
+  void _addMagnetic(SensorSample s) {
+    _magnet = SensorState.ok;
+    _magnetic.add(s.value, _seconds(s.timestamp));
+    _strength.add(s.value.length, _seconds(s.timestamp));
+  }
+
   void _stopMagnetic() {
     for (final s in _magneticSubs) {
       s.cancel();
     }
     _magneticSubs.clear();
-    _magnetic = VectorLowPass(0.25);
+    _magnetic = MagneticFilter();
+    _strength = ScalarLowPass(0.25);
     _magnet = SensorState.waiting;
     _magneticAccuracy = null;
   }
@@ -149,14 +159,26 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
     _stopMagnetic();
     _rotationPoll?.cancel();
     _rotationPoll = null;
+    _rotationRecheck?.cancel();
     _gravity = GravityFilter();
     _accel = _gyro = SensorState.waiting;
     _time = null;
     _publish();
   }
 
+  /// The window changed size, most likely because the screen turned: ask
+  /// now, and once more a moment later in case the platform reports the
+  /// new rotation a frame late, so a heading never reads off the old one.
   @override
-  void didChangeMetrics() => _refreshRotation();
+  void didChangeMetrics() {
+    if (_rotationPoll == null) return;
+    _refreshRotation();
+    _rotationRecheck?.cancel();
+    _rotationRecheck = Timer(
+      const Duration(milliseconds: 120),
+      _refreshRotation,
+    );
+  }
 
   Future<void> _refreshRotation() async {
     final turns = await _display.quarterTurns();
@@ -169,6 +191,7 @@ class OrientationRepository extends ValueNotifier<OrientationReading>
     value = OrientationReading(
       gravity: _gravity.value,
       magnetic: _magnetic.value,
+      magneticStrength: _strength.value,
       quarterTurns: _quarterTurns,
       accel: _accel,
       gyro: _gyro,
