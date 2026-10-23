@@ -66,9 +66,15 @@ class CompassViewModel extends SensorViewModel {
   /// it changes.
   static const _hold = 0.75;
 
+  /// How long the system must keep saying "low" accuracy before the
+  /// compass asks for a figure 8: many phones say it for a moment as the
+  /// compass starts, then settle. "Unreliable" asks at once.
+  static const lowFor = Duration(seconds: 3);
+
   final _check = MagneticCheck();
   LevelMode _mode = LevelMode.flat;
   int? _shown, _accuracy;
+  Duration? _lowSince;
   CompassState? _state;
 
   CompassState? get state => _state;
@@ -79,6 +85,7 @@ class CompassViewModel extends SensorViewModel {
     _check.clear();
     _mode = LevelMode.flat;
     _shown = _accuracy = null;
+    _lowSince = null;
     _state = null;
     orientation.useMagnetometer(true);
   }
@@ -109,9 +116,14 @@ class CompassViewModel extends SensorViewModel {
       _accuracy = reading.magneticAccuracy;
       _check.clear();
     }
+    final now = _clock();
     if (reading.magneticStrength case final strength?) {
-      _check.add(strength, heading, _clock().inMicroseconds / 1e6);
+      _check.add(strength, heading, now.inMicroseconds / 1e6);
     }
+    final low = reading.magneticAccuracy == 1;
+    _lowSince = low ? (_lowSince ?? now) : null;
+    final systemOk =
+        reading.magneticCalibrated || (low && now - _lowSince! < lowFor);
     final shown = _shown;
     if (shown == null || wrap180(heading - shown).abs() > _hold) {
       _shown = heading.round() % 360;
@@ -123,7 +135,7 @@ class CompassViewModel extends SensorViewModel {
       fieldOk:
           reading.magneticFieldOk &&
           horizontalField(reading.gravity!, m) >= minLevelField,
-      calibrated: reading.magneticCalibrated && _check.consistent != false,
+      calibrated: systemOk && _check.consistent != false,
     );
   }
 }

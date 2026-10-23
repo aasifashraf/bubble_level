@@ -532,6 +532,25 @@ void main() {
       expect(vm.state!.fieldOk, isFalse);
     });
 
+    test('"low" accuracy asks for a figure 8 only once it lasts', () async {
+      var now = Duration.zero;
+      final timed = CompassViewModel(orientation: orientation, clock: () => now)
+        ..active = true;
+      addTearDown(timed.dispose);
+      final pose = devicePose(heading: 120, pitch: 0);
+      sensors.magnetAccuracy.add(1);
+      await hold(pose);
+      expect(timed.state!.calibrated, isTrue);
+      now += CompassViewModel.lowFor;
+      await hold(pose);
+      expect(timed.state!.calibrated, isFalse);
+      // Back to high: trusted again at once.
+      sensors.magnetAccuracy.add(3);
+      await flush();
+      await hold(pose);
+      expect(timed.state!.calibrated, isTrue);
+    });
+
     test('untrusted while the system asks for calibration', () async {
       final pose = devicePose(heading: 120, pitch: 0);
       sensors

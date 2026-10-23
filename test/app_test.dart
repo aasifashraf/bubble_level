@@ -1694,7 +1694,7 @@ void main() {
 
     // The system says the compass needs calibrating (as after a magnet
     // threw it off): ask for a figure 8, until it's calibrated again.
-    sensors.magnetAccuracy.add(1);
+    sensors.magnetAccuracy.add(0);
     await send(tester, pose.up);
     expect(find.textContaining('figure 8 to calibrate'), findsOneWidget);
     sensors.magnetAccuracy.add(3);
