@@ -46,7 +46,17 @@ void main() {
       expect(near.separated, isFalse);
     });
 
-    test('Apple phones, laptops and other Apple adverts are not trackers', () {
+    test('Apple: AirPods and Apple devices too; other Apple adverts are '
+        'not trackers', () {
+      final pods = recognise(
+        signal(
+          manufacturer: {
+            appleCompanyId: [0x12, 0x19, 0x30],
+          },
+        ),
+      )!;
+      expect(pods.kind, TrackerKind.airPods);
+      expect(pods.separated, isTrue);
       expect(
         recognise(
           signal(
@@ -54,14 +64,26 @@ void main() {
               appleCompanyId: [0x12, 0x19, 0x00],
             },
           ),
-        ),
-        isNull,
+        )!.kind,
+        TrackerKind.appleDevice,
       );
+      // Nearby, Handoff and other Apple adverts.
       expect(
         recognise(
           signal(
             manufacturer: {
               appleCompanyId: [0x10, 0x05, 0x01],
+            },
+          ),
+        ),
+        isNull,
+      );
+      // Cut short.
+      expect(
+        recognise(
+          signal(
+            manufacturer: {
+              appleCompanyId: [0x12],
             },
           ),
         ),
@@ -134,20 +156,68 @@ void main() {
         ),
         isNull,
       );
+      // Phones send these frames too; their advert flags say so.
+      expect(
+        recognise(
+          BleSignal(
+            address: 'x',
+            rssi: -60,
+            time: t0,
+            flags: 0x02,
+            serviceData: {
+              'feaa': Uint8List.fromList([0x41, 9]),
+            },
+          ),
+        ),
+        isNull,
+      );
     });
 
-    test('Samsung: offline states are separated, connected is not', () {
+    test('Samsung: state in the low 3 bits; lost is separated, just lost '
+        'or connected is not; other Samsung adverts are ignored', () {
       bool? state(int s) => recognise(
         signal(
           service: {
-            'fd5a': [s << 5, 0, 0, 1],
+            'fd5a': [0x10 | s, 0, 0, 1],
           },
         ),
       )!.separated;
       expect(state(2), isTrue);
       expect(state(3), isTrue);
       expect(state(1), isFalse);
-      expect(state(4), isFalse);
+      expect(state(5), isFalse);
+      // The paper's example byte, 0x15: connected.
+      expect(
+        recognise(
+          signal(
+            service: {
+              'fd5a': [0x15],
+            },
+          ),
+        )!.separated,
+        isFalse,
+      );
+      expect(
+        recognise(
+          signal(
+            service: {
+              'fd5a': [0x45, 0, 0, 1],
+            },
+          ),
+        ),
+        isNull,
+      );
+      expect(recognise(signal(service: {'fd5a': <int>[]})), isNull);
+      expect(
+        recognise(
+          signal(
+            service: {
+              'fd5a': [0x12, 0x00, 0x01, 0x02],
+            },
+          ),
+        )!.agingCounter,
+        0x000102,
+      );
     });
 
     test('Tile and Chipolo: Tile never says; old Chipolo does', () {
@@ -192,6 +262,19 @@ void main() {
       );
     });
 
+    test('Pebblebee on its own network', () {
+      expect(
+        recognise(
+          signal(
+            service: {
+              'fa25': [1, 2],
+            },
+          ),
+        )!.kind,
+        TrackerKind.pebblebee,
+      );
+    });
+
     test('anything else is ignored', () {
       expect(recognise(signal()), isNull);
       expect(
@@ -224,7 +307,7 @@ void main() {
   });
 
   group('FollowCheck', () {
-    // A tag in the user's bag, heard as they move 200 m every 10 minutes.
+    // A tag in the user's bag, heard as they move 330 m every 10 minutes.
     TrackerAd tag(Duration at, {int rssi = -60, bool? separated = true}) =>
         TrackerAd(
           kind: TrackerKind.airTag,
@@ -233,7 +316,7 @@ void main() {
           time: t0.add(at),
           separated: separated,
         );
-    Place at(int step) => (latitude: 34.0 + step * 0.0018, longitude: 74.8);
+    Place at(int step) => (latitude: 34.0 + step * 0.003, longitude: 74.8);
 
     test('a tag heard at 3 places over 30 minutes follows', () {
       final check = FollowCheck();
@@ -262,7 +345,7 @@ void main() {
       expect(FollowCheck.follows(check.trails.single), isFalse);
     });
 
-    test('places closer than 150 m count once; rough fixes not at all', () {
+    test('places closer than 250 m count once; rough fixes not at all', () {
       final check = FollowCheck();
       check
         ..add(tag(Duration.zero), place: (latitude: 34.0, longitude: 74.8))
@@ -321,6 +404,67 @@ void main() {
         'close',
         'far',
       ]);
+    });
+
+    test('two fixes must be further apart than both their errors', () {
+      const a = (latitude: 34.0, longitude: 74.8);
+      const b = (latitude: 34.0027, longitude: 74.8); // 300 m
+      expect(FollowCheck.isNewPlace([(place: a, accuracy: 10)], b, 10), isTrue);
+      expect(FollowCheck.isNewPlace([(place: a, accuracy: 90)], b, 90), isTrue);
+      // 160 m apart, each 90 m out: could be the same spot.
+      const c = (latitude: 34.00144, longitude: 74.8);
+      expect(
+        FollowCheck.isNewPlace([(place: a, accuracy: 90)], c, 90),
+        isFalse,
+      );
+    });
+
+    test('a Samsung tag taking a new address every 15 minutes stays one '
+        'trail, linked by its counter (either byte order)', () {
+      for (final (first, second) in [
+        ([0x12, 0x00, 0x00, 0x07], [0x12, 0x00, 0x00, 0x08]),
+        ([0x12, 0x07, 0x00, 0x00], [0x12, 0x08, 0x00, 0x00]),
+      ]) {
+        final check = FollowCheck();
+        for (var i = 0; i <= 3; i++) {
+          check.add(
+            recognise(
+              signal(
+                address: i < 2 ? 'S1' : 'S2',
+                time: t0.add(Duration(minutes: 11 * i)),
+                service: {'fd5a': i < 2 ? first : second},
+              ),
+            )!,
+            place: at(i),
+          );
+        }
+        expect(check.trails, hasLength(1));
+        expect(FollowCheck.follows(check.trails.single), isTrue);
+      }
+    });
+
+    test('a tracker that never says it is away needs a 4th place; an Apple '
+        'phone or Mac needs 150 minutes', () {
+      TrackerAd ad(TrackerKind kind, int minutes, {bool? separated = true}) =>
+          TrackerAd(
+            kind: kind,
+            id: kind.name,
+            rssi: -60,
+            time: t0.add(Duration(minutes: minutes)),
+            separated: separated,
+          );
+      final tile = FollowCheck();
+      final mac = FollowCheck();
+      for (var i = 0; i <= 2; i++) {
+        tile.add(ad(TrackerKind.tile, 15 * i, separated: null), place: at(i));
+        mac.add(ad(TrackerKind.appleDevice, 30 * i), place: at(i));
+      }
+      expect(FollowCheck.follows(tile.trails.single), isFalse);
+      expect(FollowCheck.follows(mac.trails.single), isFalse);
+      tile.add(ad(TrackerKind.tile, 45, separated: null), place: at(3));
+      mac.add(ad(TrackerKind.appleDevice, 150), place: at(3));
+      expect(FollowCheck.follows(tile.trails.single), isTrue);
+      expect(FollowCheck.follows(mac.trails.single), isTrue);
     });
 
     test('the signal is smoothed, so one odd reading barely moves it', () {
